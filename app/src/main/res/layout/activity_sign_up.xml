@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingHorizontal="15dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <TextView
+        android:id="@+id/stv_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="아이디"
+        android:textSize="20dp"
+        />
+    <EditText
+        android:id="@+id/set_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="아이디를 입력해주세요"
+        android:layout_marginTop="10dp"
+        android:textSize="15dp"
+        app:layout_constraintTop_toBottomOf="@id/stv_id"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
+    <TextView
+        android:id="@+id/stv_pwd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="비밀번호"
+        android:textSize="20dp"
+        app:layout_constraintTop_toBottomOf="@id/set_id"
+        android:layout_marginTop="35dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
+    <EditText
+        android:id="@+id/set_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="비밀번호를 입력해주세요"
+        android:textSize="15dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/stv_pwd"
+        />
+    <TextView
+        android:id="@+id/stv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/set_pwd"
+        android:text="이름"
+        android:textSize="20dp"
+        />
+    <EditText
+        android:id="@+id/set_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/stv_name"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="10dp"
+        android:text="이름을 입력해주세요"
+        android:textSize="15dp"
+        />
+    <TextView
+        android:id="@+id/stv_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="혈액형"
+        android:textSize="20dp"
+        app:layout_constraintTop_toBottomOf="@id/set_name"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="35dp"
+        />
+    <Spinner
+        android:id="@+id/ssp_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/stv_type"
+        android:layout_marginTop="10dp"
+        />
+
+    <TextView
+        android:id="@+id/stv_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="전화번호"
+        android:textSize="20dp"
+        app:layout_constraintTop_toBottomOf="@id/ssp_type"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="35dp"
+        />
+    <EditText
+        android:id="@+id/set_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/stv_phone"
+        android:text="전화번호를 입력해주세요"
+        android:textSize="15dp"
+        android:layout_marginTop="10dp"/>
+
+    <Button
+        android:id="@+id/btn_join"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="JOIN"
+        android:textSize="25dp"
+        android:textColor="@color/white"
+        android:background="@drawable/bg_btn_join"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/set_phone"
+        android:layout_marginTop="50dp"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

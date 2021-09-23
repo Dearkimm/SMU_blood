@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="type">
+        <item>Rh+ A</item>
+        <item>Rh+ B</item>
+        <item>Rh+ O</item>
+        <item>Rh+ AB</item>
+        <item>Rh- A</item>
+        <item>Rh- B</item>
+        <item>Rh- O</item>
+        <item>Rh- AB</item>
+    </string-array>
+
+</resources>
