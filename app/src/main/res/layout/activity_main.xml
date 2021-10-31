@@ -10,63 +10,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:gravity="center"
-        android:text="실시간 긴급 수혈"
-        android:textSize="20dp"
+        android:text="긴급 지정 헌혈"
+        android:textSize="19dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_tv1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="지금 당장 "
-        android:textSize="30dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_tv" />
-
-    <TextView
-        android:id="@+id/tv_tv2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="긴급수혈"
-        android:textSize="20dp"
-        app:layout_constraintLeft_toRightOf="@id/tv_tv1"
-        app:layout_constraintTop_toTopOf="@id/tv_tv1" />
-
-    <TextView
-        android:id="@+id/tv_tv3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="이"
-        android:textSize="30dp"
-        app:layout_constraintLeft_toRightOf="@id/tv_tv2"
-        app:layout_constraintTop_toTopOf="@id/tv_tv1" />
-
-    <TextView
-        android:id="@+id/tv_tv4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="필요하신가요?"
-        android:textSize="30dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_tv3" />
-
-    <Button
-        android:id="@+id/btn_main"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="긴급 수혈 요청하러가기"
-        android:textSize="30dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_tv4" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="긴급 수혈 요청"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_main" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_goneMarginTop="43dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
