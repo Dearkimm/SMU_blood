@@ -16,6 +16,7 @@
         android:text="회원가입"
         android:textSize="19dp"
         android:fontFamily="@font/notosans_regular"
+        android:includeFontPadding="false"
         android:layout_marginTop="43dp"
         />
 
@@ -30,17 +31,34 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/stv_text"
         />
+    <TextView
+        android:id="@+id/stv_cid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="사용 가능한 아이디입니다."
+        android:textSize="10dp"
+        android:textColor="@color/red"
+        android:fontFamily="@font/notosans_light"
+        android:includeFontPadding="false"
+        app:layout_constraintLeft_toRightOf="@id/stv_id"
+        app:layout_constraintBottom_toTopOf="@id/set_id"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="16dp"
+        />
+
     <EditText
         android:id="@+id/set_id"
-        android:layout_width="330dp"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
         android:text="아이디를 입력해주세요"
         android:textColor="#7c7c7c"
         android:layout_marginTop="3dp"
         android:textSize="12dp"
         app:layout_constraintTop_toBottomOf="@id/stv_id"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
         />
     <TextView
         android:id="@+id/stv_pwd"
@@ -53,17 +71,20 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginLeft="18dp"
         />
+
     <EditText
         android:id="@+id/set_pwd"
-        android:layout_width="330dp"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
         android:text="비밀번호를 입력해주세요"
         android:textColor="#7c7c7c"
         android:textSize="12dp"
         android:layout_marginTop="3dp"
-        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/stv_pwd"
-        android:layout_marginLeft="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
         />
     <TextView
         android:id="@+id/stv_pwd2"
@@ -79,15 +100,32 @@
         />
     <EditText
         android:id="@+id/set_pwd2"
-        android:layout_width="330dp"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
         app:layout_constraintTop_toBottomOf="@id/stv_pwd2"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
         android:layout_marginTop="3dp"
         android:text="비밀번호를 다시 입력해주세요"
         android:textColor="#7c7c7c"
         android:textSize="12dp"
         android:layout_marginLeft="15dp"
+        />
+    <TextView
+        android:id="@+id/stv_npwd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="비밀번호가 일치하지 않습니다."
+        android:textSize="10dp"
+        android:textColor="@color/red"
+        android:fontFamily="@font/notosans_light"
+        android:includeFontPadding="false"
+        app:layout_constraintLeft_toRightOf="@id/stv_pwd2"
+        app:layout_constraintBottom_toTopOf="@id/set_pwd2"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="16dp"
         />
     <TextView
         android:id="@+id/stv_name"
@@ -102,15 +140,32 @@
         />
     <EditText
         android:id="@+id/set_name"
-        android:layout_width="330dp"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
         app:layout_constraintTop_toBottomOf="@id/stv_name"
         android:text="닉네임을 입력해주세요"
         android:textColor="#7c7c7c"
         android:textSize="12dp"
         android:layout_marginTop="3dp"
         android:layout_marginLeft="15dp"
+        />
+    <TextView
+        android:id="@+id/stv_dname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="사용 중인 닉네임입니다."
+        android:textSize="10dp"
+        android:textColor="@color/red"
+        android:fontFamily="@font/notosans_light"
+        android:includeFontPadding="false"
+        app:layout_constraintLeft_toRightOf="@id/stv_name"
+        app:layout_constraintBottom_toTopOf="@id/set_name"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="16dp"
         />
     <TextView
         android:id="@+id/stv_type"
@@ -171,18 +226,44 @@
         android:layout_marginTop="5dp"
         android:layout_marginLeft="14dp"
         />
+
     <Button
         android:id="@+id/btn_join"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:text="계정 생성"
-        android:textSize="15dp"
-        android:textColor="@color/white"
-        android:fontFamily="@font/notosans_regular"
-        android:background="@drawable/bg_btn_join"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/type_a"
         android:layout_marginTop="49dp"
+        android:background="@drawable/bg_btn_join"
+        android:fontFamily="@font/notosans_regular"
+        android:text="계정 생성"
+        android:textColor="@color/white"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/checkbox" />
+
+    <CheckBox
+        android:id="@+id/checkbox"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:button="null"
+        android:background="@drawable/checkbox"
+        app:layout_constraintTop_toBottomOf="@id/type_a"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="41dp"
+        android:layout_marginTop="16dp"
         />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rh- 혈액형인 경우는 체크해주세요"
+        android:textSize="12dp"
+        android:fontFamily="@font/notosans_regular"
+        android:includeFontPadding="false"
+        app:layout_constraintTop_toBottomOf="@id/type_a"
+        app:layout_constraintLeft_toRightOf="@id/checkbox"
+        android:layout_marginTop="14dp"
+        android:layout_marginLeft="11dp"
+        />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

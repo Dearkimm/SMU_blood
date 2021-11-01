@@ -11,6 +11,7 @@
         android:text="지정 헌혈 기록 카드"
         android:textSize="19dp"
         android:fontFamily="@font/notosans_regular"
+        android:includeFontPadding="false"
         android:gravity="center"
         android:layout_marginTop="43dp"
         app:layout_constraintLeft_toLeftOf="parent"
