@@ -17,5 +17,28 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
-
+    <TextView
+        android:id="@+id/rec_request"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="요청 기록"
+        android:textSize="11dp"
+        android:fontFamily="@font/notosans_light"
+        android:includeFontPadding="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ctv"
+        android:layout_marginTop="35dp"
+        />
+    <TextView
+        android:id="@+id/rec_apply"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="신청 기록"
+        android:textSize="11dp"
+        android:fontFamily="@font/notosans_light"
+        android:includeFontPadding="false"
+        app:layout_constraintLeft_toRightOf="@id/rec_request"
+        app:layout_constraintTop_toBottomOf="@id/ctv"
+        android:layout_marginTop="35dp"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
