@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SMU_blood">
         <activity
+            android:name=".ui.map.MapApplicationActivity"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
