@@ -58,6 +58,7 @@
         android:text="아이디를 입력해주세요"
         android:textColor="#7c7c7c"
         android:textSize="12dp"
+        android:background="@drawable/bg_edittext"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/stv_id" />
@@ -87,6 +88,7 @@
         android:text="비밀번호를 입력해주세요"
         android:textColor="#7c7c7c"
         android:textSize="12dp"
+        android:background="@drawable/bg_edittext"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/stv_pwd" />
@@ -118,6 +120,7 @@
         android:text="비밀번호를 다시 입력해주세요"
         android:textColor="#7c7c7c"
         android:textSize="12dp"
+        android:background="@drawable/bg_edittext"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/stv_pwd2" />
@@ -162,6 +165,7 @@
         android:text="닉네임을 입력해주세요"
         android:textColor="#7c7c7c"
         android:textSize="12dp"
+        android:background="@drawable/bg_edittext"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/stv_name" />
@@ -283,7 +287,7 @@
         android:layout_marginLeft="41dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/checkbox"
-        android:button="null"
+        android:button="@null"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/type_a" />
 
