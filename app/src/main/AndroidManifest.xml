@@ -9,6 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SMU_blood">
+
+        <!--Google Map API Key -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyB57Q2RnPpZ7n7oLc5Ky9K7wBUPTsa395o"/>
+
         <activity
             android:name=".ui.map.MapApplicationActivity"
             android:exported="true" />
