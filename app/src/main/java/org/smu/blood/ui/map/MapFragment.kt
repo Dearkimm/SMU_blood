@@ -1,25 +1,37 @@
 package org.smu.blood.ui.map
 
+import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityCompat
 import org.smu.blood.R
-
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
+import java.util.jar.Manifest
 
 class MapFragment : Fragment() {
-    private var param1: String? = null
-    private var param2: String? = null
+
+    val PERMISSIONS = arrayOf(
+        //
+        android.Manifest.permission.ACCESS_COARSE_LOCATION,
+        android.Manifest.permission.ACCESS_FINE_LOCATION)
+
+    val REQUEST_PERMISSION_CODE = 1
+
+    private fun checkPermissions(): Boolean {
+
+        for (permission in PERMISSIONS) {
+            if (context?.let { ActivityCompat.checkSelfPermission(it, permission) } != PackageManager.PERMISSION_GRANTED) {
+                return false
+            }
+        }
+        return true
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
         }
     }
 
@@ -27,8 +39,10 @@ class MapFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        var rootView = inflater.inflate(R.layout.fragment_map, container, false)
 
-        return inflater.inflate(R.layout.fragment_map, container, false)
+
+        return rootView
     }
 
     companion object {
@@ -45,8 +59,8 @@ class MapFragment : Fragment() {
         fun newInstance(param1: String, param2: String) =
             MapFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+                    //putString(ARG_PARAM1, param1)
+                    //putString(ARG_PARAM2, param2)
                 }
             }
     }

@@ -13,7 +13,7 @@
         <!--Google Map API Key -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value=""/>
+            android:value="AIzaSyB57Q2RnPpZ7n7oLc5Ky9K7wBUPTsa395o"/>
 
         <activity
             android:name=".ui.map.MapApplicationActivity"
