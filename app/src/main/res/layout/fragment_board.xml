@@ -103,29 +103,27 @@
         android:layout_marginTop="25dp"
         />
     <ImageButton
-        android:id="@+id/btv_write"
+        android:id="@+id/btn_write"
         android:layout_width="21dp"
         android:layout_height="22.09dp"
-        android:padding="0dp"
-        android:src="@drawable/board_write_icon"
+        android:background="@drawable/board_write_icon"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btv_how_to_delete"
-        android:scaleType="fitCenter"
-        android:background="@android:color/transparent"
         android:layout_marginTop="25dp"
         android:layout_marginRight="15dp"
         />
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:fillViewport="true"
         android:padding="0dp"
-        >
+        app:layout_constraintTop_toBottomOf="@+id/btv_cb">
+
         <ListView
             android:id="@+id/board_listview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
+            android:layout_height="match_parent" />
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,6 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SMU_blood">
+        <!--Download-->
         <activity
             android:name=".ui.download.SplashActivity"
             android:exported="true"
@@ -23,10 +24,22 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".NavigationActivity"
-            android:exported="true">
+            android:name=".ui.download.loginActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".ui.download.SignUpActivity"
+            android:exported="true"/>
 
-        </activity>
+        <activity
+            android:name=".NavigationActivity"
+            android:exported="true"/>
+
+        <!--Board-->
+        <activity
+            android:name=".ui.board.BoardWritingActivity"
+            android:exported="true"/>
+
+
         <!-- Google Map API Key -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -35,11 +48,6 @@
         <activity
             android:name=".ui.map.MapApplicationActivity"
             android:exported="true" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
-
-        </activity>
     </application>
 
 </manifest>
