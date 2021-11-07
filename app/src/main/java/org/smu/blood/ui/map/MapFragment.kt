@@ -7,31 +7,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
+import com.google.android.gms.maps.*
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import org.smu.blood.R
 import java.util.jar.Manifest
 
-class MapFragment : Fragment() {
-
-    val PERMISSIONS = arrayOf(
-        //
-        android.Manifest.permission.ACCESS_COARSE_LOCATION,
-        android.Manifest.permission.ACCESS_FINE_LOCATION)
-
-    val REQUEST_PERMISSION_CODE = 1
-
-    private fun checkPermissions(): Boolean {
-
-        for (permission in PERMISSIONS) {
-            if (context?.let { ActivityCompat.checkSelfPermission(it, permission) } != PackageManager.PERMISSION_GRANTED) {
-                return false
-            }
-        }
-        return true
-    }
+class MapFragment : Fragment(), OnMapReadyCallback {
+    private lateinit var mView: MapView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
+
         }
     }
 
@@ -41,6 +29,10 @@ class MapFragment : Fragment() {
     ): View? {
         var rootView = inflater.inflate(R.layout.fragment_map, container, false)
 
+        //구글맵 보여주기
+        mView = rootView.findViewById(R.id.mv_contactUs_gMap) as MapView
+        mView.onCreate(savedInstanceState)
+        mView.getMapAsync(this)
 
         return rootView
     }
@@ -63,5 +55,16 @@ class MapFragment : Fragment() {
                     //putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    override fun onMapReady(googleMap: GoogleMap) {
+        val seoul = LatLng(37.654601, 127.060530)
+        val markerOptions = MarkerOptions()
+        markerOptions.position(seoul)
+        markerOptions.title("여기 이름")
+        googleMap.addMarker(markerOptions)
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(seoul, 14f))
+        googleMap.animateCamera(CameraUpdateFactory.zoomTo(15f))
+
     }
 }

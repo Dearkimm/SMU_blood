@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -36,23 +37,23 @@
         android:textColor="#adacac"
         android:textSize="19dp"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <EditText
         android:id="@+id/writing_edit_title"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="29dp"
         android:layout_marginTop="30dp"
-        android:background="null"
         android:fontFamily="@font/notosans_regular"
-        android:includeFontPadding="false"
         android:hint="제목"
+        android:includeFontPadding="false"
+        android:minHeight="48dp"
         android:textColorHint="#bfbfbf"
         android:textSize="20dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/register_textView"
-        />
+        app:layout_constraintTop_toBottomOf="@id/register_textView" />
 
     <View
         android:id="@+id/view"
@@ -64,21 +65,20 @@
         android:layout_marginRight="15dp"
         android:layout_marginTop="8dp"
         />
+
     <EditText
         android:id="@+id/writing_edit_body"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="23dp"
         android:layout_marginTop="30dp"
-        android:background="null"
         android:fontFamily="@font/notosans_regular"
-        android:includeFontPadding="false"
         android:hint="| 본문을 작성해주세요."
+        android:includeFontPadding="false"
         android:textColorHint="#bfbfbf"
         android:textSize="15dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view"
-        />
+        app:layout_constraintTop_toBottomOf="@id/view" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

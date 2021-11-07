@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -33,7 +34,6 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="30dp"
-        android:background="null"
         android:fontFamily="@font/notosans_regular"
         android:includeFontPadding="false"
         android:text="헌혈 후기에요"
@@ -76,14 +76,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="right">
-        <CheckBox
-            android:id="@+id/heart_checkbox"
-            android:layout_width="14.3dp"
-            android:layout_height="13dp"
-            android:button="null"
-            android:background="@drawable/custom_checkbox_heart"
-            android:layout_marginTop="27dp"
-            />
+
+            <ImageButton
+                android:id="@+id/heart_checkbox"
+                android:layout_width="14.3dp"
+                android:layout_height="13dp"
+                android:layout_marginTop="27dp"
+                android:background="@drawable/custom_checkbox_heart"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
         <TextView
             android:id="@+id/heart_counts"
             android:layout_width="wrap_content"
@@ -112,7 +112,6 @@
         android:id="@+id/writing_body"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="null"
         android:fontFamily="@font/notosans_light"
         android:includeFontPadding="false"
         android:text="어제 집 근처에 요청이 떠있어서 지정헌혈 하고 왔습니다. 제 피가 도움이 된것 같아 굉장히 뿌듯하네요."
