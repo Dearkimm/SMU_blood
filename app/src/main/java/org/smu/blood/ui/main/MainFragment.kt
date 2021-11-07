@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageButton
 import org.smu.blood.R
 
@@ -25,7 +26,7 @@ class MainFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         var rootView = inflater.inflate(R.layout.fragment_main, container, false)
-        var requestButton = rootView.findViewById<ImageButton>(R.id.btn_request)
+        var requestButton = rootView.findViewById<Button>(R.id.btn_request)
         requestButton.setOnClickListener {
 
         }

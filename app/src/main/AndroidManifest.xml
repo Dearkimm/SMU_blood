@@ -13,13 +13,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SMU_blood">
         <activity
-            android:name=".NavigationActivity"
-            android:exported="true">
+            android:name=".ui.download.SplashActivity"
+            android:exported="true"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".NavigationActivity"
+            android:exported="true">
+
         </activity>
         <!-- Google Map API Key -->
         <meta-data
