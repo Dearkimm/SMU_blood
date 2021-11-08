@@ -12,6 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SMU_blood">
+
         <!--Download-->
         <activity
             android:name=".ui.download.SplashActivity"
@@ -38,6 +39,15 @@
         <activity
             android:name=".ui.board.BoardWritingActivity"
             android:exported="true"/>
+        <activity
+            android:name=".ui.board.BoardRegisterActivity"
+            android:exported="true"/>
+
+        <!--Mypage-->
+        <activity
+            android:name=".ui.my.MyActivity"
+            android:exported="true"/>
+
 
 
         <!-- Google Map API Key -->

@@ -1,5 +1,6 @@
 package org.smu.blood.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
 import org.smu.blood.R
+import org.smu.blood.ui.my.MyActivity
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -27,9 +29,22 @@ class MainFragment : Fragment() {
         // Inflate the layout for this fragment
         var rootView = inflater.inflate(R.layout.fragment_main, container, false)
         var requestButton = rootView.findViewById<Button>(R.id.btn_request)
+        var myButton = rootView.findViewById<ImageButton>(R.id.btn_my)
+
+        //지정 헌혈 요청 화면으로 이동
         requestButton.setOnClickListener {
 
         }
+
+        //마이페이지로 이동
+        //마이페이지로 이동
+        myButton.setOnClickListener {
+            val intent = Intent(context, MyActivity()::class.java)
+            startActivity(intent)
+        }
+
+
+
         return rootView
     }
 
