@@ -33,7 +33,8 @@ class MainFragment : Fragment() {
 
         //지정 헌혈 요청 화면으로 이동
         requestButton.setOnClickListener {
-
+            val intent = Intent(context, MainRequestActivity::class.java)
+            startActivity(intent)
         }
 
         //마이페이지로 이동

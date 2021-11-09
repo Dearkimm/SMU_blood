@@ -1,23 +1,23 @@
 package org.smu.blood.ui.my
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import org.smu.blood.R
 
-class MyActivity : AppCompatActivity() {
+class MyModActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_mypage)
+        setContentView(R.layout.activity_my_mod)
 
         //버튼 등록
-        var modButton = findViewById<Button>(R.id.btn_mod1)
+        var modButton = findViewById<Button>(R.id.btn_mod2)
 
-        //수정하러 가기
+        //수정 완료 후 화면 종료
         modButton.setOnClickListener {
-            val intent = Intent(this, MyModActivity()::class.java)
-            startActivity(intent)
+            //수정 완료
+            //종료
+            finish()
         }
     }
 }
