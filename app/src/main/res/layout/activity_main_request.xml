@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="-25dp"
-        tools:layout_editor_absoluteY="276dp">
+        tools:layout_editor_absoluteY="276dp"
+        android:scrollbars="none">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -272,9 +273,9 @@
                 android:fontFamily="@font/notosans_light"
                 android:includeFontPadding="false"
                 android:paddingStart="10dp"
-                android:text="병실 호수를 입력해주세요"
+                android:hint="병실 호수를 입력해주세요"
                 android:textColor="#7c7c7c"
-                android:textSize="12dp"
+                android:textSize="12sp"
                 android:background="@drawable/bg_edittext"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -303,9 +304,9 @@
                 android:fontFamily="@font/notosans_light"
                 android:includeFontPadding="false"
                 android:paddingStart="10dp"
-                android:text="환자 성명을 입력해주세요"
+                android:hint="환자 성명을 입력해주세요"
                 android:textColor="#7c7c7c"
-                android:textSize="12dp"
+                android:textSize="12sp"
                 android:background="@drawable/bg_edittext"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -334,9 +335,9 @@
                 android:fontFamily="@font/notosans_light"
                 android:includeFontPadding="false"
                 android:paddingStart="10dp"
-                android:text="환자 등록번호를 입력해주세요"
+                android:hint="환자 등록번호를 입력해주세요"
                 android:textColor="#7c7c7c"
-                android:textSize="12dp"
+                android:textSize="12sp"
                 android:background="@drawable/bg_edittext"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -365,9 +366,9 @@
                 android:fontFamily="@font/notosans_light"
                 android:paddingStart="10dp"
                 android:includeFontPadding="false"
-                android:text="보호자 연락처를 입력해주세요"
+                android:hint="보호자 연락처를 입력해주세요"
                 android:textColor="#7c7c7c"
-                android:textSize="12dp"
+                android:textSize="12sp"
                 android:background="@drawable/bg_edittext"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -396,13 +397,14 @@
                 android:fontFamily="@font/notosans_light"
                 android:includeFontPadding="false"
                 android:paddingStart="10dp"
-                android:text="OOOO / OO / OO"
+                android:hint="YYYY/MM/DD"
                 android:textColor="#7c7c7c"
                 android:textSize="12dp"
                 android:background="@drawable/bg_edittext"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/main_start" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -440,7 +442,7 @@
                 android:fontFamily="@font/notosans_light"
                 android:includeFontPadding="false"
                 android:paddingStart="10dp"
-                android:text="OOOO / OO / OO"
+                android:hint="YYYY/MM/DD"
                 android:textColor="#7c7c7c"
                 android:textSize="12dp"
                 android:background="@drawable/bg_edittext"
@@ -484,6 +486,7 @@
                 android:fontFamily="@font/notosans_light"
                 android:includeFontPadding="false"
                 android:paddingStart="10dp"
+                android:paddingTop="12dp"
                 android:text="요청 사연을 입력해주세요"
                 android:textColor="#7c7c7c"
                 android:textSize="12dp"
@@ -492,19 +495,22 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/main_story" />
+
             <Button
+                android:id="@+id/btn_register"
                 android:layout_width="82dp"
                 android:layout_height="41dp"
-                android:text="등록"
-                android:fontFamily="@font/notosans_regular"
-                android:textSize="15dp"
-                android:textColor="@color/white"
-                android:background="@drawable/bg_btn_red_80dp"
-                app:layout_constraintTop_toBottomOf="@id/met_story"
-                app:layout_constraintRight_toRightOf="parent"
                 android:layout_marginTop="31dp"
                 android:layout_marginRight="15dp"
-                />
+                android:layout_marginBottom="60dp"
+                android:background="@drawable/bg_btn_red_80dp"
+                android:fontFamily="@font/notosans_regular"
+                android:text="등록"
+                android:textColor="@color/white"
+                android:textSize="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/met_story" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

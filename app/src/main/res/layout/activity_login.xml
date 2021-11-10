@@ -15,19 +15,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/tv_bling"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="BLING"
-        android:fontFamily="@font/notosans_medium"
-        android:textColor="@color/red"
-        android:gravity="center"
-        android:textSize="19dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/logo"
         android:layout_marginTop="2.9dp"
-        />
+        android:fontFamily="@font/notosans_medium"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:text="BLING"
+        android:textColor="@color/red"
+        android:textSize="19dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/logo" />
     <TextView
         android:id="@+id/ltv_id"
         android:layout_width="wrap_content"
@@ -50,6 +52,7 @@
         android:layout_marginEnd="15dp"
         android:layout_marginTop="4dp"
         android:textSize="12dp"
+        android:paddingStart="10dp"
         android:background="@drawable/bg_edittext"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -76,6 +79,7 @@
         android:layout_marginEnd="15dp"
         android:layout_marginTop="10dp"
         android:textSize="12dp"
+        android:paddingStart="10dp"
         android:background="@drawable/bg_edittext"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -99,7 +103,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/let_pwd" />
     <TextView
-        android:id="@+id/ltv_SignUp"
+        android:id="@+id/btn_Sign_up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="회원가입하기"
