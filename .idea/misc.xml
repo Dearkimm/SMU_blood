@@ -21,6 +21,7 @@
         <entry key="..\:/Users/wpdld/AndroidStudioProjects-Kotlin/SMU_blood/app/src/main/res/drawable/circle_black.xml" value="0.14722222222222223" />
         <entry key="..\:/Users/wpdld/AndroidStudioProjects-Kotlin/SMU_blood/app/src/main/res/drawable/custom_checkbox_heart.xml" value="0.19270833333333334" />
         <entry key="..\:/Users/wpdld/AndroidStudioProjects-Kotlin/SMU_blood/app/src/main/res/drawable/splash.xml" value="0.1" />
+        <entry key="..\:/Users/wpdld/AndroidStudioProjects-Kotlin/SMU_blood/app/src/main/res/layout/activity_apply.xml" value="0.2390625" />
         <entry key="..\:/Users/wpdld/AndroidStudioProjects-Kotlin/SMU_blood/app/src/main/res/layout/activity_board.xml" value="0.264" />
         <entry key="..\:/Users/wpdld/AndroidStudioProjects-Kotlin/SMU_blood/app/src/main/res/layout/activity_board_register.xml" value="0.2" />
         <entry key="..\:/Users/wpdld/AndroidStudioProjects-Kotlin/SMU_blood/app/src/main/res/layout/activity_board_writing.xml" value="0.4" />
@@ -28,12 +29,13 @@
         <entry key="..\:/Users/wpdld/AndroidStudioProjects-Kotlin/SMU_blood/app/src/main/res/layout/activity_card_apply.xml" value="0.4" />
         <entry key="..\:/Users/wpdld/AndroidStudioProjects-Kotlin/SMU_blood/app/src/main/res/layout/activity_card_request.xml" value="0.4" />
         <entry key="..\:/Users/wpdld/AndroidStudioProjects-Kotlin/SMU_blood/app/src/main/res/layout/activity_login.xml" value="0.264" />
-        <entry key="..\:/Users/wpdld/AndroidStudioProjects-Kotlin/SMU_blood/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Users/wpdld/AndroidStudioProjects-Kotlin/SMU_blood/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Users/wpdld/AndroidStudioProjects-Kotlin/SMU_blood/app/src/main/res/layout/activity_main_request.xml" value="0.23767691556857004" />
         <entry key="..\:/Users/wpdld/AndroidStudioProjects-Kotlin/SMU_blood/app/src/main/res/layout/activity_map_application.xml" value="0.536" />
         <entry key="..\:/Users/wpdld/AndroidStudioProjects-Kotlin/SMU_blood/app/src/main/res/layout/activity_mod.xml" value="0.264" />
+        <entry key="..\:/Users/wpdld/AndroidStudioProjects-Kotlin/SMU_blood/app/src/main/res/layout/activity_my_card.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/wpdld/AndroidStudioProjects-Kotlin/SMU_blood/app/src/main/res/layout/activity_my_mod.xml" value="0.4" />
-        <entry key="..\:/Users/wpdld/AndroidStudioProjects-Kotlin/SMU_blood/app/src/main/res/layout/activity_mypage.xml" value="0.4" />
+        <entry key="..\:/Users/wpdld/AndroidStudioProjects-Kotlin/SMU_blood/app/src/main/res/layout/activity_mypage.xml" value="0.2" />
         <entry key="..\:/Users/wpdld/AndroidStudioProjects-Kotlin/SMU_blood/app/src/main/res/layout/activity_navigation.xml" value="0.264" />
         <entry key="..\:/Users/wpdld/AndroidStudioProjects-Kotlin/SMU_blood/app/src/main/res/layout/activity_sign_up.xml" value="0.264" />
         <entry key="..\:/Users/wpdld/AndroidStudioProjects-Kotlin/SMU_blood/app/src/main/res/layout/activity_splash.xml" value="0.264" />
