@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -22,7 +23,7 @@
         android:gravity="center"
         android:includeFontPadding="false"
         android:text="후기게시판"
-        android:textSize="19dp"
+        android:textSize="19sp"
         android:textColor="@color/black"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -33,12 +34,11 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="30dp"
-        android:background="null"
         android:fontFamily="@font/notosans_regular"
         android:includeFontPadding="false"
         android:text="헌혈 후기에요"
         android:textColor="@color/black"
-        android:textSize="18dp"
+        android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/writing_textView"
         />
@@ -58,14 +58,14 @@
             android:includeFontPadding="false"
             android:text="닉네임"
             android:textColor="@color/black"
-            android:textSize="13dp"
+            android:textSize="13sp"
             />
         <TextView
             android:id="@+id/writing_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="작성날짜 작성시간"
-            android:textSize="13dp"
+            android:textSize="13sp"
             android:textColor="@color/black"
             android:fontFamily="@font/notosans_light"
             android:includeFontPadding="false"
@@ -76,14 +76,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="right">
-        <CheckBox
-            android:id="@+id/heart_checkbox"
-            android:layout_width="14.3dp"
-            android:layout_height="13dp"
-            android:button="null"
-            android:background="@drawable/custom_checkbox_heart"
-            android:layout_marginTop="27dp"
-            />
+
+            <ImageButton
+                android:id="@+id/heart_checkbox"
+                android:layout_width="14.3dp"
+                android:layout_height="13dp"
+                android:layout_marginTop="27dp"
+                android:background="@drawable/custom_checkbox_heart"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
         <TextView
             android:id="@+id/heart_counts"
             android:layout_width="wrap_content"
@@ -92,7 +92,7 @@
             android:includeFontPadding="false"
             android:text="1415"
             android:textColor="@color/black"
-            android:textSize="13dp"
+            android:textSize="13sp"
             android:layout_marginTop="23dp"
             android:layout_marginRight="15dp"
             />
@@ -112,16 +112,15 @@
         android:id="@+id/writing_body"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="null"
         android:fontFamily="@font/notosans_light"
         android:includeFontPadding="false"
         android:text="어제 집 근처에 요청이 떠있어서 지정헌혈 하고 왔습니다. 제 피가 도움이 된것 같아 굉장히 뿌듯하네요."
         android:textColor="@color/black"
-        android:textSize="13dp"
+        android:textSize="13sp"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="32dp"
         android:layout_marginRight="15dp"
-        android:lineSpacingExtra="12sp"
+        android:lineSpacingExtra="12dp"
         />
     </LinearLayout>
 </ScrollView>

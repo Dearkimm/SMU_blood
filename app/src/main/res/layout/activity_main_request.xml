@@ -1,0 +1,557 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <ScrollView
+        android:id="@+id/scorll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="-25dp"
+        tools:layout_editor_absoluteY="276dp"
+        android:scrollbars="none">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/request"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="지정 헌혈 요청"
+                android:fontFamily="@font/notosans_regular"
+                android:textSize="19sp"
+                android:textColor="@color/black"
+                android:includeFontPadding="false"
+                android:gravity="center"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="43dp"
+                />
+
+            <TextView
+                android:id="@+id/mtv2_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:text="혈액형 (필수)"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/request" />
+
+            <Button
+                android:id="@+id/type2_a"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="7dp"
+                android:background="@drawable/bg_btn_type"
+                android:fontFamily="@font/notosans_light"
+                android:includeFontPadding="false"
+                android:text="A"
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                app:layout_constraintEnd_toStartOf="@+id/type2_b"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/mtv2_type" />
+
+            <Button
+                android:id="@+id/type2_b"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:layout_marginLeft="14dp"
+                android:layout_marginTop="7dp"
+                android:background="@drawable/bg_btn_type"
+                android:fontFamily="@font/notosans_light"
+                android:includeFontPadding="false"
+                android:text="B"
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                app:layout_constraintEnd_toStartOf="@+id/type2_o"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/type2_a"
+                app:layout_constraintTop_toBottomOf="@id/mtv2_type" />
+
+            <Button
+                android:id="@+id/type2_o"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:layout_marginLeft="14dp"
+                android:layout_marginTop="7dp"
+                android:background="@drawable/bg_btn_type"
+                android:fontFamily="@font/notosans_light"
+                android:includeFontPadding="false"
+                android:text="O"
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                app:layout_constraintEnd_toStartOf="@+id/type2_ab"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/type2_b"
+                app:layout_constraintTop_toBottomOf="@id/mtv2_type" />
+
+            <Button
+                android:id="@+id/type2_ab"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:layout_marginLeft="14dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginRight="35dp"
+                android:background="@drawable/bg_btn_type"
+                android:fontFamily="@font/notosans_light"
+                android:includeFontPadding="false"
+                android:text="AB"
+                android:textColor="@color/black"
+                android:textSize="30dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/type2_o"
+                app:layout_constraintTop_toBottomOf="@id/mtv2_type" />
+
+            <CheckBox
+                android:id="@+id/checkbox"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginLeft="41dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/checkbox"
+                android:button="@null"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/type2_a" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="11dp"
+                android:layout_marginTop="14dp"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:text="Rh- 혈액형인 경우는 체크해주세요"
+                android:textSize="12sp"
+                android:textColor="@color/black"
+                app:layout_constraintLeft_toRightOf="@id/checkbox"
+                app:layout_constraintTop_toBottomOf="@id/type2_a" />
+
+            <TextView
+                android:id="@+id/mtv2_type2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="32dp"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:text="헌혈 종류 (필수)"
+                android:textSize="13sp"
+                android:textColor="@color/black"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/checkbox" />
+
+            <CheckBox
+                android:id="@+id/checkbox1"
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="13dp"
+                android:background="@drawable/checkbox"
+                android:button="@null"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/mtv2_type2" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:text="전혈"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                app:layout_constraintLeft_toRightOf="@id/checkbox1"
+                app:layout_constraintTop_toBottomOf="@id/mtv2_type2" />
+            <CheckBox
+                android:id="@+id/checkbox2"
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="13dp"
+                android:background="@drawable/checkbox"
+                android:button="@null"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/checkbox1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:text="혈소판"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                app:layout_constraintLeft_toRightOf="@id/checkbox2"
+                app:layout_constraintTop_toBottomOf="@id/checkbox1" />
+            <CheckBox
+                android:id="@+id/checkbox3"
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="13dp"
+                android:background="@drawable/checkbox"
+                android:button="@null"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/checkbox2" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:text="백혈구"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                app:layout_constraintLeft_toRightOf="@id/checkbox3"
+                app:layout_constraintTop_toBottomOf="@id/checkbox2" />
+            <CheckBox
+                android:id="@+id/checkbox4"
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="13dp"
+                android:background="@drawable/checkbox"
+                android:button="@null"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/checkbox3" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:text="농축적혈구"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                app:layout_constraintLeft_toRightOf="@id/checkbox4"
+                app:layout_constraintTop_toBottomOf="@id/checkbox3" />
+            <CheckBox
+                android:id="@+id/checkbox5"
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="13dp"
+                android:background="@drawable/checkbox"
+                android:button="@null"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/checkbox4" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:text="백혈구 여과제거 적혈구"
+                android:textSize="13sp"
+                android:textColor="@color/black"
+                app:layout_constraintLeft_toRightOf="@id/checkbox5"
+                app:layout_constraintTop_toBottomOf="@id/checkbox4" />
+            <TextView
+                android:id="@+id/main_hos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="28dp"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:text="병원 (필수)"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/checkbox5"/>
+            <TextView
+                android:id="@+id/main_hnum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="29dp"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:text="병실 호수 (필수)"
+                android:textSize="13sp"
+                android:textColor="@color/black"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/main_hos" />
+
+            <EditText
+                android:id="@+id/met_hnum"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="15dp"
+                android:fontFamily="@font/notosans_light"
+                android:includeFontPadding="false"
+                android:paddingStart="10dp"
+                android:hint="병실 호수를 입력해주세요"
+                android:textColor="#7c7c7c"
+                android:textSize="12sp"
+                android:background="@drawable/bg_edittext"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/main_hnum" />
+            <TextView
+                android:id="@+id/main_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="29dp"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:text="환자 성명 (필수)"
+                android:textSize="13sp"
+                android:textColor="@color/black"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/met_hnum" />
+
+            <EditText
+                android:id="@+id/met_pname"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="15dp"
+                android:fontFamily="@font/notosans_light"
+                android:includeFontPadding="false"
+                android:paddingStart="10dp"
+                android:hint="환자 성명을 입력해주세요"
+                android:textColor="#7c7c7c"
+                android:textSize="12sp"
+                android:background="@drawable/bg_edittext"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/main_name" />
+            <TextView
+                android:id="@+id/main_pnum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="29dp"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:text="환자 등록번호 (필수)"
+                android:textSize="13sp"
+                android:textColor="@color/black"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/met_pname" />
+
+            <EditText
+                android:id="@+id/met_pnum"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="15dp"
+                android:fontFamily="@font/notosans_light"
+                android:includeFontPadding="false"
+                android:paddingStart="10dp"
+                android:hint="환자 등록번호를 입력해주세요"
+                android:textColor="#7c7c7c"
+                android:textSize="12sp"
+                android:background="@drawable/bg_edittext"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/main_pnum" />
+            <TextView
+                android:id="@+id/main_gnum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="29dp"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:text="보호자 연락처 (필수)"
+                android:textSize="13sp"
+                android:textColor="@color/black"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/met_pnum" />
+
+            <EditText
+                android:id="@+id/met_gnum"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="15dp"
+                android:fontFamily="@font/notosans_light"
+                android:paddingStart="10dp"
+                android:includeFontPadding="false"
+                android:hint="보호자 연락처를 입력해주세요"
+                android:textColor="#7c7c7c"
+                android:textSize="12sp"
+                android:background="@drawable/bg_edittext"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/main_gnum" />
+            <TextView
+                android:id="@+id/main_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="29dp"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:text="요청 시작일"
+                android:textSize="13sp"
+                android:textColor="@color/black"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/met_gnum" />
+
+            <EditText
+                android:id="@+id/met_start"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="15dp"
+                android:fontFamily="@font/notosans_light"
+                android:includeFontPadding="false"
+                android:paddingStart="10dp"
+                android:hint="YYYY/MM/DD"
+                android:textColor="#7c7c7c"
+                android:textSize="12sp"
+                android:background="@drawable/bg_edittext"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/main_start" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ex) 2021/10/08"
+                android:textSize="10sp"
+                android:fontFamily="@font/notosans_light"
+                android:includeFontPadding="false"
+                android:textColor="@color/red"
+                android:layout_marginLeft="16dp"
+                android:layout_marginBottom="5dp"
+                app:layout_constraintBottom_toTopOf="@id/met_start"
+                app:layout_constraintLeft_toRightOf="@id/main_start"
+                />
+            <TextView
+                android:id="@+id/main_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="29dp"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:text="요청 마감일"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/met_start" />
+
+            <EditText
+                android:id="@+id/met_end"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="15dp"
+                android:fontFamily="@font/notosans_light"
+                android:includeFontPadding="false"
+                android:paddingStart="10dp"
+                android:hint="YYYY/MM/DD"
+                android:textColor="#7c7c7c"
+                android:textSize="12sp"
+                android:background="@drawable/bg_edittext"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/main_end" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ex) 2021/10/15"
+                android:textSize="10sp"
+                android:fontFamily="@font/notosans_light"
+                android:includeFontPadding="false"
+                android:textColor="@color/red"
+                android:layout_marginLeft="16dp"
+                android:layout_marginBottom="5dp"
+                app:layout_constraintBottom_toTopOf="@id/met_end"
+                app:layout_constraintLeft_toRightOf="@id/main_end"
+                />
+
+            <TextView
+                android:id="@+id/main_story"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="29dp"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:text="요청 사연 (선택)"
+                android:textSize="13sp"
+                android:textColor="@color/black"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/met_end" />
+            <EditText
+                android:id="@+id/met_story"
+                android:layout_width="match_parent"
+                android:layout_height="214dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="15dp"
+                android:fontFamily="@font/notosans_light"
+                android:includeFontPadding="false"
+                android:paddingStart="10dp"
+                android:paddingTop="12dp"
+                android:text="요청 사연을 입력해주세요"
+                android:textColor="#7c7c7c"
+                android:textSize="12sp"
+                android:gravity="top"
+                android:background="@drawable/bg_edittext"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/main_story" />
+
+            <Button
+                android:id="@+id/btn_register"
+                android:layout_width="82dp"
+                android:layout_height="41dp"
+                android:layout_marginTop="31dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="60dp"
+                android:background="@drawable/bg_btn_red_80dp"
+                android:fontFamily="@font/notosans_regular"
+                android:text="등록"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/met_story" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

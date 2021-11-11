@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">SMU_blood</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="button_ok">확인하기</string>
+    <string name="button_skip">건너뛰기</string>
+    <string name="application1">헌혈 신청 전 주의사항!</string>
+    <string name="application2">신청 후에는 되돌릴 수 없습니다.\n 수혈 요청자를 위해 신중하게 작성해주세요.\n 작성 정보는 수혈자가 확인 가능합니다.</string>
+    <string name="application3">본인의 혈액형과 일치하는지 확인하셨나요?</string>
+    <string name="application4">네, 확인했습니다.</string>
+    <string name="application_name">본인 성명(필수)</string>
+    <string name="application_contact">본인 연락처(필수)</string>
+    <string name="edittext_application_contack">연락처를 입력해주세요.</string>
+    <string name="edittext_application_name">이름을 입력해주세요.</string>
+    <string name="application_confirm">확인</string>
 </resources>
