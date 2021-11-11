@@ -29,7 +29,7 @@
                 tools:text="서울특별시 서초구 강남 연세사랑병"
                 android:textColor="@color/black"
                 android:fontFamily="@font/notosans_regular"
-                android:textSize="13dp"
+                android:textSize="13sp"
                 android:includeFontPadding="false"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -41,7 +41,7 @@
                 android:layout_marginTop="7dp"
                 android:fontFamily="@font/notosans_light"
                 tools:text="Rh+ A형 전혈"
-                android:textSize="10dp"
+                android:textSize="10sp"
                 android:textColor="@color/black"
                 android:includeFontPadding="false"
                 app:layout_constraintTop_toBottomOf="@id/req_hospital"
@@ -57,7 +57,7 @@
                 android:fontFamily="@font/notosans_light"
                 android:includeFontPadding="false"
                 android:textColor="@color/black"
-                android:textSize="10dp"
+                android:textSize="10sp"
                 app:layout_constraintTop_toBottomOf="@id/req_blood"
                 app:layout_constraintLeft_toLeftOf="@id/req_blood"
                 app:layout_constraintBottom_toBottomOf="parent"/>
@@ -71,7 +71,7 @@
                 android:fontFamily="@font/notosans_light"
                 android:includeFontPadding="false"
                 android:textColor="@color/black"
-                android:textSize="10dp"
+                android:textSize="10sp"
                 app:layout_constraintTop_toTopOf="@id/req_blood"
                 app:layout_constraintBottom_toBottomOf="@id/req_blood"
                 app:layout_constraintLeft_toRightOf="@id/req_blood"/>
@@ -85,7 +85,7 @@
                 android:fontFamily="@font/notosans_light"
                 android:includeFontPadding="false"
                 android:textColor="@color/black"
-                android:textSize="10dp"
+                android:textSize="10sp"
                 app:layout_constraintTop_toTopOf="@id/req_date"
                 app:layout_constraintBottom_toBottomOf="@id/req_date"
                 app:layout_constraintLeft_toRightOf="@id/req_date"/>
@@ -108,7 +108,7 @@
                 android:fontFamily="@font/notosans_regular"
                 android:includeFontPadding="false"
                 android:textColor="@color/white"
-                android:textSize="15dp"
+                android:textSize="15sp"
                 app:layout_constraintTop_toTopOf="@id/circle"
                 app:layout_constraintBottom_toBottomOf="@id/circle"
                 app:layout_constraintLeft_toLeftOf="@id/circle"
