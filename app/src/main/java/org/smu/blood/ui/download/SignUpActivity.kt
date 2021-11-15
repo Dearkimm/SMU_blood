@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
 
 import User
+import android.util.Log
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
@@ -49,11 +50,14 @@ class SignUpActivity : AppCompatActivity() {
 
     fun writeNewUser(userId: String, name: String, email: String) {
         val user = User(name, email)
+        Log.d("시작", "start")
         mDatabase.child("users").child(userId).setValue(user)
             .addOnSuccessListener(OnSuccessListener<Void?> { // Write was successful!
+                Log.d("회원가입", "저장 성공")
                 Toast.makeText(this@SignUpActivity, "저장을 완료했습니다.", Toast.LENGTH_SHORT).show()
             })
             .addOnFailureListener(OnFailureListener { // Write failed
+                Log.e("회원가입", "저장 실패")
                 Toast.makeText(this@SignUpActivity, "저장을 실패했습니다.", Toast.LENGTH_SHORT).show()
             })
     }
