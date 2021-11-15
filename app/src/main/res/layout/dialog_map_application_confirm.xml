@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
-            android:text="긴급 헌혈 신청이 완료되었습니다.\n상세 정보는 마이페이지에서\n확인할 수 있습니다."
+            android:text="@string/app_confirm_tv1"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="14sp"
