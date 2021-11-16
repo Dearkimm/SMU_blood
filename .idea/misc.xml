@@ -31,7 +31,7 @@
         <entry key="..\:/Users/wpdld/AndroidStudioProjects-Kotlin/SMU_blood/app/src/main/res/layout/activity_login.xml" value="0.264" />
         <entry key="..\:/Users/wpdld/AndroidStudioProjects-Kotlin/SMU_blood/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Users/wpdld/AndroidStudioProjects-Kotlin/SMU_blood/app/src/main/res/layout/activity_main_request.xml" value="0.23767691556857004" />
-        <entry key="..\:/Users/wpdld/AndroidStudioProjects-Kotlin/SMU_blood/app/src/main/res/layout/activity_map_application.xml" value="0.4" />
+        <entry key="..\:/Users/wpdld/AndroidStudioProjects-Kotlin/SMU_blood/app/src/main/res/layout/activity_map_application.xml" value="0.152" />
         <entry key="..\:/Users/wpdld/AndroidStudioProjects-Kotlin/SMU_blood/app/src/main/res/layout/activity_mod.xml" value="0.264" />
         <entry key="..\:/Users/wpdld/AndroidStudioProjects-Kotlin/SMU_blood/app/src/main/res/layout/activity_my_card.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/wpdld/AndroidStudioProjects-Kotlin/SMU_blood/app/src/main/res/layout/activity_my_mod.xml" value="0.4" />
@@ -43,7 +43,7 @@
         <entry key="..\:/Users/wpdld/AndroidStudioProjects-Kotlin/SMU_blood/app/src/main/res/layout/diaglog_map_location_alert.xml" value="0.136" />
         <entry key="..\:/Users/wpdld/AndroidStudioProjects-Kotlin/SMU_blood/app/src/main/res/layout/dialog_check_condition.xml" value="0.264" />
         <entry key="..\:/Users/wpdld/AndroidStudioProjects-Kotlin/SMU_blood/app/src/main/res/layout/dialog_main_request_confirm.xml" value="0.15307971014492755" />
-        <entry key="..\:/Users/wpdld/AndroidStudioProjects-Kotlin/SMU_blood/app/src/main/res/layout/dialog_map_application_confirm.xml" value="0.264" />
+        <entry key="..\:/Users/wpdld/AndroidStudioProjects-Kotlin/SMU_blood/app/src/main/res/layout/dialog_map_application_confirm.xml" value="0.136" />
         <entry key="..\:/Users/wpdld/AndroidStudioProjects-Kotlin/SMU_blood/app/src/main/res/layout/dialog_map_check_condition.xml" value="0.536" />
         <entry key="..\:/Users/wpdld/AndroidStudioProjects-Kotlin/SMU_blood/app/src/main/res/layout/fragment_blank.xml" value="0.12864583333333332" />
         <entry key="..\:/Users/wpdld/AndroidStudioProjects-Kotlin/SMU_blood/app/src/main/res/layout/fragment_board.xml" value="0.4" />

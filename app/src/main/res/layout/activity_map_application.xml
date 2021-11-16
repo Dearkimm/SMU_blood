@@ -7,44 +7,49 @@
     android:background="@color/white"
     tools:context=".ui.map.MapApplicationActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <TextView
+        android:id="@+id/btv_text"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/white"
-        android:elevation="4dp"
-        android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
-
-    </androidx.appcompat.widget.Toolbar>
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/application_title"
+        android:textSize="19sp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/notosans_regular"
+        android:includeFontPadding="false"
+        android:layout_marginTop="43dp"
+        />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="30dp"
         android:fontFamily="@font/notosans_bold"
+        android:includeFontPadding="false"
         android:text="@string/application1"
         android:textColor="@color/red"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/btv_text" />
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
         android:layout_marginTop="6dp"
         android:fontFamily="@font/notosans_regular"
         android:text="@string/application2"
         android:textColor="@color/black"
         android:textSize="14sp"
+        android:includeFontPadding="false"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <TextView
@@ -55,6 +60,7 @@
         android:layout_marginTop="35dp"
         android:fontFamily="@font/notosans_regular"
         android:text="@string/application3"
+        android:includeFontPadding="false"
         android:textColor="@color/black"
         android:textSize="13sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -78,6 +84,7 @@
         android:text="@string/application4"
         android:textColor="@color/red"
         android:textSize="12sp"
+        android:includeFontPadding="false"
         app:layout_constraintBottom_toBottomOf="@+id/radioButton"
         app:layout_constraintStart_toEndOf="@+id/radioButton"
         app:layout_constraintTop_toTopOf="@+id/radioButton" />
@@ -88,9 +95,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:fontFamily="@font/notosans_regular"
-        android:text="@string/application3"
+        android:text="@string/application5"
         android:textColor="@color/black"
         android:textSize="13sp"
+        android:includeFontPadding="false"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioButton" />
 
@@ -99,6 +107,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
@@ -106,10 +115,12 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
         android:fontFamily="@font/notosans_light"
         android:text="@string/application4"
         android:textColor="@color/red"
         android:textSize="12sp"
+        android:includeFontPadding="false"
         app:layout_constraintBottom_toBottomOf="@+id/radioButton2"
         app:layout_constraintStart_toEndOf="@+id/radioButton2"
         app:layout_constraintTop_toTopOf="@+id/radioButton2" />
@@ -118,15 +129,15 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_btn_black"
-        android:layout_marginTop="76dp"
         android:layout_marginEnd="15dp"
+        android:background="@drawable/bg_btn_black"
         android:fontFamily="@font/notosans_light"
         android:text="@string/application_confirm"
         android:textColor="@color/white"
         android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_contact" />
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
 
 

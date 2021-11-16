@@ -4,6 +4,9 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
 
     <application
         android:allowBackup="true"
@@ -51,10 +54,14 @@
             android:exported="true" />
         <activity
             android:name=".ui.my.MyModActivity"
-            android:exported="true" /> <!-- Google Map API Key -->
+            android:exported="true" />
+
+        <!-- Google Map API Key -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyB57Q2RnPpZ7n7oLc5Ky9K7wBUPTsa395o" />
+        <uses-library android:name="org.apache.http.legacy"
+            android:required="false"/>
 
         <activity
             android:name=".ui.map.MapApplicationActivity"
