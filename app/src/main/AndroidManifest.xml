@@ -14,7 +14,9 @@
         android:theme="@style/Theme.SMU_blood">
         <activity
             android:name=".MyCardActivity"
-            android:exported="true" />
+            android:exported="true" >
+
+        </activity>
         <!-- Download -->
         <activity
             android:name=".ui.download.SplashActivity"
