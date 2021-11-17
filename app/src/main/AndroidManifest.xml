@@ -13,11 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SMU_blood">
         <activity
+            android:name=".database.TestActivity"
+            android:exported="true" />
+        <activity
             android:name=".MyCardActivity"
-            android:exported="true" >
-
-        </activity>
-        <!-- Download -->
+            android:exported="true" /> <!-- Download -->
         <activity
             android:name=".ui.download.SplashActivity"
             android:exported="true"
