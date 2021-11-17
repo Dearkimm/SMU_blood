@@ -21,6 +21,8 @@ class User {
         nickname: String?,
         bloodType: Int?,
         rhType: Boolean?
+
+    //혈액형: 1 -> a, 2 -> b, 3-> o, 4-> ab
     ) {
         this.id = id
         this.password = password

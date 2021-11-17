@@ -59,6 +59,7 @@
                 android:text="사용 가능한 아이디입니다."
                 android:textColor="@color/red"
                 android:textSize="10sp"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toTopOf="@id/set_id"
                 app:layout_constraintLeft_toRightOf="@id/stv_id" />
 
@@ -157,6 +158,7 @@
                 android:text="비밀번호가 일치하지 않습니다."
                 android:textColor="@color/red"
                 android:textSize="10sp"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toTopOf="@id/set_pwd2"
                 app:layout_constraintLeft_toRightOf="@id/stv_pwd2" />
 
@@ -204,6 +206,7 @@
                 android:text="사용 중인 닉네임입니다."
                 android:textColor="@color/red"
                 android:textSize="10sp"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toTopOf="@id/set_name"
                 app:layout_constraintLeft_toRightOf="@id/stv_name" />
 
