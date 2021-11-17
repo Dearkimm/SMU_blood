@@ -1,11 +1,14 @@
-package org.smu.blood
+package org.smu.blood.database
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import org.smu.blood.R
 
-class MyCardActivity : AppCompatActivity() {
+class TestActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_card_apply)
+        setContentView(R.layout.activity_test)
+
+        //..
     }
 }
