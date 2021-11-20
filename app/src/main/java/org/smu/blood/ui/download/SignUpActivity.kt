@@ -2,7 +2,9 @@ package org.smu.blood.ui.download
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.view.View
 import android.view.View.VISIBLE
 import android.widget.Button
 import android.widget.EditText
@@ -14,6 +16,7 @@ import android.widget.Toast
 import org.smu.blood.MainActivity
 
 import androidx.annotation.NonNull
+import androidx.core.content.ContextCompat
 
 import com.google.android.gms.tasks.OnFailureListener
 
@@ -53,6 +56,8 @@ class SignUpActivity : AppCompatActivity() {
         var editPassword = findViewById<EditText>(R.id.set_pwd)
         var editPassword2 = findViewById<EditText>(R.id.set_pwd2)
 
+
+
         //혈액형 버튼
         var typeA = findViewById<Button>(R.id.type_a)
         var typeB = findViewById<Button>(R.id.type_b)
@@ -69,6 +74,10 @@ class SignUpActivity : AppCompatActivity() {
         typeA.setOnClickListener {
             bloodType = 1
             typeA.setBackgroundResource(R.drawable.bg_btn_red_5dp)
+            typeA.setTextColor(Color.WHITE)
+            typeB.setTextColor(Color.BLACK)
+            typeAB.setTextColor(Color.BLACK)
+            typeO.setTextColor(Color.BLACK)
             typeB.setBackgroundResource(R.drawable.bg_btn_type)
             typeO.setBackgroundResource(R.drawable.bg_btn_type)
             typeAB.setBackgroundResource(R.drawable.bg_btn_type)
@@ -77,18 +86,39 @@ class SignUpActivity : AppCompatActivity() {
         typeB.setOnClickListener {
             bloodType = 2
             typeB.setBackgroundResource(R.drawable.bg_btn_red_5dp)
+            typeB.setTextColor(Color.WHITE)
+            typeA.setTextColor(Color.BLACK)
+            typeAB.setTextColor(Color.BLACK)
+            typeO.setTextColor(Color.BLACK)
+            typeA.setBackgroundResource(R.drawable.bg_btn_type)
+            typeO.setBackgroundResource(R.drawable.bg_btn_type)
+            typeAB.setBackgroundResource(R.drawable.bg_btn_type)
 
         }
 
         typeO.setOnClickListener {
             bloodType = 3
             typeO.setBackgroundResource(R.drawable.bg_btn_red_5dp)
+            typeO.setTextColor(Color.WHITE)
+            typeA.setTextColor(Color.BLACK)
+            typeAB.setTextColor(Color.BLACK)
+            typeB.setTextColor(Color.BLACK)
+            typeA.setBackgroundResource(R.drawable.bg_btn_type)
+            typeB.setBackgroundResource(R.drawable.bg_btn_type)
+            typeAB.setBackgroundResource(R.drawable.bg_btn_type)
 
         }
 
         typeAB.setOnClickListener {
             bloodType = 4
             typeAB.setBackgroundResource(R.drawable.bg_btn_red_5dp)
+            typeAB.setTextColor(Color.WHITE)
+            typeB.setTextColor(Color.BLACK)
+            typeO.setTextColor(Color.BLACK)
+            typeA.setTextColor(Color.BLACK)
+            typeA.setBackgroundResource(R.drawable.bg_btn_type)
+            typeO.setBackgroundResource(R.drawable.bg_btn_type)
+            typeB.setBackgroundResource(R.drawable.bg_btn_type)
 
         }
 
@@ -99,11 +129,13 @@ class SignUpActivity : AppCompatActivity() {
             if (editName.text.isNullOrBlank() || editId.text.isNullOrBlank() || editPassword.text.isNullOrBlank()  || editPassword2.text.isNullOrBlank()) {
                 Toast.makeText(applicationContext, "빈 칸이 있습니다", Toast.LENGTH_SHORT).show()
             } else {
+                Toast.makeText(applicationContext,"회원가입 완료",Toast.LENGTH_SHORT).show()
                 //입력값 저장
                 idText = editId.text.toString()
                 passwordText = editPassword.text.toString()
                 password2Text = editPassword2.text.toString()
                 nicknameText = editName.text.toString()
+
                 //입력한 내용을 서버에 넣어주기
                 //writeNewUser("test1234", "테스트", "test@aa.aa")
 
