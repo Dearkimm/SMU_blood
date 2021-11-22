@@ -2,13 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <TextView
         android:id="@+id/request"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="지정 헌혈 요청"
+        android:text="@string/apply_tv2"
         android:fontFamily="@font/notosans_regular"
         android:textSize="19sp"
         android:textColor="@color/black"
@@ -21,7 +22,7 @@
         android:id="@+id/atv_type"
         android:layout_width="86dp"
         android:layout_height="86dp"
-        android:text="Rh- AB"
+        tools:text="Rh- AB"
         android:fontFamily="@font/notosans_regular"
         android:textColor="@color/white"
         android:textSize="18sp"
@@ -31,13 +32,13 @@
         app:layout_constraintTop_toBottomOf="@id/request"
         android:layout_marginTop="30dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="30dp"
+        android:layout_marginStart="30dp"
         />
     <TextView
         android:id="@+id/atv_hos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
+        tools:text="서울특별시 용산구 순천향대학교부속서울병원"
         android:fontFamily="@font/notosans_regular"
         android:includeFontPadding="false"
         android:textSize="13sp"
@@ -45,13 +46,13 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/atv_type"
         android:layout_marginTop="35dp"
-        android:layout_marginLeft="15dp"
+        android:layout_marginStart="30dp"
         />
     <TextView
         android:id="@+id/atv_type2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
+        tools:text="Rh- AB형 혈소판"
         android:fontFamily="@font/notosans_regular"
         android:includeFontPadding="false"
         android:textSize="13sp"
@@ -59,13 +60,13 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/atv_hos"
         android:layout_marginTop="35dp"
-        android:layout_marginLeft="15dp"
+        android:layout_marginStart="30dp"
         />
     <TextView
         android:id="@+id/atv_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
+        tools:text="요청 시작일 2021.10.11 ~ 마감일 2021.10.21"
         android:fontFamily="@font/notosans_regular"
         android:includeFontPadding="false"
         android:textSize="13sp"
@@ -73,13 +74,13 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/atv_type2"
         android:layout_marginTop="35dp"
-        android:layout_marginLeft="15dp"
+        android:layout_marginStart="30dp"
         />
     <TextView
         android:id="@+id/atv_num"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
+        tools:text="신청 0명"
         android:fontFamily="@font/notosans_regular"
         android:includeFontPadding="false"
         android:textSize="13sp"
@@ -87,27 +88,28 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/atv_time"
         android:layout_marginTop="35dp"
-        android:layout_marginLeft="15dp"
+        android:layout_marginStart="30dp"
         />
 
     <TextView
         android:id="@+id/atv_con"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text=""
+        android:layout_marginTop="35dp"
         android:fontFamily="@font/notosans_regular"
         android:includeFontPadding="false"
-        android:textSize="13sp"
         android:textColor="@color/black"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/atv_num"
-        android:layout_marginTop="35dp"
-        android:layout_marginLeft="15dp"
-        />
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        tools:text="아들이 급하게 혈액이 필요합니다. 도와주시면 정말 감사하겠습니다. 지정헌혈은 순천향대학교로 직접 오실 필요가 없습니다.." />
     <Button
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:text="헌혈하러 가기"
+        android:text="@string/apply_tv1"
         android:textColor="@color/white"
         android:background="@drawable/bg_btn_red_5dp"
         android:fontFamily="@font/notosans_regular"
