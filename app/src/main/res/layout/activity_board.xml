@@ -12,7 +12,7 @@
         android:gravity="center"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="후기게시판"
+        android:text="@string/review_title"
         android:textColor="@color/black"
         android:textSize="19sp"
         android:fontFamily="@font/notosans_regular"
@@ -30,63 +30,63 @@
         android:scaleType="fitCenter"
         android:background="@android:color/transparent"
         android:layout_marginTop="48dp"
-        android:layout_marginRight="15dp"
+        android:layout_marginEnd="15dp"
         />
 
     <TextView
         android:id="@+id/btv_nickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="장구벌레"
         android:textSize="15sp"
         android:textColor="@color/red"
         android:fontFamily="@font/notosans_bold"
         android:includeFontPadding="false"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btv_text"
-        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="30dp"
+        tools:text="장구벌레"
         />
     <TextView
         android:id="@+id/btv_nickname_text_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="님, 다른 사람을 위해"
+        android:text="@string/board_tv1"
         android:textSize="15sp"
         android:textColor="@color/black"
         android:fontFamily="@font/notosans_regular"
         android:includeFontPadding="false"
         app:layout_constraintLeft_toLeftOf="@id/btv_nickname"
         app:layout_constraintTop_toBottomOf="@id/btv_text"
-        android:layout_marginLeft="60dp"
+        android:layout_marginStart="60dp"
         android:layout_marginTop="30dp"
         />
     <TextView
         android:id="@+id/btv_nickname_text_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="후기를 작성해보는건 어떤가요?"
+        android:text="@string/board_tv2"
         android:textSize="15sp"
         android:textColor="@color/black"
         android:fontFamily="@font/notosans_regular"
         android:includeFontPadding="false"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btv_nickname_text_1"
-        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
 
         />
     <TextView
         android:id="@+id/btv_how_to_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="내가 작성한 글은 꾹 눌러서 삭제할 수 있어요"
+        android:text="@string/board_tv3"
         android:textSize="13sp"
         android:textColor="@color/black"
         android:fontFamily="@font/notosans_light"
         android:includeFontPadding="false"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btv_nickname_text_2"
-        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="7dp"
         />
 
@@ -94,14 +94,14 @@
         android:id="@+id/btv_cb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=" 내가 쓴 글"
+        android:text="@string/board_tv4"
         android:textSize="13sp"
         android:textColor="@color/black"
         android:fontFamily="@font/notosans_light"
         android:includeFontPadding="false"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btv_how_to_delete"
-        android:layout_marginLeft="25dp"
+        android:layout_marginStart="25dp"
         android:layout_marginTop="25dp"
         />
     <ImageButton
@@ -115,7 +115,7 @@
         android:scaleType="fitCenter"
         android:background="@android:color/transparent"
         android:layout_marginTop="25dp"
-        android:layout_marginRight="15dp"
+        android:layout_marginEnd="15dp"
         />
 
 
