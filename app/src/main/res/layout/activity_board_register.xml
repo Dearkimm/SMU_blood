@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <TextView
         android:id="@+id/register_textView"
         android:layout_width="match_parent"
@@ -18,9 +17,7 @@
         android:textColor="@color/black"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-
         />
-
     <Button
         android:id="@+id/register_button"
         android:layout_width="wrap_content"
@@ -40,13 +37,25 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="TouchTargetSizeCheck" />
 
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/register_textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="90dp"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
     <EditText
         android:id="@+id/writing_edit_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="29dp"
         android:layout_marginEnd="29dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:background="@null"
         android:fontFamily="@font/notosans_regular"
         android:hint="@string/bregister_tv3"
@@ -54,35 +63,38 @@
         android:minHeight="48dp"
         android:textColorHint="#bfbfbf"
         android:textSize="20sp"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/register_textView" />
-
+        app:layout_constraintStart_toStartOf="parent"
+        />
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:background="#818181"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/writing_edit_title"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="8dp"
         />
-
     <EditText
         android:id="@+id/writing_edit_body"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="23dp"
         android:layout_marginTop="30dp"
+        android:layout_marginEnd="23dp"
         android:fontFamily="@font/notosans_regular"
         android:hint="@string/bregister_tv4"
         android:includeFontPadding="false"
         android:textColorHint="#bfbfbf"
         android:textSize="15sp"
         android:background="@null"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/view" />
-
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
