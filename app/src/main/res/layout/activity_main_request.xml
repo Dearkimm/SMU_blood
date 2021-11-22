@@ -308,7 +308,7 @@
                 android:hint="@string/rmain_tv16"
                 android:textColor="#7c7c7c"
                 android:textSize="12sp"
-                android:background="@drawable/bg_edittext"
+                android:background="@drawable/bg_edittext_color_change"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/main_hnum" />
@@ -339,7 +339,7 @@
                 android:hint="@string/rmain_tv18"
                 android:textColor="#7c7c7c"
                 android:textSize="12sp"
-                android:background="@drawable/bg_edittext"
+                android:background="@drawable/bg_edittext_color_change"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/main_name" />
@@ -370,7 +370,7 @@
                 android:hint="@string/rmain_tv20"
                 android:textColor="#7c7c7c"
                 android:textSize="12sp"
-                android:background="@drawable/bg_edittext"
+                android:background="@drawable/bg_edittext_color_change"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/main_pnum" />
@@ -401,7 +401,7 @@
                 android:hint="@string/rmain_tv22"
                 android:textColor="#7c7c7c"
                 android:textSize="12sp"
-                android:background="@drawable/bg_edittext"
+                android:background="@drawable/bg_edittext_color_change"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/main_gnum" />
@@ -432,7 +432,7 @@
                 android:hint="@string/rmain_tv24"
                 android:textColor="#7c7c7c"
                 android:textSize="12sp"
-                android:background="@drawable/bg_edittext"
+                android:background="@drawable/bg_edittext_color_change"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/main_start" />
@@ -477,7 +477,7 @@
                 android:hint="@string/rmain_tv27"
                 android:textColor="#7c7c7c"
                 android:textSize="12sp"
-                android:background="@drawable/bg_edittext"
+                android:background="@drawable/bg_edittext_color_change"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/main_end" />
@@ -523,7 +523,7 @@
                 android:textColor="#7c7c7c"
                 android:textSize="12sp"
                 android:gravity="top"
-                android:background="@drawable/bg_edittext"
+                android:background="@drawable/bg_edittext_color_change"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/main_story" />
