@@ -24,7 +24,7 @@
         android:fontFamily="@font/notosans_medium"
         android:gravity="center"
         android:includeFontPadding="false"
-        android:text="BLRING"
+        android:text="@string/blring_tv"
         android:textColor="@color/red"
         android:textSize="19sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,7 +34,7 @@
         android:id="@+id/ltv_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="아이디"
+        android:text="@string/login_id"
         android:textColor="@color/black"
         android:fontFamily="@font/notosans_regular"
         android:includeFontPadding="false"
@@ -42,7 +42,7 @@
         app:layout_constraintTop_toBottomOf="@id/tv_bling"
         android:layout_marginTop="92dp"
         android:textSize="13sp"
-        android:layout_marginLeft="18dp"
+        android:layout_marginStart="18dp"
         />
 
     <EditText
@@ -64,7 +64,7 @@
         android:id="@+id/ltv_pwd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="비밀번호"
+        android:text="@string/login_pwd"
         android:textSize="13sp"
         android:textColor="@color/black"
         android:fontFamily="@font/notosans_regular"
@@ -72,7 +72,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/let_id"
         android:layout_marginTop="17dp"
-        android:layout_marginLeft="18dp"
+        android:layout_marginStart="18dp"
         />
 
     <EditText
@@ -102,7 +102,7 @@
         android:background="@drawable/bg_btn_login"
         android:fontFamily="@font/notosans_regular"
         android:includeFontPadding="false"
-        android:text="로그인"
+        android:text="@string/login_tv1"
         android:textColor="@color/white"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -112,7 +112,7 @@
         android:id="@+id/btn_Sign_up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="회원가입하기"
+        android:text="@string/login_tv2"
         android:textSize="13sp"
         android:textColor="@color/red"
         android:fontFamily="@font/notosans_regular"
