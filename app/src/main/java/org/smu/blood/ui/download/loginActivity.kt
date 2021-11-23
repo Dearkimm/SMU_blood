@@ -14,6 +14,7 @@ class loginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+
         //버튼
         var logingButton = findViewById<Button>(R.id.btn_log)
         var signupButton = findViewById<TextView>(R.id.btn_Sign_up)
@@ -27,7 +28,7 @@ class loginActivity : AppCompatActivity() {
         //회원가입 화면으로 이동
         signupButton.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
-            startActivity(intent)
+            startActivityForResult(intent, 101)
         }
     }
 }

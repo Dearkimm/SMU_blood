@@ -59,6 +59,7 @@
                 android:text="@string/su_tv3"
                 android:textColor="@color/red"
                 android:textSize="10sp"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toTopOf="@id/set_id"
                 app:layout_constraintLeft_toRightOf="@id/stv_id" />
 
@@ -69,7 +70,7 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="3dp"
                 android:layout_marginEnd="15dp"
-                android:background="@drawable/bg_edittext"
+                android:background="@drawable/bg_edittext_color_change"
                 android:fontFamily="@font/notosans_light"
                 android:includeFontPadding="false"
                 android:hint="@string/su_tv4"
@@ -101,7 +102,7 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="3dp"
                 android:layout_marginEnd="15dp"
-                android:background="@drawable/bg_edittext"
+                android:background="@drawable/bg_edittext_color_change"
                 android:fontFamily="@font/notosans_light"
                 android:includeFontPadding="false"
                 android:hint="@string/su_tv6"
@@ -134,7 +135,7 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="3dp"
                 android:layout_marginEnd="15dp"
-                android:background="@drawable/bg_edittext"
+                android:background="@drawable/bg_edittext_color_change"
                 android:fontFamily="@font/notosans_light"
                 android:includeFontPadding="false"
                 android:hint="@string/su_tv8"
@@ -156,6 +157,7 @@
                 android:text="@string/su_tv9"
                 android:textColor="@color/red"
                 android:textSize="10sp"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toTopOf="@id/set_pwd2"
                 app:layout_constraintLeft_toRightOf="@id/stv_pwd2" />
 
@@ -180,7 +182,7 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="3dp"
                 android:layout_marginEnd="15dp"
-                android:background="@drawable/bg_edittext"
+                android:background="@drawable/bg_edittext_color_change"
                 android:fontFamily="@font/notosans_light"
                 android:includeFontPadding="false"
                 android:hint="@string/su_tv11"
@@ -202,6 +204,7 @@
                 android:text="@string/su_tv12"
                 android:textColor="@color/red"
                 android:textSize="10sp"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toTopOf="@id/set_name"
                 app:layout_constraintLeft_toRightOf="@id/stv_name" />
 
