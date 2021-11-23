@@ -1,6 +1,7 @@
 package org.smu.blood.ui.my
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
@@ -18,6 +19,13 @@ class MyActivity : AppCompatActivity() {
         var logout = findViewById<TextView>(R.id.tv_r)
         var withdraw = findViewById<TextView>(R.id.tv_withdraw)
         var card = findViewById<TextView>(R.id.tv_q)
+        var hyperlink = findViewById<Button>(R.id.btn_quest)
+
+        //전자문진하러 가기
+        hyperlink.setOnClickListener {
+            var intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.bloodinfo.net/emi2/login.do?_ga=2.29800319.1190218835.1637677364-178623010.1637677364"))
+            startActivity(intent)
+        }
 
         //수정하러 가기
         modButton.setOnClickListener {

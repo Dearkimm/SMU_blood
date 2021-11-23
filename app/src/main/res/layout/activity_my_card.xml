@@ -57,7 +57,7 @@
             android:includeFontPadding="false"
             android:text="@string/acard_tv3"
             android:textSize="11sp"
-            android:textColor="@color/red"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/view_1"
             app:layout_constraintRight_toRightOf="parent"
