@@ -10,11 +10,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
-<<<<<<< HEAD
 import androidx.core.app.ActivityCompat
-=======
+
 import androidx.recyclerview.widget.RecyclerView
->>>>>>> yoon
+
 import org.smu.blood.R
 import org.smu.blood.ui.board.BoardAdapter
 import org.smu.blood.ui.board.BoardData
