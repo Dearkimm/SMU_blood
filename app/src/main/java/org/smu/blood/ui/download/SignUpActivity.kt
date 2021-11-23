@@ -153,13 +153,12 @@ class SignUpActivity : AppCompatActivity() {
 
     }
 
-<<<<<<< HEAD
+
 
 }
 
-=======
-}
->>>>>>> master
+
+
     //이게 서버에 정보 넘기는거
     /*fun writeNewUser(userId: String, name: String, email: String) {
         val user = User(name, email)
@@ -179,6 +178,3 @@ class SignUpActivity : AppCompatActivity() {
 <<<<<<< HEAD
 }
      */
-=======
-}*/
->>>>>>> master
