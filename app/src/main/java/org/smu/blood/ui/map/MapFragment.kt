@@ -20,30 +20,14 @@ import org.smu.blood.R
 import java.util.jar.Manifest
 
 class MapFragment : Fragment(), OnMapReadyCallback {
+    private lateinit var mMap:GoogleMap
     val DEFAULT_ZOOM_LEVEL = 17f
     val CITY_HALL = LatLng(37.5662952, 126.97794509999994)
-    var googleMap: GoogleMap? = null
-    private lateinit var mapView: MapView
-    //엄마가 보고 싶습니다 엉엉엉엉
-    //권한 허용
     val PERMISSIONS = arrayOf(
         android.Manifest.permission.ACCESS_COARSE_LOCATION,
         android.Manifest.permission.ACCESS_FINE_LOCATION)
     val REQUEST_PERMISSION_CODE = 1
-    private fun checkPermissions(): Boolean {
-        for (permission in PERMISSIONS) {
-            if (context?.let { ActivityCompat.checkSelfPermission(it, permission) } != PackageManager.PERMISSION_GRANTED) {
-                return false
-            }
-        }
-        return true
-    }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
-        initMap()
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,27 +41,21 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         savedInstanceState: Bundle?
     ): View? {
         var rootView = inflater.inflate(R.layout.fragment_map, container, false)
-
-        when {
-            checkPermissions() -> getMyLocation()?.let { CameraUpdateFactory.newLatLngZoom(it, DEFAULT_ZOOM_LEVEL) }?.let {
-                googleMap?.moveCamera(
-                    it
-                )
-            }
-            else -> Toast.makeText(context, "위치사용권한 설정에 동의해주세요", Toast.LENGTH_LONG).show()
-        }
-
-        //구글맵 보여주기
-        mapView = rootView.findViewById(R.id.mv_contactUs_gMap) as MapView
-        mapView.onCreate(savedInstanceState)
-        if (checkPermissions()) {
-            initMap()
-        } else {
-            activity?.let { ActivityCompat.requestPermissions(it, PERMISSIONS, REQUEST_PERMISSION_CODE) }
-        }
-        mapView.getMapAsync(this) //씨발 개새끼야 왜 안떠 개새끼야 시발럼아 진짜
+        val mapFragment = childFragmentManager
+            ?.findFragmentById(R.id.map) as SupportMapFragment?
+        mapFragment!!.getMapAsync(this)
 
         return rootView
+    }
+
+    override fun onMapReady(googleMap: GoogleMap) {
+        mMap = googleMap
+        val markerOptions = MarkerOptions()
+        markerOptions.position(CITY_HALL)
+        markerOptions.title("서울")
+        markerOptions.snippet("한국의 수도")
+        mMap.addMarker(markerOptions)
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(CITY_HALL, 15F))
     }
 
     companion object {
@@ -98,45 +76,5 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                     //putString(ARG_PARAM2, param2)
                 }
             }
-    }
-
-    @SuppressLint("MissingPermission")
-    fun initMap() {
-        mapView.getMapAsync {
-
-            googleMap = it
-
-            it.uiSettings.isMyLocationButtonEnabled = false
-
-            when {
-                checkPermissions() -> {
-                    it.isMyLocationEnabled = true
-                    getMyLocation()?.let { it1 ->
-                        CameraUpdateFactory.newLatLngZoom(
-                            it1, DEFAULT_ZOOM_LEVEL)
-                    }?.let { it2 -> it.moveCamera(it2) }
-                }
-                else -> {
-                    it.moveCamera(CameraUpdateFactory.newLatLngZoom(CITY_HALL, DEFAULT_ZOOM_LEVEL))
-                }
-            }
-        }
-    }
-
-    @SuppressLint("MissingPermission")
-    fun getMyLocation(): LatLng? {
-//씨발롬아
-        val locationProvider: String = LocationManager.GPS_PROVIDER
-        val locationManager = activity?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        val lastKnownLocation: Location? = locationManager.getLastKnownLocation(locationProvider)
-        if (lastKnownLocation != null) {
-            return LatLng(lastKnownLocation.latitude, lastKnownLocation.longitude)
-        }
-        else return null
-        //쌍놈새끼 진짜 개빡치게 하네 진짜 개새끼야 왜 자꾸 빨간줄 뜨고 지랄이냐 이 개새끼야 시벌
-    }
-
-    override fun onMapReady(p0: GoogleMap) {
-        TODO("Not yet implemented")
     }
 }
