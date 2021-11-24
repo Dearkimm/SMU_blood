@@ -1,6 +1,7 @@
 package org.smu.blood.ui.board
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -20,17 +21,26 @@ RecyclerView.Adapter<BoardAdapter.ViewHolder>() {
     }
     override fun getItemCount(): Int = datas.size
 
+
+    // 클릭 이벤트 리스너 인터페이스 정의
+    interface OnItemClickListener{
+        fun onItemClick(v:View, data: BoardData, pos : Int)
+    }
+    private var listener : OnItemClickListener? = null
+    fun setOnItemClickListener(listener : OnItemClickListener) {
+        this.listener = listener
+    }
+
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(datas[position])
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-
         private val txtTitle: TextView = itemView.findViewById(R.id.board_title)
         private val txtNickname: TextView = itemView.findViewById(R.id.board_nickname)
         private val txtTime: TextView = itemView.findViewById(R.id.board_time)
         private val txtHeartCount: TextView = itemView.findViewById(R.id.board_heart_count)
-
 
         fun bind(item: BoardData) {
             txtTitle.text = item.title
@@ -38,11 +48,13 @@ RecyclerView.Adapter<BoardAdapter.ViewHolder>() {
             txtTime.text = item.time
             txtHeartCount.text = item.heartcount.toString()
 
-            itemView.setOnClickListener {
-
+            val position = adapterPosition
+            if(position!= RecyclerView.NO_POSITION)
+            {
+                itemView.setOnClickListener {
+                    listener?.onItemClick(itemView,item,position)
+                }
             }
-
-
 
         }
     }
