@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "109738756050",
+    "project_id": "blring",
+    "storage_bucket": "blring.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:109738756050:android:616527f0604a3a0f93aa0b",
+        "android_client_info": {
+          "package_name": "org.smu.blood"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "109738756050-h46mhg8859ok9g74kf31qg2s3int9pqd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCaOftnTdnFnVQPSvy-jd_UbygK2Ib5yyY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "109738756050-h46mhg8859ok9g74kf31qg2s3int9pqd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -2,6 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.smu.blood">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,14 +16,56 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SMU_blood">
         <activity
-            android:name=".MainActivity"
-            android:exported="true">
+            android:name=".database.TestActivity"
+            android:exported="true" />
+        <activity
+            android:name=".MyCardActivity"
+            android:exported="true" /> <!-- Download -->
+        <activity
+            android:name=".ui.download.SplashActivity"
+            android:exported="true"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.download.loginActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.download.SignUpActivity"
+            android:exported="true" />
+        <activity
+            android:name=".NavigationActivity"
+            android:exported="true" /> <!-- main -->
+        <activity
+            android:name=".ui.main.MainRequestActivity"
+            android:exported="true" /> <!-- Board -->
+        <activity
+            android:name=".ui.board.BoardWritingActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.board.BoardRegisterActivity"
+            android:exported="true" /> <!-- Mypage -->
+        <activity
+            android:name=".ui.my.MyActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.my.MyModActivity"
+            android:exported="true" />
+
+        <!-- Google Map API Key -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyB57Q2RnPpZ7n7oLc5Ky9K7wBUPTsa395o" />
+        <uses-library android:name="org.apache.http.legacy"
+            android:required="false"/>
+
+        <activity
+            android:name=".ui.map.MapApplicationActivity"
+            android:exported="true" />
     </application>
 
 </manifest>
