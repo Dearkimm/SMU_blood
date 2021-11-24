@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import org.smu.blood.NavigationActivity
 import org.smu.blood.databinding.FragmentMainRequestBinding
 import org.smu.blood.ui.base.BaseFragment
 
@@ -13,7 +14,12 @@ class MainRequestFragment : BaseFragment<FragmentMainRequestBinding>() {
         FragmentMainRequestBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
+        configureRequestNavigation()
     }
 
+    private fun configureRequestNavigation() {
+        binding.btnRegister.setOnClickListener {
+            (activity as NavigationActivity).navigateRequestToSearchHospital()
+        }
+    }
 }
