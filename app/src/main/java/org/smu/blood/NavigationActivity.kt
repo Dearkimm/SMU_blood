@@ -5,6 +5,7 @@ import android.os.Bundle
 import org.smu.blood.databinding.ActivityNavigationBinding
 import org.smu.blood.ui.board.BoardFragment
 import org.smu.blood.ui.main.MainFragment
+import org.smu.blood.ui.main.MainRequestFragment
 import org.smu.blood.ui.map.MapFragment
 import org.smu.blood.util.replaceFragment
 
@@ -30,5 +31,9 @@ class NavigationActivity : AppCompatActivity() {
         binding.btnReview.setOnClickListener {
             replaceFragment(binding.fragmentContainer, BoardFragment::class.java, withAnim = false)
         }
+    }
+
+    fun navigateMainToRequest(){
+        replaceFragment(binding.fragmentContainer, MainRequestFragment::class.java, true)
     }
 }
