@@ -34,6 +34,18 @@ class BoardFragment : Fragment() {
         recyclerview.adapter = boardAdapter
         initRecycler()
 
+        //리사이클러뷰 어댑터 클릭 이벤트
+        boardAdapter.setOnItemClickListener(object: BoardAdapter.OnItemClickListener{
+            override fun onItemClick(v: View, data: BoardData, position: Int) {
+
+                /*Intent(context, BoardWritingActivity::class.java).apply {
+                    putExtra("data", item)
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                }.run { context!!.startActivity(this) }*/
+
+            }
+        })
+
         //버튼
         var writeButton = rootView.findViewById<ImageButton>(R.id.btv_write)
         var myButton = rootView.findViewById<ImageButton>(R.id.btv_mypage)

@@ -24,11 +24,11 @@ private const val ARG_PARAM2 = "param2"
 
 class MainFragment : Fragment() {
 
-    //어댑터..?
+    //어댑터
     lateinit var mainAdapter: MainAdapter
     lateinit var recyclerview: RecyclerView
     val datas = mutableListOf<MainData>()
-    //????????
+    //??
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,6 +94,5 @@ class MainFragment : Fragment() {
 
         }
     }
-
 
 }
