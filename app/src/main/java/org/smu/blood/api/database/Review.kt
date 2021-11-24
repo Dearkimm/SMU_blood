@@ -1,4 +1,4 @@
-package org.smu.blood.database
+package org.smu.blood.api.database
 
 class Review {
     var id: Int? = null
