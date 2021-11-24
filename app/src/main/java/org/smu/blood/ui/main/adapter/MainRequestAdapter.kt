@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import org.smu.blood.api.database.MainRequest
 import org.smu.blood.databinding.ItemCardRequestBinding
 import org.smu.blood.model.BloodType
+import org.smu.blood.model.Hospital
 
 class MainRequestAdapter: RecyclerView.Adapter<MainRequestAdapter.MainRequestViewHolder>() {
 
@@ -26,12 +27,15 @@ class MainRequestAdapter: RecyclerView.Adapter<MainRequestAdapter.MainRequestVie
         fun onBind(requestInfo: MainRequest, position: Int) {
             val rh = if (requestInfo.rhType) "+" else "-"
             var blood = ""
+            var hospital = ""
             BloodType.values().forEach {
                 if (requestInfo.bloodType == it.id) blood = it.bloodType
-
+            }
+            Hospital.values().forEach {
+                if (requestInfo.hospitalId == it.id) hospital = it.hospitalName
             }
             binding.apply {
-                reqHospital.text = requestInfo.hospitalId.toString()
+                reqHospital.text = hospital
                 reqBlood.text = "RH${rh} ${blood}형 전혈"
                 reqDate.text = "${requestInfo.startDate}~${requestInfo.endDate}"
                 reqCount.text = "${requestInfo.count}명"

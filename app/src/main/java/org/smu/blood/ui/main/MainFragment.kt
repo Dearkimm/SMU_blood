@@ -47,10 +47,10 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
         // 더미데이터
         mainRequestAdapter.setItems(
             listOf(
-                MainRequest(1, true, 1, "21.10.01", "21.10.15", 3, "하이"),
-                MainRequest(2, false, 2, "21.10.23", "21.10.31", 0, "어쩔티비"),
-                MainRequest(3, true, 3, "21.10.23", "21.10.31", 5, "저쩔냉장고"),
-                MainRequest(4, true, 4, "21.10.01", "21.10.31", 0, "명성족발"),
+                MainRequest(5, true, 1, "21.10.01", "21.10.15", 3, "하이"),
+                MainRequest(32, false, 2, "21.10.23", "21.10.31", 0, "어쩔티비"),
+                MainRequest(17, true, 3, "21.10.23", "21.10.31", 5, "저쩔냉장고"),
+                MainRequest(54, true, 4, "21.10.01", "21.10.31", 0, "명성족발"),
             )
         )
     }
