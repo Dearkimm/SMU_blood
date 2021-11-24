@@ -1,6 +1,5 @@
 package org.smu.blood.ui.main.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -10,7 +9,8 @@ import org.smu.blood.model.BloodType
 
 class MainRequestAdapter: RecyclerView.Adapter<MainRequestAdapter.MainRequestViewHolder>() {
 
-    private val requestInfo = mutableListOf<MainRequest>()
+    val request = mutableListOf<MainRequest>()
+    private lateinit var itemClickListener: ItemClickListener
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -20,35 +20,52 @@ class MainRequestAdapter: RecyclerView.Adapter<MainRequestAdapter.MainRequestVie
         return MainRequestViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: MainRequestViewHolder, position: Int) {
-        holder.onBind(requestInfo[position], holder.itemView.context)
+    inner class MainRequestViewHolder(
+        private val binding: ItemCardRequestBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
+        fun onBind(requestInfo: MainRequest, position: Int) {
+            val rh = if (requestInfo.rhType) "+" else "-"
+            var blood = ""
+            BloodType.values().forEach {
+                if (requestInfo.bloodType == it.id) blood = it.bloodType
+
+            }
+            binding.apply {
+                reqHospital.text = requestInfo.hospitalId.toString()
+                reqBlood.text = "RH${rh} ${blood}형 전혈"
+                reqDate.text = "${requestInfo.startDate}~${requestInfo.endDate}"
+                reqCount.text = "${requestInfo.count}명"
+                circleBlood.text = "RH $blood$rh"
+
+                itemView.setOnClickListener {
+                    itemClickListener.onClick(request[position])
+                }
+            }
+        }
     }
 
-    override fun getItemCount(): Int = requestInfo.size
+    override fun onBindViewHolder(holder: MainRequestViewHolder, position: Int) {
+        holder.onBind(request[position], position)
+    }
+
+    override fun getItemCount(): Int = request.size
 
     fun setItems(newItems: List<MainRequest>) {
-        requestInfo.clear()
-        requestInfo.addAll(newItems)
+        request.clear()
+        request.addAll(newItems)
         notifyDataSetChanged()
     }
 
-    class MainRequestViewHolder(
-        private val binding: ItemCardRequestBinding
-    ) : RecyclerView.ViewHolder(binding.root) {
-        fun onBind(requestInfo: MainRequest, context: Context) {
-            binding.apply {
-//                reqHospital.text = requestInfo.hospitalId
-                BloodType.values().forEach {
-                    if (requestInfo.bloodType == it.id) {
-                        reqBlood.text = "${it.bloodType}형 전혈"
-                        circleBlood.text = "RH ${it.bloodType}"
-                    }
-                }
-                reqRh.text = "RH${if (requestInfo.rhType) "+" else "-"}"
-                circleRh.text = if (requestInfo.rhType) "+" else "-"
-                reqDate.text = "${requestInfo.startDate}~${requestInfo.endDate}"
-                reqCount.text = "${requestInfo.count}명"
-            }
-        }
+    fun addItems(newItems: List<MainRequest>) {
+        request.addAll(newItems)
+        notifyDataSetChanged()
+    }
+
+    interface ItemClickListener {
+        fun onClick(requestInfo: MainRequest)
+    }
+
+    fun setItemClickListener(itemClickListener: ItemClickListener) {
+        this.itemClickListener = itemClickListener
     }
 }

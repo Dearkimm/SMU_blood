@@ -5,6 +5,7 @@ import android.os.Bundle
 import org.smu.blood.databinding.ActivityNavigationBinding
 import org.smu.blood.ui.board.BoardFragment
 import org.smu.blood.ui.main.MainFragment
+import org.smu.blood.ui.main.MainReadFragment
 import org.smu.blood.ui.main.MainRequestFragment
 import org.smu.blood.ui.main.MainSearchHospitalFragment
 import org.smu.blood.ui.map.MapFragment
@@ -40,5 +41,9 @@ class NavigationActivity : AppCompatActivity() {
 
     fun navigateRequestToSearchHospital(){
         replaceFragment(binding.fragmentContainer, MainSearchHospitalFragment::class.java, true)
+    }
+
+    fun navigateMainToRead(){
+        replaceFragment(binding.fragmentContainer, MainReadFragment::class.java, true)
     }
 }

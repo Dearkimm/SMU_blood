@@ -35,7 +35,7 @@
                 tools:text="서울특별시 서초구 강남 연세사랑병" />
 
             <TextView
-                android:id="@+id/req_rh"
+                android:id="@+id/req_blood"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
@@ -45,20 +45,7 @@
                 android:textSize="10sp"
                 app:layout_constraintLeft_toLeftOf="@+id/req_hospital"
                 app:layout_constraintTop_toBottomOf="@id/req_hospital"
-                tools:text="Rh+" />
-
-            <TextView
-                android:id="@+id/req_blood"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/notosans_light"
-                android:includeFontPadding="false"
-                android:textColor="@color/black"
-                android:textSize="10sp"
-                app:layout_constraintBottom_toBottomOf="@id/req_rh"
-                app:layout_constraintLeft_toRightOf="@+id/req_rh"
-                app:layout_constraintTop_toTopOf="@id/req_rh"
-                tools:text="A형 전혈" />
+                tools:text="Rh+ A형 전혈" />
 
             <TextView
                 android:id="@+id/req_time"
@@ -71,8 +58,8 @@
                 android:textColor="@color/black"
                 android:textSize="10sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="@id/req_rh"
-                app:layout_constraintTop_toBottomOf="@id/req_rh"
+                app:layout_constraintLeft_toLeftOf="@id/req_blood"
+                app:layout_constraintTop_toBottomOf="@id/req_blood"
                 tools:text="5분전" />
 
             <TextView
@@ -117,29 +104,15 @@
                 android:id="@+id/circle_blood"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
                 android:fontFamily="@font/notosans_regular"
                 android:includeFontPadding="false"
                 android:textColor="@color/white"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="@id/circle"
                 app:layout_constraintLeft_toLeftOf="@id/circle"
-                app:layout_constraintRight_toLeftOf="@id/circle_rh"
+                app:layout_constraintRight_toRightOf="@id/circle"
                 app:layout_constraintTop_toTopOf="@id/circle"
-                tools:text="RH A" />
-
-            <TextView
-                android:id="@+id/circle_rh"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/notosans_regular"
-                android:includeFontPadding="false"
-                android:textColor="@color/white"
-                android:textSize="15sp"
-                app:layout_constraintBottom_toBottomOf="@id/circle_blood"
-                app:layout_constraintLeft_toRightOf="@+id/circle_blood"
-                app:layout_constraintTop_toTopOf="@id/circle_blood"
-                tools:text="+" />
+                tools:text="RH A+" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
