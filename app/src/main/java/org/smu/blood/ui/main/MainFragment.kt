@@ -14,10 +14,10 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
         FragmentMainBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        configureHomeNavigation()
+        configureMainNavigation()
     }
 
-    private fun configureHomeNavigation() {
+    private fun configureMainNavigation() {
         binding.btnRequest.setOnClickListener {
             (activity as NavigationActivity).navigateMainToRequest()
         }

@@ -1,5 +1,6 @@
 package org.smu.blood
 
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageButton
@@ -34,12 +35,16 @@ class MyCardActivity : AppCompatActivity() {
         transaction!!.replace(R.id.frame, fragmentRequest!!).commitAllowingStateLoss()
         //요청카드 띄우기
         request.setOnClickListener {
+            request.setTextColor(Color.RED)
+            apply.setTextColor(Color.BLACK)
             transaction = fragmentManager?.beginTransaction()
             transaction!!.replace(R.id.frame, fragmentRequest!!).commitAllowingStateLoss()
         }
 
         //신청 카드 띄우기
         apply.setOnClickListener {
+            apply.setTextColor(Color.RED)
+            request.setTextColor(Color.BLACK)
             transaction = fragmentManager?.beginTransaction()
             transaction!!.replace(R.id.frame, fragmentApply!!).commitAllowingStateLoss()
         }

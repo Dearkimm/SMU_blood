@@ -280,8 +280,8 @@
                 android:textSize="13sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/checkbox5"/>
-            <EditText
-                android:id="@+id/mhos_et"
+            <Button
+                android:id="@+id/mhos_btn"
                 android:layout_width="300dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="16dp"
@@ -289,9 +289,10 @@
                 android:background="@drawable/hospital_search_et"
                 android:fontFamily="@font/notosans_light"
                 android:includeFontPadding="false"
-                android:hint="병원 찾기"
+                android:text="@string/mhos_search_hos"
+                android:gravity="center_vertical"
                 android:paddingLeft="9dp"
-                android:textColorHint="@color/black"
+                android:textColor="#7c7c7c"
                 android:textSize="13sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/main_hos" />
@@ -306,7 +307,7 @@
                 android:padding="12dp"
                 android:scaleType="centerInside"
                 android:src="@drawable/search_icon"
-                app:layout_constraintLeft_toRightOf="@id/mhos_et"
+                app:layout_constraintLeft_toRightOf="@id/mhos_btn"
                 app:layout_constraintTop_toBottomOf="@id/main_hos"
                 />
 
@@ -322,7 +323,7 @@
                 android:textSize="13sp"
                 android:textColor="@color/black"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/mhos_et" />
+                app:layout_constraintTop_toBottomOf="@id/mhos_btn" />
 
             <EditText
                 android:id="@+id/met_hnum"

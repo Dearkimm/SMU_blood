@@ -6,6 +6,7 @@ import org.smu.blood.databinding.ActivityNavigationBinding
 import org.smu.blood.ui.board.BoardFragment
 import org.smu.blood.ui.main.MainFragment
 import org.smu.blood.ui.main.MainRequestFragment
+import org.smu.blood.ui.main.MainSearchHospitalFragment
 import org.smu.blood.ui.map.MapFragment
 import org.smu.blood.util.replaceFragment
 
@@ -35,5 +36,9 @@ class NavigationActivity : AppCompatActivity() {
 
     fun navigateMainToRequest(){
         replaceFragment(binding.fragmentContainer, MainRequestFragment::class.java, true)
+    }
+
+    fun navigateRequestToSearchHospital(){
+        replaceFragment(binding.fragmentContainer, MainSearchHospitalFragment::class.java, true)
     }
 }
