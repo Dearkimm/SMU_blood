@@ -31,10 +31,10 @@ import com.google.firebase.database.FirebaseDatabase
 
 class SignUpActivity : AppCompatActivity() {
     lateinit var mDatabase: DatabaseReference
-    lateinit var idText : String
-    lateinit var nicknameText : String
-    lateinit var passwordText : String
-    lateinit var password2Text : String
+    lateinit var idText: String
+    lateinit var nicknameText: String
+    lateinit var passwordText: String
+    lateinit var password2Text: String
     var bloodType: Int = 0
 
 
@@ -48,7 +48,6 @@ class SignUpActivity : AppCompatActivity() {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
 
-
         //버튼
         var joinButton = findViewById<Button>(R.id.btn_join)
 
@@ -57,7 +56,6 @@ class SignUpActivity : AppCompatActivity() {
         var editId = findViewById<EditText>(R.id.set_id)
         var editPassword = findViewById<EditText>(R.id.set_pwd)
         var editPassword2 = findViewById<EditText>(R.id.set_pwd2)
-
 
 
         //혈액형 버튼
@@ -125,13 +123,12 @@ class SignUpActivity : AppCompatActivity() {
         }
 
 
-
         //계정 생성 이후 로그인으로 돌아가기
         joinButton.setOnClickListener {
-            if (editName.text.isNullOrBlank() || editId.text.isNullOrBlank() || editPassword.text.isNullOrBlank()  || editPassword2.text.isNullOrBlank()) {
+            if (editName.text.isNullOrBlank() || editId.text.isNullOrBlank() || editPassword.text.isNullOrBlank() || editPassword2.text.isNullOrBlank()) {
                 Toast.makeText(applicationContext, "빈 칸이 있습니다", Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(applicationContext,"회원가입 완료",Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, "회원가입 완료", Toast.LENGTH_SHORT).show()
                 //입력값 저장
                 idText = editId.text.toString()
                 passwordText = editPassword.text.toString()
@@ -140,7 +137,6 @@ class SignUpActivity : AppCompatActivity() {
 
                 //입력한 내용을 서버에 넣어주기
                 //writeNewUser("test1234", "테스트", "test@aa.aa")
-
 
 
                 // 3. intent에 보낼 데이터 담기
@@ -157,7 +153,12 @@ class SignUpActivity : AppCompatActivity() {
 
     }
 
+
+
 }
+
+
+
     //이게 서버에 정보 넘기는거
     /*fun writeNewUser(userId: String, name: String, email: String) {
         val user = User(name, email)
@@ -174,4 +175,6 @@ class SignUpActivity : AppCompatActivity() {
             })
     }
 
-}*/
+<<<<<<< HEAD
+}
+     */

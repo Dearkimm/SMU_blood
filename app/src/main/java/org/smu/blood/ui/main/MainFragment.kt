@@ -1,6 +1,8 @@
 package org.smu.blood.ui.main
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,7 +10,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
+import androidx.core.app.ActivityCompat
+
 import androidx.recyclerview.widget.RecyclerView
+
 import org.smu.blood.R
 import org.smu.blood.ui.board.BoardAdapter
 import org.smu.blood.ui.board.BoardData
@@ -52,7 +57,6 @@ class MainFragment : Fragment() {
             startActivity(intent)
         }
 
-        //마이페이지로 이동
         //마이페이지로 이동
         myButton.setOnClickListener {
             val intent = Intent(context, MyActivity()::class.java)

@@ -1,9 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MyCardActivity">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- -->
+    <TextView
+        android:id="@+id/atv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/acard_tv1"
+        android:textSize="19sp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/notosans_regular"
+        android:includeFontPadding="false"
+        android:layout_marginTop="43dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:gravity="center"
+        />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/tag2"
+        android:layout_width="222dp"
+        android:layout_height="26dp"
+        android:background="@drawable/bg_record"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/atv"
+        android:layout_marginTop="30dp"
+        >
+
+        <TextView
+            android:id="@+id/rec_request"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="34dp"
+            android:fontFamily="@font/notosans_light"
+            android:includeFontPadding="false"
+            android:text="@string/acard_tv2"
+            android:textColor="@color/black"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/rec_apply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="34dp"
+            android:layout_marginRight="34dp"
+            android:fontFamily="@font/notosans_light"
+            android:includeFontPadding="false"
+            android:text="@string/acard_tv3"
+            android:textSize="11sp"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/view_1"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/view_1"
+            android:layout_width="0.1dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="34dp"
+            android:background="#707070"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/rec_request"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <FrameLayout
+        android:id="@+id/frame"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tag2" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
