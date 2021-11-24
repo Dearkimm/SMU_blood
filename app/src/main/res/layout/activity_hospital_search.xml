@@ -28,7 +28,7 @@
         android:includeFontPadding="false"
         android:hint="병원 찾기"
         android:paddingLeft="9dp"
-        android:textColorHint="@color/black"
+        android:textColorHint="#7c7c7c"
         android:textSize="13sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/hos_text" />

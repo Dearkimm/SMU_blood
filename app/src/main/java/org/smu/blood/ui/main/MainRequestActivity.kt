@@ -1,10 +1,12 @@
 package org.smu.blood.ui.main
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import org.smu.blood.R
+import org.smu.blood.ui.download.SignUpActivity
 
 class MainRequestActivity : AppCompatActivity() {
 
@@ -15,12 +17,20 @@ class MainRequestActivity : AppCompatActivity() {
 
         //버튼
         var registerButton = findViewById<Button>(R.id.btn_register)
+        var hospitalSearchButton = findViewById<Button>(R.id.mhos_btn)
 
         var typeA = findViewById<Button>(R.id.type2_a)
         var typeB = findViewById<Button>(R.id.type2_b)
         var typeO = findViewById<Button>(R.id.type2_o)
         var typeAB = findViewById<Button>(R.id.type2_ab)
 
+        //병원찾기 클릭리스너
+        hospitalSearchButton.setOnClickListener {
+            val intent = Intent(this, HospitalSearchActivity::class.java)
+            startActivity(intent)
+        }
+
+        //혈액형 클릭리스너
         typeA.setOnClickListener {
             bloodType = 1
             typeA.setBackgroundResource(R.drawable.bg_btn_red_5dp)
