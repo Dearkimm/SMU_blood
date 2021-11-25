@@ -19,8 +19,11 @@
         <entry key="..\:/Users/82102/SMU_blood/app/src/main/res/drawable/hospital_name_initial.xml" value="0.10260416666666666" />
         <entry key="..\:/Users/82102/SMU_blood/app/src/main/res/drawable/hospital_search_et.xml" value="0.22" />
         <entry key="..\:/Users/82102/SMU_blood/app/src/main/res/drawable/ic_btn_main.xml" value="0.10260416666666666" />
-        <entry key="..\:/Users/82102/SMU_blood/app/src/main/res/layout/activity_board.xml" value="0.1" />
+        <entry key="..\:/Users/82102/SMU_blood/app/src/main/res/layout/activity_board.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/82102/SMU_blood/app/src/main/res/layout/activity_board_register.xml" value="0.17916666666666667" />
+        <entry key="..\:/Users/82102/SMU_blood/app/src/main/res/layout/activity_board_writing.xml" value="0.17916666666666667" />
         <entry key="..\:/Users/82102/SMU_blood/app/src/main/res/layout/activity_card_apply.xml" value="0.1" />
+        <entry key="..\:/Users/82102/SMU_blood/app/src/main/res/layout/activity_card_request.xml" value="0.17916666666666667" />
         <entry key="..\:/Users/82102/SMU_blood/app/src/main/res/layout/activity_hh.xml" value="0.17916666666666667" />
         <entry key="..\:/Users/82102/SMU_blood/app/src/main/res/layout/activity_hospital_search.xml" value="2.0" />
         <entry key="..\:/Users/82102/SMU_blood/app/src/main/res/layout/activity_login.xml" value="0.3333333333333333" />
@@ -35,9 +38,12 @@
         <entry key="..\:/Users/82102/SMU_blood/app/src/main/res/layout/dialog_main_request_confirm.xml" value="0.17916666666666667" />
         <entry key="..\:/Users/82102/SMU_blood/app/src/main/res/layout/dialog_map_check_condition.xml" value="0.22" />
         <entry key="..\:/Users/82102/SMU_blood/app/src/main/res/layout/dialog_map_location_alert.xml" value="0.14666666666666667" />
+        <entry key="..\:/Users/82102/SMU_blood/app/src/main/res/layout/fragment_board.xml" value="0.17916666666666667" />
         <entry key="..\:/Users/82102/SMU_blood/app/src/main/res/layout/fragment_main.xml" value="0.1764102564102564" />
+        <entry key="..\:/Users/82102/SMU_blood/app/src/main/res/layout/fragment_main_search_hospital.xml" value="0.17916666666666667" />
         <entry key="..\:/Users/82102/SMU_blood/app/src/main/res/layout/fragment_map.xml" value="0.1764102564102564" />
         <entry key="..\:/Users/82102/SMU_blood/app/src/main/res/layout/fragment_my.xml" value="0.1764102564102564" />
+        <entry key="..\:/Users/82102/SMU_blood/app/src/main/res/layout/item_board.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/82102/SMU_blood/app/src/main/res/layout/item_card_request.xml" value="0.17916666666666667" />
         <entry key="..\:/Users/jyjou/AndroidStudioProjects/SMU_blood/app/src/main/res/drawable/checkbox.xml" value="0.18289473684210528" />
         <entry key="..\:/Users/jyjou/AndroidStudioProjects/SMU_blood/app/src/main/res/drawable/custom_checkbox_heart.xml" value="0.18289473684210528" />
