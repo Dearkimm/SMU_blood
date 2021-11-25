@@ -1,98 +1,83 @@
 package org.smu.blood.ui.main
 
-import android.Manifest
-import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.telecom.Call
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageButton
-import androidx.core.app.ActivityCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import org.smu.blood.NavigationActivity
+import org.smu.blood.api.ServiceCreator
+import org.smu.blood.api.database.MainRequest
+import org.smu.blood.databinding.FragmentMainBinding
+import org.smu.blood.ui.base.BaseFragment
+import org.smu.blood.ui.main.adapter.MainRequestAdapter
 
-import androidx.recyclerview.widget.RecyclerView
+class MainFragment : BaseFragment<FragmentMainBinding>() {
+    private val mainRequestAdapter = MainRequestAdapter()
+    private val request = mutableListOf<MainRequest>()
 
-import org.smu.blood.R
-import org.smu.blood.ui.board.BoardAdapter
-import org.smu.blood.ui.board.BoardData
-import org.smu.blood.ui.my.MyActivity
+    override fun initBinding(inflater: LayoutInflater, container: ViewGroup?) =
+        FragmentMainBinding.inflate(inflater, container, false)
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding.rcRequestList.layoutManager = LinearLayoutManager(activity)
+        binding.rcRequestList.adapter = mainRequestAdapter
 
-class MainFragment : Fragment() {
+        configureMainNavigation()
+        addMainRequestInfo()
+        configureClickEvent()
+    }
 
-    //어댑터
-    lateinit var mainAdapter: MainAdapter
-    lateinit var recyclerview: RecyclerView
-    val datas = mutableListOf<MainData>()
-    //??
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
+    private fun configureMainNavigation() {
+        binding.btnRequest.setOnClickListener {
+            (activity as NavigationActivity).navigateMainToRequest()
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        var rootView = inflater.inflate(R.layout.fragment_main, container, false)
-        var requestButton = rootView.findViewById<Button>(R.id.btn_request)
-        var myButton = rootView.findViewById<ImageButton>(R.id.btn_my)
+    private fun addMainRequestInfo() {
+        // 서버 통신 코드
+//        val call: Call<ResponseRequest> = ServiceCreator.bumService.getRequest(
+//        call.enqueueUtil(
+//            onSuccess = {
+//                mainRequestAdapter.setItems()
+//            }
+//        )
 
-        //리사이클러뷰 어댑터????????
-        mainAdapter = context?.let { MainAdapter(it) }!!
-        recyclerview = rootView.findViewById<RecyclerView>(R.id.rc_request_list)
-        recyclerview.adapter = mainAdapter
-        initmainRecycler()
+        // 더미데이터
+        mainRequestAdapter.setItems(
+            listOf(
+                MainRequest(5, true, 1, "21.10.01", "21.10.15", 3, "하이"),
+                MainRequest(32, false, 2, "21.10.23", "21.10.31", 0, "어쩔티비"),
+                MainRequest(17, true, 3, "21.10.23", "21.10.31", 5, "저쩔냉장고"),
+                MainRequest(54, true, 4, "21.10.01", "21.10.31", 0, "명성족발"),
+            )
+        )
+    }
 
-        //지정 헌혈 요청 화면으로 이동
-        requestButton.setOnClickListener {
-            val intent = Intent(context, MainRequestActivity::class.java)
-            startActivity(intent)
-        }
+    private fun configureClickEvent() {
+        mainRequestAdapter.setItemClickListener(object : MainRequestAdapter.ItemClickListener {
+            override fun onClick(requestInfo: MainRequest) {
+                hospitalId = requestInfo.hospitalId
+                rhType = requestInfo.rhType
+                bloodType = requestInfo.bloodType
+                startDate = requestInfo.startDate
+                endDate = requestInfo.endDate
+                count = requestInfo.count
+                content = requestInfo.content
 
-        //마이페이지로 이동
-        myButton.setOnClickListener {
-            val intent = Intent(context, MyActivity()::class.java)
-            startActivity(intent)
-        }
-
-
-
-        return rootView
+                (activity as NavigationActivity).navigateMainToRead()
+            }
+        })
     }
 
     companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            MainFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        var hospitalId = -1
+        var rhType = false
+        var bloodType = -1
+        var startDate = ""
+        var endDate = ""
+        var count = -1
+        var content = ""
     }
-
-    //리사이클러뷰 초기화????
-    private fun initmainRecycler() {
-
-        datas.apply {
-            add(MainData(reqHospital = "서울특별시 서초구 강남연세사랑병원",reqBlood = "Rh+ A형 전혈",reqTime = "1시간 전",reqDate = "21.11.16-21.11.19",reqCount=0,circleBlood ="RH A+"))
-            add(MainData(reqHospital = "서울특별시 성북구 고려대 안암병원",reqBlood = "Rh+ B형 전혈",reqTime = "1시간 전",reqDate = "21.11.16-21.11.20",reqCount=0,circleBlood="RH B+"))
-            add(MainData(reqHospital = "서울특별시 서초구 강남연세사랑병원",reqBlood = "Rh- B형 전혈",reqTime = "3시간 전",reqDate = "21.11.18-21.11.22",reqCount=1,circleBlood="RH B-"))
-            add(MainData(reqHospital = "서울특별시 강동구 강동성심병원",reqBlood = "Rh+ O형 전혈",reqTime = "4일 전",reqDate = "21.11.4-21.11.8",reqCount=2,circleBlood="RH O+"))
-            add(MainData(reqHospital = "서울특별시 강동구 강동성심병원",reqBlood = "Rh+ O형 전혈",reqTime = "지난 주",reqDate = "21.10.30-21.10.31",reqCount=4,circleBlood="RH O+"))
-
-            mainAdapter.datas = datas
-            mainAdapter.notifyDataSetChanged()
-
-        }
-    }
-
 }

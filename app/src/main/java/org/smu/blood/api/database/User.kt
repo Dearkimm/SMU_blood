@@ -1,4 +1,4 @@
-package org.smu.blood.database
+package org.smu.blood.api.database
 
 import com.google.firebase.database.IgnoreExtraProperties
 

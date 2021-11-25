@@ -1,4 +1,4 @@
-package org.smu.blood.database
+package org.smu.blood.api.database
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
