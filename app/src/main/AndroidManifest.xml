@@ -13,14 +13,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.SMU_blood">
+        android:theme="@style/Theme.SMU_blood"
+        android:usesCleartextTraffic="true">
 
         <activity
-            android:name=".ui.main.HospitalSearchActivity"
-            android:exported="true" />
-
-        <activity
-            android:name=".database.TestActivity"
+            android:name="org.smu.blood.api.database.TestActivity"
             android:exported="true" />
         <activity
             android:name=".MyCardActivity"
@@ -44,9 +41,6 @@
         <activity
             android:name=".NavigationActivity"
             android:exported="true" /> <!-- main -->
-        <activity
-            android:name=".ui.main.MainRequestActivity"
-            android:exported="true" /> <!-- Board -->
         <activity
             android:name=".ui.board.BoardWritingActivity"
             android:exported="true" />

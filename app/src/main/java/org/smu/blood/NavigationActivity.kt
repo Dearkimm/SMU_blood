@@ -2,56 +2,48 @@ package org.smu.blood
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ImageButton
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
+import org.smu.blood.databinding.ActivityNavigationBinding
 import org.smu.blood.ui.board.BoardFragment
 import org.smu.blood.ui.main.MainFragment
+import org.smu.blood.ui.main.MainReadFragment
+import org.smu.blood.ui.main.MainRequestFragment
+import org.smu.blood.ui.main.MainSearchHospitalFragment
 import org.smu.blood.ui.map.MapFragment
+import org.smu.blood.util.replaceFragment
 
 class NavigationActivity : AppCompatActivity() {
-    //프래그먼트 관련 변수
-    private var fragmentManager: FragmentManager? = null
-    private var fragmentMap: MapFragment? = null
-    private var fragmentMain: MainFragment? = null
-    private var fragmentBoard: BoardFragment? = null
-    private var transaction: FragmentTransaction? = null
+
+    private lateinit var binding: ActivityNavigationBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_navigation)
+        binding = ActivityNavigationBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        //네이게이션 버튼
-        var mainButton = findViewById<ImageButton>(R.id.btn_main)
-        var mapButton = findViewById<ImageButton>(R.id.btn_map)
-        var reviewButton = findViewById<ImageButton>(R.id.btn_review)
+        configureBottomNav()
+    }
 
-        //프래그먼트 관련 초기화
-        fragmentManager = supportFragmentManager
-        fragmentMap = MapFragment()
-        fragmentMain = MainFragment()
-        fragmentBoard = BoardFragment()
-        transaction = fragmentManager?.beginTransaction()
-        transaction!!.replace(R.id.frame, fragmentMain!!).commitAllowingStateLoss()
-        //메인 프래그먼트 띄우기
-        mainButton.setOnClickListener {
-            transaction = fragmentManager?.beginTransaction()
-            transaction!!.replace(R.id.frame, fragmentMain!!).commitAllowingStateLoss()
+    private fun configureBottomNav() {
+        binding.btnMain.setOnClickListener {
+            replaceFragment(binding.fragmentContainer, MainFragment::class.java, withAnim = false)
         }
-
-        //지도 프래그먼트 띄우기
-        mapButton.setOnClickListener {
-            transaction = fragmentManager?.beginTransaction()
-            transaction!!.replace(R.id.frame, fragmentMap!!).commitAllowingStateLoss()
+        binding.btnMap.setOnClickListener {
+            replaceFragment(binding.fragmentContainer, MapFragment::class.java, withAnim = false)
         }
-
-        //후기 프래그먼트 띄우기
-        reviewButton.setOnClickListener {
-            transaction = fragmentManager?.beginTransaction()
-            transaction!!.replace(R.id.frame, fragmentBoard!!).commitAllowingStateLoss()
+        binding.btnReview.setOnClickListener {
+            replaceFragment(binding.fragmentContainer, BoardFragment::class.java, withAnim = false)
         }
+    }
 
+    fun navigateMainToRequest(){
+        replaceFragment(binding.fragmentContainer, MainRequestFragment::class.java, true)
+    }
 
+    fun navigateRequestToSearchHospital(){
+        replaceFragment(binding.fragmentContainer, MainSearchHospitalFragment::class.java, true)
+    }
 
-
+    fun navigateMainToRead(){
+        replaceFragment(binding.fragmentContainer, MainReadFragment::class.java, true)
     }
 }
