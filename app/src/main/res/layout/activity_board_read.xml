@@ -19,7 +19,7 @@
         android:id="@+id/writing_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="43dp"
+        android:layout_marginTop="20dp"
         android:fontFamily="@font/notosans_regular"
         android:gravity="center"
         android:includeFontPadding="false"
