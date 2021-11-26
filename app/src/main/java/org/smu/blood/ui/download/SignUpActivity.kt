@@ -3,12 +3,9 @@ package org.smu.blood.ui.download
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import org.smu.blood.R
-import android.widget.Toast
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
@@ -32,6 +29,10 @@ class SignUpActivity : AppCompatActivity() {
         //데이터베이스
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
+        //체크박스
+        var checkbox = findViewById<CheckBox>(R.id.checkbox)
+        //체크박스 옆 텍스트뷰
+        var text = findViewById<TextView>(R.id.signup_tv)
 
         //버튼
         var joinButton = findViewById<Button>(R.id.btn_join)
@@ -54,6 +55,11 @@ class SignUpActivity : AppCompatActivity() {
 
         //dname.setVisibility(VISIBLE)
 
+        //체크박스
+        checkbox.setOnCheckedChangeListener { compoundButton, isChecked ->
+            if (isChecked) { text.setTextColor(Color.RED) }
+            else { text.setTextColor(Color.BLACK) }
+        }
 
         //혈액형: 1 -> a, 2 -> b, 3-> o, 4-> ab
         typeA.setOnClickListener {
