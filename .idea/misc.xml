@@ -38,16 +38,28 @@
         <entry key="..\:/Users/jyjou/AndroidStudioProjects/SMU_blood/app/src/main/res/drawable/custom_radio.xml" value="0.18289473684210528" />
         <entry key="..\:/Users/jyjou/AndroidStudioProjects/SMU_blood/app/src/main/res/drawable/hospital_search_et.xml" value="0.18026315789473685" />
         <entry key="..\:/Users/jyjou/AndroidStudioProjects/SMU_blood/app/src/main/res/drawable/radio_textcolor.xml" value="0.18289473684210528" />
+        <entry key="..\:/Users/jyjou/AndroidStudioProjects/SMU_blood/app/src/main/res/layout/activity_apply.xml" value="0.17543859649122806" />
         <entry key="..\:/Users/jyjou/AndroidStudioProjects/SMU_blood/app/src/main/res/layout/activity_board.xml" value="0.264" />
         <entry key="..\:/Users/jyjou/AndroidStudioProjects/SMU_blood/app/src/main/res/layout/activity_board_read.xml" value="0.4" />
         <entry key="..\:/Users/jyjou/AndroidStudioProjects/SMU_blood/app/src/main/res/layout/activity_board_register.xml" value="0.21359649122807017" />
         <entry key="..\:/Users/jyjou/AndroidStudioProjects/SMU_blood/app/src/main/res/layout/activity_board_writing.xml" value="0.264" />
+        <entry key="..\:/Users/jyjou/AndroidStudioProjects/SMU_blood/app/src/main/res/layout/activity_card_apply.xml" value="0.17543859649122806" />
+        <entry key="..\:/Users/jyjou/AndroidStudioProjects/SMU_blood/app/src/main/res/layout/activity_card_request.xml" value="0.17543859649122806" />
         <entry key="..\:/Users/jyjou/AndroidStudioProjects/SMU_blood/app/src/main/res/layout/activity_hospital_search.xml" value="0.264" />
         <entry key="..\:/Users/jyjou/AndroidStudioProjects/SMU_blood/app/src/main/res/layout/activity_login.xml" value="0.1692982456140351" />
         <entry key="..\:/Users/jyjou/AndroidStudioProjects/SMU_blood/app/src/main/res/layout/activity_main_request.xml" value="0.4" />
+        <entry key="..\:/Users/jyjou/AndroidStudioProjects/SMU_blood/app/src/main/res/layout/activity_map_application.xml" value="0.17543859649122806" />
+        <entry key="..\:/Users/jyjou/AndroidStudioProjects/SMU_blood/app/src/main/res/layout/activity_my_card.xml" value="0.17543859649122806" />
+        <entry key="..\:/Users/jyjou/AndroidStudioProjects/SMU_blood/app/src/main/res/layout/activity_my_mod.xml" value="0.17543859649122806" />
+        <entry key="..\:/Users/jyjou/AndroidStudioProjects/SMU_blood/app/src/main/res/layout/activity_mypage.xml" value="0.17543859649122806" />
         <entry key="..\:/Users/jyjou/AndroidStudioProjects/SMU_blood/app/src/main/res/layout/activity_navigation.xml" value="0.21359649122807017" />
+        <entry key="..\:/Users/jyjou/AndroidStudioProjects/SMU_blood/app/src/main/res/layout/activity_sign_up.xml" value="0.17543859649122806" />
+        <entry key="..\:/Users/jyjou/AndroidStudioProjects/SMU_blood/app/src/main/res/layout/activity_splash.xml" value="0.17543859649122806" />
+        <entry key="..\:/Users/jyjou/AndroidStudioProjects/SMU_blood/app/src/main/res/layout/activity_test.xml" value="0.17543859649122806" />
         <entry key="..\:/Users/jyjou/AndroidStudioProjects/SMU_blood/app/src/main/res/layout/board_register_alert.xml" value="0.2" />
         <entry key="..\:/Users/jyjou/AndroidStudioProjects/SMU_blood/app/src/main/res/layout/dialog_logout_alert.xml" value="0.264" />
+        <entry key="..\:/Users/jyjou/AndroidStudioProjects/SMU_blood/app/src/main/res/layout/dialog_main_request_confirm.xml" value="0.17543859649122806" />
+        <entry key="..\:/Users/jyjou/AndroidStudioProjects/SMU_blood/app/src/main/res/layout/dialog_map_application_confirm.xml" value="0.17543859649122806" />
         <entry key="..\:/Users/jyjou/AndroidStudioProjects/SMU_blood/app/src/main/res/layout/dialog_map_location_alert.xml" value="0.21359649122807017" />
         <entry key="..\:/Users/jyjou/AndroidStudioProjects/SMU_blood/app/src/main/res/layout/dialog_withdraw_alert.xml" value="0.21359649122807017" />
         <entry key="..\:/Users/jyjou/AndroidStudioProjects/SMU_blood/app/src/main/res/layout/fragment_board.xml" value="0.536" />
@@ -56,6 +68,7 @@
         <entry key="..\:/Users/jyjou/AndroidStudioProjects/SMU_blood/app/src/main/res/layout/fragment_main_read.xml" value="0.1587719298245614" />
         <entry key="..\:/Users/jyjou/AndroidStudioProjects/SMU_blood/app/src/main/res/layout/fragment_main_request.xml" value="0.16447368421052633" />
         <entry key="..\:/Users/jyjou/AndroidStudioProjects/SMU_blood/app/src/main/res/layout/fragment_main_search_hospital.xml" value="0.175" />
+        <entry key="..\:/Users/jyjou/AndroidStudioProjects/SMU_blood/app/src/main/res/layout/fragment_map.xml" value="0.17543859649122806" />
         <entry key="..\:/Users/jyjou/AndroidStudioProjects/SMU_blood/app/src/main/res/layout/fragment_my.xml" value="0.16447368421052633" />
         <entry key="..\:/Users/jyjou/AndroidStudioProjects/SMU_blood/app/src/main/res/layout/item_board.xml" value="0.175" />
         <entry key="..\:/Users/jyjou/AndroidStudioProjects/SMU_blood/app/src/main/res/layout/item_card_request.xml" value="0.4" />

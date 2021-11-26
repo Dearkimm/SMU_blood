@@ -8,7 +8,7 @@
         android:id="@+id/register_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="43dp"
+        android:layout_marginTop="20dp"
         android:fontFamily="@font/notosans_regular"
         android:gravity="center"
         android:includeFontPadding="false"
@@ -22,7 +22,7 @@
         android:id="@+id/register_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="43dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="15dp"
         android:background="@android:color/transparent"
         android:fontFamily="@font/notosans_regular"
@@ -44,7 +44,7 @@
         app:layout_constraintTop_toBottomOf="@id/register_textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="90dp"
+        android:layout_marginTop="70dp"
         >
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
