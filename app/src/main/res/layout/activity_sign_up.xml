@@ -297,12 +297,13 @@
                 android:layout_height="15dp"
                 android:layout_marginStart="41dp"
                 android:layout_marginTop="16dp"
-                android:background="@drawable/checkbox"
+                android:background="@drawable/redcheck"
                 android:button="@null"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/type_a" />
 
             <TextView
+                android:id="@+id/signup_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="11dp"
