@@ -1,23 +1,20 @@
-package org.smu.blood
+package org.smu.blood.ui.my
 
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ImageButton
 import android.widget.TextView
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import org.smu.blood.ui.board.BoardFragment
-import org.smu.blood.ui.main.MainFragment
-import org.smu.blood.ui.map.MapFragment
-import org.smu.blood.ui.my.MyCardApplyFragment
-import org.smu.blood.ui.my.MyCardRequestFragment
+import org.smu.blood.R
 
 class MyCardActivity : AppCompatActivity() {
     //프래그먼트 관련 변수
     private var fragmentManager: FragmentManager? = null
     private var fragmentApply: MyCardApplyFragment? = null
     private var fragmentRequest: MyCardRequestFragment? = null
+    private var fragmentRequestList: MyCardRequestListFragment? = null
+    private var fragmentApplyList: MyCardApplyListFragment? = null
     private var transaction: FragmentTransaction? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,14 +28,16 @@ class MyCardActivity : AppCompatActivity() {
         fragmentManager = supportFragmentManager
         fragmentApply = MyCardApplyFragment()
         fragmentRequest = MyCardRequestFragment()
+        fragmentApplyList = MyCardApplyListFragment()
+        fragmentRequestList = MyCardRequestListFragment()
         transaction = fragmentManager?.beginTransaction()
-        transaction!!.replace(R.id.frame, fragmentRequest!!).commitAllowingStateLoss()
+        transaction!!.replace(R.id.frame, fragmentApplyList!!).commitAllowingStateLoss()
         //요청카드 띄우기
         request.setOnClickListener {
             request.setTextColor(Color.RED)
             apply.setTextColor(Color.BLACK)
             transaction = fragmentManager?.beginTransaction()
-            transaction!!.replace(R.id.frame, fragmentRequest!!).commitAllowingStateLoss()
+            //transaction!!.replace(R.id.frame, fragmentRequestList!!).commitAllowingStateLoss()
         }
 
         //신청 카드 띄우기
@@ -46,7 +45,7 @@ class MyCardActivity : AppCompatActivity() {
             apply.setTextColor(Color.RED)
             request.setTextColor(Color.BLACK)
             transaction = fragmentManager?.beginTransaction()
-            transaction!!.replace(R.id.frame, fragmentApply!!).commitAllowingStateLoss()
+            transaction!!.replace(R.id.frame, fragmentApplyList!!).commitAllowingStateLoss()
         }
 
     }
