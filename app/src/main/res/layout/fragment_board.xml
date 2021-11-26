@@ -18,7 +18,7 @@
         android:textSize="19sp"
         android:fontFamily="@font/notosans_regular"
         android:includeFontPadding="false"
-        android:layout_marginTop="43dp"
+        android:layout_marginTop="20dp"
         />
     <ImageButton
         android:id="@+id/btv_mypage"
@@ -30,10 +30,9 @@
         app:layout_constraintTop_toTopOf="parent"
         android:scaleType="fitCenter"
         android:background="@android:color/transparent"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="25dp"
         android:layout_marginEnd="15dp"
         />
-
     <TextView
         android:id="@+id/btv_nickname"
         android:layout_width="wrap_content"
@@ -99,20 +98,21 @@
         android:background="@drawable/checkbox"
         android:button="@null"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btv_how_to_delete" />
-
+        app:layout_constraintTop_toBottomOf="@id/btv_how_to_delete"
+        />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="11dp"
-        android:layout_marginTop="25dp"
+        android:text="내가 쓴 글"
+        android:textSize="13sp"
+        android:textColor="@color/black"
         android:fontFamily="@font/notosans_light"
         android:includeFontPadding="false"
-        android:textColor="@color/black"
-        android:text="@string/btv_tv"
-        android:textSize="12sp"
         app:layout_constraintLeft_toRightOf="@id/btv_cb"
-        app:layout_constraintTop_toBottomOf="@id/btv_how_to_delete" />
+        app:layout_constraintTop_toBottomOf="@id/btv_how_to_delete"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="10dp"
+        />
     <ImageButton
         android:id="@+id/btv_write"
         android:layout_width="21dp"
@@ -126,8 +126,6 @@
         android:layout_marginTop="25dp"
         android:layout_marginEnd="25dp"
         />
-
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/rc_board"
         android:layout_width="match_parent"
@@ -158,10 +156,7 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_board"
                 />
-
         </ScrollView>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
