@@ -46,4 +46,5 @@ class NavigationActivity : AppCompatActivity() {
     fun navigateMainToRead(){
         replaceFragment(binding.fragmentContainer, MainReadFragment::class.java, true)
     }
+
 }

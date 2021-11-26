@@ -100,8 +100,8 @@
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="#818181"
+        android:layout_height="1dp"
+        android:background="@color/light_grey"
         app:layout_constraintTop_toBottomOf="@id/writing_nickname"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
