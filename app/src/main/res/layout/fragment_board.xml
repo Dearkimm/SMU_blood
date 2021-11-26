@@ -30,15 +30,9 @@
         app:layout_constraintTop_toTopOf="parent"
         android:scaleType="fitCenter"
         android:background="@android:color/transparent"
-<<<<<<< HEAD
-        android:layout_marginTop="48dp"
-        android:layout_marginEnd="15dp"
-=======
         android:layout_marginTop="25dp"
-        android:layout_marginRight="15dp"
->>>>>>> yoon
+        android:layout_marginEnd="15dp"
         />
-
     <TextView
         android:id="@+id/btv_nickname"
         android:layout_width="wrap_content"
@@ -99,33 +93,12 @@
         android:id="@+id/btv_cb"
         android:layout_width="15dp"
         android:layout_height="15dp"
-<<<<<<< HEAD
         android:layout_marginStart="25dp"
         android:layout_marginTop="27dp"
         android:background="@drawable/checkbox"
         android:button="@null"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btv_how_to_delete" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="11dp"
-        android:layout_marginTop="25dp"
-        android:fontFamily="@font/notosans_light"
-        android:includeFontPadding="false"
-        android:textColor="@color/black"
-        android:text="@string/btv_tv"
-        android:textSize="12sp"
-        app:layout_constraintLeft_toRightOf="@id/btv_cb"
-        app:layout_constraintTop_toBottomOf="@id/btv_how_to_delete" />
-=======
-        android:button="@null"
-        android:background="@drawable/checkbox"
-        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btv_how_to_delete"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="28dp"
         />
     <TextView
         android:layout_width="wrap_content"
@@ -140,8 +113,6 @@
         android:layout_marginTop="25dp"
         android:layout_marginLeft="10dp"
         />
-
->>>>>>> yoon
     <ImageButton
         android:id="@+id/btv_write"
         android:layout_width="21dp"
@@ -155,8 +126,6 @@
         android:layout_marginTop="25dp"
         android:layout_marginEnd="25dp"
         />
-
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/rc_board"
         android:layout_width="match_parent"
@@ -187,10 +156,7 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_board"
                 />
-
         </ScrollView>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
