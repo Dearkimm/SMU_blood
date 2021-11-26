@@ -90,21 +90,31 @@
         android:layout_marginLeft="15dp"
         android:layout_marginTop="7dp"
         />
-
     <CheckBox
         android:id="@+id/btv_cb"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:button="@null"
+        android:background="@drawable/checkbox"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btv_how_to_delete"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="28dp"
+        />
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=" 내가 쓴 글"
+        android:text="내가 쓴 글"
         android:textSize="13sp"
         android:textColor="@color/black"
         android:fontFamily="@font/notosans_light"
         android:includeFontPadding="false"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/btv_cb"
         app:layout_constraintTop_toBottomOf="@id/btv_how_to_delete"
-        android:layout_marginLeft="25dp"
         android:layout_marginTop="25dp"
+        android:layout_marginLeft="10dp"
         />
+
     <ImageButton
         android:id="@+id/btv_write"
         android:layout_width="21dp"
