@@ -20,7 +20,7 @@
             android:name="org.smu.blood.api.database.TestActivity"
             android:exported="true" />
         <activity
-            android:name=".MyCardActivity"
+            android:name=".ui.my.MyCardActivity"
             android:exported="true" /> <!-- Download -->
         <activity
             android:name=".ui.download.SplashActivity"
