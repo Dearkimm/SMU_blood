@@ -31,6 +31,16 @@ RecyclerView.Adapter<BoardAdapter.ViewHolder>() {
         this.listener = listener
     }
 
+    //꾹 누르기 이벤트 리스너 인터페이스 정의
+    interface OnItemLongClickListener{
+        fun onItemLongClick(v:View, data: BoardData, pos : Int)
+    }
+    private var longlistener : OnItemLongClickListener? = null
+    fun setOnItemLongClickListener(listener : OnItemLongClickListener) {
+        this.longlistener = listener
+    }
+
+
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(datas[position])
@@ -53,6 +63,11 @@ RecyclerView.Adapter<BoardAdapter.ViewHolder>() {
             {
                 itemView.setOnClickListener {
                     listener?.onItemClick(itemView,item,position)
+                }
+
+                itemView.setOnLongClickListener {
+                    longlistener?.onItemLongClick(itemView,item,position)
+                    return@setOnLongClickListener true
                 }
             }
 

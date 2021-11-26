@@ -57,12 +57,13 @@
         <entry key="..\:/Users/jyjou/AndroidStudioProjects/SMU_blood/app/src/main/res/layout/activity_splash.xml" value="0.17543859649122806" />
         <entry key="..\:/Users/jyjou/AndroidStudioProjects/SMU_blood/app/src/main/res/layout/activity_test.xml" value="0.17543859649122806" />
         <entry key="..\:/Users/jyjou/AndroidStudioProjects/SMU_blood/app/src/main/res/layout/board_register_alert.xml" value="0.2" />
+        <entry key="..\:/Users/jyjou/AndroidStudioProjects/SMU_blood/app/src/main/res/layout/dialog_board_delete.xml" value="0.17763157894736842" />
         <entry key="..\:/Users/jyjou/AndroidStudioProjects/SMU_blood/app/src/main/res/layout/dialog_logout_alert.xml" value="0.264" />
         <entry key="..\:/Users/jyjou/AndroidStudioProjects/SMU_blood/app/src/main/res/layout/dialog_main_request_confirm.xml" value="0.17543859649122806" />
         <entry key="..\:/Users/jyjou/AndroidStudioProjects/SMU_blood/app/src/main/res/layout/dialog_map_application_confirm.xml" value="0.17543859649122806" />
         <entry key="..\:/Users/jyjou/AndroidStudioProjects/SMU_blood/app/src/main/res/layout/dialog_map_location_alert.xml" value="0.21359649122807017" />
         <entry key="..\:/Users/jyjou/AndroidStudioProjects/SMU_blood/app/src/main/res/layout/dialog_withdraw_alert.xml" value="0.21359649122807017" />
-        <entry key="..\:/Users/jyjou/AndroidStudioProjects/SMU_blood/app/src/main/res/layout/fragment_board.xml" value="0.536" />
+        <entry key="..\:/Users/jyjou/AndroidStudioProjects/SMU_blood/app/src/main/res/layout/fragment_board.xml" value="0.264" />
         <entry key="..\:/Users/jyjou/AndroidStudioProjects/SMU_blood/app/src/main/res/layout/fragment_board_read.xml" value="0.21359649122807017" />
         <entry key="..\:/Users/jyjou/AndroidStudioProjects/SMU_blood/app/src/main/res/layout/fragment_main.xml" value="0.264" />
         <entry key="..\:/Users/jyjou/AndroidStudioProjects/SMU_blood/app/src/main/res/layout/fragment_main_read.xml" value="0.1587719298245614" />
