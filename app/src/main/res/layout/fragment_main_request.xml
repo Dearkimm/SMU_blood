@@ -564,7 +564,7 @@
                 android:layout_height="41dp"
                 android:layout_marginTop="31dp"
                 android:layout_marginEnd="15dp"
-                android:layout_marginBottom="60dp"
+                android:layout_marginBottom="100dp"
                 android:background="@drawable/bg_btn_red_80dp"
                 android:fontFamily="@font/notosans_regular"
                 android:text="@string/rmain_tv31"
