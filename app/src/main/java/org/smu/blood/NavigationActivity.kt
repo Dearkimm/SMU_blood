@@ -9,6 +9,8 @@ import org.smu.blood.ui.main.MainReadFragment
 import org.smu.blood.ui.main.MainRequestFragment
 import org.smu.blood.ui.main.MainSearchHospitalFragment
 import org.smu.blood.ui.map.MapFragment
+import org.smu.blood.ui.my.MyRequestFragment
+import org.smu.blood.ui.my.MyFragment
 import org.smu.blood.util.replaceFragment
 
 class NavigationActivity : AppCompatActivity() {
@@ -47,4 +49,11 @@ class NavigationActivity : AppCompatActivity() {
         replaceFragment(binding.fragmentContainer, MainReadFragment::class.java, true)
     }
 
+    fun navigateMainToMy(){
+        replaceFragment(binding.fragmentContainer, MyFragment::class.java, true)
+    }
+
+    fun navigateMyToRequest(){
+        replaceFragment(binding.fragmentContainer, MyRequestFragment::class.java, true)
+    }
 }
