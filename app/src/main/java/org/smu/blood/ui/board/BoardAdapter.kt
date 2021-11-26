@@ -69,7 +69,7 @@ RecyclerView.Adapter<BoardAdapter.ViewHolder>() {
                     longlistener?.onItemLongClick(itemView,item,position)
                     return@setOnLongClickListener true
                 }
-            }
+            }//aaa
 
         }
     }
