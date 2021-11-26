@@ -18,7 +18,7 @@
         android:textSize="19sp"
         android:fontFamily="@font/notosans_regular"
         android:includeFontPadding="false"
-        android:layout_marginTop="43dp"
+        android:layout_marginTop="20dp"
         />
     <ImageButton
         android:id="@+id/btv_mypage"
@@ -30,8 +30,13 @@
         app:layout_constraintTop_toTopOf="parent"
         android:scaleType="fitCenter"
         android:background="@android:color/transparent"
+<<<<<<< HEAD
         android:layout_marginTop="48dp"
         android:layout_marginEnd="15dp"
+=======
+        android:layout_marginTop="25dp"
+        android:layout_marginRight="15dp"
+>>>>>>> yoon
         />
 
     <TextView
