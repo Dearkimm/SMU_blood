@@ -2,7 +2,6 @@ package org.smu.blood.ui.board
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -47,6 +46,29 @@ class BoardFragment : Fragment() {
                 startActivity(intent)
             }
         })
+
+        //리사이클러뷰 어댑터 꾹누르기 이벤트
+        boardAdapter.setOnItemLongClickListener(object: BoardAdapter.OnItemLongClickListener{
+
+            override fun onItemLongClick(v: View, data: BoardData, pos: Int) {
+                val dlg = BoardDeleteAlert(requireContext())
+                dlg.callFunction()
+                dlg.show()
+                dlg.setOnDismissListener {
+
+                }
+                /*글 삭제할때 써야되나
+                val intent = Intent(context, BoardWritingActivity::class.java)
+                intent.putExtra("position", position)
+                intent.putExtra("title", data.title)
+                intent.putExtra("nickname", data.nickname)
+                intent.putExtra("time", data.time)
+                intent.putExtra("heartcount", data.heartcount)
+                startActivity(intent)*/
+            }
+        })
+
+
 
         //버튼
         var writeButton = rootView.findViewById<ImageButton>(R.id.btv_write)
