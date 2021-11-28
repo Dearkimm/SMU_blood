@@ -15,7 +15,6 @@ import org.smu.blood.ui.main.adapter.MainRequestAdapter
 
 class MainFragment : BaseFragment<FragmentMainBinding>() {
     private val mainRequestAdapter = MainRequestAdapter()
-    private val request = mutableListOf<MainRequest>()
 
     override fun initBinding(inflater: LayoutInflater, container: ViewGroup?) =
         FragmentMainBinding.inflate(inflater, container, false)
@@ -32,6 +31,9 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
     private fun configureMainNavigation() {
         binding.btnRequest.setOnClickListener {
             (activity as NavigationActivity).navigateMainToRequest()
+        }
+        binding.btnMy.setOnClickListener {
+            (activity as NavigationActivity).navigateMainToMy()
         }
     }
 

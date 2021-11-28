@@ -6,45 +6,48 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.smu.blood.NavigationActivity
-import org.smu.blood.api.database.MyCardItem
-import org.smu.blood.databinding.FragmentCardApplyListBinding
+import org.smu.blood.api.database.MainRequest
+import org.smu.blood.databinding.FragmentMyRequestBinding
 import org.smu.blood.ui.base.BaseFragment
+import org.smu.blood.ui.main.adapter.MainRequestAdapter
 
-class MyCardApplyListFragment : BaseFragment<FragmentCardApplyListBinding>() {
-    private val myCardListAdapter = MyCardAdapter()
-    private val request = mutableListOf<MyCardItem>()
+class MyRequestFragment : BaseFragment<FragmentMyRequestBinding>() {
+    private val myCardAdapter = MainRequestAdapter()
 
     override fun initBinding(inflater: LayoutInflater, container: ViewGroup?) =
-        FragmentCardApplyListBinding.inflate(inflater, container, false)
+        FragmentMyRequestBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.rcRequestList.layoutManager = LinearLayoutManager(activity)
-        binding.rcRequestList.adapter = myCardListAdapter
+        binding.myCardList.layoutManager = LinearLayoutManager(activity)
+        binding.myCardList.adapter = myCardAdapter
 
-        addMainRequestInfo()
+        addMyCardInfo()
         configureClickEvent()
     }
 
-
-    private fun addMainRequestInfo() {
+    private fun addMyCardInfo() {
         // 서버 통신 코드
 //        val call: Call<ResponseRequest> = ServiceCreator.bumService.getRequest(
 //        call.enqueueUtil(
 //            onSuccess = {
-//                mainRequestAdapter.setItems()
+//                myCardAdapter.setItems()
 //            }
 //        )
 
         // 더미데이터
-        myCardListAdapter.setItems(
-            MyCardItem(5, true, 1, "21.10.01", "21.10.15", 3, "하이")
+        myCardAdapter.setItems(
+            listOf(
+                MainRequest(5, true, 1, "21.10.01", "21.10.15", 3, "하이"),
+                MainRequest(32, false, 2, "21.10.23", "21.10.31", 0, "어쩔티비"),
+                MainRequest(17, true, 3, "21.10.23", "21.10.31", 5, "저쩔냉장고"),
+                MainRequest(54, true, 4, "21.10.01", "21.10.31", 0, "명성족발"),
+            )
         )
-
     }
 
     private fun configureClickEvent() {
-        myCardListAdapter.setItemClickListener(object : MyCardAdapter.ItemClickListener {
-            override fun onClick(requestInfo: MyCardItem) {
+        myCardAdapter.setItemClickListener(object : MainRequestAdapter.ItemClickListener {
+            override fun onClick(requestInfo: MainRequest) {
                 hospitalId = requestInfo.hospitalId
                 rhType = requestInfo.rhType
                 bloodType = requestInfo.bloodType

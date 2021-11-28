@@ -1,11 +1,13 @@
 package org.smu.blood.ui.my
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import org.smu.blood.NavigationActivity
 import org.smu.blood.R
 
 class MyFragment : Fragment() {
@@ -24,8 +26,9 @@ class MyFragment : Fragment() {
         val rootView = inflater.inflate(R.layout.fragment_my, container, false)
 
         //버튼
-        var logout = rootView.findViewById<TextView>(R.id.tv_r)
-        var withdraw = rootView.findViewById<TextView>(R.id.tv_withdraw)
+        val logout = rootView.findViewById<TextView>(R.id.tv_r)
+        val withdraw = rootView.findViewById<TextView>(R.id.tv_withdraw)
+        val card = rootView.findViewById<TextView>(R.id.tv_q)
 
         //로그아웃 팝업
         logout.setOnClickListener {
@@ -48,6 +51,12 @@ class MyFragment : Fragment() {
 
             }
         }
+
+        //카드 기록 보기
+        card.setOnClickListener {
+            (activity as NavigationActivity).navigateMyToRequest()
+        }
+
         return rootView
     }
 
