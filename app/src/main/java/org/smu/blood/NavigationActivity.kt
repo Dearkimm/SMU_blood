@@ -11,6 +11,7 @@ import org.smu.blood.ui.main.MainSearchHospitalFragment
 import org.smu.blood.ui.map.MapFragment
 import org.smu.blood.ui.my.MyRequestFragment
 import org.smu.blood.ui.my.MyFragment
+import org.smu.blood.util.popFragment
 import org.smu.blood.util.replaceFragment
 
 class NavigationActivity : AppCompatActivity() {
@@ -62,4 +63,9 @@ class NavigationActivity : AppCompatActivity() {
     fun navigateMyToRequest(){
         replaceFragment(binding.fragmentContainer, MyRequestFragment::class.java, true)
     }
+
+    fun popMainSearchHospital(){
+        popFragment(MainSearchHospitalFragment::class.java)
+    }
+
 }

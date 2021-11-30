@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import org.smu.blood.NavigationActivity
 import org.smu.blood.R
 import org.smu.blood.databinding.FragmentMainRequestBinding
@@ -67,6 +68,7 @@ class MainRequestFragment : BaseFragment<FragmentMainRequestBinding>() {
             else { binding.mcheckboxTv.setTextColor(Color.BLACK) }
         }
 
+        //라디오버튼 텍스트 컬러
         binding.radio1.setOnClickListener {
             binding.radio1.setTextColor(Color.RED)
             binding.radio2.setTextColor(Color.BLACK)
@@ -102,11 +104,15 @@ class MainRequestFragment : BaseFragment<FragmentMainRequestBinding>() {
             binding.radio4.setTextColor(Color.BLACK)
             binding.radio1.setTextColor(Color.BLACK)
         }
+
     }
 
     private fun configureRequestNavigation() {
         binding.btnRegister.setOnClickListener {
-            (activity as NavigationActivity).navigateMain()
+            if (binding.metHnum.text.isNullOrBlank() || binding.metGnum.text.isNullOrBlank() || binding.metPname.text.isNullOrBlank() || binding.metPnum.text.isNullOrBlank()
+                || binding.metStart.text.isNullOrBlank() || binding.metEnd.text.isNullOrBlank()) {
+                Toast.makeText(activity, "빈 칸이 있습니다", Toast.LENGTH_SHORT).show()}
+            else ((activity as NavigationActivity).navigateMain())
         }
 
         binding.imgbHos.setOnClickListener {
