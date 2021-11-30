@@ -65,6 +65,42 @@ class MainRequestFragment : BaseFragment<FragmentMainRequestBinding>() {
             if (isChecked) { binding.mcheckboxTv.setTextColor(Color.RED) }
             else { binding.mcheckboxTv.setTextColor(Color.BLACK) }
         }
+
+        binding.radio1.setOnClickListener {
+            binding.radio1.setTextColor(Color.RED)
+            binding.radio2.setTextColor(Color.BLACK)
+            binding.radio3.setTextColor(Color.BLACK)
+            binding.radio4.setTextColor(Color.BLACK)
+            binding.radio5.setTextColor(Color.BLACK)
+        }
+        binding.radio2.setOnClickListener {
+            binding.radio2.setTextColor(Color.RED)
+            binding.radio1.setTextColor(Color.BLACK)
+            binding.radio3.setTextColor(Color.BLACK)
+            binding.radio4.setTextColor(Color.BLACK)
+            binding.radio5.setTextColor(Color.BLACK)
+        }
+        binding.radio3.setOnClickListener {
+            binding.radio3.setTextColor(Color.RED)
+            binding.radio2.setTextColor(Color.BLACK)
+            binding.radio1.setTextColor(Color.BLACK)
+            binding.radio4.setTextColor(Color.BLACK)
+            binding.radio5.setTextColor(Color.BLACK)
+        }
+        binding.radio4.setOnClickListener {
+            binding.radio4.setTextColor(Color.RED)
+            binding.radio2.setTextColor(Color.BLACK)
+            binding.radio3.setTextColor(Color.BLACK)
+            binding.radio1.setTextColor(Color.BLACK)
+            binding.radio5.setTextColor(Color.BLACK)
+        }
+        binding.radio5.setOnClickListener {
+            binding.radio5.setTextColor(Color.RED)
+            binding.radio2.setTextColor(Color.BLACK)
+            binding.radio3.setTextColor(Color.BLACK)
+            binding.radio4.setTextColor(Color.BLACK)
+            binding.radio1.setTextColor(Color.BLACK)
+        }
     }
 
     private fun configureRequestNavigation() {
