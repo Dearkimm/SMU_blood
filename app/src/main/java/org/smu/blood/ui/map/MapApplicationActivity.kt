@@ -41,4 +41,5 @@ class MapApplicationActivity : AppCompatActivity() {
         //확인 버튼 누르면 dialog 뜨게
 
 
+
     }}
