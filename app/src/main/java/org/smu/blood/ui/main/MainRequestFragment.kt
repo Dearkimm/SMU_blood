@@ -20,7 +20,8 @@ class MainRequestFragment : BaseFragment<FragmentMainRequestBinding>() {
 
         //뷰바인딩 쓸 수 있게 되어있어서 findViewById말로 binding 쓰시면 되고
         //프래그먼트에서는 여기서 쓰시면 돼요
-        //얘처럼...binding.xml변수이름카멜식.메소드이름  이런 식으로
+        //얘처럼...binding.xml변수이름카멜식.메소드이름  이런 식으
+        // 로
        binding.type2A.setOnClickListener {
            binding.type2A.setBackgroundResource(R.drawable.bg_btn_red_5dp)
            binding.type2A.setTextColor(Color.WHITE)
@@ -105,6 +106,10 @@ class MainRequestFragment : BaseFragment<FragmentMainRequestBinding>() {
 
     private fun configureRequestNavigation() {
         binding.btnRegister.setOnClickListener {
+            (activity as NavigationActivity).navigateMain()
+        }
+
+        binding.imgbHos.setOnClickListener {
             (activity as NavigationActivity).navigateRequestToSearchHospital()
         }
     }

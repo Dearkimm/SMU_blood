@@ -22,6 +22,8 @@ class NavigationActivity : AppCompatActivity() {
         binding = ActivityNavigationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        replaceFragment(binding.fragmentContainer, MainFragment::class.java, withAnim = false)
+
         configureBottomNav()
     }
 
@@ -35,6 +37,10 @@ class NavigationActivity : AppCompatActivity() {
         binding.btnReview.setOnClickListener {
             replaceFragment(binding.fragmentContainer, BoardFragment::class.java, withAnim = false)
         }
+    }
+
+    fun navigateMain(){
+        replaceFragment(binding.fragmentContainer, MainFragment::class.java, withAnim = false)
     }
 
     fun navigateMainToRequest(){
