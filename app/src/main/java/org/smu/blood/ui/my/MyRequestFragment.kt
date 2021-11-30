@@ -1,53 +1,41 @@
-package org.smu.blood.ui.main
+package org.smu.blood.ui.my
 
 import android.os.Bundle
-import android.telecom.Call
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.smu.blood.NavigationActivity
-import org.smu.blood.api.ServiceCreator
 import org.smu.blood.api.database.MainRequest
-import org.smu.blood.databinding.FragmentMainBinding
+import org.smu.blood.databinding.FragmentMyRequestBinding
 import org.smu.blood.ui.base.BaseFragment
 import org.smu.blood.ui.main.adapter.MainRequestAdapter
 
-class MainFragment : BaseFragment<FragmentMainBinding>() {
-    private val mainRequestAdapter = MainRequestAdapter()
+class MyRequestFragment : BaseFragment<FragmentMyRequestBinding>() {
+    private val myCardAdapter = MainRequestAdapter()
 
     override fun initBinding(inflater: LayoutInflater, container: ViewGroup?) =
-        FragmentMainBinding.inflate(inflater, container, false)
+        FragmentMyRequestBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.rcRequestList.layoutManager = LinearLayoutManager(activity)
-        binding.rcRequestList.adapter = mainRequestAdapter
+        binding.myCardList.layoutManager = LinearLayoutManager(activity)
+        binding.myCardList.adapter = myCardAdapter
 
-        configureMainNavigation()
-        addMainRequestInfo()
+        addMyCardInfo()
         configureClickEvent()
     }
 
-    private fun configureMainNavigation() {
-        binding.btnRequest.setOnClickListener {
-            (activity as NavigationActivity).navigateMainToRequest()
-        }
-        binding.btnMy.setOnClickListener {
-            (activity as NavigationActivity).navigateMainToMy()
-        }
-    }
-
-    private fun addMainRequestInfo() {
+    private fun addMyCardInfo() {
         // 서버 통신 코드
 //        val call: Call<ResponseRequest> = ServiceCreator.bumService.getRequest(
 //        call.enqueueUtil(
 //            onSuccess = {
-//                mainRequestAdapter.setItems()
+//                myCardAdapter.setItems()
 //            }
 //        )
 
         // 더미데이터
-        mainRequestAdapter.setItems(
+        myCardAdapter.setItems(
             listOf(
                 MainRequest(5, true, 1, "21.10.01", "21.10.15", 3, "하이"),
                 MainRequest(32, false, 2, "21.10.23", "21.10.31", 0, "어쩔티비"),
@@ -58,7 +46,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
     }
 
     private fun configureClickEvent() {
-        mainRequestAdapter.setItemClickListener(object : MainRequestAdapter.ItemClickListener {
+        myCardAdapter.setItemClickListener(object : MainRequestAdapter.ItemClickListener {
             override fun onClick(requestInfo: MainRequest) {
                 hospitalId = requestInfo.hospitalId
                 rhType = requestInfo.rhType

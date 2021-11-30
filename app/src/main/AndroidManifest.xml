@@ -20,7 +20,7 @@
             android:name="org.smu.blood.api.database.TestActivity"
             android:exported="true" />
         <activity
-            android:name=".MyCardActivity"
+            android:name=".ui.my.MyCardActivity"
             android:exported="true" /> <!-- Download -->
         <activity
             android:name=".ui.download.SplashActivity"
@@ -35,6 +35,7 @@
         <activity
             android:name=".ui.download.loginActivity"
             android:exported="true" />
+
         <activity
             android:name=".ui.download.SignUpActivity"
             android:exported="true" />
@@ -52,7 +53,9 @@
             android:exported="true" />
         <activity
             android:name=".ui.my.MyModActivity"
-            android:exported="true" /> <!-- Google Map API Key -->
+            android:exported="true" />
+
+        <!-- Google Map API Key -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyB57Q2RnPpZ7n7oLc5Ky9K7wBUPTsa395o" />

@@ -115,28 +115,31 @@
                 app:layout_constraintTop_toBottomOf="@id/mtv2_type" />
 
             <CheckBox
-                android:id="@+id/checkbox"
+                android:id="@+id/m_checkbox"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
                 android:layout_marginStart="41dp"
                 android:layout_marginTop="16dp"
-                android:background="@drawable/checkbox"
+                android:background="@drawable/redcheck"
                 android:button="@null"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/type2_a" />
 
             <TextView
+                android:id="@+id/mcheckbox_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="11dp"
+                android:layout_marginStart="11dp"
                 android:layout_marginTop="14dp"
                 android:fontFamily="@font/notosans_regular"
                 android:includeFontPadding="false"
                 android:text="@string/rmain_tv7"
-                android:textColor="@color/black"
                 android:textSize="12sp"
-                app:layout_constraintLeft_toRightOf="@id/checkbox"
-                app:layout_constraintTop_toBottomOf="@id/type2_a" />
+                android:textColor="@color/black"
+                app:layout_constraintTop_toBottomOf="@id/type2_a"
+                app:layout_constraintLeft_toRightOf="@id/m_checkbox"
+                />
+
 
             <TextView
                 android:id="@+id/mtv2_type2"
@@ -150,7 +153,7 @@
                 android:textSize="13sp"
                 android:textColor="@color/black"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/checkbox" />
+                app:layout_constraintTop_toBottomOf="@id/m_checkbox" />
 
             <RadioGroup
                 android:id="@+id/radiogroup"
@@ -243,7 +246,8 @@
                 android:textColor="@color/black"
                 android:textSize="13sp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/radiogroup"/>
+                app:layout_constraintTop_toBottomOf="@id/radiogroup"
+                />
             <Button
                 android:id="@+id/mhos_btn"
                 android:layout_width="300dp"

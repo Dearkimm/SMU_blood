@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import org.smu.blood.MyCardActivity
 import org.smu.blood.R
 
 class MyActivity : AppCompatActivity() {
