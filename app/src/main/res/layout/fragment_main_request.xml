@@ -114,8 +114,6 @@
                 app:layout_constraintStart_toEndOf="@+id/type2_o"
                 app:layout_constraintTop_toBottomOf="@id/mtv2_type" />
 
-
-
             <CheckBox
                 android:id="@+id/m_checkbox"
                 android:layout_width="15dp"
@@ -131,21 +129,17 @@
                 android:id="@+id/mcheckbox_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="11dp"
+                android:layout_marginStart="11dp"
                 android:layout_marginTop="14dp"
                 android:fontFamily="@font/notosans_regular"
                 android:includeFontPadding="false"
                 android:text="@string/rmain_tv7"
-                android:textColor="@color/black"
-<<<<<<< Updated upstream
                 android:textSize="12sp"
-                app:layout_constraintLeft_toRightOf="@id/checkbox"
-=======
+                android:textColor="@color/black"
+                app:layout_constraintTop_toBottomOf="@id/type2_a"
                 app:layout_constraintLeft_toRightOf="@id/m_checkbox"
->>>>>>> Stashed changes
-                app:layout_constraintTop_toBottomOf="@id/type2_a" />
+                />
 
-            
 
             <TextView
                 android:id="@+id/mtv2_type2"
@@ -161,7 +155,6 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/m_checkbox" />
 
-<<<<<<< Updated upstream
             <RadioGroup
                 android:id="@+id/radiogroup"
                 android:layout_width="wrap_content"
@@ -240,8 +233,6 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/radio4" />
             </RadioGroup>
-=======
->>>>>>> Stashed changes
 
             <TextView
                 android:id="@+id/main_hos"
@@ -255,11 +246,8 @@
                 android:textColor="@color/black"
                 android:textSize="13sp"
                 app:layout_constraintLeft_toLeftOf="parent"
-<<<<<<< Updated upstream
-                app:layout_constraintTop_toBottomOf="@id/radiogroup"/>
-=======
-                app:layout_constraintTop_toBottomOf="@id/radio5"/>
->>>>>>> Stashed changes
+                app:layout_constraintTop_toBottomOf="@id/radiogroup"
+                />
             <Button
                 android:id="@+id/mhos_btn"
                 android:layout_width="300dp"
