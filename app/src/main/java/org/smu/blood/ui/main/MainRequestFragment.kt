@@ -2,11 +2,12 @@ package org.smu.blood.ui.main
 
 import android.graphics.Color
 import android.os.Bundle
+import android.telephony.PhoneNumberFormattingTextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import org.smu.blood.NavigationActivity
+import org.smu.blood.ui.NavigationActivity
 import org.smu.blood.R
 import org.smu.blood.databinding.FragmentMainRequestBinding
 import org.smu.blood.ui.base.BaseFragment
@@ -19,10 +20,7 @@ class MainRequestFragment : BaseFragment<FragmentMainRequestBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         configureRequestNavigation()
 
-        //뷰바인딩 쓸 수 있게 되어있어서 findViewById말로 binding 쓰시면 되고
-        //프래그먼트에서는 여기서 쓰시면 돼요
-        //얘처럼...binding.xml변수이름카멜식.메소드이름  이런 식으
-        // 로
+       //혈액형 눌렀을때
        binding.type2A.setOnClickListener {
            binding.type2A.setBackgroundResource(R.drawable.bg_btn_red_5dp)
            binding.type2A.setTextColor(Color.WHITE)
@@ -104,19 +102,22 @@ class MainRequestFragment : BaseFragment<FragmentMainRequestBinding>() {
             binding.radio4.setTextColor(Color.BLACK)
             binding.radio1.setTextColor(Color.BLACK)
         }
+        binding.metGnum.addTextChangedListener(PhoneNumberFormattingTextWatcher())
 
     }
 
     private fun configureRequestNavigation() {
         binding.btnRegister.setOnClickListener {
-            if (binding.metHnum.text.isNullOrBlank() || binding.metGnum.text.isNullOrBlank() || binding.metPname.text.isNullOrBlank() || binding.metPnum.text.isNullOrBlank()
+            if (binding.metHnum.text.isNullOrBlank() || binding.metGnum.text.isNullOrBlank() || binding.metPname.text.isNullOrBlank()
                 || binding.metStart.text.isNullOrBlank() || binding.metEnd.text.isNullOrBlank()) {
-                Toast.makeText(activity, "빈 칸이 있습니다", Toast.LENGTH_SHORT).show()}
+
+            Toast.makeText(activity, "필수 항목을 채워주세요", Toast.LENGTH_SHORT).show()}
             else {
                 val dlg = MainRequestAlert(requireContext())
                 dlg.callFunction()
                 dlg.show()
                 (activity as NavigationActivity).navigateMain()}
+
         }
 
         binding.imgbHos.setOnClickListener {

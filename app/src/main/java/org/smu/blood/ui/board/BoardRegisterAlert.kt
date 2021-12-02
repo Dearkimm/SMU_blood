@@ -1,19 +1,11 @@
 package org.smu.blood.ui.board
 
-import android.app.Activity
 import android.app.Dialog
 import android.content.Context
-import android.content.Intent
-import android.os.Bundle
 import android.view.WindowManager
 import android.widget.*
-import androidx.core.content.ContextCompat.startActivity
-import org.smu.blood.NavigationActivity
 import org.smu.blood.R
 import android.widget.Toast
-import org.smu.blood.databinding.ActivityBoardRegisterBinding
-import org.smu.blood.ui.main.MainFragment
-import org.smu.blood.util.replaceFragment
 
 
 class BoardRegisterAlert(context: Context) :

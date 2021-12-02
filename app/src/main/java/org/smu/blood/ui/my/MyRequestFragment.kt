@@ -1,11 +1,12 @@
 package org.smu.blood.ui.my
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import org.smu.blood.NavigationActivity
+import org.smu.blood.ui.NavigationActivity
 import org.smu.blood.api.database.MainRequest
 import org.smu.blood.databinding.FragmentMyRequestBinding
 import org.smu.blood.ui.base.BaseFragment
@@ -20,6 +21,17 @@ class MyRequestFragment : BaseFragment<FragmentMyRequestBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.myCardList.layoutManager = LinearLayoutManager(activity)
         binding.myCardList.adapter = myCardAdapter
+
+        //누르면 색 변하게
+        binding.recRequest.setOnClickListener {
+            binding.recRequest.setTextColor(Color.RED)
+            binding.recApply.setTextColor(Color.BLACK)
+        }
+
+        binding.recApply.setOnClickListener {
+            binding.recApply.setTextColor(Color.RED)
+            binding.recRequest.setTextColor(Color.BLACK)
+        }
 
         addMyCardInfo()
         configureClickEvent()

@@ -1,17 +1,17 @@
 package org.smu.blood.ui.main
 
 import android.os.Bundle
-import android.telecom.Call
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import org.smu.blood.NavigationActivity
-import org.smu.blood.api.ServiceCreator
+import org.smu.blood.ui.NavigationActivity
 import org.smu.blood.api.database.MainRequest
 import org.smu.blood.databinding.FragmentMainBinding
 import org.smu.blood.ui.base.BaseFragment
 import org.smu.blood.ui.main.adapter.MainRequestAdapter
+import androidx.activity.addCallback
+
 
 class MainFragment : BaseFragment<FragmentMainBinding>() {
     private val mainRequestAdapter = MainRequestAdapter()
@@ -34,6 +34,9 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
         }
         binding.btnMy.setOnClickListener {
             (activity as NavigationActivity).navigateMainToMy()
+        }
+        requireActivity().onBackPressedDispatcher.addCallback {
+            (activity as NavigationActivity).showFinishToast()
         }
     }
 

@@ -15,15 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SMU_blood"
         android:usesCleartextTraffic="true">
-
         <activity
-            android:name="org.smu.blood.api.database.TestActivity"
-            android:exported="true" />
-        <activity
-            android:name=".ui.my.MyCardActivity"
-            android:exported="true" /> <!-- Download -->
-        <activity
-            android:name=".ui.download.SplashActivity"
+            android:name=".ui.SplashActivity"
             android:exported="true"
             android:theme="@style/SplashTheme">
             <intent-filter>
@@ -33,14 +26,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.download.loginActivity"
-            android:exported="true" />
-
-        <activity
-            android:name=".ui.download.SignUpActivity"
+            android:name=".ui.LoginActivity"
             android:exported="true" />
         <activity
-            android:name=".NavigationActivity"
+            android:name=".ui.SignUpActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.my.MyCardActivity"
+            android:exported="true" /> <!-- Download -->
+        <activity
+            android:name=".ui.NavigationActivity"
             android:exported="true" /> <!-- main -->
         <activity
             android:name=".ui.board.BoardWritingActivity"
@@ -48,9 +43,6 @@
         <activity
             android:name=".ui.board.BoardRegisterActivity"
             android:exported="true" /> <!-- Mypage -->
-        <activity
-            android:name=".ui.my.MyActivity"
-            android:exported="true" />
         <activity
             android:name=".ui.my.MyModActivity"
             android:exported="true" />

@@ -1,4 +1,4 @@
-package org.smu.blood.ui.download
+package org.smu.blood.ui
 
 import android.annotation.SuppressLint
 import android.graphics.Color
@@ -18,7 +18,6 @@ class SignUpActivity : AppCompatActivity() {
     lateinit var passwordText: String
     lateinit var password2Text: String
     var bloodType: Int = 0
-
 
     @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
