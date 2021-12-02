@@ -112,7 +112,11 @@ class MainRequestFragment : BaseFragment<FragmentMainRequestBinding>() {
             if (binding.metHnum.text.isNullOrBlank() || binding.metGnum.text.isNullOrBlank() || binding.metPname.text.isNullOrBlank() || binding.metPnum.text.isNullOrBlank()
                 || binding.metStart.text.isNullOrBlank() || binding.metEnd.text.isNullOrBlank()) {
                 Toast.makeText(activity, "빈 칸이 있습니다", Toast.LENGTH_SHORT).show()}
-            else ((activity as NavigationActivity).navigateMain())
+            else {
+                val dlg = MainRequestAlert(requireContext())
+                dlg.callFunction()
+                dlg.show()
+                (activity as NavigationActivity).navigateMain()}
         }
 
         binding.imgbHos.setOnClickListener {
