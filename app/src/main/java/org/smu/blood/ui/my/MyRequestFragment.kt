@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import org.smu.blood.NavigationActivity
+import org.smu.blood.ui.NavigationActivity
 import org.smu.blood.api.database.MainRequest
 import org.smu.blood.databinding.FragmentMyRequestBinding
 import org.smu.blood.ui.base.BaseFragment

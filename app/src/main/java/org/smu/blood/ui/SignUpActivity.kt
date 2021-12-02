@@ -1,4 +1,4 @@
-package org.smu.blood.ui.download
+package org.smu.blood.ui
 
 import android.annotation.SuppressLint
 import android.graphics.Color
