@@ -39,6 +39,14 @@ RecyclerView.Adapter<BoardAdapter.ViewHolder>() {
     fun setOnItemLongClickListener(listener : OnItemLongClickListener) {
         this.longlistener = listener
     }
+    //삭제
+    fun removeItem(position: Int){
+        if(position>=0) {
+            datas.removeAt(position)
+            notifyItemRemoved(position)
+            notifyDataSetChanged()
+        }
+    }
 
 
 
