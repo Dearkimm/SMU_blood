@@ -19,7 +19,6 @@ class SignUpActivity : AppCompatActivity() {
     lateinit var password2Text: String
     var bloodType: Int = 0
 
-
     @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

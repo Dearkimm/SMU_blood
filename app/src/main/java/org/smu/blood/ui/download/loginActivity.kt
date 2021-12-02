@@ -7,6 +7,8 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import com.google.android.material.snackbar.Snackbar
 import org.smu.blood.NavigationActivity
 import org.smu.blood.R
 import org.w3c.dom.Text
@@ -14,11 +16,21 @@ import org.w3c.dom.Text
 class loginActivity : AppCompatActivity() {
     lateinit var idText: String
     lateinit var passwordText: String
+    var waitTime = 0L
+
+    override fun onBackPressed() {
+        if(System.currentTimeMillis() - waitTime >=1500 ) {
+            waitTime = System.currentTimeMillis()
+            Toast.makeText(this,"버튼을 한 번 더 누르시면 종료됩니다.",Toast.LENGTH_SHORT).show()
+        } else {
+            finishAffinity() // 액티비티 종료
+        }
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-
 
         //버튼
         var loginButton = findViewById<Button>(R.id.btn_log)
