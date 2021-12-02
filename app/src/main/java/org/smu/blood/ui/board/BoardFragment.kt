@@ -2,10 +2,12 @@ package org.smu.blood.ui.board
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.ImageButton
 import androidx.recyclerview.widget.RecyclerView
 import org.smu.blood.R
@@ -15,6 +17,9 @@ class BoardFragment : Fragment() {
     lateinit var boardAdapter: BoardAdapter
     lateinit var recyclerview:RecyclerView
     val datas = mutableListOf<BoardData>()
+
+    //글 삭제 다이얼로그 관련변수
+    var deleteState = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +60,13 @@ class BoardFragment : Fragment() {
                 dlg.callFunction()
                 dlg.show()
                 dlg.setOnDismissListener {
-
+                    deleteState = dlg.returnState()
+                    if(deleteState){
+                        boardAdapter.removeItem(pos)
+                        boardAdapter.notifyDataSetChanged()//데이더 값 변경 알림
+                    }
+                    //글쓰기 데이터
+                    Log.d("글삭제 데이터", deleteState.toString())
                 }
                 /*글 삭제할때 써야되나
                 val intent = Intent(context, BoardWritingActivity::class.java)
