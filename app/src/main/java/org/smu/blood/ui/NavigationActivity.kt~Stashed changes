@@ -1,0 +1,132 @@
+package org.smu.blood.ui
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+<<<<<<< HEAD:app/src/main/java/org/smu/blood/NavigationActivity.kt
+import android.util.Log
+import android.view.SurfaceControl
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
+=======
+>>>>>>> master:app/src/main/java/org/smu/blood/ui/NavigationActivity.kt
+import org.smu.blood.databinding.ActivityNavigationBinding
+import org.smu.blood.ui.board.BoardFragment
+import org.smu.blood.ui.main.MainFragment
+import org.smu.blood.ui.main.MainReadFragment
+import org.smu.blood.ui.main.MainRequestFragment
+import org.smu.blood.ui.main.MainSearchHospitalFragment
+import org.smu.blood.ui.map.MapFragment
+import org.smu.blood.ui.my.MyRequestFragment
+import org.smu.blood.ui.my.MyFragment
+import org.smu.blood.util.popFragment
+import org.smu.blood.util.replaceFragment
+import org.smu.blood.util.shortToast
+
+class NavigationActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityNavigationBinding
+<<<<<<< HEAD:app/src/main/java/org/smu/blood/NavigationActivity.kt
+    lateinit var transaction : FragmentTransaction
+=======
+    private var backPressedTime: Long = 0
+>>>>>>> master:app/src/main/java/org/smu/blood/ui/NavigationActivity.kt
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityNavigationBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        //프래그먼트 트랜잭션
+
+        replaceFragment(binding.fragmentContainer, MainFragment::class.java, withAnim = false)
+
+        configureBottomNav()
+    }
+
+    private fun configureBottomNav() {
+        binding.btnMain.setOnClickListener {
+            replaceFragment(binding.fragmentContainer, MainFragment::class.java, withAnim = false)
+        }
+        binding.btnMap.setOnClickListener {
+            replaceFragment(binding.fragmentContainer, MapFragment::class.java, withAnim = false)
+        }
+        binding.btnReview.setOnClickListener {
+            replaceFragment(binding.fragmentContainer, BoardFragment::class.java, withAnim = false)
+        }
+    }
+
+    fun navigateMain(){
+
+        transaction = supportFragmentManager.beginTransaction()
+        transaction.addToBackStack(null)
+        transaction.replace(R.id.fragment_container, MainFragment())
+        transaction.commit()
+
+    }
+
+    fun navigateMainToRequest(){
+
+        transaction = supportFragmentManager.beginTransaction()
+        transaction.addToBackStack(null)
+        transaction.replace(R.id.fragment_container, MainRequestFragment())
+        transaction.commit()
+    }
+
+    fun navigateRequestToSearchHospital(){
+
+        transaction = supportFragmentManager.beginTransaction()
+        transaction.addToBackStack(null)
+        transaction.replace(R.id.fragment_container, MainSearchHospitalFragment())
+        transaction.commit()
+    }
+
+    fun navigateMainToRead(){
+        replaceFragment(binding.fragmentContainer, MainReadFragment::class.java, true)
+    }
+
+    fun navigateMainToMy(){
+        replaceFragment(binding.fragmentContainer, MyFragment::class.java, true)
+    }
+
+    fun navigateMyToRequest(){
+        replaceFragment(binding.fragmentContainer, MyRequestFragment::class.java, true)
+    }
+
+    fun popMainSearchHospital(){
+
+        transaction = supportFragmentManager.beginTransaction()
+        transaction.addToBackStack(null)
+        transaction.remove(MainSearchHospitalFragment())
+        transaction.commit()
+    }
+
+
+    //프래그먼트로 병원 이름 전달하기
+    fun setDataAtFragment(fragment: Fragment, hospital: String){
+        val bundle = Bundle()
+        bundle.putString("hos", hospital)
+        fragment.arguments = bundle
+        setFragment(fragment)
+        Log.d("액티비티로 병원", hospital)
+        //bundle.putString("hos",binding.hosRBt1.text.toString())
+        //mainRequestFragment.arguments = bundle
+    }
+
+    //리퀘스트 프래그먼트 띄우기
+    fun setFragment(fragment: Fragment){
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragment_container, fragment)
+        transaction.commit()
+    }
+
+    fun showFinishToast() {
+        if (System.currentTimeMillis() - backPressedTime < 2000) {
+            finish()
+            return
+        }
+        shortToast("한 번 더 누르시면 종료됩니다.")
+        backPressedTime = System.currentTimeMillis()
+    }
+
+}

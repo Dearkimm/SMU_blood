@@ -29,7 +29,7 @@ class BoardDeleteAlert(context: Context) :
             dismiss()
         }
         del.setOnClickListener {
-            Toast.makeText(context,"삭제 되었습니다",Toast.LENGTH_SHORT).show()
+            Toast.makeText(context,"삭제되었습니다",Toast.LENGTH_SHORT).show()
             deleteState = true
             returnState()
             dismiss()
