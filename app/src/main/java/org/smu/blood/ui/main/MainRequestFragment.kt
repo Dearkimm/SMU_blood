@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import org.smu.blood.NavigationActivity
+import org.smu.blood.ui.NavigationActivity
 import org.smu.blood.R
 import org.smu.blood.databinding.FragmentMainRequestBinding
 import org.smu.blood.ui.base.BaseFragment

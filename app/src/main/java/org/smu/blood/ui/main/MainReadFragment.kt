@@ -3,20 +3,13 @@ package org.smu.blood.ui.main
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import org.smu.blood.NavigationActivity
-import org.smu.blood.api.database.MainRequest
-import org.smu.blood.databinding.DialogMapCheckConditionBinding
 import org.smu.blood.databinding.FragmentMainReadBinding
 import org.smu.blood.model.BloodType
 import org.smu.blood.model.Hospital
 import org.smu.blood.ui.base.BaseFragment
-import org.smu.blood.ui.board.BoardAdapter
-import org.smu.blood.ui.board.BoardData
-import org.smu.blood.ui.board.BoardDeleteAlert
 import org.smu.blood.ui.main.MainFragment.Companion.bloodType
 import org.smu.blood.ui.main.MainFragment.Companion.content
 import org.smu.blood.ui.main.MainFragment.Companion.count
@@ -27,7 +20,6 @@ import org.smu.blood.ui.main.MainFragment.Companion.startDate
 import org.smu.blood.ui.main.adapter.MainRequestAdapter
 import org.smu.blood.ui.map.MapApplicationActivity
 import org.smu.blood.ui.map.MapCheckConditionAlert
-import org.smu.blood.ui.my.MyModActivity
 
 class MainReadFragment : BaseFragment<FragmentMainReadBinding>() {
     private val mainRequestAdapter = MainRequestAdapter()

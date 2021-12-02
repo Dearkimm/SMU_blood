@@ -1,8 +1,7 @@
-package org.smu.blood
+package org.smu.blood.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import org.smu.blood.databinding.ActivityNavigationBinding
 import org.smu.blood.ui.board.BoardFragment
 import org.smu.blood.ui.main.MainFragment
@@ -14,10 +13,12 @@ import org.smu.blood.ui.my.MyRequestFragment
 import org.smu.blood.ui.my.MyFragment
 import org.smu.blood.util.popFragment
 import org.smu.blood.util.replaceFragment
+import org.smu.blood.util.shortToast
 
 class NavigationActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityNavigationBinding
+    private var backPressedTime: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,6 +69,15 @@ class NavigationActivity : AppCompatActivity() {
 
     fun popMainSearchHospital(){
         popFragment(MainSearchHospitalFragment::class.java)
+    }
+
+    fun showFinishToast() {
+        if (System.currentTimeMillis() - backPressedTime < 2000) {
+            finish()
+            return
+        }
+        shortToast("한 번 더 누르시면 종료됩니다.")
+        backPressedTime = System.currentTimeMillis()
     }
 
 }

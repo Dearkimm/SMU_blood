@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import org.smu.blood.NavigationActivity
+import org.smu.blood.ui.NavigationActivity
 import org.smu.blood.R
 
 class MyFragment : Fragment() {
