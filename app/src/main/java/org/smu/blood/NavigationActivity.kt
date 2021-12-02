@@ -2,6 +2,7 @@ package org.smu.blood
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import org.smu.blood.databinding.ActivityNavigationBinding
 import org.smu.blood.ui.board.BoardFragment
 import org.smu.blood.ui.main.MainFragment
@@ -42,6 +43,7 @@ class NavigationActivity : AppCompatActivity() {
 
     fun navigateMain(){
         replaceFragment(binding.fragmentContainer, MainFragment::class.java, withAnim = false)
+
     }
 
     fun navigateMainToRequest(){
