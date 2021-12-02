@@ -1,30 +1,37 @@
 package org.smu.blood.ui.main
 
-import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+<<<<<<< Updated upstream
+import org.smu.blood.ui.NavigationActivity
+=======
+<<<<<<< HEAD
 import org.smu.blood.NavigationActivity
+=======
+import org.smu.blood.ui.NavigationActivity
+>>>>>>> master
+>>>>>>> Stashed changes
 import org.smu.blood.R
 import org.smu.blood.databinding.FragmentMainSearchHospitalBinding
 import org.smu.blood.ui.base.BaseFragment
-import org.smu.blood.ui.download.SignUpActivity
 
 class MainSearchHospitalFragment : BaseFragment<FragmentMainSearchHospitalBinding>() {
-
+    var mainRequestFragment: MainRequestFragment = MainRequestFragment()
     override fun initBinding(inflater: LayoutInflater, container: ViewGroup?) =
         FragmentMainSearchHospitalBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
+        var bundle : Bundle = Bundle()
+        var naviActivity = activity as NavigationActivity
 
         //ㄱ
         binding.hosRBt1.setOnClickListener {
             binding.hosRBt1.setBackgroundResource(R.drawable.bg_btn_red_5dp)
             binding.hosRBt1.setTextColor(Color.WHITE)
+            naviActivity.setDataAtFragment(mainRequestFragment, binding.hosRBt1.text.toString())
             (activity as NavigationActivity).popMainSearchHospital()
         }
         binding.hosRBt2.setOnClickListener {
@@ -344,4 +351,6 @@ class MainSearchHospitalFragment : BaseFragment<FragmentMainSearchHospitalBindin
 
 
     }
+
+
 }

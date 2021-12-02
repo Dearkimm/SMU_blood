@@ -1,23 +1,12 @@
 package org.smu.blood.ui.board
 
-import android.app.PendingIntent.getActivity
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import org.smu.blood.NavigationActivity
 import org.smu.blood.R
-import org.smu.blood.ui.board.BoardRegisterAlert
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.EditText
-import androidx.core.content.ContentProviderCompat.requireContext
 import org.smu.blood.databinding.ActivityBoardRegisterBinding
-import org.smu.blood.databinding.ActivityNavigationBinding
-import org.smu.blood.util.replaceFragment
 import java.time.LocalDateTime
 
 
@@ -47,7 +36,7 @@ class BoardRegisterActivity : AppCompatActivity() {
                 if(writingState){
                     title = findViewById<EditText>(R.id.writing_edit_title).text.toString()
                     contents = findViewById<EditText>(R.id.writing_edit_body).text.toString()
-                    //메인으로 이동하고
+                    //게시판으로 이동하고
                     finish()
                 }
                 //글쓰기 데이터
