@@ -4,17 +4,11 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.CheckBox
-import android.widget.EditText
 import android.widget.TextView
-import org.smu.blood.NavigationActivity
 import org.smu.blood.R
-import org.smu.blood.ui.board.BoardRegisterAlert
-import org.smu.blood.ui.main.MainRequestAlert
 import org.smu.blood.ui.my.MyCardActivity
-import org.smu.blood.ui.my.MyModActivity
 
 class MapApplicationActivity : AppCompatActivity() {
     var confirmState = false
