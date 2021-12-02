@@ -32,10 +32,13 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:layout_width="wrap_content"
+            android:id="@+id/request_confirm"
+            android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_marginTop="21dp"
             android:layout_marginBottom="26dp"
+            android:layout_marginStart="80dp"
+            android:layout_marginEnd="80dp"
             android:background="@drawable/bg_btn_black"
             android:text="@string/req_confirm_tv2"
             android:fontFamily="@font/notosans_regular"
