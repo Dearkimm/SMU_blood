@@ -110,8 +110,14 @@ class MainRequestFragment : BaseFragment<FragmentMainRequestBinding>() {
         binding.btnRegister.setOnClickListener {
             if (binding.metHnum.text.isNullOrBlank() || binding.metGnum.text.isNullOrBlank() || binding.metPname.text.isNullOrBlank()
                 || binding.metStart.text.isNullOrBlank() || binding.metEnd.text.isNullOrBlank()) {
-                Toast.makeText(activity, "필수 항목을 채워주세요", Toast.LENGTH_SHORT).show()}
-            else ((activity as NavigationActivity).navigateMain())
+
+            Toast.makeText(activity, "필수 항목을 채워주세요", Toast.LENGTH_SHORT).show()}
+            else {
+                val dlg = MainRequestAlert(requireContext())
+                dlg.callFunction()
+                dlg.show()
+                (activity as NavigationActivity).navigateMain()}
+
         }
 
         binding.imgbHos.setOnClickListener {

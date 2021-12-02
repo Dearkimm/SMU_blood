@@ -47,7 +47,7 @@ class BoardRegisterActivity : AppCompatActivity() {
                 if(writingState){
                     title = findViewById<EditText>(R.id.writing_edit_title).text.toString()
                     contents = findViewById<EditText>(R.id.writing_edit_body).text.toString()
-                    //메인으로 이동하고
+                    //게시판으로 이동하고
                     finish()
                 }
                 //글쓰기 데이터

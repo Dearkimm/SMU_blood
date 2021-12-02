@@ -107,6 +107,7 @@
         tools:text="아들이 급하게 혈액이 필요합니다. 도와주시면 정말 감사하겠습니다. 지정헌혈은 순천향대학교로 직접 오실 필요가 없습니다.." />
 
     <Button
+        android:id="@+id/mainread_button"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginStart="15dp"
