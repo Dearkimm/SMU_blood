@@ -1,10 +1,12 @@
 package org.smu.blood.ui.main
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import org.smu.blood.NavigationActivity
 import org.smu.blood.R
 import org.smu.blood.databinding.FragmentMainSearchHospitalBinding
@@ -17,6 +19,7 @@ class MainSearchHospitalFragment : BaseFragment<FragmentMainSearchHospitalBindin
         FragmentMainSearchHospitalBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
 
         //ㄱ
         binding.hosRBt1.setOnClickListener {

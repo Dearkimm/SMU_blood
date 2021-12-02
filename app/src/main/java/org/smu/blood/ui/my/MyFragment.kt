@@ -1,11 +1,13 @@
 package org.smu.blood.ui.my
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import org.smu.blood.NavigationActivity
 import org.smu.blood.R
@@ -29,6 +31,22 @@ class MyFragment : Fragment() {
         val logout = rootView.findViewById<TextView>(R.id.tv_r)
         val withdraw = rootView.findViewById<TextView>(R.id.tv_withdraw)
         val card = rootView.findViewById<TextView>(R.id.tv_q)
+        var hyperlink = rootView.findViewById<Button>(R.id.btn_quest)
+        val modButton = rootView.findViewById<Button>(R.id.btn_mod1)
+
+        //수정하러 가기
+        modButton.setOnClickListener {
+            activity?.let{
+                val intent = Intent(context, MyModActivity::class.java)
+                startActivity(intent)
+            }
+        }
+
+        //전자문진하러 가기
+        hyperlink.setOnClickListener {
+            var intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.bloodinfo.net/emi2/login.do?_ga=2.29800319.1190218835.1637677364-178623010.1637677364"))
+            startActivity(intent)
+        }
 
         //로그아웃 팝업
         logout.setOnClickListener {

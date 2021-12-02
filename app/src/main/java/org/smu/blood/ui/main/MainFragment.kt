@@ -5,6 +5,7 @@ import android.telecom.Call
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.smu.blood.NavigationActivity
 import org.smu.blood.api.ServiceCreator
@@ -12,6 +13,7 @@ import org.smu.blood.api.database.MainRequest
 import org.smu.blood.databinding.FragmentMainBinding
 import org.smu.blood.ui.base.BaseFragment
 import org.smu.blood.ui.main.adapter.MainRequestAdapter
+
 
 class MainFragment : BaseFragment<FragmentMainBinding>() {
     private val mainRequestAdapter = MainRequestAdapter()

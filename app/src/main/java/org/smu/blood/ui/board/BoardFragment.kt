@@ -8,8 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import androidx.recyclerview.widget.RecyclerView
+import org.smu.blood.NavigationActivity
 import org.smu.blood.R
-import org.smu.blood.ui.my.MyActivity
 
 class BoardFragment : Fragment() {
     lateinit var boardAdapter: BoardAdapter
@@ -82,8 +82,7 @@ class BoardFragment : Fragment() {
 
         //마이페이지로 이동
         myButton.setOnClickListener {
-            val intent = Intent(context, MyActivity()::class.java)
-            startActivity(intent)
+            (activity as NavigationActivity).navigateMainToMy()
         }
         return rootView
     }
