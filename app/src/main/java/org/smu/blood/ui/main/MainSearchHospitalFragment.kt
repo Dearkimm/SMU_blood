@@ -5,18 +5,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+
+
 import org.smu.blood.ui.NavigationActivity
 import org.smu.blood.R
 import org.smu.blood.databinding.FragmentMainSearchHospitalBinding
 import org.smu.blood.ui.base.BaseFragment
 
 class MainSearchHospitalFragment : BaseFragment<FragmentMainSearchHospitalBinding>() {
-
+    var mainRequestFragment: MainRequestFragment = MainRequestFragment()
     override fun initBinding(inflater: LayoutInflater, container: ViewGroup?) =
         FragmentMainSearchHospitalBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
+        var bundle : Bundle = Bundle()
+        var naviActivity = activity as NavigationActivity
 
         //ㄱ
         binding.hosRBt1.setOnClickListener {
@@ -341,4 +344,6 @@ class MainSearchHospitalFragment : BaseFragment<FragmentMainSearchHospitalBindin
 
 
     }
+
+
 }
