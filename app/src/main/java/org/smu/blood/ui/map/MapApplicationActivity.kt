@@ -8,10 +8,13 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.TextView
 import org.smu.blood.R
+import org.smu.blood.ui.main.MainFragment
 import org.smu.blood.ui.my.MyCardActivity
 
 class MapApplicationActivity : AppCompatActivity() {
     var confirmState = false
+    var mainfragment = MainFragment()
+    var bundle = Bundle()
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -49,7 +52,8 @@ class MapApplicationActivity : AppCompatActivity() {
             dlg.setOnDismissListener {
                 confirmState = dlg.returnState()
                 if(confirmState){ //건너뛰기
-                    finish()
+                    val intent = Intent(this, MainFragment()::class.java)
+                    startActivity(intent)
                 }
                 else{ //마이페이지에서 신청 확인하기
                     val intent = Intent(this, MyCardActivity()::class.java)
