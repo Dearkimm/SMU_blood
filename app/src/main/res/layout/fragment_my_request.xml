@@ -39,7 +39,7 @@
             android:fontFamily="@font/notosans_light"
             android:includeFontPadding="false"
             android:text="@string/acard_tv2"
-            android:textColor="@color/black"
+            android:textColor="@color/red"
             android:textSize="11sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

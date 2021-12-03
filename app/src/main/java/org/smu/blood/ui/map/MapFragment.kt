@@ -13,13 +13,21 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat.getSystemService
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import org.smu.blood.R
+import org.smu.blood.databinding.FragmentMainBinding
+import org.smu.blood.databinding.FragmentMapBinding
+import org.smu.blood.ui.base.BaseFragment
 import java.util.jar.Manifest
 
-class MapFragment : Fragment(), OnMapReadyCallback {
+class MapFragment : BaseFragment<FragmentMapBinding>(), OnMapReadyCallback {
+    //google api client 생성
+    private lateinit var mGoogleApiClient: GoogleApiClient
+
     private lateinit var mMap:GoogleMap
     val DEFAULT_ZOOM_LEVEL = 17f
     val CITY_HALL = LatLng(37.5662952, 126.97794509999994)
@@ -28,6 +36,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         android.Manifest.permission.ACCESS_FINE_LOCATION)
     val REQUEST_PERMISSION_CODE = 1
 
+    override fun initBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentMapBinding =
+        FragmentMapBinding.inflate(inflater, container, false)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,16 +46,10 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        var rootView = inflater.inflate(R.layout.fragment_map, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val mapFragment = childFragmentManager
-            ?.findFragmentById(R.id.map) as SupportMapFragment?
+            ?.findFragmentById(R.id.map_fragment) as SupportMapFragment?
         mapFragment!!.getMapAsync(this)
-
-        return rootView
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
