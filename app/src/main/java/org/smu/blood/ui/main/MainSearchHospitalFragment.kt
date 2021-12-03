@@ -8,13 +8,6 @@ import android.view.ViewGroup
 
 
 import org.smu.blood.ui.NavigationActivity
-=======
-<<<<<<< HEAD
-import org.smu.blood.NavigationActivity
-=======
-import org.smu.blood.ui.NavigationActivity
->>>>>>> master
->>>>>>> Stashed changes
 import org.smu.blood.R
 import org.smu.blood.databinding.FragmentMainSearchHospitalBinding
 import org.smu.blood.ui.base.BaseFragment
@@ -32,7 +25,6 @@ class MainSearchHospitalFragment : BaseFragment<FragmentMainSearchHospitalBindin
         binding.hosRBt1.setOnClickListener {
             binding.hosRBt1.setBackgroundResource(R.drawable.bg_btn_red_5dp)
             binding.hosRBt1.setTextColor(Color.WHITE)
-            naviActivity.setDataAtFragment(mainRequestFragment, binding.hosRBt1.text.toString())
             (activity as NavigationActivity).popMainSearchHospital()
         }
         binding.hosRBt2.setOnClickListener {
