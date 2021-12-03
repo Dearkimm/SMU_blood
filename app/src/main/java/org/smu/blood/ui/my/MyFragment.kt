@@ -11,8 +11,13 @@ import android.widget.Button
 import android.widget.TextView
 import org.smu.blood.ui.NavigationActivity
 import org.smu.blood.R
+import org.smu.blood.ui.LoginActivity
+import org.smu.blood.ui.main.MainFragment
+import org.smu.blood.ui.map.MapApplicationActivity
 
 class MyFragment : Fragment() {
+    var logoutState = false
+    var withdrawState = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +60,11 @@ class MyFragment : Fragment() {
             dlg.show()
 
             dlg.setOnDismissListener {
-
+                logoutState = dlg.returnState()
+                if(logoutState){ //로그아웃
+                    val intent = Intent(context, LoginActivity()::class.java)
+                    startActivity(intent)
+                }
             }
         }
 
@@ -66,7 +75,11 @@ class MyFragment : Fragment() {
             dlg.show()
 
             dlg.setOnDismissListener {
-
+                withdrawState = dlg.returnState()
+                if(withdrawState){ //탈퇴하기
+                    val intent = Intent(context, LoginActivity()::class.java)
+                    startActivity(intent)
+                }
             }
         }
 
