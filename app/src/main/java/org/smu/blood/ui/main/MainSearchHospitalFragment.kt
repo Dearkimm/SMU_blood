@@ -25,7 +25,6 @@ class MainSearchHospitalFragment : BaseFragment<FragmentMainSearchHospitalBindin
         binding.hosRBt1.setOnClickListener {
             binding.hosRBt1.setBackgroundResource(R.drawable.bg_btn_red_5dp)
             binding.hosRBt1.setTextColor(Color.WHITE)
-            naviActivity.setDataAtFragment(mainRequestFragment, binding.hosRBt1.text.toString())
             (activity as NavigationActivity).popMainSearchHospital()
         }
         binding.hosRBt2.setOnClickListener {
