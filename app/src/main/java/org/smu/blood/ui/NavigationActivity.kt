@@ -67,6 +67,10 @@ class NavigationActivity : AppCompatActivity() {
         replaceFragment(binding.fragmentContainer, MyRequestFragment::class.java, true)
     }
 
+    fun navigateCardApply(){
+        replaceFragment(binding.fragmentContainer, MyRequestFragment::class.java, true)
+    }
+
     fun popMainSearchHospital(){
         popFragment(MainSearchHospitalFragment::class.java)
     }
