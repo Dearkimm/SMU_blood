@@ -128,7 +128,7 @@
     <string name="su_tv19">계정 생성</string>
     <string name="splash_tv">BLING</string>
     <string name="req_confirm_tv">헌혈 요청이 완료되었습니다.</string>
-    <string name="req_confirm_tv2">닫기</string>
+    <string name="req_confirm_tv2">확인</string>
     <string name="app_confirm_tv1">긴급 헌혈 신청이 완료되었습니다.\n상세 정보는 마이페이지에서\n확인할 수 있습니다.</string>
     <string name="check_tv1">헌혈 가능한 상태인지 확인해보세요.</string>
     <string name="location_tv1">위치를 확인하기 위해서는 기기 설정에서\n GPS 접근 권한을 허용해야 합니다.</string>
