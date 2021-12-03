@@ -3,6 +3,7 @@ package org.smu.blood.ui.main
 import android.graphics.Color
 import android.os.Bundle
 import android.telephony.PhoneNumberFormattingTextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,24 +14,31 @@ import org.smu.blood.databinding.FragmentMainRequestBinding
 import org.smu.blood.ui.base.BaseFragment
 
 class MainRequestFragment : BaseFragment<FragmentMainRequestBinding>() {
-
+    //병원 변수
+    private var hos : String? = ""
     override fun initBinding(inflater: LayoutInflater, container: ViewGroup?) =
         FragmentMainRequestBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         configureRequestNavigation()
 
-       //혈액형 눌렀을때
-       binding.type2A.setOnClickListener {
-           binding.type2A.setBackgroundResource(R.drawable.bg_btn_red_5dp)
-           binding.type2A.setTextColor(Color.WHITE)
-           binding.type2B.setTextColor(Color.BLACK)
-           binding.type2Ab.setTextColor(Color.BLACK)
-           binding.type2O.setTextColor(Color.BLACK)
-           binding.type2B.setBackgroundResource(R.drawable.bg_btn_type)
-           binding.type2O.setBackgroundResource(R.drawable.bg_btn_type)
-           binding.type2Ab.setBackgroundResource(R.drawable.bg_btn_type)
-       }
+        arguments?.let {
+            hos = it.getString("hos")
+            Log.d("액티비티에서 프래그먼트로", hos.toString())
+            binding.imgbHos.setText(hos)
+        }
+
+        //혈액형 눌렀을때
+        binding.type2A.setOnClickListener {
+            binding.type2A.setBackgroundResource(R.drawable.bg_btn_red_5dp)
+            binding.type2A.setTextColor(Color.WHITE)
+            binding.type2B.setTextColor(Color.BLACK)
+            binding.type2Ab.setTextColor(Color.BLACK)
+            binding.type2O.setTextColor(Color.BLACK)
+            binding.type2B.setBackgroundResource(R.drawable.bg_btn_type)
+            binding.type2O.setBackgroundResource(R.drawable.bg_btn_type)
+            binding.type2Ab.setBackgroundResource(R.drawable.bg_btn_type)
+        }
         binding.type2B.setOnClickListener {
             binding.type2B.setBackgroundResource(R.drawable.bg_btn_red_5dp)
             binding.type2B.setTextColor(Color.WHITE)
@@ -122,6 +130,8 @@ class MainRequestFragment : BaseFragment<FragmentMainRequestBinding>() {
 
         binding.imgbHos.setOnClickListener {
             (activity as NavigationActivity).navigateRequestToSearchHospital()
+
         }
     }
+
 }
