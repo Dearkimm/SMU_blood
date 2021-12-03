@@ -31,7 +31,7 @@ Dialog(context, android.R.style.Theme_Translucent_NoTitleBar){
             dismiss()
         }
         logout.setOnClickListener { //로그아웃하기
-            Toast.makeText(context,"로그아웃 되었습니다",Toast.LENGTH_SHORT).show()
+            Toast.makeText(context,"로그아웃되었습니다",Toast.LENGTH_SHORT).show()
             logoutState = true
             returnState()
             dismiss()

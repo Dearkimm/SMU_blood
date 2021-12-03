@@ -15,7 +15,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onBackPressed(){
         if (System.currentTimeMillis()> backKeyPressedTime + 2500){
             backKeyPressedTime = System.currentTimeMillis()
-            Toast.makeText(applicationContext, "한 번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, "한 번 더 누르시면 종료됩니다", Toast.LENGTH_SHORT).show()
             return
         }
         else {finishAffinity()}
@@ -36,7 +36,7 @@ class LoginActivity : AppCompatActivity() {
             if (binding.letId.text.isNotBlank() && binding.letPwd.text.isNotBlank()) {
                 login()
             } else {
-                shortToast("빈 칸이 있습니다.")
+                shortToast("빈 칸이 있습니다")
             }
         }
 

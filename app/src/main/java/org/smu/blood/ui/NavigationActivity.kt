@@ -80,7 +80,7 @@ class NavigationActivity : AppCompatActivity() {
             finish()
             return
         }
-        shortToast("한 번 더 누르시면 종료됩니다.")
+        shortToast("한 번 더 누르시면 종료됩니다")
         backPressedTime = System.currentTimeMillis()
     }
 
