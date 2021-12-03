@@ -3,6 +3,10 @@ package org.smu.blood.ui
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import org.smu.blood.R
@@ -51,6 +55,7 @@ class SignUpActivity : AppCompatActivity() {
 
         //textView
         var dname = findViewById<TextView>(R.id.stv_dname)
+        var checkpwd= findViewById<TextView>(R.id.stv_npwd)
 
         //dname.setVisibility(VISIBLE)
 
@@ -111,7 +116,22 @@ class SignUpActivity : AppCompatActivity() {
             typeB.setBackgroundResource(R.drawable.bg_btn_type)
 
         }
+        //비밀번호 일치 여부
+        editPassword2.addTextChangedListener(object:TextWatcher{
+            // EditText에 문자 입력 전
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            // EditText에 변화가 있을 경우
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
+            // EditText 입력이 끝난 후
+            override fun afterTextChanged(p0: Editable?) {
+                if(editPassword.getText().toString().equals(editPassword2.getText().toString())){
+                    checkpwd.visibility = INVISIBLE
+                }
+                else
+                    checkpwd.visibility = VISIBLE
+            }
+        })
 
         //계정 생성 이후 로그인으로 돌아가기
         joinButton.setOnClickListener {
