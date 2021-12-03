@@ -19,7 +19,7 @@ class BoardRegisterActivity : AppCompatActivity() {
     lateinit var contents : String
     val dateandtime: LocalDateTime = LocalDateTime.now()
 
-    //var boardFragment : BoardFragment = supportFragmentManager.findFragmentById(R.id.fragment_container) as BoardFragment
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_board_register)
@@ -35,6 +35,7 @@ class BoardRegisterActivity : AppCompatActivity() {
 
             dlg.setOnDismissListener {
                 writingState = dlg.returnState()
+
                 if(writingState){
                     title = findViewById<EditText>(R.id.writing_edit_title).text.toString()
                     contents = findViewById<EditText>(R.id.writing_edit_body).text.toString()
