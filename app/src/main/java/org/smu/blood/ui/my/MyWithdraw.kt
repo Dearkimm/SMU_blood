@@ -28,7 +28,7 @@ class MyWithdraw(context: Context) :
             dismiss()
         }
         withdraw.setOnClickListener { //탈퇴하기
-            Toast.makeText(context,"탈퇴 되었습니다", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context,"탈퇴되었습니다", Toast.LENGTH_SHORT).show()
             withdrawState = true
             returnState()
             dismiss()
