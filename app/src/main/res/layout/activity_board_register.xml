@@ -48,7 +48,7 @@
         >
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
     <EditText
         android:id="@+id/writing_edit_title"
         android:layout_width="match_parent"
@@ -63,6 +63,8 @@
         android:minHeight="48dp"
         android:textColorHint="#bfbfbf"
         android:textSize="20sp"
+        android:maxLines="2"
+        android:maxLength="50"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -81,19 +83,23 @@
     <EditText
         android:id="@+id/writing_edit_body"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="300dp"
         android:layout_marginStart="23dp"
         android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
         android:layout_marginEnd="23dp"
         android:fontFamily="@font/notosans_regular"
-        android:hint="@string/bregister_tv4"
+        android:hint="본문을 작성해주세요."
+        android:gravity="top"
         android:includeFontPadding="false"
         android:textColorHint="#bfbfbf"
-        android:textSize="15sp"
+        android:textSize="16sp"
         android:background="@null"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view" />
+        app:layout_constraintTop_toBottomOf="@id/view"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

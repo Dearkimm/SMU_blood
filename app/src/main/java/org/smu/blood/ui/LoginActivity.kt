@@ -2,13 +2,25 @@ package org.smu.blood.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import org.smu.blood.databinding.ActivityLoginBinding
 import org.smu.blood.util.shortToast
 
 class LoginActivity : AppCompatActivity() {
 
+    var backKeyPressedTime : Long = 0
     private lateinit var binding: ActivityLoginBinding
+
+    override fun onBackPressed(){
+        if (System.currentTimeMillis()> backKeyPressedTime + 2500){
+            backKeyPressedTime = System.currentTimeMillis()
+            Toast.makeText(applicationContext, "한 번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT).show()
+            return
+        }
+        else {finishAffinity()}
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,7 +36,7 @@ class LoginActivity : AppCompatActivity() {
             if (binding.letId.text.isNotBlank() && binding.letPwd.text.isNotBlank()) {
                 login()
             } else {
-                shortToast("빈칸이 있습니다.")
+                shortToast("빈 칸이 있습니다.")
             }
         }
 
