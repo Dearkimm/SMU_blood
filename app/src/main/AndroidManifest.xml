@@ -46,6 +46,12 @@
         <activity
             android:name=".ui.my.MyModActivity"
             android:exported="true" />
+        <activity
+            android:name=".ui.my.Card.CardApplyActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.my.Card.CardRequestActivity"
+            android:exported="true" />
 
         <!-- Google Map API Key -->
         <meta-data

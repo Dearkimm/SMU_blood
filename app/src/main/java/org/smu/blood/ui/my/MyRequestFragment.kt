@@ -1,18 +1,24 @@
 package org.smu.blood.ui.my
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import org.smu.blood.ui.NavigationActivity
 import org.smu.blood.api.database.MainRequest
 import org.smu.blood.databinding.FragmentMyRequestBinding
 import org.smu.blood.ui.base.BaseFragment
 import org.smu.blood.ui.main.adapter.MainRequestAdapter
+import org.smu.blood.ui.my.Card.CardApplyActivity
+import org.smu.blood.ui.my.Card.CardRequestActivity
 
 class MyRequestFragment : BaseFragment<FragmentMyRequestBinding>() {
+    //카드 기록 상태(0->요청, 1->등록)
+    var cardState = 0
+    lateinit var intent : Intent
+    //어댑터
     private val myCardAdapter = MainRequestAdapter()
 
     override fun initBinding(inflater: LayoutInflater, container: ViewGroup?) =
@@ -26,11 +32,13 @@ class MyRequestFragment : BaseFragment<FragmentMyRequestBinding>() {
         binding.recRequest.setOnClickListener {
             binding.recRequest.setTextColor(Color.RED)
             binding.recApply.setTextColor(Color.BLACK)
+            cardState = 0
         }
 
         binding.recApply.setOnClickListener {
             binding.recApply.setTextColor(Color.RED)
             binding.recRequest.setTextColor(Color.BLACK)
+            cardState = 1
         }
 
         addMyCardInfo()
@@ -68,7 +76,14 @@ class MyRequestFragment : BaseFragment<FragmentMyRequestBinding>() {
                 count = requestInfo.count
                 content = requestInfo.content
 
-                (activity as NavigationActivity).navigateMainToRead()
+                //(activity as NavigationActivity).navigateMainToRead()
+                if(cardState == 0){ //요청 기록 카드
+                    intent = Intent(context, CardRequestActivity::class.java)
+                } else { //신청 기록 카드
+                    intent = Intent(context, CardApplyActivity::class.java)
+                }
+                startActivity(intent)
+
             }
         })
     }
