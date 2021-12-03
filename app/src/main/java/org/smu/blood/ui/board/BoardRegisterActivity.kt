@@ -1,5 +1,6 @@
 package org.smu.blood.ui.board
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
@@ -7,13 +8,14 @@ import androidx.appcompat.app.AppCompatActivity
 import org.smu.blood.R
 import android.widget.EditText
 import org.smu.blood.databinding.ActivityBoardRegisterBinding
+import org.smu.blood.ui.SignUpActivity
 import java.time.LocalDateTime
 
 
 class BoardRegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityBoardRegisterBinding
     var writingState = false
-    private lateinit var title : String
+    lateinit var title : String
     lateinit var contents : String
     val dateandtime: LocalDateTime = LocalDateTime.now()
 
@@ -37,15 +39,12 @@ class BoardRegisterActivity : AppCompatActivity() {
                     title = findViewById<EditText>(R.id.writing_edit_title).text.toString()
                     contents = findViewById<EditText>(R.id.writing_edit_body).text.toString()
                     //게시판으로 이동하고
+                    //글쓰기 데이터
+                    Log.d("글쓰기 데이터", writingState.toString()+", "+title+", "+contents)
+                    Log.d("현재날짜시간", writingState.toString()+", "+dateandtime)
                     finish()
                 }
-                //글쓰기 데이터
-                Log.d("글쓰기 데이터", writingState.toString()+", "+title+", "+contents)
-                Log.d("현재날짜시간", writingState.toString()+", "+dateandtime)
-
             }
-
-
         }
     }
 }
