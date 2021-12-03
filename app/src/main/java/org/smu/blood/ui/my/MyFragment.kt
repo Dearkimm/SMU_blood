@@ -62,8 +62,11 @@ class MyFragment : Fragment() {
             dlg.setOnDismissListener {
                 logoutState = dlg.returnState()
                 if(logoutState){ //로그아웃
-                    val intent = Intent(context, LoginActivity()::class.java)
-                    startActivity(intent)
+                    //로그인화면으로 이동
+                    val intent2 = Intent(context, LoginActivity()::class.java)
+                    //네비게이션 액티비티
+                    (activity as NavigationActivity).logoutAndfinish()
+                    startActivity(intent2)
                 }
             }
         }
@@ -77,8 +80,11 @@ class MyFragment : Fragment() {
             dlg.setOnDismissListener {
                 withdrawState = dlg.returnState()
                 if(withdrawState){ //탈퇴하기
-                    val intent = Intent(context, LoginActivity()::class.java)
-                    startActivity(intent)
+                    //로그인화면으로 이동
+                    val intent2 = Intent(context, LoginActivity()::class.java)
+                    //네비게이션 액티비티
+                    (activity as NavigationActivity).logoutAndfinish()
+                    startActivity(intent2)
                 }
             }
         }

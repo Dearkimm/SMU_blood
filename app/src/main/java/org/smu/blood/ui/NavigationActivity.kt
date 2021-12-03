@@ -80,4 +80,8 @@ class NavigationActivity : AppCompatActivity() {
         backPressedTime = System.currentTimeMillis()
     }
 
+    fun logoutAndfinish(){
+        finish()
+    }
+
 }
