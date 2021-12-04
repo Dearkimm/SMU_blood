@@ -1,5 +1,8 @@
 package org.smu.blood.api.database
 
+import org.smu.blood.util.DateString
+import java.util.*
+
 data class MainRequest(
     val hospitalId: Int,
     val rhType: Boolean,
@@ -8,4 +11,5 @@ data class MainRequest(
     val endDate: String,
     val count: Int,
     val content: String,
+    val updatedDate: DateString,
 )

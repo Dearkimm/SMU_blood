@@ -49,3 +49,10 @@ val LocalDateTime.dateFormat: DateString
  */
 val LocalDateTime.koFormat: DateString
     get() = "${year}년 ${monthValue.padZero()}월 ${dayOfMonth.padZero()}일 (${dayOfWeek.koFormat})"
+
+
+/**
+ * 2021.12.02(목) 05:30
+ */
+val LocalDateTime.dateTimeString: DateString
+    get() = "${year}.${monthValue.padZero()}.${dayOfMonth.padZero()} (${dayOfWeek.koFormat}) ${hour.padZero()}:${minute.padZero()}"
