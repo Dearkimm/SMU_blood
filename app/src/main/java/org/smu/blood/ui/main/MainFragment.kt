@@ -11,6 +11,8 @@ import org.smu.blood.databinding.FragmentMainBinding
 import org.smu.blood.ui.base.BaseFragment
 import org.smu.blood.ui.main.adapter.MainRequestAdapter
 import androidx.activity.addCallback
+import org.smu.blood.util.*
+import java.time.LocalDateTime
 
 
 class MainFragment : BaseFragment<FragmentMainBinding>() {
@@ -52,10 +54,10 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
         // 더미데이터
         mainRequestAdapter.setItems(
             listOf(
-                MainRequest(5, true, 1, "21.10.01", "21.10.15", 3, "하이"),
-                MainRequest(32, false, 2, "21.10.23", "21.10.31", 0, "어쩔티비"),
-                MainRequest(17, true, 3, "21.10.23", "21.10.31", 5, "저쩔냉장고"),
-                MainRequest(54, true, 4, "21.10.01", "21.10.31", 0, "명성족발"),
+                MainRequest(5, true, 1, "21.10.01", "21.10.15", 3, "하이", LocalDateTime.now().dateTimeString),
+                MainRequest(32, false, 2, "21.10.23", "21.10.31", 0, "어쩔티비", LocalDateTime.now().dateTimeString),
+                MainRequest(17, true, 3, "21.10.23", "21.10.31", 5, "저쩔냉장고", LocalDateTime.now().dateTimeString),
+                MainRequest(54, true, 4, "21.10.01", "21.10.31", 0, "명성족발", LocalDateTime.now().dateTimeString),
             )
         )
     }
@@ -70,6 +72,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
                 endDate = requestInfo.endDate
                 count = requestInfo.count
                 content = requestInfo.content
+                updatedDate = requestInfo.updatedDate
 
                 (activity as NavigationActivity).navigateMainToRead()
             }
@@ -84,5 +87,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
         var endDate = ""
         var count = -1
         var content = ""
+        var updatedDate = ""
     }
 }

@@ -40,6 +40,7 @@ class MainRequestAdapter: RecyclerView.Adapter<MainRequestAdapter.MainRequestVie
                 reqDate.text = "${requestInfo.startDate}~${requestInfo.endDate}"
                 reqCount.text = "${requestInfo.count}명"
                 circleBlood.text = "RH $blood$rh"
+                reqTime.text = requestInfo.updatedDate
 
                 itemView.setOnClickListener {
                     itemClickListener.onClick(request[position])

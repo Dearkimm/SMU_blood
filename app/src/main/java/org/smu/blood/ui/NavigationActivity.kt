@@ -42,11 +42,6 @@ class NavigationActivity : AppCompatActivity() {
         }
     }
 
-    fun navigateMain(){
-        replaceFragment(binding.fragmentContainer, MainFragment::class.java, withAnim = false)
-
-    }
-
     fun navigateMainToRequest(){
         replaceFragment(binding.fragmentContainer, MainRequestFragment::class.java, true)
     }
@@ -73,6 +68,10 @@ class NavigationActivity : AppCompatActivity() {
 
     fun popMainSearchHospital(){
         popFragment(MainSearchHospitalFragment::class.java)
+    }
+
+    fun popMainRequest() {
+        popFragment(MainRequestFragment::class.java)
     }
 
     fun showFinishToast() {

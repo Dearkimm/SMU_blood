@@ -27,6 +27,15 @@ val DayOfWeek.koFormat: String
     }
 
 /**
+ *
+ */
+val LocalDateTime.hourFormat: String
+    get() = when (hour) {
+        0 -> "12"
+        else -> hour.toString()
+    }
+
+/**
  * 2021.07.05
  */
 val LocalDateTime.dateString: DateString
@@ -49,3 +58,10 @@ val LocalDateTime.dateFormat: DateString
  */
 val LocalDateTime.koFormat: DateString
     get() = "${year}년 ${monthValue.padZero()}월 ${dayOfMonth.padZero()}일 (${dayOfWeek.koFormat})"
+
+
+/**
+ * 2021.12.02(목) 5:30
+ */
+val LocalDateTime.dateTimeString: DateString
+    get() = "${year}.${monthValue.padZero()}.${dayOfMonth.padZero()} (${dayOfWeek.koFormat}) ${hourFormat}:${minute.padZero()}"

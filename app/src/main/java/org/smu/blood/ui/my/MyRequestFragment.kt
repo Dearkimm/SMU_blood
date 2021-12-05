@@ -13,6 +13,8 @@ import org.smu.blood.ui.base.BaseFragment
 import org.smu.blood.ui.main.adapter.MainRequestAdapter
 import org.smu.blood.ui.my.Card.CardApplyActivity
 import org.smu.blood.ui.my.Card.CardRequestActivity
+import org.smu.blood.util.dateTimeString
+import java.time.LocalDateTime
 
 class MyRequestFragment : BaseFragment<FragmentMyRequestBinding>() {
     //카드 기록 상태(0->요청, 1->등록)
@@ -57,10 +59,10 @@ class MyRequestFragment : BaseFragment<FragmentMyRequestBinding>() {
         // 더미데이터
         myCardAdapter.setItems(
             listOf(
-                MainRequest(5, true, 1, "21.10.01", "21.10.15", 3, "하이"),
-                MainRequest(32, false, 2, "21.10.23", "21.10.31", 0, "어쩔티비"),
-                MainRequest(17, true, 3, "21.10.23", "21.10.31", 5, "저쩔냉장고"),
-                MainRequest(54, true, 4, "21.10.01", "21.10.31", 0, "명성족발"),
+                MainRequest(5, true, 1, "21.10.01", "21.10.15", 3, "하이", LocalDateTime.now().dateTimeString),
+                MainRequest(32, false, 2, "21.10.23", "21.10.31", 0, "어쩔티비", LocalDateTime.now().dateTimeString),
+                MainRequest(17, true, 3, "21.10.23", "21.10.31", 5, "저쩔냉장고", LocalDateTime.now().dateTimeString),
+                MainRequest(54, true, 4, "21.10.01", "21.10.31", 0, "명성족발", LocalDateTime.now().dateTimeString),
             )
         )
     }
@@ -75,6 +77,7 @@ class MyRequestFragment : BaseFragment<FragmentMyRequestBinding>() {
                 endDate = requestInfo.endDate
                 count = requestInfo.count
                 content = requestInfo.content
+                updatedDate = requestInfo.updatedDate
 
                 //(activity as NavigationActivity).navigateMainToRead()
                 if(cardState == 0){ //요청 기록 카드
@@ -96,5 +99,6 @@ class MyRequestFragment : BaseFragment<FragmentMyRequestBinding>() {
         var endDate = ""
         var count = -1
         var content = ""
+        var updatedDate = ""
     }
 }

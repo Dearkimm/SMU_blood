@@ -124,7 +124,7 @@ class MainRequestFragment : BaseFragment<FragmentMainRequestBinding>() {
                 val dlg = MainRequestAlert(requireContext())
                 dlg.callFunction()
                 dlg.show()
-                (activity as NavigationActivity).navigateMain()}
+                (activity as NavigationActivity).popMainRequest()}
 
         }
 
