@@ -14,10 +14,15 @@ import org.smu.blood.databinding.ActivityLoginBinding
 import org.smu.blood.util.shortToast
 import android.view.View.OnFocusChangeListener
 
-
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 
 class LoginActivity : AppCompatActivity() {
+
+    private var auth : FirebaseAuth? = null
 
     var backKeyPressedTime : Long = 0
     private lateinit var binding: ActivityLoginBinding
