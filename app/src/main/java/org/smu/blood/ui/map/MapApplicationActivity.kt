@@ -53,12 +53,6 @@ class MapApplicationActivity : AppCompatActivity() {
             dlg.setOnDismissListener {
                 confirmState = dlg.returnState()
                 if(confirmState){ //건너뛰기
-<<<<<<< Updated upstream
-                    finish()
-                }
-                else{ //마이페이지에서 신청 확인하기
-                    finish()
-=======
                     val intent = Intent(this, NavigationActivity::class.java)
                     startActivity(intent)
                     this.finish()
@@ -67,7 +61,6 @@ class MapApplicationActivity : AppCompatActivity() {
                     val intent = Intent(this, MyRequestFragment::class.java)
                     startActivity(intent)
                     this.finish()
->>>>>>> Stashed changes
                 }
             }
         }
