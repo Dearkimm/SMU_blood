@@ -2,10 +2,20 @@ package org.smu.blood.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.View
+import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import org.smu.blood.R
 import org.smu.blood.databinding.ActivityLoginBinding
 import org.smu.blood.util.shortToast
+import android.view.View.OnFocusChangeListener
+
+
+
 
 class LoginActivity : AppCompatActivity() {
 
@@ -26,6 +36,15 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        var editId = findViewById<EditText>(R.id.let_id)
+        var exId = findViewById<TextView>(R.id.id_type)
+
+        editId.setOnFocusChangeListener(OnFocusChangeListener { v, hasFocus ->
+            if(hasFocus){exId.visibility = View.VISIBLE}
+            else{exId.visibility = View.INVISIBLE}
+
+        })
 
         configureNavigation()
     }
