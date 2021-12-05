@@ -42,11 +42,6 @@ class NavigationActivity : AppCompatActivity() {
         }
     }
 
-    fun navigateMain(){
-        replaceFragment(binding.fragmentContainer, MainFragment::class.java, withAnim = false)
-
-    }
-
     fun navigateMainToRequest(){
         replaceFragment(binding.fragmentContainer, MainRequestFragment::class.java, true)
     }
@@ -75,12 +70,16 @@ class NavigationActivity : AppCompatActivity() {
         popFragment(MainSearchHospitalFragment::class.java)
     }
 
+    fun popMainRequest() {
+        popFragment(MainRequestFragment::class.java)
+    }
+
     fun showFinishToast() {
         if (System.currentTimeMillis() - backPressedTime < 2000) {
             finish()
             return
         }
-        shortToast("한 번 더 누르시면 종료됩니다.")
+        shortToast("한 번 더 누르시면 종료됩니다")
         backPressedTime = System.currentTimeMillis()
     }
 

@@ -6,8 +6,14 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import org.smu.blood.databinding.ActivityLoginBinding
 import org.smu.blood.util.shortToast
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class LoginActivity : AppCompatActivity() {
+
+    private var auth : FirebaseAuth? = null
 
     var backKeyPressedTime : Long = 0
     private lateinit var binding: ActivityLoginBinding
@@ -15,7 +21,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onBackPressed(){
         if (System.currentTimeMillis()> backKeyPressedTime + 2500){
             backKeyPressedTime = System.currentTimeMillis()
-            Toast.makeText(applicationContext, "한 번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, "한 번 더 누르시면 종료됩니다", Toast.LENGTH_SHORT).show()
             return
         }
         else {finishAffinity()}
@@ -36,7 +42,7 @@ class LoginActivity : AppCompatActivity() {
             if (binding.letId.text.isNotBlank() && binding.letPwd.text.isNotBlank()) {
                 login()
             } else {
-                shortToast("빈 칸이 있습니다.")
+                shortToast("빈 칸이 있습니다")
             }
         }
 
