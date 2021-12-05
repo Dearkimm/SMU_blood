@@ -7,20 +7,23 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.TextView
+import android.widget.Toast
 import org.smu.blood.R
+import org.smu.blood.databinding.FragmentMainReadBinding
 import org.smu.blood.ui.NavigationActivity
 import org.smu.blood.ui.main.MainFragment
+import org.smu.blood.ui.main.MainReadFragment
 import org.smu.blood.ui.my.MyCardActivity
 import org.smu.blood.ui.my.MyRequestFragment
 
 class MapApplicationActivity : AppCompatActivity() {
     var confirmState = false
-    var bundle = Bundle()
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_blood_notice)
+
 
         //확인 버튼
         var okay = findViewById<Button>(R.id.notice_okay)
@@ -35,35 +38,41 @@ class MapApplicationActivity : AppCompatActivity() {
 
         //체크박스 누르면 텍스트뷰 컬러
         check.setOnCheckedChangeListener { compoundButton, isChecked ->
-            if (isChecked) { text.setTextColor(Color.RED) }
-            else { text.setTextColor(Color.BLACK) }
+            if (isChecked) {
+                text.setTextColor(Color.RED)
+            } else {
+                text.setTextColor(Color.BLACK)
+            }
         }
 
         check2.setOnCheckedChangeListener { compoundButton, isChecked ->
-            if (isChecked) { text2.setTextColor(Color.RED) }
-            else { text2.setTextColor(Color.BLACK) }
-        }
-
-        //확인 버튼 누르면 dialog 뜨게
-        okay.setOnClickListener {
-            val dlg = MapApplicationCompleteAlert(this) //헌혈신청완료 다이얼로그
-            dlg.callFunction()
-            dlg.show()
-
-            dlg.setOnDismissListener {
-                confirmState = dlg.returnState()
-                if(confirmState){ //건너뛰기
-                    val intent = Intent(this, NavigationActivity::class.java)
-                    startActivity(intent)
-                    this.finish()
-                }
-                else{ //마이페이지에서 신청 확인하기
-                    val intent = Intent(this, MyRequestFragment::class.java)
-                    startActivity(intent)
-                    this.finish()
-                }
+            if (isChecked) {
+                text2.setTextColor(Color.RED)
+            } else {
+                text2.setTextColor(Color.BLACK)
             }
         }
 
 
-    }}
+            //확인 버튼 누르면 dialog 뜨게
+        okay.setOnClickListener {
+            if (check.isChecked && check2.isChecked) {
+                val dlg = MapApplicationCompleteAlert(this) //헌혈신청완료 다이얼로그
+                dlg.callFunction()
+                dlg.show()
+
+                dlg.setOnDismissListener {
+                    confirmState = dlg.returnState()
+                    if (confirmState) { //건너뛰기
+                        val intent = Intent(this, NavigationActivity::class.java)
+                        startActivity(intent)
+                        this.finish()
+                    } else { //마이페이지에서 신청 확인하기
+                        this.finish()
+                    }
+                }
+            } else
+                Toast.makeText(this, "주의사항 확인 후 체크해주세요", Toast.LENGTH_SHORT).show()
+        }
+    }
+}
