@@ -21,7 +21,6 @@ import com.google.firebase.ktx.Firebase
 
 
 class LoginActivity : AppCompatActivity() {
-
     private var auth : FirebaseAuth? = null
 
     var backKeyPressedTime : Long = 0
@@ -34,6 +33,10 @@ class LoginActivity : AppCompatActivity() {
             return
         }
         else {finishAffinity()}
+    }
+    public override fun onStart() {
+        super.onStart()
+        navigateHome(auth?.currentUser)
     }
 
 
@@ -58,7 +61,7 @@ class LoginActivity : AppCompatActivity() {
         // 로그인 버튼 클릭 시
         binding.btnLog.setOnClickListener {
             if (binding.letId.text.isNotBlank() && binding.letPwd.text.isNotBlank()) {
-                login()
+                login(binding.letId.text.toString(),binding.letPwd.text.toString())
             } else {
                 shortToast("빈 칸이 있습니다")
             }
@@ -71,40 +74,32 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun login() {
-        navigateHome()
-        // 서버 연결 코드
-//        val requestLoginData = RequestLoginData(
-//            id = binding.id.text.toString(), password = binding.password.text.toString()
-//        )
-//        val call: Call<ResponseLoginData> = ServiceCreator.soptService.postLogin(requestLoginData)
-//        call.enqueue(object : Callback<ResponseLoginData> {
-//            override fun onResponse(
-//                call: Call<ResponseLoginData>,
-//                response: Response<ResponseLoginData>
-//            ) {
-//                if (response.isSuccessful) {
-//                    val data = response.body()?.data
-//                    Toast.makeText(
-//                        this@LoginActivity,
-//                        "${data?.nickname}님, 반갑습니다.",
-//                        Toast.LENGTH_SHORT
-//                    ).show()
-//                    navigateHome()
-//                } else {
-//
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<ResponseLoginData>, t: Throwable) {
-//                Log.d("NetworkTest", "error:$t")
-//            }
-//        })
+    private fun login(email: String, password: String) {
+        if (binding.letId.text.isNotEmpty() && binding.letPwd.text.isNotEmpty()) {
+            auth?.signInWithEmailAndPassword(email, password)
+                ?.addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        Toast.makeText(
+                            baseContext, "로그인에 성공하였습니다.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        navigateHome(auth?.currentUser)
+                        //navigateHome()
+                    } else {
+                        Toast.makeText(
+                            baseContext, "로그인에 실패하였습니다.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+        }
     }
 
-    private fun navigateHome() {
-        val intent = Intent(this, NavigationActivity::class.java)
-        startActivity(intent)
-        this.finish()
+    private fun navigateHome(user: FirebaseUser?) {
+        if( user!= null){
+            val intent = Intent(this, NavigationActivity::class.java)
+            startActivity(intent)
+            this.finish()
+        }
     }
 }
