@@ -91,7 +91,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="13sp"
-        tools:text="smumosquito"
+        tools:text="smu@daum.net"
         android:fontFamily="@font/notosans_light"
         android:includeFontPadding="false"
         app:layout_constraintTop_toBottomOf="@id/tv_1"
