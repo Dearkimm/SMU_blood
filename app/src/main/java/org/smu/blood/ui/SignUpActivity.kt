@@ -165,6 +165,7 @@ class SignUpActivity : AppCompatActivity() {
 
                 //입력한 내용을 서버에 넣어주기
                 createUser(idText,passwordText)
+                Toast.makeText(applicationContext, "회원가입 완료", Toast.LENGTH_SHORT).show()
                 //writeNewUser("test1234", "테스트", "test@aa.aa")
 
                 // 3. intent에 보낼 데이터 담기
@@ -187,7 +188,6 @@ class SignUpActivity : AppCompatActivity() {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(applicationContext, "회원가입 완료", Toast.LENGTH_SHORT).show()
                     Log.d("회원가입", "성공")
                     val user = auth.currentUser
                 } else {

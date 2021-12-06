@@ -75,10 +75,10 @@ class LoginActivity : AppCompatActivity() {
         auth?.signInWithEmailAndPassword(binding.letId.text.toString(), binding.letPwd.text.toString())
             ?.addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(baseContext, "로그인에 성공하였습니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(baseContext, "로그인에 성공하였습니다", Toast.LENGTH_SHORT).show()
                     navigateHome(auth?.currentUser)
                 } else {
-                    Toast.makeText(baseContext, "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(baseContext, "로그인에 실패하였습니다", Toast.LENGTH_SHORT).show()
                 }
             }
     }
