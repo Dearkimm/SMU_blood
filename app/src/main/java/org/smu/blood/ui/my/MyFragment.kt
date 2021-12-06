@@ -9,11 +9,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import org.smu.blood.ui.NavigationActivity
 import org.smu.blood.R
 import org.smu.blood.ui.LoginActivity
 import org.smu.blood.ui.main.MainFragment
 import org.smu.blood.ui.map.MapApplicationActivity
+import org.w3c.dom.Text
 
 class MyFragment : Fragment() {
     var logoutState = false
@@ -28,6 +31,7 @@ class MyFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
+
     ): View? {
         // Inflate the layout for this fragment
         val rootView = inflater.inflate(R.layout.fragment_my, container, false)
@@ -38,6 +42,11 @@ class MyFragment : Fragment() {
         val card = rootView.findViewById<TextView>(R.id.tv_q)
         var hyperlink = rootView.findViewById<Button>(R.id.btn_quest)
         val modButton = rootView.findViewById<Button>(R.id.btn_mod1)
+
+        //text
+        val userId = rootView.findViewById<TextView>(R.id.user_id)
+        val userName = rootView.findViewById<TextView>(R.id.user_name)
+        val userType = rootView.findViewById<TextView>(R.id.user_type)
 
         //수정하러 가기
         modButton.setOnClickListener {
