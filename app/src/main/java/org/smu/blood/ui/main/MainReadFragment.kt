@@ -3,12 +3,14 @@ package org.smu.blood.ui.main
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import org.smu.blood.databinding.FragmentMainReadBinding
 import org.smu.blood.model.BloodType
 import org.smu.blood.model.Hospital
+import org.smu.blood.ui.NavigationActivity
 import org.smu.blood.ui.base.BaseFragment
 import org.smu.blood.ui.main.MainFragment.Companion.bloodType
 import org.smu.blood.ui.main.MainFragment.Companion.content
@@ -19,7 +21,9 @@ import org.smu.blood.ui.main.MainFragment.Companion.rhType
 import org.smu.blood.ui.main.MainFragment.Companion.startDate
 import org.smu.blood.ui.main.adapter.MainRequestAdapter
 import org.smu.blood.ui.map.MapApplicationActivity
+import org.smu.blood.ui.map.MapApplicationCompleteAlert
 import org.smu.blood.ui.map.MapCheckConditionAlert
+import org.smu.blood.ui.my.MyRequestFragment
 
 class MainReadFragment : BaseFragment<FragmentMainReadBinding>() {
     private val mainRequestAdapter = MainRequestAdapter()
@@ -32,11 +36,11 @@ class MainReadFragment : BaseFragment<FragmentMainReadBinding>() {
         initMainRead()
         readDialog()
         //다이얼로그클릭리스너
-
     }
     private fun readDialog(){
         binding.mainreadButton.setOnClickListener {
             val dlg = MapCheckConditionAlert(requireContext())
+
             dlg.callFunction()
             dlg.show()
             dlg.setOnDismissListener {
@@ -49,7 +53,6 @@ class MainReadFragment : BaseFragment<FragmentMainReadBinding>() {
                     var intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.bloodinfo.net/emi2/login.do?_ga=2.29800319.1190218835.1637677364-178623010.1637677364"))
                     startActivity(intent)
                 }
-
             }
         }
     }
@@ -74,5 +77,4 @@ class MainReadFragment : BaseFragment<FragmentMainReadBinding>() {
             atvCon.text = content
         }
     }
-
 }
