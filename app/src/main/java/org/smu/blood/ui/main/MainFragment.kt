@@ -77,6 +77,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
                 (activity as NavigationActivity).navigateMainToRead()
             }
         })
+
+
     }
 
     companion object {

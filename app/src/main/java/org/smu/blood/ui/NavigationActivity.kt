@@ -64,16 +64,24 @@ class NavigationActivity : AppCompatActivity() {
         replaceFragment(binding.fragmentContainer, MyRequestFragment::class.java, true)
     }
 
-    fun navigateCardApply(){
-        replaceFragment(binding.fragmentContainer, MyRequestFragment::class.java, true)
-    }
-
     fun popMainSearchHospital(){
         popFragment(MainSearchHospitalFragment::class.java)
     }
 
     fun popMainRequest() {
         popFragment(MainRequestFragment::class.java)
+    }
+
+    fun popMainRead() {
+        popFragment(MainReadFragment::class.java)
+    }
+
+    fun popMy() {
+        popFragment(MyFragment::class.java)
+    }
+
+    fun popMyRequest() {
+        popFragment(MyRequestFragment::class.java)
     }
 
     fun showFinishToast() {
