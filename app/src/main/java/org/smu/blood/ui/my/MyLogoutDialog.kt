@@ -6,6 +6,8 @@ import android.content.Intent
 import android.view.WindowManager
 import android.widget.*
 import androidx.core.content.ContextCompat.startActivity
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import org.smu.blood.R
 import org.smu.blood.ui.LoginActivity
 import org.smu.blood.ui.map.MapApplicationActivity
@@ -33,8 +35,9 @@ Dialog(context, android.R.style.Theme_Translucent_NoTitleBar){
         logout.setOnClickListener { //로그아웃하기
             Toast.makeText(context,"로그아웃되었습니다",Toast.LENGTH_SHORT).show()
             logoutState = true
-            returnState()
+            //returnState()
             dismiss()
+            Firebase.auth.signOut()
         }
     }fun returnState(): Boolean{
         return logoutState

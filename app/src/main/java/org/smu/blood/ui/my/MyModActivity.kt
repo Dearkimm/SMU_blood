@@ -8,6 +8,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import org.smu.blood.R
 import org.w3c.dom.Text
 
@@ -15,6 +17,8 @@ class MyModActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_mod)
+        val user = Firebase.auth.currentUser
+        //val newPassword = "SOME-SECURE-PASSWORD"
 
         //edittext 등록
         var editPassword = findViewById<EditText>(R.id.met_pwd2)
