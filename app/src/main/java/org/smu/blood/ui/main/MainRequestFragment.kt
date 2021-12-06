@@ -8,26 +8,46 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.addCallback
 import org.smu.blood.ui.NavigationActivity
 import org.smu.blood.R
 import org.smu.blood.databinding.FragmentMainRequestBinding
 import org.smu.blood.ui.base.BaseFragment
 
 class MainRequestFragment : BaseFragment<FragmentMainRequestBinding>() {
-    //병원 변수
-    private var hos : String? = ""
+
     override fun initBinding(inflater: LayoutInflater, container: ViewGroup?) =
         FragmentMainRequestBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         configureRequestNavigation()
+        configureClickEvent()
+    }
 
-        arguments?.let {
-            hos = it.getString("hos")
-            Log.d("액티비티에서 프래그먼트로", hos.toString())
-            binding.imgbHos.setText(hos)
+    private fun configureRequestNavigation() {
+        binding.btnRegister.setOnClickListener {
+            if (binding.metHnum.text.isNullOrBlank() || binding.metGnum.text.isNullOrBlank() || binding.metPname.text.isNullOrBlank()
+                || binding.metStart.text.isNullOrBlank() || binding.metEnd.text.isNullOrBlank()) {
+
+            Toast.makeText(activity, "필수 항목을 채워주세요", Toast.LENGTH_SHORT).show()}
+            else {
+                val dlg = MainRequestAlert(requireContext())
+                dlg.callFunction()
+                dlg.show()
+                (activity as NavigationActivity).popMainRequest()}
         }
 
+        binding.imgbHos.setOnClickListener {
+            (activity as NavigationActivity).navigateRequestToSearchHospital()
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback {
+            Log.d("tag", "찍히나")
+            (activity as NavigationActivity).popMainRequest()
+        }
+    }
+
+    private fun configureClickEvent() {
         //혈액형 눌렀을때
         binding.type2A.setOnClickListener {
             binding.type2A.setBackgroundResource(R.drawable.bg_btn_red_5dp)
@@ -69,7 +89,7 @@ class MainRequestFragment : BaseFragment<FragmentMainRequestBinding>() {
             binding.type2O.setBackgroundResource(R.drawable.bg_btn_type)
             binding.type2A.setBackgroundResource(R.drawable.bg_btn_type)
         }
-        binding.mCheckbox.setOnCheckedChangeListener { compoundButton, isChecked ->
+        binding.mCheckbox.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) { binding.mcheckboxTv.setTextColor(Color.RED) }
             else { binding.mcheckboxTv.setTextColor(Color.BLACK) }
         }
@@ -111,27 +131,5 @@ class MainRequestFragment : BaseFragment<FragmentMainRequestBinding>() {
             binding.radio1.setTextColor(Color.BLACK)
         }
         binding.metGnum.addTextChangedListener(PhoneNumberFormattingTextWatcher())
-
     }
-
-    private fun configureRequestNavigation() {
-        binding.btnRegister.setOnClickListener {
-            if (binding.metHnum.text.isNullOrBlank() || binding.metGnum.text.isNullOrBlank() || binding.metPname.text.isNullOrBlank()
-                || binding.metStart.text.isNullOrBlank() || binding.metEnd.text.isNullOrBlank()) {
-
-            Toast.makeText(activity, "필수 항목을 채워주세요", Toast.LENGTH_SHORT).show()}
-            else {
-                val dlg = MainRequestAlert(requireContext())
-                dlg.callFunction()
-                dlg.show()
-                (activity as NavigationActivity).popMainRequest()}
-
-        }
-
-        binding.imgbHos.setOnClickListener {
-            (activity as NavigationActivity).navigateRequestToSearchHospital()
-
-        }
-    }
-
 }

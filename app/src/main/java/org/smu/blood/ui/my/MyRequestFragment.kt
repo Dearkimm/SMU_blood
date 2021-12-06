@@ -6,9 +6,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.smu.blood.api.database.MainRequest
 import org.smu.blood.databinding.FragmentMyRequestBinding
+import org.smu.blood.ui.NavigationActivity
 import org.smu.blood.ui.base.BaseFragment
 import org.smu.blood.ui.main.adapter.MainRequestAdapter
 import org.smu.blood.ui.my.Card.CardApplyActivity
@@ -44,6 +46,7 @@ class MyRequestFragment : BaseFragment<FragmentMyRequestBinding>() {
         }
 
         addMyCardInfo()
+        configureMyRequestNavigation()
         configureClickEvent()
     }
 
@@ -65,6 +68,12 @@ class MyRequestFragment : BaseFragment<FragmentMyRequestBinding>() {
                 MainRequest(54, true, 4, "21.10.01", "21.10.31", 0, "명성족발", LocalDateTime.now().dateTimeString),
             )
         )
+    }
+
+    private fun configureMyRequestNavigation() {
+        requireActivity().onBackPressedDispatcher.addCallback {
+            (activity as NavigationActivity).popMyRequest()
+        }
     }
 
     private fun configureClickEvent() {
