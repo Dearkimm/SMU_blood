@@ -1,13 +1,10 @@
 package org.smu.blood.ui.main
 
-import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import org.smu.blood.ui.NavigationActivity
-import org.smu.blood.R
 import org.smu.blood.databinding.FragmentMainSearchHospitalBinding
 import org.smu.blood.model.Hospital
 import org.smu.blood.ui.base.BaseFragment
