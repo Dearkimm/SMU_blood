@@ -63,6 +63,7 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), GoogleMap.OnMyLocationBu
         mMap.addMarker(markerOptions)
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(CITY_HALL, 15F))*/
     }
+
     @SuppressLint("MissingPermission")
     private fun enableMyLocation() {
         /*if (!::map.isInitialized) return
