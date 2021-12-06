@@ -34,16 +34,13 @@ class LoginActivity : AppCompatActivity() {
         }
         else {finishAffinity()}
     }
-    public override fun onStart() {
-        super.onStart()
-        navigateHome(auth?.currentUser)
-    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        auth = FirebaseAuth.getInstance()
 
         var editId = findViewById<EditText>(R.id.let_id)
         var exId = findViewById<TextView>(R.id.id_type)
@@ -61,7 +58,7 @@ class LoginActivity : AppCompatActivity() {
         // 로그인 버튼 클릭 시
         binding.btnLog.setOnClickListener {
             if (binding.letId.text.isNotBlank() && binding.letPwd.text.isNotBlank()) {
-                login(binding.letId.text.toString(),binding.letPwd.text.toString())
+                login(binding.letId.getText().toString(), binding.letPwd.getText().toString())
             } else {
                 shortToast("빈 칸이 있습니다")
             }
@@ -74,22 +71,16 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-
     private fun login(email: String, password: String) {
-        if (binding.letId.text.isNotEmpty() && binding.letPwd.text.isNotEmpty()) {
-            auth?.signInWithEmailAndPassword(email, password)
-                ?.addOnCompleteListener(this) { task ->
-                    if (task.isSuccessful) {
-                        Toast.makeText(baseContext, "로그인에 성공하였습니다.", Toast.LENGTH_SHORT).show()
-                        navigateHome(auth?.currentUser)
-                    } else {
-                        Toast.makeText(
-                            baseContext, "로그인에 실패하였습니다.",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
+        auth?.signInWithEmailAndPassword(binding.letId.text.toString(), binding.letPwd.text.toString())
+            ?.addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(baseContext, "로그인에 성공하였습니다.", Toast.LENGTH_SHORT).show()
+                    navigateHome(auth?.currentUser)
+                } else {
+                    Toast.makeText(baseContext, "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show()
                 }
-        }
+            }
     }
 
     private fun navigateHome(user: FirebaseUser?) {
