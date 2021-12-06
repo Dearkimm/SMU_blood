@@ -2,11 +2,13 @@ package org.smu.blood.ui
 
 import User
 import android.annotation.SuppressLint
+import android.content.ContentValues.TAG
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.View
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.widget.*
@@ -44,6 +46,7 @@ class SignUpActivity : AppCompatActivity() {
         var checkbox = findViewById<CheckBox>(R.id.checkbox)
         //체크박스 옆 텍스트뷰
         var text = findViewById<TextView>(R.id.signup_tv)
+        var pwdtext = findViewById<TextView>(R.id.pwd_type)
 
         //버튼
         var joinButton = findViewById<Button>(R.id.btn_join)
@@ -124,6 +127,15 @@ class SignUpActivity : AppCompatActivity() {
             typeB.setBackgroundResource(R.drawable.bg_btn_type)
 
         }
+
+        editPassword.setOnFocusChangeListener(View.OnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) {
+                pwdtext.visibility = VISIBLE
+            } else {
+                pwdtext.visibility = INVISIBLE
+            }
+
+        })
         //비밀번호 일치 여부
         editPassword2.addTextChangedListener(object:TextWatcher{
             // EditText에 문자 입력 전
@@ -146,15 +158,13 @@ class SignUpActivity : AppCompatActivity() {
             if (editName.text.isNullOrBlank() || editId.text.isNullOrBlank() || editPassword.text.isNullOrBlank() || editPassword2.text.isNullOrBlank()) {
                 Toast.makeText(applicationContext, "빈 칸이 있습니다", Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(applicationContext, "회원가입 완료", Toast.LENGTH_SHORT).show()
                 //입력값 저장
                 idText = editId.text.toString()
                 passwordText = editPassword.text.toString()
-                password2Text = editPassword2.text.toString()
                 nicknameText = editName.text.toString()
 
                 //입력한 내용을 서버에 넣어주기
-                createUser(idText, passwordText)
+                createUser(idText,passwordText)
                 //writeNewUser("test1234", "테스트", "test@aa.aa")
 
                 // 3. intent에 보낼 데이터 담기
@@ -173,35 +183,23 @@ class SignUpActivity : AppCompatActivity() {
     }
     //파이어베이스에서 계정 생성
     private fun createUser(email: String, password: String) {
+        Log.d("변수", email+", "+password)
         auth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener { task ->
+            .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
+                    Toast.makeText(applicationContext, "회원가입 완료", Toast.LENGTH_SHORT).show()
                     Log.d("회원가입", "성공")
                     val user = auth.currentUser
                 } else {
+
                     Log.d("회원가입", "실패")
+                    Log.w(TAG, "createUserWithEmail:failure", task.exception)
                 }
             }
             .addOnFailureListener {
                 Toast.makeText(this, "회원가입 실패", Toast.LENGTH_SHORT).show()
             }
     }
-
-    /*//이게 서버에 정보 넘기는거
-    fun writeNewUser(userId: String, name: String, email: String) {
-        val user = User(name, email)
-        Log.d("시작", "start")
-        mDatabase.child("users").child(userId).setValue(user)
-            .addOnSuccessListener(OnSuccessListener<Void?> { // Write was successful!
-                Log.d("회원가입", "저장 성공")
-                Toast.makeText(this@SignUpActivity, "저장을 완료했습니다.", Toast.LENGTH_SHORT).show()
-                Log.d("성공", "회원가입 성공")
-            })
-            .addOnFailureListener(OnFailureListener { // Write failed
-                Log.e("회원가입", "저장 실패")
-                Toast.makeText(this@SignUpActivity, "저장을 실패했습니다.", Toast.LENGTH_SHORT).show()
-            })
-    }*/
 
 }
 
