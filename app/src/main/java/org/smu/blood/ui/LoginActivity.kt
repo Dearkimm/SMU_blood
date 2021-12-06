@@ -74,17 +74,14 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+
     private fun login(email: String, password: String) {
         if (binding.letId.text.isNotEmpty() && binding.letPwd.text.isNotEmpty()) {
             auth?.signInWithEmailAndPassword(email, password)
                 ?.addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
-                        Toast.makeText(
-                            baseContext, "로그인에 성공하였습니다.",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        Toast.makeText(baseContext, "로그인에 성공하였습니다.", Toast.LENGTH_SHORT).show()
                         navigateHome(auth?.currentUser)
-                        //navigateHome()
                     } else {
                         Toast.makeText(
                             baseContext, "로그인에 실패하였습니다.",
