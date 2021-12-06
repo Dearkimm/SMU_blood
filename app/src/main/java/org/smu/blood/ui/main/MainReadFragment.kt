@@ -1,5 +1,7 @@
 package org.smu.blood.ui.main
 
+import android.app.Activity
+import android.app.Instrumentation
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -7,6 +9,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat.startActivityForResult
+import androidx.fragment.app.Fragment
 import org.smu.blood.databinding.FragmentMainReadBinding
 import org.smu.blood.model.BloodType
 import org.smu.blood.model.Hospital
@@ -47,7 +53,7 @@ class MainReadFragment : BaseFragment<FragmentMainReadBinding>() {
                 checkState = dlg.returnState()
                 if(checkState){ // true일때 건너뛰기
                     val intent = Intent(context, MapApplicationActivity()::class.java)
-                    startActivity(intent)
+                    activity?.startActivityForResult(intent, 101)
                 }
                 else{ //false 일때 전자문진
                     var intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.bloodinfo.net/emi2/login.do?_ga=2.29800319.1190218835.1637677364-178623010.1637677364"))
@@ -77,4 +83,6 @@ class MainReadFragment : BaseFragment<FragmentMainReadBinding>() {
             atvCon.text = content
         }
     }
+
+
 }

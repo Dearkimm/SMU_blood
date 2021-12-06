@@ -68,6 +68,9 @@ class MapApplicationActivity : AppCompatActivity() {
                         startActivity(intent)
                         this.finish()
                     } else { //마이페이지에서 신청 확인하기
+                        val intent = Intent()
+                        intent.putExtra("confirmState", confirmState)
+                        setResult(RESULT_OK, intent)
                         this.finish()
                     }
                 }
