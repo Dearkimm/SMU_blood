@@ -109,8 +109,8 @@
     <string name="page_tv12">탈퇴하기</string>
     <string name="su_tv1">회원가입</string>
     <string name="su_tv2">아이디</string>
-    <string name="su_tv3">사용 가능한 아이디입니다.</string>
-    <string name="su_tv4">아이디를 입력해주세요</string>
+    <string name="su_tv3">사용 가능한 이메일입니다.</string>
+    <string name="su_tv4">사용 가능한 \'이메일\'을 입력해주세요</string>
     <string name="su_tv5">비밀번호</string>
     <string name="su_tv6">비밀번호를 입력해주세요</string>
     <string name="su_tv7">비밀번호 확인</string>
@@ -146,4 +146,5 @@
     <string name="btv_tv">내가 쓴 글</string>
     <string name="request_record">요청 기록 카드</string>
     <string name="apply_record">신청 기록 카드</string>
+    <string name="ltv_id_type">ex) abc@naver.com</string>
 </resources>
