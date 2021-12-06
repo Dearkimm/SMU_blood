@@ -12,7 +12,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getSystemService
+import androidx.lifecycle.Transformations.map
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.maps.*
@@ -24,10 +26,11 @@ import org.smu.blood.databinding.FragmentMapBinding
 import org.smu.blood.ui.base.BaseFragment
 import java.util.jar.Manifest
 
-class MapFragment : BaseFragment<FragmentMapBinding>(), OnMapReadyCallback {
-    //google api client 생성
-    private lateinit var mGoogleApiClient: GoogleApiClient
-
+class MapFragment : BaseFragment<FragmentMapBinding>(), GoogleMap.OnMyLocationButtonClickListener,
+    GoogleMap.OnMyLocationClickListener, OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback{
+    //권한
+    private var permissionDenied = false
+    //구글맵
     private lateinit var mMap:GoogleMap
     val DEFAULT_ZOOM_LEVEL = 17f
     val CITY_HALL = LatLng(37.5662952, 126.97794509999994)
@@ -39,12 +42,6 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), OnMapReadyCallback {
     override fun initBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentMapBinding =
         FragmentMapBinding.inflate(inflater, container, false)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-
-        }
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val mapFragment = childFragmentManager
@@ -54,31 +51,41 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-        val markerOptions = MarkerOptions()
+        googleMap.setOnMyLocationButtonClickListener(this)
+        googleMap.setOnMyLocationClickListener(this)
+        //enableMyLocation()
+
+        //테스트코드
+        /*val markerOptions = MarkerOptions()
         markerOptions.position(CITY_HALL)
         markerOptions.title("서울")
         markerOptions.snippet("한국의 수도")
         mMap.addMarker(markerOptions)
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(CITY_HALL, 15F))
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(CITY_HALL, 15F))*/
+    }
+    @SuppressLint("MissingPermission")
+    private fun enableMyLocation() {
+        /*if (!::map.isInitialized) return
+        if (ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.ACCESS_FINE_LOCATION)
+            == PackageManager.PERMISSION_GRANTED) {
+            map.isMyLocationEnabled = true
+        } else {
+            // Permission to access the location is missing. Show rationale and request permission
+            requestPermission(this, LOCATION_PERMISSION_REQUEST_CODE,
+                Manifest.permission.ACCESS_FINE_LOCATION, true
+            )
+        }*/
+        //김희진 사랑해애애애앵애ㅐㄱ
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment MapFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            MapFragment().apply {
-                arguments = Bundle().apply {
-                    //putString(ARG_PARAM1, param1)
-                    //putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onMyLocationButtonClick(): Boolean {
+        //Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show()
+        // Return false so that we don't consume the event and the default behavior still occurs
+        // (the camera animates to the user's current position).
+        return false
+    }
+
+    override fun onMyLocationClick(p0: Location) {
+        TODO("Not yet implemented")
     }
 }

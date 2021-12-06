@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.smu.blood">
+    package="org.smu.blood" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -14,11 +14,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SMU_blood"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true" >
+        <activity
+            android:name=".ui.map.MapActivity"
+            android:exported="true" />
         <activity
             android:name=".ui.SplashActivity"
             android:exported="true"
-            android:theme="@style/SplashTheme">
+            android:theme="@style/SplashTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -51,9 +54,7 @@
             android:exported="true" />
         <activity
             android:name=".ui.my.Card.CardRequestActivity"
-            android:exported="true" />
-
-        <!-- Google Map API Key -->
+            android:exported="true" /> <!-- Google Map API Key -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyB57Q2RnPpZ7n7oLc5Ky9K7wBUPTsa395o" />

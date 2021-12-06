@@ -68,6 +68,7 @@ class MyRequestFragment : BaseFragment<FragmentMyRequestBinding>() {
     private fun configureClickEvent() {
         myCardAdapter.setItemClickListener(object : MainRequestAdapter.ItemClickListener {
             override fun onClick(requestInfo: MainRequest) {
+                //
                 hospitalId = requestInfo.hospitalId
                 rhType = requestInfo.rhType
                 bloodType = requestInfo.bloodType
