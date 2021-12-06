@@ -3,7 +3,6 @@ package org.smu.blood.ui.main
 import android.graphics.Color
 import android.os.Bundle
 import android.telephony.PhoneNumberFormattingTextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,7 +41,6 @@ class MainRequestFragment : BaseFragment<FragmentMainRequestBinding>() {
         }
 
         requireActivity().onBackPressedDispatcher.addCallback {
-            Log.d("tag", "찍히나")
             (activity as NavigationActivity).popMainRequest()
         }
     }
