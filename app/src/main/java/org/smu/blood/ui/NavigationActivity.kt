@@ -1,7 +1,9 @@
 package org.smu.blood.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import org.smu.blood.databinding.ActivityNavigationBinding
 import org.smu.blood.ui.board.BoardFragment
 import org.smu.blood.ui.main.MainFragment
@@ -85,6 +87,19 @@ class NavigationActivity : AppCompatActivity() {
 
     fun logoutAndfinish(){
         finish()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(data != null){
+            Log.d("코드", resultCode.toString())
+            if(resultCode == -1){
+                var confirmState = data.getBooleanExtra("confirmState", false)
+                if(!confirmState){
+                    replaceFragment(binding.fragmentContainer, MyRequestFragment::class.java, true)
+                }
+            }
+        }
     }
 
 }
