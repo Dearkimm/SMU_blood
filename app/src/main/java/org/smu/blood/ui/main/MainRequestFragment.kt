@@ -12,6 +12,7 @@ import org.smu.blood.ui.NavigationActivity
 import org.smu.blood.R
 import org.smu.blood.databinding.FragmentMainRequestBinding
 import org.smu.blood.ui.base.BaseFragment
+import org.smu.blood.ui.main.MainSearchHospitalFragment.Companion.hospitalName
 
 class MainRequestFragment : BaseFragment<FragmentMainRequestBinding>() {
 
@@ -19,8 +20,16 @@ class MainRequestFragment : BaseFragment<FragmentMainRequestBinding>() {
         FragmentMainRequestBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        initMainRequest()
         configureRequestNavigation()
         configureClickEvent()
+    }
+
+    private fun initMainRequest() {
+        when (hospitalName) {
+            "" -> binding.imgbHos.text = "병원 찾기"
+            else -> binding.imgbHos.text = hospitalName
+        }
     }
 
     private fun configureRequestNavigation() {
@@ -42,6 +51,7 @@ class MainRequestFragment : BaseFragment<FragmentMainRequestBinding>() {
 
         requireActivity().onBackPressedDispatcher.addCallback {
             (activity as NavigationActivity).popMainRequest()
+            hospitalName = ""
         }
     }
 
