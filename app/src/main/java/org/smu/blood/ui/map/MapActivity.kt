@@ -31,8 +31,10 @@ import java.text.SimpleDateFormat
 import java.util.*
 //import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.SettingsSlicesContract.KEY_LOCATION
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -40,6 +42,17 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.MarkerOptions
+import androidx.core.app.ActivityCompat.OnRequestPermissionsResultCallback
+
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.places.GeoDataClient;
+import com.google.android.gms.location.places.PlaceDetectionClient;
+import com.google.android.gms.location.places.PlaceLikelihood;
+import com.google.android.gms.location.places.PlaceLikelihoodBufferResponse;
+import com.google.android.gms.location.places.Places;
+import com.google.android.gms.maps.model.CameraPosition
+import com.google.android.gms.maps.model.Marker
 import org.smu.blood.R
 import org.smu.blood.databinding.ActivityMapBinding
 
@@ -77,7 +90,7 @@ class MapActivity : AppCompatActivity() , GoogleMap.OnMyLocationButtonClickListe
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        savedInstanceState?.let{
+        /*savedInstanceState?.let{
             mCurrentLocatiion = it.getParcelable(KEY_LOCATION)
             mCameraPosition = it.getParcelable(KEY_CAMERA_POSITION)
         }
@@ -89,7 +102,7 @@ class MapActivity : AppCompatActivity() , GoogleMap.OnMyLocationButtonClickListe
             .setInterval(UPDATE_INTERVAL_MS.toLong()) // 위치가 Update 되는 주기
             .setFastestInterval(FASTEST_UPDATE_INTERVAL_MS.toLong()) // 위치 획득후 업데이트되는 주기
         val builder = LocationSettingsRequest.Builder()
-        builder.addLocationRequest(locationRequest)
+        builder.addLocationRequest(locationRequest)*/
 
         // Construct a FusedLocationProviderClient.
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
@@ -100,18 +113,18 @@ class MapActivity : AppCompatActivity() , GoogleMap.OnMyLocationButtonClickListe
 }
 
     override fun onMyLocationButtonClick(): Boolean {
-        TODO("Not yet implemented")
+        return true
     }
 
     override fun onMyLocationClick(p0: Location) {
-        TODO("Not yet implemented")
+        
     }
 
     /**
      * Saves the state of the map when the activity is paused.
      */
     override fun onSaveInstanceState(outState: Bundle) {
-        mMap?.let{
+        mMap.let{
             outState.putParcelable(KEY_CAMERA_POSITION, it.cameraPosition)
             outState.putParcelable(KEY_LOCATION, mCurrentLocatiion)
             super.onSaveInstanceState(outState)
@@ -120,11 +133,11 @@ class MapActivity : AppCompatActivity() , GoogleMap.OnMyLocationButtonClickListe
 
     override fun onMapReady(googleMap: GoogleMap) {
         Log.e(TAG, "onMapReady :")
-        mMap = map
-        setDefaultLocation() // GPS를 찾지 못하는 장소에 있을 경우 지도의 초기 위치가 필요함.
-        locationPermission
+        mMap = googleMap
+        //setDefaultLocation() // GPS를 찾지 못하는 장소에 있을 경우 지도의 초기 위치가 필요함.
+        //locationPermission
         updateLocationUI()
-        deviceLocation
+        //deviceLocation
     }
 
     private fun updateLocationUI() {

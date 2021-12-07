@@ -16,24 +16,20 @@
         android:theme="@style/Theme.SMU_blood"
         android:usesCleartextTraffic="true" >
         <activity
-            android:name=".ui.main.MapActivity"
-            android:exported="true" />
-        <activity
-            android:name=".ui.map.SibalActivity"
-            android:exported="true" />
-        <activity
             android:name=".ui.map.MapActivity"
             android:exported="true" >
+
+        </activity>
+        <activity
+            android:name=".ui.SplashActivity"
+            android:exported="true"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.SplashActivity"
-            android:exported="true"
-            android:theme="@style/SplashTheme" />
         <activity
             android:name=".ui.LoginActivity"
             android:exported="true" />
@@ -65,6 +61,9 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyB57Q2RnPpZ7n7oLc5Ky9K7wBUPTsa395o" />
 
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
