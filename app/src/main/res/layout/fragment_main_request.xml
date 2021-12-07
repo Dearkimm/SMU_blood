@@ -18,6 +18,75 @@
             android:layout_height="match_parent">
 
             <TextView
+                android:id="@+id/main_hos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="28dp"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:text="@string/rmain_tv14"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/request" />
+
+            <Button
+                android:id="@+id/imgb_hos"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/hospital_search_et"
+                android:drawableEnd="@drawable/search_icon"
+                android:fontFamily="@font/notosans_light"
+                android:gravity="center_vertical"
+                android:includeFontPadding="false"
+                android:padding="12dp"
+                android:scaleType="centerInside"
+                android:text="병원 찾기"
+                android:textColor="#7c7c7c"
+                android:textSize="13sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/main_hos" />
+
+            <TextView
+                android:id="@+id/main_hnum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="29dp"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:text="@string/rmain_tv15"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imgb_hos" />
+
+            <EditText
+                android:id="@+id/met_hnum"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/bg_edittext_color_change"
+                android:fontFamily="@font/notosans_light"
+                android:hint="@string/rmain_tv16"
+                android:includeFontPadding="false"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingStart="10dp"
+                android:textColor="#7c7c7c"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/main_hnum" />
+
+            <TextView
                 android:id="@+id/request"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -42,7 +111,7 @@
                 android:textColor="@color/black"
                 android:textSize="13sp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/request" />
+                app:layout_constraintTop_toBottomOf="@id/met_hnum" />
 
             <Button
                 android:id="@+id/type2_a"
@@ -238,75 +307,6 @@
             </RadioGroup>
 
             <TextView
-                android:id="@+id/main_hos"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="28dp"
-                android:fontFamily="@font/notosans_regular"
-                android:includeFontPadding="false"
-                android:text="@string/rmain_tv14"
-                android:textColor="@color/black"
-                android:textSize="13sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/radiogroup" />
-
-            <Button
-                android:id="@+id/imgb_hos"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginEnd="15dp"
-                android:background="@drawable/hospital_search_et"
-                android:drawableEnd="@drawable/search_icon"
-                android:fontFamily="@font/notosans_light"
-                android:gravity="center_vertical"
-                android:includeFontPadding="false"
-                android:padding="12dp"
-                android:scaleType="centerInside"
-                android:text="병원 찾기"
-                android:textColor="#7c7c7c"
-                android:textSize="13sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/main_hos" />
-
-            <TextView
-                android:id="@+id/main_hnum"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="29dp"
-                android:fontFamily="@font/notosans_regular"
-                android:includeFontPadding="false"
-                android:text="@string/rmain_tv15"
-                android:textColor="@color/black"
-                android:textSize="13sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/imgb_hos" />
-
-            <EditText
-                android:id="@+id/met_hnum"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginEnd="15dp"
-                android:background="@drawable/bg_edittext_color_change"
-                android:fontFamily="@font/notosans_light"
-                android:hint="@string/rmain_tv16"
-                android:includeFontPadding="false"
-                android:inputType="text"
-                android:maxLines="1"
-                android:paddingStart="10dp"
-                android:textColor="#7c7c7c"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/main_hnum" />
-
-            <TextView
                 android:id="@+id/main_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -318,7 +318,7 @@
                 android:textColor="@color/black"
                 android:textSize="13sp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/met_hnum" />
+                app:layout_constraintTop_toBottomOf="@id/radiogroup" />
 
             <EditText
                 android:id="@+id/met_pname"
