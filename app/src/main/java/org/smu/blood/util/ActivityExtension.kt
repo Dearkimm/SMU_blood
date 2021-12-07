@@ -1,11 +1,13 @@
 package org.smu.blood.util
 
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
 import org.smu.blood.R
+import org.smu.blood.ui.main.MainFragment
 
 fun AppCompatActivity.replaceFragment(
     containerView: FragmentContainerView,

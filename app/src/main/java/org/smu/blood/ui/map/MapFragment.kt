@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,6 +22,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import org.smu.blood.R
 import org.smu.blood.databinding.FragmentMainBinding
 import org.smu.blood.databinding.FragmentMapBinding
+import org.smu.blood.ui.NavigationActivity
 import org.smu.blood.ui.base.BaseFragment
 import java.util.jar.Manifest
 
@@ -50,6 +52,8 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), OnMapReadyCallback {
         val mapFragment = childFragmentManager
             ?.findFragmentById(R.id.map_fragment) as SupportMapFragment?
         mapFragment!!.getMapAsync(this)
+
+        configureMapNavigation()
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -60,6 +64,12 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), OnMapReadyCallback {
         markerOptions.snippet("한국의 수도")
         mMap.addMarker(markerOptions)
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(CITY_HALL, 15F))
+    }
+
+    private fun configureMapNavigation() {
+        requireActivity().onBackPressedDispatcher.addCallback {
+            (activity as NavigationActivity).showFinishToast()
+        }
     }
 
     companion object {
