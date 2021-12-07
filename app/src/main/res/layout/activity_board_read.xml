@@ -105,8 +105,7 @@
         app:layout_constraintTop_toBottomOf="@id/writing_nickname"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:layout_marginTop="15dp"
-        />
+        android:layout_marginTop="15dp" />
     <TextView
         android:id="@+id/writing_body"
         android:layout_width="match_parent"
