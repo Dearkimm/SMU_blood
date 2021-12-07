@@ -17,6 +17,7 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".ui.SplashActivity"
+            android:windowSoftInputMode="adjustPan"
             android:exported="true"
             android:theme="@style/SplashTheme">
             <intent-filter>

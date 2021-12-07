@@ -1,35 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <ScrollView
         android:id="@+id/scorll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:scrollbars="none"
         tools:layout_editor_absoluteX="-25dp"
-        tools:layout_editor_absoluteY="276dp"
-        android:scrollbars="none">
+        tools:layout_editor_absoluteY="276dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <TextView
+                android:id="@+id/main_hos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="28dp"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:text="@string/rmain_tv14"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/request" />
+
+            <Button
+                android:id="@+id/imgb_hos"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/hospital_search_et"
+                android:drawableEnd="@drawable/search_icon"
+                android:fontFamily="@font/notosans_light"
+                android:gravity="center_vertical"
+                android:includeFontPadding="false"
+                android:padding="12dp"
+                android:scaleType="centerInside"
+                android:text="병원 찾기"
+                android:textColor="#7c7c7c"
+                android:textSize="13sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/main_hos" />
+
+            <TextView
+                android:id="@+id/main_hnum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="29dp"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:text="@string/rmain_tv15"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imgb_hos" />
+
+            <EditText
+                android:id="@+id/met_hnum"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/bg_edittext_color_change"
+                android:fontFamily="@font/notosans_light"
+                android:hint="@string/rmain_tv16"
+                android:includeFontPadding="false"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingStart="10dp"
+                android:textColor="#7c7c7c"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/main_hnum" />
+
+            <TextView
                 android:id="@+id/request"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/rmain_tv1"
-                android:fontFamily="@font/notosans_regular"
-                android:textSize="19sp"
-                android:textColor="@color/black"
-                android:includeFontPadding="false"
-                android:gravity="center"
-                app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginTop="20dp"
-                />
+                android:fontFamily="@font/notosans_regular"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="@string/rmain_tv1"
+                android:textColor="@color/black"
+                android:textSize="19sp"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/mtv2_type"
@@ -43,7 +111,7 @@
                 android:textColor="@color/black"
                 android:textSize="13sp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/request" />
+                app:layout_constraintTop_toBottomOf="@id/met_hnum" />
 
             <Button
                 android:id="@+id/type2_a"
@@ -134,11 +202,10 @@
                 android:fontFamily="@font/notosans_regular"
                 android:includeFontPadding="false"
                 android:text="@string/rmain_tv7"
-                android:textSize="12sp"
                 android:textColor="@color/black"
-                app:layout_constraintTop_toBottomOf="@id/type2_a"
+                android:textSize="12sp"
                 app:layout_constraintLeft_toRightOf="@id/m_checkbox"
-                />
+                app:layout_constraintTop_toBottomOf="@id/type2_a" />
 
 
             <TextView
@@ -150,8 +217,8 @@
                 android:fontFamily="@font/notosans_regular"
                 android:includeFontPadding="false"
                 android:text="@string/rmain_tv8"
-                android:textSize="13sp"
                 android:textColor="@color/black"
+                android:textSize="13sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/m_checkbox" />
 
@@ -160,8 +227,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintTop_toBottomOf="@id/mtv2_type2"
-                app:layout_constraintLeft_toLeftOf="parent">
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/mtv2_type2">
+
                 <RadioButton
                     android:id="@+id/radio1"
                     android:layout_width="wrap_content"
@@ -171,11 +239,12 @@
                     android:button="@drawable/redcheck"
                     android:fontFamily="@font/notosans_light"
                     android:gravity="bottom"
-                    android:textSize="12sp"
                     android:includeFontPadding="false"
                     android:text="  전혈"
+                    android:textSize="12sp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/mtv2_type2" />
+
                 <RadioButton
                     android:id="@+id/radio2"
                     android:layout_width="wrap_content"
@@ -185,11 +254,12 @@
                     android:button="@drawable/redcheck"
                     android:fontFamily="@font/notosans_light"
                     android:gravity="bottom"
-                    android:textSize="12sp"
                     android:includeFontPadding="false"
                     android:text="  혈소판"
+                    android:textSize="12sp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/radio1" />
+
                 <RadioButton
                     android:id="@+id/radio3"
                     android:layout_width="wrap_content"
@@ -199,11 +269,12 @@
                     android:button="@drawable/redcheck"
                     android:fontFamily="@font/notosans_light"
                     android:gravity="bottom"
-                    android:textSize="12sp"
                     android:includeFontPadding="false"
                     android:text="  백혈구"
+                    android:textSize="12sp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/radio2" />
+
                 <RadioButton
                     android:id="@+id/radio4"
                     android:layout_width="wrap_content"
@@ -213,11 +284,12 @@
                     android:button="@drawable/redcheck"
                     android:fontFamily="@font/notosans_light"
                     android:gravity="bottom"
-                    android:textSize="12sp"
                     android:includeFontPadding="false"
                     android:text="  농축적혈구"
+                    android:textSize="12sp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/radio3" />
+
                 <RadioButton
                     android:id="@+id/radio5"
                     android:layout_width="wrap_content"
@@ -227,82 +299,13 @@
                     android:button="@drawable/redcheck"
                     android:fontFamily="@font/notosans_light"
                     android:gravity="bottom"
-                    android:textSize="12sp"
                     android:includeFontPadding="false"
                     android:text="  백혈구 여과제거 적혈구"
+                    android:textSize="12sp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/radio4" />
             </RadioGroup>
 
-            <TextView
-                android:id="@+id/main_hos"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="28dp"
-                android:fontFamily="@font/notosans_regular"
-                android:includeFontPadding="false"
-                android:text="@string/rmain_tv14"
-                android:textColor="@color/black"
-                android:textSize="13sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/radiogroup"
-                />
-
-            <Button
-                android:id="@+id/imgb_hos"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                android:background="@drawable/hospital_search_et"
-                android:padding="12dp"
-                android:scaleType="centerInside"
-                android:drawableEnd="@drawable/search_icon"
-                android:text="병원 찾기"
-                android:gravity="center_vertical"
-                android:textColor="#7c7c7c"
-                android:textSize="13sp"
-                android:fontFamily="@font/notosans_light"
-                android:includeFontPadding="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/main_hos" />
-
-            <TextView
-                android:id="@+id/main_hnum"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="29dp"
-                android:fontFamily="@font/notosans_regular"
-                android:includeFontPadding="false"
-                android:text="@string/rmain_tv15"
-                android:textSize="13sp"
-                android:textColor="@color/black"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/imgb_hos" />
-
-            <EditText
-                android:id="@+id/met_hnum"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginEnd="15dp"
-                android:fontFamily="@font/notosans_light"
-                android:includeFontPadding="false"
-                android:paddingStart="10dp"
-                android:hint="@string/rmain_tv16"
-                android:maxLines="1"
-                android:inputType="text"
-                android:textColor="#7c7c7c"
-                android:textSize="12sp"
-                android:background="@drawable/bg_edittext_color_change"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/main_hnum" />
             <TextView
                 android:id="@+id/main_name"
                 android:layout_width="wrap_content"
@@ -312,10 +315,10 @@
                 android:fontFamily="@font/notosans_regular"
                 android:includeFontPadding="false"
                 android:text="@string/rmain_tv17"
-                android:textSize="13sp"
                 android:textColor="@color/black"
+                android:textSize="13sp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/met_hnum" />
+                app:layout_constraintTop_toBottomOf="@id/radiogroup" />
 
             <EditText
                 android:id="@+id/met_pname"
@@ -324,18 +327,19 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="3dp"
                 android:layout_marginEnd="15dp"
+                android:background="@drawable/bg_edittext_color_change"
                 android:fontFamily="@font/notosans_light"
-                android:includeFontPadding="false"
-                android:paddingStart="10dp"
                 android:hint="@string/rmain_tv18"
-                android:maxLines="1"
+                android:includeFontPadding="false"
                 android:inputType="text"
+                android:maxLines="1"
+                android:paddingStart="10dp"
                 android:textColor="#7c7c7c"
                 android:textSize="12sp"
-                android:background="@drawable/bg_edittext_color_change"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/main_name" />
+
             <TextView
                 android:id="@+id/main_pnum"
                 android:layout_width="wrap_content"
@@ -345,8 +349,8 @@
                 android:fontFamily="@font/notosans_regular"
                 android:includeFontPadding="false"
                 android:text="@string/rmain_tv19"
-                android:textSize="13sp"
                 android:textColor="@color/black"
+                android:textSize="13sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/met_pname" />
 
@@ -357,18 +361,19 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="3dp"
                 android:layout_marginEnd="15dp"
+                android:background="@drawable/bg_edittext_color_change"
                 android:fontFamily="@font/notosans_light"
-                android:includeFontPadding="false"
-                android:paddingStart="10dp"
                 android:hint="@string/rmain_tv20"
-                android:maxLines="1"
+                android:includeFontPadding="false"
                 android:inputType="number"
+                android:maxLines="1"
+                android:paddingStart="10dp"
                 android:textColor="#7c7c7c"
                 android:textSize="12sp"
-                android:background="@drawable/bg_edittext_color_change"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/main_pnum" />
+
             <TextView
                 android:id="@+id/main_gnum"
                 android:layout_width="wrap_content"
@@ -378,8 +383,8 @@
                 android:fontFamily="@font/notosans_regular"
                 android:includeFontPadding="false"
                 android:text="@string/rmain_tv21"
-                android:textSize="13sp"
                 android:textColor="@color/black"
+                android:textSize="13sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/met_pnum" />
 
@@ -390,18 +395,19 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="3dp"
                 android:layout_marginEnd="15dp"
+                android:background="@drawable/bg_edittext_color_change"
                 android:fontFamily="@font/notosans_light"
-                android:paddingStart="10dp"
-                android:includeFontPadding="false"
                 android:hint="@string/rmain_tv22"
-                android:maxLength="13"
+                android:includeFontPadding="false"
                 android:inputType="phone"
+                android:maxLength="13"
+                android:paddingStart="10dp"
                 android:textColor="#7c7c7c"
                 android:textSize="12sp"
-                android:background="@drawable/bg_edittext_color_change"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/main_gnum" />
+
             <TextView
                 android:id="@+id/main_start"
                 android:layout_width="wrap_content"
@@ -411,8 +417,8 @@
                 android:fontFamily="@font/notosans_regular"
                 android:includeFontPadding="false"
                 android:text="@string/rmain_tv23"
-                android:textSize="13sp"
                 android:textColor="@color/black"
+                android:textSize="13sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/met_gnum" />
 
@@ -423,15 +429,15 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="3dp"
                 android:layout_marginEnd="15dp"
+                android:background="@drawable/bg_edittext_color_change"
                 android:fontFamily="@font/notosans_light"
-                android:includeFontPadding="false"
-                android:paddingStart="10dp"
                 android:hint="@string/rmain_tv24"
-                android:maxLines="1"
+                android:includeFontPadding="false"
                 android:inputType="date"
+                android:maxLines="1"
+                android:paddingStart="10dp"
                 android:textColor="#7c7c7c"
                 android:textSize="12sp"
-                android:background="@drawable/bg_edittext_color_change"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/main_start" />
@@ -439,16 +445,16 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/rmain_tv25"
-                android:textSize="10sp"
-                android:fontFamily="@font/notosans_light"
-                android:includeFontPadding="false"
-                android:textColor="@color/red"
                 android:layout_marginLeft="16dp"
                 android:layout_marginBottom="5dp"
+                android:fontFamily="@font/notosans_light"
+                android:includeFontPadding="false"
+                android:text="@string/rmain_tv25"
+                android:textColor="@color/red"
+                android:textSize="10sp"
                 app:layout_constraintBottom_toTopOf="@id/met_start"
-                app:layout_constraintLeft_toRightOf="@id/main_start"
-                />
+                app:layout_constraintLeft_toRightOf="@id/main_start" />
+
             <TextView
                 android:id="@+id/main_end"
                 android:layout_width="wrap_content"
@@ -470,31 +476,31 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="3dp"
                 android:layout_marginEnd="15dp"
+                android:background="@drawable/bg_edittext_color_change"
                 android:fontFamily="@font/notosans_light"
-                android:includeFontPadding="false"
-                android:paddingStart="10dp"
                 android:hint="@string/rmain_tv27"
-                android:maxLines="1"
+                android:includeFontPadding="false"
                 android:inputType="date"
+                android:maxLines="1"
+                android:paddingStart="10dp"
                 android:textColor="#7c7c7c"
                 android:textSize="12sp"
-                android:background="@drawable/bg_edittext_color_change"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/main_end" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/rmain_tv28"
-                android:textSize="10sp"
-                android:fontFamily="@font/notosans_light"
-                android:includeFontPadding="false"
-                android:textColor="@color/red"
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="5dp"
+                android:fontFamily="@font/notosans_light"
+                android:includeFontPadding="false"
+                android:text="@string/rmain_tv28"
+                android:textColor="@color/red"
+                android:textSize="10sp"
                 app:layout_constraintBottom_toTopOf="@id/met_end"
-                app:layout_constraintLeft_toRightOf="@id/main_end"
-                />
+                app:layout_constraintLeft_toRightOf="@id/main_end" />
 
             <TextView
                 android:id="@+id/main_story"
@@ -505,10 +511,11 @@
                 android:fontFamily="@font/notosans_regular"
                 android:includeFontPadding="false"
                 android:text="@string/rmain_tv29"
-                android:textSize="13sp"
                 android:textColor="@color/black"
+                android:textSize="13sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/met_end" />
+
             <EditText
                 android:id="@+id/met_story"
                 android:layout_width="match_parent"
@@ -516,15 +523,15 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="15dp"
+                android:background="@drawable/bg_edittext_color_change"
                 android:fontFamily="@font/notosans_light"
+                android:gravity="top"
+                android:hint="@string/rmain_tv30"
                 android:includeFontPadding="false"
                 android:paddingStart="10dp"
                 android:paddingTop="12dp"
-                android:hint="@string/rmain_tv30"
                 android:textColor="#7c7c7c"
                 android:textSize="12sp"
-                android:gravity="top"
-                android:background="@drawable/bg_edittext_color_change"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/main_story" />

@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import androidx.activity.addCallback
 import androidx.recyclerview.widget.RecyclerView
 import org.smu.blood.ui.NavigationActivity
 import org.smu.blood.R
@@ -37,6 +38,8 @@ class BoardFragment : Fragment() {
         recyclerview = rootView.findViewById<RecyclerView>(R.id.rc_board_list)
         recyclerview.adapter = boardAdapter
         initRecycler()
+
+        configureBoardNavigation()
 
         //리사이클러뷰 어댑터 클릭 이벤트
         boardAdapter.setOnItemClickListener(object: BoardAdapter.OnItemClickListener{
@@ -79,7 +82,6 @@ class BoardFragment : Fragment() {
         })
 
 
-
         //버튼
         var writeButton = rootView.findViewById<ImageButton>(R.id.btv_write)
         var myButton = rootView.findViewById<ImageButton>(R.id.btv_mypage)
@@ -104,6 +106,12 @@ class BoardFragment : Fragment() {
                 arguments = Bundle().apply {
                 }
             }
+    }
+
+    private fun configureBoardNavigation() {
+        requireActivity().onBackPressedDispatcher.addCallback {
+            (activity as NavigationActivity).showFinishToast()
+        }
     }
 
     private fun initRecycler() {

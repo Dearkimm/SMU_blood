@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat.startActivityForResult
@@ -39,10 +40,17 @@ class MainReadFragment : BaseFragment<FragmentMainReadBinding>() {
         FragmentMainReadBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        configureMainReadNavigation()
         initMainRead()
         readDialog()
-        //다이얼로그클릭리스너
     }
+
+    private fun configureMainReadNavigation() {
+        requireActivity().onBackPressedDispatcher.addCallback {
+            (activity as NavigationActivity).popMainRead()
+        }
+    }
+
     private fun readDialog(){
         binding.mainreadButton.setOnClickListener {
             val dlg = MapCheckConditionAlert(requireContext())
@@ -83,6 +91,4 @@ class MainReadFragment : BaseFragment<FragmentMainReadBinding>() {
             atvCon.text = content
         }
     }
-
-
 }

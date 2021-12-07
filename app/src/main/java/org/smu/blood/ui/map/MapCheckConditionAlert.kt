@@ -2,14 +2,9 @@ package org.smu.blood.ui.map
 
 import android.app.Dialog
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.view.WindowManager
 import android.widget.Button
-import androidx.core.content.ContextCompat.startActivity
 import org.smu.blood.R
-import org.smu.blood.ui.main.MainRequestAlert
-import org.smu.blood.ui.my.MyModActivity
 
 class MapCheckConditionAlert (context: Context) :
         Dialog(context,android.R.style.Theme_Translucent_NoTitleBar){
