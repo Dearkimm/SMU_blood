@@ -1,6 +1,6 @@
 package org.smu.blood.ui
 
-import User
+import org.smu.blood.api.database.User
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.graphics.Color
@@ -20,7 +20,7 @@ import com.google.firebase.auth.FirebaseUser
 import org.smu.blood.R
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-
+import com.google.firebase.firestore.FirebaseFirestore
 
 
 class SignUpActivity : AppCompatActivity() {
@@ -30,7 +30,10 @@ class SignUpActivity : AppCompatActivity() {
     lateinit var passwordText: String
     lateinit var password2Text: String
     var bloodType: Int = 0
+    var rhType: Boolean = false
     private lateinit var auth: FirebaseAuth
+    private lateinit var firestore: FirebaseFirestore
+
 
 
     @SuppressLint("ResourceAsColor")
@@ -38,6 +41,8 @@ class SignUpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
         auth = FirebaseAuth.getInstance()
+        firestore = FirebaseFirestore.getInstance()
+
 
         //데이터베이스
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -72,7 +77,9 @@ class SignUpActivity : AppCompatActivity() {
 
         //체크박스
         checkbox.setOnCheckedChangeListener { compoundButton, isChecked ->
-            if (isChecked) { text.setTextColor(Color.RED) }
+            if (isChecked) {
+                text.setTextColor(Color.RED)
+                rhType = true }
             else { text.setTextColor(Color.BLACK) }
         }
 
@@ -166,6 +173,7 @@ class SignUpActivity : AppCompatActivity() {
                 //입력한 내용을 서버에 넣어주기
                 createUser(idText,passwordText)
                 Toast.makeText(applicationContext, "회원가입 완료", Toast.LENGTH_SHORT).show()
+
                 //writeNewUser("test1234", "테스트", "test@aa.aa")
 
                 // 3. intent에 보낼 데이터 담기
@@ -190,6 +198,17 @@ class SignUpActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     Log.d("회원가입", "성공")
                     val user = auth.currentUser
+
+                    //파이어베이스 데이터베이스 회원정보 추가
+                    var userInfo = User()
+                    userInfo.id = idText
+                    userInfo.password = passwordText
+                    userInfo.nickname = nicknameText
+                    userInfo.bloodType = bloodType
+                    userInfo.rhType = rhType
+                    mDatabase.child("Users").child(email).setValue(userInfo)
+
+
                 } else {
 
                     Log.d("회원가입", "실패")
