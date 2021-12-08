@@ -1,3 +1,4 @@
+/*
 
 import com.google.firebase.database.IgnoreExtraProperties
 
@@ -22,4 +23,4 @@ class User {
                 ", email='" + email + '\'' +
                 '}'
     }
-}
+}*/
