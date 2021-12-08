@@ -30,7 +30,23 @@ class SignUpActivity : AppCompatActivity() {
     lateinit var passwordText: String
     lateinit var password2Text: String
     var bloodType: Int = 0
+    var bloodRh: Int = 0
     private lateinit var auth: FirebaseAuth
+
+    public class User{
+        //닉네임
+        var userName: String? = null
+        //비밀번호
+        var userPwd: String? = null
+        //혈액형 타입 A->1부터 시작
+        var type: Int? = null
+        //유저 고유 코드
+        var uid: String? = null
+        //유저 이메일
+        var userEmail: String? = null
+        //Rh- 여부, 1이면 Rh-
+        var userRh: Int? = null
+    }
 
 
     @SuppressLint("ResourceAsColor")
@@ -72,7 +88,10 @@ class SignUpActivity : AppCompatActivity() {
 
         //체크박스
         checkbox.setOnCheckedChangeListener { compoundButton, isChecked ->
-            if (isChecked) { text.setTextColor(Color.RED) }
+            if (isChecked) {
+                text.setTextColor(Color.RED)
+                bloodRh = 1
+            }
             else { text.setTextColor(Color.BLACK) }
         }
 
@@ -188,6 +207,14 @@ class SignUpActivity : AppCompatActivity() {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
+                    var userInfo = User()
+                    userInfo.userName = nicknameText
+                    userInfo.type = bloodType
+                    userInfo.uid = auth.uid
+                    userInfo.userPwd = passwordText
+                    userInfo.userEmail = auth.currentUser?.email
+                    userInfo.userRh = bloodRh
+                    mDatabase.child("Users").child(email).setValue(userInfo)
                     Log.d("회원가입", "성공")
                     val user = auth.currentUser
                 } else {
