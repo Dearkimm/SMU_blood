@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
@@ -17,14 +18,21 @@ import android.view.View.OnFocusChangeListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.*
+import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
+import org.smu.blood.api.database.User
 
 
 class LoginActivity : AppCompatActivity() {
     private var auth : FirebaseAuth? = null
-
     var backKeyPressedTime : Long = 0
     private lateinit var binding: ActivityLoginBinding
+    private lateinit var myRef: DatabaseReference //데이터베이스 리퍼런스
+    lateinit var mDatabase: FirebaseDatabase //데이터베이스
+    lateinit var tempuid :String
+    var idText: String = ""
+
 
     override fun onBackPressed(){
         if (System.currentTimeMillis()> backKeyPressedTime + 2500){
@@ -41,6 +49,12 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         auth = FirebaseAuth.getInstance()
+        auth!!.addAuthStateListener {
+            val user = auth!!.currentUser
+            user?.let {
+                tempuid = user.uid
+            }
+        }
 
         var editId = findViewById<EditText>(R.id.let_id)
         var exId = findViewById<TextView>(R.id.id_type)
@@ -59,6 +73,32 @@ class LoginActivity : AppCompatActivity() {
         binding.btnLog.setOnClickListener {
             if (binding.letId.text.isNotBlank() && binding.letPwd.text.isNotBlank()) {
                 login(binding.letId.getText().toString(), binding.letPwd.getText().toString())
+                //파이어베이스데이터읽어오기
+                Log.d("로그인 uid: ",tempuid)
+                mDatabase = FirebaseDatabase.getInstance()
+                myRef = mDatabase.reference.child("Users").child(tempuid)
+                myRef.addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        val userInfo = snapshot.getValue<User>()
+                        if (userInfo != null) {
+                            Log.d("로그인후읽어오기 ",userInfo.id.toString())
+                        }
+                        /*if (userInfo != null) {
+                            idText = userInfo.id.toString()
+                            nicknameText = userInfo.nickname.toString()
+                            passwordText = userInfo.password.toString()
+                            if(userInfo.bloodType==1) bloodType = "A"
+                            if(userInfo.bloodType==2) bloodType = "B"
+                            if(userInfo.bloodType==3) bloodType = "O"
+                            if(userInfo.bloodType==4) bloodType = "AB"
+                            if(userInfo.rhType==true) rhType = "-"
+                            if(userInfo.rhType==false) rhType = "+"
+                        }*/
+                    } //onDataChange
+                    override fun onCancelled(error: DatabaseError) {
+                    } //onCancelled
+                }) //addValueEventListener
+
             } else {
                 shortToast("빈 칸이 있습니다")
             }

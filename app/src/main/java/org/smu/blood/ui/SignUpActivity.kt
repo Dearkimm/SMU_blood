@@ -20,7 +20,12 @@ import com.google.firebase.auth.FirebaseUser
 import org.smu.blood.R
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.firestore.FirebaseFirestore
+
+import com.google.firebase.auth.GetTokenResult
+
+import androidx.annotation.NonNull
+
+import com.google.android.gms.tasks.OnCompleteListener
 
 
 class SignUpActivity : AppCompatActivity() {
@@ -32,20 +37,22 @@ class SignUpActivity : AppCompatActivity() {
     var bloodType: Int = 0
     var rhType: Boolean = false
     private lateinit var auth: FirebaseAuth //파이어베이스 계정
-    private lateinit var firestore: FirebaseFirestore
     private lateinit var myRef: DatabaseReference //데이터베이스 리퍼런스
-
-
+    var userInfo = User()
+    lateinit var tempuid: String
 
     @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
         auth = FirebaseAuth.getInstance()
-        firestore = FirebaseFirestore.getInstance()
-        //데이터베이스
         mDatabase = FirebaseDatabase.getInstance();
-
+        auth.addAuthStateListener {
+            val user = auth.currentUser
+            user?.let {
+                tempuid = user.uid
+            }
+        }
 
         //체크박스
         var checkbox = findViewById<CheckBox>(R.id.checkbox)
@@ -175,13 +182,12 @@ class SignUpActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext, "회원가입 완료", Toast.LENGTH_SHORT).show()
 
                 //Realtime Database 에 회원정보 추가
-                var userInfo = User()
                 userInfo.id = idText
                 userInfo.password = passwordText
                 userInfo.nickname = nicknameText
                 userInfo.bloodType = bloodType
                 userInfo.rhType = rhType
-                myRef = mDatabase.reference.child("Users").child(nicknameText)
+                myRef = mDatabase.reference.child("Users").child(tempuid)
                 myRef.setValue(userInfo)
 
 
@@ -205,7 +211,6 @@ class SignUpActivity : AppCompatActivity() {
         auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     Log.d("회원가입", "성공")
-                    val user = auth.currentUser
                 } else {
                     Log.d("회원가입", "실패")
                     Log.w(TAG, "createUserWithEmail:failure", task.exception)
