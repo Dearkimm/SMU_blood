@@ -37,7 +37,8 @@
             android:exported="true" /> <!-- Download -->
         <activity
             android:name=".ui.NavigationActivity"
-            android:exported="true" /> <!-- main -->
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan"/> <!-- main -->
         <activity
             android:name=".ui.board.BoardWritingActivity"
             android:exported="true" />
