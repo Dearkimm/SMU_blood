@@ -24,15 +24,16 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 
 class SignUpActivity : AppCompatActivity() {
-    lateinit var mDatabase: DatabaseReference
+    lateinit var mDatabase: FirebaseDatabase //데이터베이스
     lateinit var idText: String
     lateinit var nicknameText: String
     lateinit var passwordText: String
     lateinit var password2Text: String
     var bloodType: Int = 0
     var rhType: Boolean = false
-    private lateinit var auth: FirebaseAuth
+    private lateinit var auth: FirebaseAuth //파이어베이스 계정
     private lateinit var firestore: FirebaseFirestore
+    private lateinit var myRef: DatabaseReference //데이터베이스 리퍼런스
 
 
 
@@ -42,10 +43,9 @@ class SignUpActivity : AppCompatActivity() {
         setContentView(R.layout.activity_sign_up)
         auth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
-
-
         //데이터베이스
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase = FirebaseDatabase.getInstance();
+
 
         //체크박스
         var checkbox = findViewById<CheckBox>(R.id.checkbox)
@@ -174,7 +174,16 @@ class SignUpActivity : AppCompatActivity() {
                 createUser(idText,passwordText)
                 Toast.makeText(applicationContext, "회원가입 완료", Toast.LENGTH_SHORT).show()
 
-                //writeNewUser("test1234", "테스트", "test@aa.aa")
+                //Realtime Database 에 회원정보 추가
+                var userInfo = User()
+                userInfo.id = idText
+                userInfo.password = passwordText
+                userInfo.nickname = nicknameText
+                userInfo.bloodType = bloodType
+                userInfo.rhType = rhType
+                myRef = mDatabase.reference.child("Users").child(nicknameText)
+                myRef.setValue(userInfo)
+
 
                 // 3. intent에 보낼 데이터 담기
                 /* val intent = Intent(this, SignUpActivity::class.java) //행동을 담음
@@ -193,24 +202,11 @@ class SignUpActivity : AppCompatActivity() {
     //파이어베이스에서 계정 생성
     private fun createUser(email: String, password: String) {
         Log.d("변수", email+", "+password)
-        auth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) { task ->
+        auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     Log.d("회원가입", "성공")
                     val user = auth.currentUser
-
-                    //파이어베이스 데이터베이스 회원정보 추가
-                    var userInfo = User()
-                    userInfo.id = idText
-                    userInfo.password = passwordText
-                    userInfo.nickname = nicknameText
-                    userInfo.bloodType = bloodType
-                    userInfo.rhType = rhType
-                    mDatabase.child("Users").child(email).setValue(userInfo)
-
-
                 } else {
-
                     Log.d("회원가입", "실패")
                     Log.w(TAG, "createUserWithEmail:failure", task.exception)
                 }
