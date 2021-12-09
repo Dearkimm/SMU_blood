@@ -39,18 +39,19 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth //파이어베이스 계정
     private lateinit var myRef: DatabaseReference //데이터베이스 리퍼런스
     var userInfo = User()
-    lateinit var tempuid: String
+    lateinit var suid: String
 
     @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
         auth = FirebaseAuth.getInstance()
-        mDatabase = FirebaseDatabase.getInstance();
+        mDatabase = FirebaseDatabase.getInstance()
+
         auth.addAuthStateListener {
             val user = auth.currentUser
             user?.let {
-                tempuid = user.uid
+                suid = user.uid
             }
         }
 
@@ -156,7 +157,6 @@ class SignUpActivity : AppCompatActivity() {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             // EditText에 변화가 있을 경우
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
             // EditText 입력이 끝난 후
             override fun afterTextChanged(p0: Editable?) {
                 if(editPassword.getText().toString().equals(editPassword2.getText().toString())){
@@ -182,14 +182,17 @@ class SignUpActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext, "회원가입 완료", Toast.LENGTH_SHORT).show()
 
                 //Realtime Database 에 회원정보 추가
+                Log.d("uid 뭐임", suid)
                 userInfo.id = idText
                 userInfo.password = passwordText
                 userInfo.nickname = nicknameText
                 userInfo.bloodType = bloodType
                 userInfo.rhType = rhType
-                myRef = mDatabase.reference.child("Users").child(tempuid)
-                myRef.setValue(userInfo)
 
+                suid = auth.currentUser?.uid.toString()
+                Log.d("22  id뭐임", suid)
+                myRef = mDatabase.reference.child("Users").child(suid)
+                myRef.setValue(userInfo)
 
                 // 3. intent에 보낼 데이터 담기
                 /* val intent = Intent(this, SignUpActivity::class.java) //행동을 담음
@@ -203,11 +206,10 @@ class SignUpActivity : AppCompatActivity() {
             }
         }
 
-
     }
     //파이어베이스에서 계정 생성
     private fun createUser(email: String, password: String) {
-        Log.d("변수", email+", "+password)
+        //Log.d("변수", email+", "+password)
         auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     Log.d("회원가입", "성공")
@@ -219,8 +221,8 @@ class SignUpActivity : AppCompatActivity() {
             .addOnFailureListener {
                 Toast.makeText(this, "회원가입 실패", Toast.LENGTH_SHORT).show()
             }
+        Log.d("뒤에서 uid", auth.currentUser.toString())
     }
-
 }
 
 

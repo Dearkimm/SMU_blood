@@ -38,7 +38,7 @@ class MyFragment : BaseFragment<FragmentMyBinding>() {
     lateinit var mDatabase: FirebaseDatabase //데이터베이스
     private lateinit var myRef: DatabaseReference //데이터베이스 리퍼런스
     private lateinit var auth: FirebaseAuth //파이어베이스 계정
-    var tempuid :String =""
+    private lateinit var tempuid :String
     lateinit var bloodTypetext: String
     lateinit var rhTypetext: String
 
