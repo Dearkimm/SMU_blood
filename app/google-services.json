@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "109738756050",
+    "firebase_url": "https://blring-default-rtdb.firebaseio.com",
     "project_id": "blring",
     "storage_bucket": "blring.appspot.com"
   },

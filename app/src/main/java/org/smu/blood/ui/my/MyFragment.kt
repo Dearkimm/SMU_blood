@@ -13,37 +13,78 @@ import androidx.activity.addCallback
 import org.smu.blood.ui.NavigationActivity
 import org.smu.blood.R
 import org.smu.blood.ui.LoginActivity
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.ValueEventListener
+import org.smu.blood.api.database.User
+import com.google.firebase.database.DatabaseError
+import org.smu.blood.databinding.FragmentMyBinding
+import android.util.Log
+import android.widget.Toast
+import androidx.fragment.app.FragmentTransaction
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.UserInfo
+import com.google.firebase.database.ktx.getValue
+import org.smu.blood.databinding.ActivityBoardRegisterBinding
+import org.smu.blood.databinding.FragmentMainBinding
+import org.smu.blood.ui.base.BaseFragment
 
-class MyFragment : Fragment() {
+
+class MyFragment : BaseFragment<FragmentMyBinding>() {
     var logoutState = false
     var withdrawState = false
+    lateinit var mDatabase: FirebaseDatabase //데이터베이스
+    private lateinit var myRef: DatabaseReference //데이터베이스 리퍼런스
+    private lateinit var auth: FirebaseAuth //파이어베이스 계정
+    var tempuid :String =""
+    lateinit var bloodTypetext: String
+    lateinit var rhTypetext: String
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun initBinding(inflater: LayoutInflater, container: ViewGroup?) =
+        FragmentMyBinding.inflate(inflater, container, false)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         arguments?.let {
         }
-    }
+        auth = FirebaseAuth.getInstance()
+        tempuid = auth.currentUser?.uid.toString()
+        Log.d("온크리에이트 마이페이지 uid: ", auth.currentUser?.uid.toString())
+        //binding = FragmentMyBinding.inflate(layoutInflater)
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-
-    ): View? {
-        // Inflate the layout for this fragment
-        val rootView = inflater.inflate(R.layout.fragment_my, container, false)
+        //파이어베이스데이터읽어오기
+        Log.d("마이페이지 uid: ",tempuid)
+        mDatabase = FirebaseDatabase.getInstance()
+        myRef = mDatabase.reference.child("Users").child(tempuid)
+        myRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val userInfo = snapshot.getValue<User>()
+                if (userInfo != null) {
+                    Log.d("마이페이지 아이디 읽어오기 ",userInfo.id.toString())
+                    Log.d("비번 읽어오기 ",userInfo.password.toString())
+                    Log.d("닉넴 읽어오기 ",userInfo.nickname.toString())
+                    if(userInfo.bloodType.toString()=="1") bloodTypetext = "A"
+                    if(userInfo.bloodType.toString()=="2") bloodTypetext = "B"
+                    if(userInfo.bloodType.toString()=="3") bloodTypetext = "O"
+                    if(userInfo.bloodType.toString()=="4") bloodTypetext = "AB"
+                    if(userInfo.rhType.toString()=="true") rhTypetext = "Rh- "
+                    if(userInfo.rhType.toString()=="false") rhTypetext = "Rh+ "
+                    binding.userId.text = userInfo.id
+                    binding.userName.text =userInfo.nickname.toString()
+                    binding.userType.text = rhTypetext + bloodTypetext
+                }
+            } //onDataChange
+            override fun onCancelled(error: DatabaseError) {
+            } //onCancelled
+        }) //addValueEventListener
 
         //버튼
-        val logout = rootView.findViewById<TextView>(R.id.tv_r)
-        val withdraw = rootView.findViewById<TextView>(R.id.tv_withdraw)
-        val card = rootView.findViewById<TextView>(R.id.tv_q)
-        var hyperlink = rootView.findViewById<Button>(R.id.btn_quest)
-        val modButton = rootView.findViewById<Button>(R.id.btn_mod1)
-
-        //text
-        val userId = rootView.findViewById<TextView>(R.id.user_id)
-        val userName = rootView.findViewById<TextView>(R.id.user_name)
-        val userType = rootView.findViewById<TextView>(R.id.user_type)
-
+        val logout = binding.tvR
+        val withdraw = binding.tvWithdraw
+        val card = binding.tvQ
+        var hyperlink = binding.btnQuest
+        val modButton = binding.btnMod1
         configureMyNavigation()
 
         //수정하러 가기
@@ -100,8 +141,6 @@ class MyFragment : Fragment() {
         card.setOnClickListener {
             (activity as NavigationActivity).navigateMyToRequest()
         }
-
-        return rootView
     }
 
     private fun configureMyNavigation() {
@@ -109,7 +148,6 @@ class MyFragment : Fragment() {
             (activity as NavigationActivity).popMy()
         }
     }
-
     companion object {
        @JvmStatic
         fun newInstance(param1: String, param2: String) =
