@@ -54,11 +54,29 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
         // 더미데이터
         mainRequestAdapter.setItems(
             listOf(
-                MainRequest(5, true, 1, "21.10.01", "21.10.15", 3, "하이", LocalDateTime.now().dateTimeString),
-                MainRequest(32, false, 2, "21.10.23", "21.10.31", 0, "어쩔티비", LocalDateTime.now().dateTimeString),
-                MainRequest(17, true, 3, "21.10.23", "21.10.31", 5, "저쩔냉장고", LocalDateTime.now().dateTimeString),
-                MainRequest(54, true, 4, "21.10.01", "21.10.31", 0, "명성족발", LocalDateTime.now().dateTimeString),
-            )
+                //신규로 작성했을때 주석 처리 지우면 돼(고대 안암 병원, A형 Rh-,시간은 영상 찍는 때로..)
+                //MainRequest(10, false, 1,"혈소판",
+                    //"21.12.12", "21.12.17", 0,
+                    //"시종설 후기게시판 작성 예시", "2021.12.12(일) 오후 20:42"),
+
+                //신청하고 나서 count: 1로 바꾸야 함
+               MainRequest(29, true, 1,"혈소판",
+                    "21.12.12", "21.12.23", 0,
+                    "가족 중에 한 분이 혈액암으로 많이 안 좋아요.. B형이신 분 지정헌혈 부탁드려요. 코로나로 헌혈하시는 분들이 많이 줄어서 B형 혈소판이 부족합니다.", "2021.12.11(토) 오후 20:42"),
+                MainRequest(32, true, 4,"혈소판",
+                    "21.12.11", "21.12.19", 2,
+                    "친한 언니가 급성 심근염으로 중환자실에서 힘든 시간을 보내고 있습니다. Rh+ A형 혈소판을 구하고 있으니 가능하시다면 헌혈을 간곡하게 부탁드립니다.", "2021.12.11(토) 오전 10:31"),
+                MainRequest(17, false, 3,"전혈",
+                    "21.12.08", "21.12.15", 1,
+                    "제 동생이 어제 사고를 당해서 수술을 했는데 예상보다 많은 출혈이 있었습니다.. 그런데 Rh- O형이라 혈액 구하기가 너무 어려운 상태입니다. 혈액형이 Rh- O형이신 분은 가까운 헌혈의 집에 가셔서 지정 헌혈을 해주시면 감사하겠습니다. 헌혈해주신다면 혈액이 해당 병원으로 바로 수송되어 환자에게 투여됩니다. 꼭 좀 부탁드려요." , "2021.12.08(수) 오전 07:09"),
+                MainRequest(23, true, 1,"혈소판",
+                    "21.12.07", "21.12.15", 3,
+                    "결핵성 뇌수막염에 걸리신 어머니께서 항상 혈소판 수치가 낮게 나와 매일매일 수혈을 받으시면서 결핵 치료를 겨우 이어나가고 있었는데 피가 많이 부족해서 오늘 처음으로 수혈을 받지 못하셨습니다. 부디 좋은 분들이 나타나주셔서 수혈을 받으면서 결핵 치료를 받을 수 있게 도와주셨으면 감사하겠습니다. 부탁드립니다.. Rh+ AB형 혈소판 지정헌혈로 꼭 부탁드립니다." ,"2021.12.07(화) 오전 11:15"),
+                MainRequest(54, true, 2,"전혈",
+                    "21.12.04", "21.12.13", 2,
+                    "할아버지께서 급하게 수혈이 필요한 상황인데 저는 타지에서 근무 중이라 직접 지정 헌혈을 할 수 없게 되어 간절한 마음을 담아 지정 헌혈 요청을 해봅니다.", "2021.12.04(토) 오후 21:48"),
+
+                )
         )
     }
 
@@ -68,6 +86,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
                 hospitalId = requestInfo.hospitalId
                 rhType = requestInfo.rhType
                 bloodType = requestInfo.bloodType
+                donationType = requestInfo.donationType
                 startDate = requestInfo.startDate
                 endDate = requestInfo.endDate
                 count = requestInfo.count
@@ -85,6 +104,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
         var hospitalId = -1
         var rhType = false
         var bloodType = -1
+        var donationType = ""
         var startDate = ""
         var endDate = ""
         var count = -1

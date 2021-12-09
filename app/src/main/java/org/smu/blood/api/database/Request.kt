@@ -6,7 +6,7 @@ class Request {
     var hospitalId: Int? = null
     var bloodType: Int? = null
     var rhType: Boolean? = null
-    var donationType: Int? = null
+    var donationType: String? = null
     var wardNum: Int? = null
     var patientName: String? = null
     var patientNum: Int? = null
@@ -26,7 +26,7 @@ class Request {
         hospitalId: Int?,
         bloodType: Int?,
         rhType: Boolean?,
-        donationType: Int?,
+        donationType: String?,
         wardNum: Int?,
         patientName: String?,
         patientNum: Int?,
@@ -55,6 +55,6 @@ class Request {
     }
 
     override fun toString(): String {
-        return "Request(id=$id, userId=$userId, hospitalId=$hospitalId, bloodType=$bloodType, rhType=$rhType, donationType=$donationType, wardNum=$wardNum, patientName=$patientName, patientNum=$patientNum, protectorContact=$protectorContact, startDate=$startDate, endDate=$endDate, registerTime=$registerTime, story=$story, applicantNum=$applicantNum)"
+        return "Request(id=$id, userId=$userId, hospitalId=$hospitalId, bloodType=$bloodType, rhType=$rhType, donationType=$donationType, wardNum=$wardNum, patientName=$patientName, patientNum=$patientNum, protectorContact=$protectorContact, startDate=$startDate, endDate=$endDate, registerTime=$registerTime, story=$story, applicantNum=$applicantNum, donationType=$donationType)"
     }
 }
