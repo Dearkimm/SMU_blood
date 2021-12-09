@@ -30,7 +30,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var myRef: DatabaseReference //데이터베이스 리퍼런스
     lateinit var mDatabase: FirebaseDatabase //데이터베이스
-    lateinit var tempuid :String
+    private lateinit var tempuid :String
     var idText: String = ""
 
 
@@ -48,12 +48,13 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         auth = FirebaseAuth.getInstance()
-        auth!!.addAuthStateListener {
+        tempuid = auth!!.currentUser?.uid.toString()
+        /*auth!!.addAuthStateListener {
             val user = auth!!.currentUser
             user?.let {
                 tempuid = user.uid
             }
-        }
+        }*/
 
         var editId = findViewById<EditText>(R.id.let_id)
         var exId = findViewById<TextView>(R.id.id_type)
