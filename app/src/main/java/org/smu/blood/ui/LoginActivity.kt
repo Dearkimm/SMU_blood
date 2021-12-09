@@ -43,7 +43,6 @@ class LoginActivity : AppCompatActivity() {
         else {finishAffinity()}
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -62,9 +61,7 @@ class LoginActivity : AppCompatActivity() {
         editId.setOnFocusChangeListener(OnFocusChangeListener { v, hasFocus ->
             if(hasFocus){exId.visibility = View.VISIBLE}
             else{exId.visibility = View.INVISIBLE}
-
         })
-
         configureNavigation()
     }
 
@@ -83,17 +80,6 @@ class LoginActivity : AppCompatActivity() {
                         if (userInfo != null) {
                             Log.d("로그인후읽어오기 ",userInfo.id.toString())
                         }
-                        /*if (userInfo != null) {
-                            idText = userInfo.id.toString()
-                            nicknameText = userInfo.nickname.toString()
-                            passwordText = userInfo.password.toString()
-                            if(userInfo.bloodType==1) bloodType = "A"
-                            if(userInfo.bloodType==2) bloodType = "B"
-                            if(userInfo.bloodType==3) bloodType = "O"
-                            if(userInfo.bloodType==4) bloodType = "AB"
-                            if(userInfo.rhType==true) rhType = "-"
-                            if(userInfo.rhType==false) rhType = "+"
-                        }*/
                     } //onDataChange
                     override fun onCancelled(error: DatabaseError) {
                     } //onCancelled

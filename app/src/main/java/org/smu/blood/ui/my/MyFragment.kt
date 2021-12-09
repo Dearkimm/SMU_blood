@@ -21,40 +21,38 @@ import com.google.firebase.database.ValueEventListener
 import org.smu.blood.api.database.User
 import com.google.firebase.database.DatabaseError
 import org.smu.blood.databinding.FragmentMyBinding
-import androidx.annotation.NonNull
-
-import android.R.string.no
 import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.UserInfo
 import com.google.firebase.database.ktx.getValue
 import org.smu.blood.databinding.ActivityBoardRegisterBinding
+import org.smu.blood.databinding.FragmentMainBinding
+import org.smu.blood.ui.base.BaseFragment
 
 
-class MyFragment : Fragment() {
+class MyFragment : BaseFragment<FragmentMyBinding>() {
     var logoutState = false
     var withdrawState = false
     lateinit var mDatabase: FirebaseDatabase //데이터베이스
     private lateinit var myRef: DatabaseReference //데이터베이스 리퍼런스
     private lateinit var auth: FirebaseAuth //파이어베이스 계정
-    private lateinit var binding: FragmentMyBinding
     var tempuid :String =""
-    var idText: String = ""
-    var nicknameText: String = ""
-    var passwordText: String = ""
-    var bloodType: String = ""
-    var rhType: String = ""
+    lateinit var bloodTypetext: String
+    lateinit var rhTypetext: String
 
+    override fun initBinding(inflater: LayoutInflater, container: ViewGroup?) =
+        FragmentMyBinding.inflate(inflater, container, false)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         arguments?.let {
         }
         auth = FirebaseAuth.getInstance()
         tempuid = auth.currentUser?.uid.toString()
         Log.d("온크리에이트 마이페이지 uid: ", auth.currentUser?.uid.toString())
-        binding = FragmentMyBinding.inflate(layoutInflater)
+        //binding = FragmentMyBinding.inflate(layoutInflater)
+
         //파이어베이스데이터읽어오기
         Log.d("마이페이지 uid: ",tempuid)
         mDatabase = FirebaseDatabase.getInstance()
@@ -66,56 +64,27 @@ class MyFragment : Fragment() {
                     Log.d("마이페이지 아이디 읽어오기 ",userInfo.id.toString())
                     Log.d("비번 읽어오기 ",userInfo.password.toString())
                     Log.d("닉넴 읽어오기 ",userInfo.nickname.toString())
-                    idText = userInfo.id.toString()
-                    nicknameText = userInfo.nickname.toString()
-                    if(userInfo.bloodType==1) bloodType = "A"
-                    if(userInfo.bloodType==2) bloodType = "B"
-                    if(userInfo.bloodType==3) bloodType = "O"
-                    if(userInfo.bloodType==4) bloodType = "AB"
-                    if(userInfo.rhType==true) rhType = "-"
-                    if(userInfo.rhType==false) rhType = "+"
-                    /*binding.userId.text = userInfo.id.toString()
+                    if(userInfo.bloodType.toString()=="1") bloodTypetext = "A"
+                    if(userInfo.bloodType.toString()=="2") bloodTypetext = "B"
+                    if(userInfo.bloodType.toString()=="3") bloodTypetext = "O"
+                    if(userInfo.bloodType.toString()=="4") bloodTypetext = "AB"
+                    if(userInfo.rhType.toString()=="true") rhTypetext = "Rh- "
+                    if(userInfo.rhType.toString()=="false") rhTypetext = "Rh+ "
+                    binding.userId.text = userInfo.id
                     binding.userName.text =userInfo.nickname.toString()
-                    binding.userType.text = userInfo.bloodType.toString()+userInfo.rhType.toString()*/
+                    binding.userType.text = rhTypetext + bloodTypetext
                 }
-                /*
-                    if(userInfo.bloodType==1) bloodType = "A"
-                    if(userInfo.bloodType==2) bloodType = "B"
-                    if(userInfo.bloodType==3) bloodType = "O"
-                    if(userInfo.bloodType==4) bloodType = "AB"
-                    if(userInfo.rhType==true) rhType = "-"
-                    if(userInfo.rhType==false) rhType = "+"
-                }*/
             } //onDataChange
             override fun onCancelled(error: DatabaseError) {
             } //onCancelled
         }) //addValueEventListener
 
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-
-    ): View? {
-        // Inflate the layout for this fragment
-        val rootView = inflater.inflate(R.layout.fragment_my, container, false)
-
         //버튼
-        val logout = rootView.findViewById<TextView>(R.id.tv_r)
-        val withdraw = rootView.findViewById<TextView>(R.id.tv_withdraw)
-        val card = rootView.findViewById<TextView>(R.id.tv_q)
-        var hyperlink = rootView.findViewById<Button>(R.id.btn_quest)
-        val modButton = rootView.findViewById<Button>(R.id.btn_mod1)
-
-        //text
-       /* val userId = rootView.findViewById<TextView>(R.id.user_id)
-        val userName = rootView.findViewById<TextView>(R.id.user_name)
-        val userType = rootView.findViewById<TextView>(R.id.user_type)*/
-        binding.userId.text = idText
-        binding.userName.text =nicknameText
-        binding.userType.text = bloodType
-
+        val logout = binding.tvR
+        val withdraw = binding.tvWithdraw
+        val card = binding.tvQ
+        var hyperlink = binding.btnQuest
+        val modButton = binding.btnMod1
         configureMyNavigation()
 
         //수정하러 가기
@@ -172,8 +141,6 @@ class MyFragment : Fragment() {
         card.setOnClickListener {
             (activity as NavigationActivity).navigateMyToRequest()
         }
-
-        return rootView
     }
 
     private fun configureMyNavigation() {
@@ -181,7 +148,6 @@ class MyFragment : Fragment() {
             (activity as NavigationActivity).popMy()
         }
     }
-
     companion object {
        @JvmStatic
         fun newInstance(param1: String, param2: String) =
