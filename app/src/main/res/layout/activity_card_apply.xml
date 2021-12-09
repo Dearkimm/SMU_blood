@@ -76,7 +76,7 @@
                     android:textSize="13sp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/view"
-                    tools:text="글 등록일자 : " />
+                    android:text="글 등록일자 : 2021.12.11 20:42" />
 
                 <TextView
                     android:id="@+id/tv_up_type"
@@ -90,7 +90,7 @@
                     android:textSize="13sp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_up_date"
-                    tools:text="Rh+ A 전혈" />
+                    android:text="Rh+ B 전혈" />
 
                 <TextView
                     android:id="@+id/tv_up_hos"
@@ -104,7 +104,20 @@
                     android:textSize="13sp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_up_type"
-                    tools:text="연세사랑병원" />
+                    android:text="신촌세브란스병원 301호 박요청 (87654321)" />
+                <TextView
+                    android:id="@+id/tv_up_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="9dp"
+                    android:fontFamily="@font/notosans_light"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_up_hos"
+                    android:text="보호자 연락처 : 010-4321-8765" />
 
                 <TextView
                     android:id="@+id/tv_up_dates"
@@ -117,9 +130,9 @@
                     android:textColor="@color/black"
                     android:textSize="13sp"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_up_hos"
-                    tools:text="요청 시작 2021.10.21 ~ 요청 마감 2021.10.30" />
-
+                    app:layout_constraintTop_toBottomOf="@id/tv_up_num"
+                    android:text="요청 시작 2021.12.12 ~ 요청 마감 2021.12.23" />
+            <!-- 열람 기한 지난 개인정보
                 <TextView
                     android:id="@+id/tv_notice"
                     android:layout_width="wrap_content"
@@ -132,6 +145,7 @@
                     android:textColor="@color/red"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_up_dates" />
+                -->
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -183,7 +197,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/view_2"
-                    tools:text="신청 일시 : " />
+                    android:text="신청 일시 : 2021.12.12 ??:??" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

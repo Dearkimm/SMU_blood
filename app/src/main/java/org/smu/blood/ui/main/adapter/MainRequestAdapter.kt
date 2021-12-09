@@ -7,6 +7,7 @@ import org.smu.blood.api.database.MainRequest
 import org.smu.blood.databinding.ItemCardRequestBinding
 import org.smu.blood.model.BloodType
 import org.smu.blood.model.Hospital
+import org.smu.blood.ui.main.MainFragment.Companion.donationType
 
 class MainRequestAdapter: RecyclerView.Adapter<MainRequestAdapter.MainRequestViewHolder>() {
 
@@ -36,7 +37,7 @@ class MainRequestAdapter: RecyclerView.Adapter<MainRequestAdapter.MainRequestVie
             }
             binding.apply {
                 reqHospital.text = hospital
-                reqBlood.text = "RH${rh} ${blood}형 전혈"
+                reqBlood.text = "RH${rh} ${blood}형 ${requestInfo.donationType}"
                 reqDate.text = "${requestInfo.startDate}~${requestInfo.endDate}"
                 reqCount.text = "${requestInfo.count}명"
                 circleBlood.text = "RH $blood$rh"
