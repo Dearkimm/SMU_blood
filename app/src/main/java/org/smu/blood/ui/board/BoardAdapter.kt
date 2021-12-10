@@ -55,9 +55,6 @@ RecyclerView.Adapter<BoardAdapter.ViewHolder>() {
             notifyDataSetChanged()
         }
     }*/
-
-
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(datas[position])
     }
