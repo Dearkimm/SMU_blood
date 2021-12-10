@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import org.smu.blood.ui.board.BoardAdapter
 import org.smu.blood.ui.my.MyFragment
 import java.nio.BufferUnderflowException
+import java.nio.ByteOrder
 
 
 class BoardRegisterActivity : AppCompatActivity() {
@@ -42,29 +43,32 @@ class BoardRegisterActivity : AppCompatActivity() {
                 dlg.show()
                 dlg.setOnDismissListener {
                     writingState = dlg.returnState()
-
                     if (writingState) {
-                        //title = findViewById<EditText>(R.id.writing_edit_title).text.toString()
-                        //contents = findViewById<EditText>(R.id.writing_edit_body).text.toString()
-                        //게시판으로 이동하고
                         //글쓰기 데이터
                         Log.d("글쓰기 데이터", writingState.toString() + ", " + title + ", " + contents)
                         Log.d("현재날짜시간", writingState.toString() + ", " + dateandtime)
-
+                        //BoardFragment로 데이터 넘겨주기
                         val boardfragment = BoardFragment()
                         val bundle = Bundle()
-                        bundle.putString("title",title)
-                        bundle.putString("contents",contents)
-                        bundle.putString("time",dateandtime.toString())
+                        bundle.apply {
+                            putString("title",title)
+                            putString("contents",contents)
+                            putString("time",dateandtime.toString())
+                        }
                         boardfragment.arguments = bundle
 
+                       /* val transaction = supportFragmentManager.beginTransaction()
+                        transaction.add(mutableListOf<BoardData>(), boardfragment)
+                        transaction.commit()*/
                         /*val intent = Intent(this, BoardFragment::class.java)
                         intent.putExtra("title",title)
                         intent.putExtra("contents",contents)
-                        intent.putExtra("time",dateandtime.toString())
-                        startActivity(intent)*/
+                        intent.putExtra("time",dateandtime.toString())*/
+                        //startActivity(intent,)
+
+                        //게시판으로 이동
                         finish()
-                        startActivity(intent,bundle)
+                        //startActivity(intent,bundle)
                     }
                 }
             }else

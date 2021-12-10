@@ -77,7 +77,7 @@
                     android:textSize="13sp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/view_2"
-                    tools:text="신청자 총 3명" />
+                    android:text="@string/total_person" />
 
                 <TextView
                     android:id="@+id/tv_time"
@@ -93,7 +93,22 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_total"
-                    tools:text="신청 일시 : 2021.10.02 17:55" />
+                    android:text="신청 일시 : 2021.12.11 14:55" />
+                <TextView
+                    android:id="@+id/tv_time2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginBottom="19dp"
+                    android:fontFamily="@font/notosans_light"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_time"
+                    android:text="신청 일시 : 2021.12.13 13:01" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -143,7 +158,7 @@
                     android:textSize="13sp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/view_3"
-                    tools:text="글 등록 일자" />
+                    android:text="글 등록 일자: 2021.12.11 10:31" />
 
                 <TextView
                     android:id="@+id/tv_up_type"
@@ -157,7 +172,7 @@
                     android:textSize="13sp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_up_date"
-                    tools:text="Rh+ A 전혈" />
+                    android:text="Rh+ AB 혈소판" />
 
                 <TextView
                     android:id="@+id/tv_up_hos"
@@ -171,7 +186,7 @@
                     android:textSize="13sp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_up_type"
-                    tools:text="연세사랑병원 517호 김숙명 (A02441)" />
+                    android:text="강동성심병원 517호 김숙명 (12345678)" />
 
                 <TextView
                     android:id="@+id/tv_up_pnum"
@@ -185,7 +200,7 @@
                     android:textSize="13sp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_up_hos"
-                    tools:text="보호자 연락처 : 010-1234-5678" />
+                    android:text="보호자 연락처 : 010-1234-5678" />
 
                 <TextView
                     android:id="@+id/tv_up_dates"
@@ -199,7 +214,7 @@
                     android:textSize="13sp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_up_pnum"
-                    tools:text="요청 시작 2021.10.01 ~ 요청 마감 2021.10.20" />
+                    android:text="요청 시작 2021.12.09 ~ 요청 마감 2021.12.17" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 

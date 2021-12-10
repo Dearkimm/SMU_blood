@@ -22,6 +22,7 @@ import org.smu.blood.ui.base.BaseFragment
 import org.smu.blood.ui.main.MainFragment.Companion.bloodType
 import org.smu.blood.ui.main.MainFragment.Companion.content
 import org.smu.blood.ui.main.MainFragment.Companion.count
+import org.smu.blood.ui.main.MainFragment.Companion.donationType
 import org.smu.blood.ui.main.MainFragment.Companion.endDate
 import org.smu.blood.ui.main.MainFragment.Companion.hospitalId
 import org.smu.blood.ui.main.MainFragment.Companion.rhType
@@ -75,6 +76,7 @@ class MainReadFragment : BaseFragment<FragmentMainReadBinding>() {
         val rh = if (rhType) "+" else "-"
         var blood = ""
         var hospital = ""
+        var donationtype = ""
         BloodType.values().forEach {
             if (bloodType == it.id) blood = it.bloodType
 
@@ -85,7 +87,7 @@ class MainReadFragment : BaseFragment<FragmentMainReadBinding>() {
         binding.apply {
             atvType.text = "RH${rh} $blood"
             atvHos.text = hospital
-            atvType2.text = "Rh${rh} ${blood}형 혈소판"
+            atvType2.text = "Rh${rh} ${blood}형 ${donationType}"
             atvTime.text = "요청 시작일 $startDate ~ 마감일 $endDate"
             atvNum.text = "신청 ${count}명"
             atvCon.text = content

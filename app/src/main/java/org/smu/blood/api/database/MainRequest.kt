@@ -7,6 +7,7 @@ data class MainRequest(
     val hospitalId: Int,
     val rhType: Boolean,
     val bloodType: Int,
+    var donationType: String,
     val startDate: String,
     val endDate: String,
     val count: Int,
