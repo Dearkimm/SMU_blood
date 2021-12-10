@@ -73,11 +73,11 @@
     <string name="rmain_tv21">보호자 연락처 (필수)</string>
     <string name="rmain_tv22">보호자 연락처를 입력해주세요</string>
     <string name="rmain_tv23">요청 시작일 (필수)</string>
-    <string name="rmain_tv24">YYYY/MM/DD</string>
-    <string name="rmain_tv25">ex) 2021/10/08</string>
+    <string name="rmain_tv24">YY/MM/DD</string>
+    <string name="rmain_tv25">ex) 21/10/08</string>
     <string name="rmain_tv26">요청 마감일 (필수)</string>
-    <string name="rmain_tv27">YYYY/MM/DD</string>
-    <string name="rmain_tv28">ex) 2021/10/15</string>
+    <string name="rmain_tv27">YY/MM/DD</string>
+    <string name="rmain_tv28">ex) 21/10/15</string>
     <string name="rmain_tv29">요청 사연 (선택)</string>
     <string name="rmain_tv30">요청 사연을 입력해주세요</string>
     <string name="rmain_tv31">등록</string>
