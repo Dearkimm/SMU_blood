@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.ImageButton
 import androidx.activity.addCallback
 import androidx.recyclerview.widget.RecyclerView
@@ -56,7 +57,6 @@ class BoardFragment : Fragment() {
 
         //리사이클러뷰 어댑터 꾹누르기 이벤트
         boardAdapter.setOnItemLongClickListener(object: BoardAdapter.OnItemLongClickListener{
-
             override fun onItemLongClick(v: View, data: BoardData, pos: Int) {
                 val dlg = BoardDeleteAlert(requireContext())
                 dlg.callFunction()
@@ -85,11 +85,26 @@ class BoardFragment : Fragment() {
         //버튼
         var writeButton = rootView.findViewById<ImageButton>(R.id.btv_write)
         var myButton = rootView.findViewById<ImageButton>(R.id.btv_mypage)
+        var myboardread = rootView.findViewById<CheckBox>(R.id.btv_cb)
+
+        //내가 쓴 글 누르기 이벤트
+        myboardread.setOnClickListener{
+            recyclerview.removeAllViewsInLayout()
+            initRecycler2()
+        }
+
 
         //글쓰기로 이동
         writeButton.setOnClickListener {
             val intent = Intent(context, BoardRegisterActivity()::class.java)
             startActivity(intent)
+           /* val title = arguments?.getString("title")
+            val contents = arguments?.getString("contents")
+            val time = arguments?.getString("time")
+            val title = intent.getStringExtra("title")
+            val contents = ar.getStringExtra("contents")
+            val time = intent.getStringExtra("time")
+            Log.d("보드 레지스터에서 받아온거",title+contents+time)*/
         }
 
         //마이페이지로 이동
@@ -125,6 +140,14 @@ class BoardFragment : Fragment() {
             add(BoardData(title = "Rh-의 헌혈자 구하기",nickname = "yeziyezi",time = "4일 전",heartcount = 67))
             add(BoardData(title = "용산지역 혈액 수급",nickname = "yenomg34",time = "3시간 전",heartcount = 1002))
 
+            boardAdapter.datas = datas
+            boardAdapter.notifyDataSetChanged()
+
+        }
+    }
+    private fun initRecycler2() {
+        datas.apply {
+            add(BoardData(title = "희귀혈액형 지정헌혈 후기",nickname = "장구벌레",time = "지난 주",heartcount = 25))
             boardAdapter.datas = datas
             boardAdapter.notifyDataSetChanged()
 
