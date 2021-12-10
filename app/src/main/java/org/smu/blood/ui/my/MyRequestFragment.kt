@@ -32,17 +32,37 @@ class MyRequestFragment : BaseFragment<FragmentMyRequestBinding>() {
         binding.myCardList.layoutManager = LinearLayoutManager(activity)
         binding.myCardList.adapter = myCardAdapter
 
-        //누르면 색 변하게
+        //요청자 시점
         binding.recRequest.setOnClickListener {
             binding.recRequest.setTextColor(Color.RED)
             binding.recApply.setTextColor(Color.BLACK)
             cardState = 0
-        }
+            myCardAdapter.setItems(
+                listOf(
+                    MainRequest(32, true, 4,"혈소판",
+                        "21.12.13", "21.12.21", 2,
+                        "친한 언니가 급성 심근염으로 중환자실에서 힘든 시간을 보내고 있습니다. Rh+ A형 혈소판을 구하고 있으니 가능하시다면 헌혈을 간곡하게 부탁드립니다.", "2021.12.13(월) 오전 10:24"),
+                )
+            )
 
+        }
+        //신청자 시점
         binding.recApply.setOnClickListener {
             binding.recApply.setTextColor(Color.RED)
             binding.recRequest.setTextColor(Color.BLACK)
             cardState = 1
+            myCardAdapter.setItems(
+                listOf(
+                    //최근꺼에 신청 눌렀을 때,
+                    MainRequest(29, true, 2,"혈소판",
+                        "21.12.11", "21.12.23", 1,
+                        "가족 중에 한 분이 혈액암으로 많이 안 좋아요.. B형이신 분 지정헌혈 부탁드려요. 코로나로 헌혈하시는 분들이 많이 줄어서 B형 혈소판이 부족합니다.", "2021.12.11(토) 오후 20:42"),
+                    //오래된 신청
+                    MainRequest(54, true, 2,"전혈",
+                        "21.10.01", "21.10.15", 2,
+                        "어쩌구저쩌구..ㅠ", "2021.10.01(금) 오전 09:20"),
+                )
+            )
         }
 
         addMyCardInfo()
@@ -62,10 +82,9 @@ class MyRequestFragment : BaseFragment<FragmentMyRequestBinding>() {
         // 더미데이터
         myCardAdapter.setItems(
             listOf(
-                MainRequest(5, true, 1, "21.10.01", "21.10.15", 3, "하이", LocalDateTime.now().dateTimeString),
-                MainRequest(32, false, 2, "21.10.23", "21.10.31", 0, "어쩔티비", LocalDateTime.now().dateTimeString),
-                MainRequest(17, true, 3, "21.10.23", "21.10.31", 5, "저쩔냉장고", LocalDateTime.now().dateTimeString),
-                MainRequest(54, true, 4, "21.10.01", "21.10.31", 0, "명성족발", LocalDateTime.now().dateTimeString),
+                MainRequest(5, true, 2,"전혈",
+                    "21.12.09", "21.12.15", 2,
+                    "가족 중에 한 분이 혈액암으로 많이 안 좋아요.. B형이신 분 지정헌혈 부탁드려요. 코로나로 헌혈하시는 분들이 많이 줄어서 B형 혈소판이 부족합니다.", LocalDateTime.now().dateTimeString),
             )
         )
     }
@@ -82,6 +101,7 @@ class MyRequestFragment : BaseFragment<FragmentMyRequestBinding>() {
                 hospitalId = requestInfo.hospitalId
                 rhType = requestInfo.rhType
                 bloodType = requestInfo.bloodType
+                donationType = requestInfo.donationType
                 startDate = requestInfo.startDate
                 endDate = requestInfo.endDate
                 count = requestInfo.count
@@ -104,6 +124,7 @@ class MyRequestFragment : BaseFragment<FragmentMyRequestBinding>() {
         var hospitalId = -1
         var rhType = false
         var bloodType = -1
+        var donationType = ""
         var startDate = ""
         var endDate = ""
         var count = -1

@@ -45,7 +45,7 @@
         app:layout_constraintTop_toBottomOf="@id/btv_text"
         android:layout_marginStart="15dp"
         android:layout_marginTop="30dp"
-        tools:text="장구벌레"
+        android:text="장구벌레"
         />
     <TextView
         android:id="@+id/btv_nickname_text_1"

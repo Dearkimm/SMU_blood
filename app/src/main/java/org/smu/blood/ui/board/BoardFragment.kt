@@ -132,13 +132,15 @@ class BoardFragment : Fragment() {
     private fun initRecycler() {
 
         datas.apply {
-            add(BoardData(title = "너무 급박했던 수혈과정",nickname = "kim202",time = "30분 전",heartcount = 1982))
-            add(BoardData(title = "희귀혈액형 수혈과정 공유",nickname = "Eun304",time = "1시간 전",heartcount = 234))
-            add(BoardData(title = "용산지역 혈액 수급",nickname = "yenomg34",time = "3시간 전",heartcount = 1002))
-            add(BoardData(title = "Rh-의 헌혈자 구하기",nickname = "yeziyezi",time = "4일 전",heartcount = 67))
-            add(BoardData(title = "희귀혈액형 지정헌혈 후기",nickname = "장구벌레",time = "지난 주",heartcount = 25))
-            add(BoardData(title = "Rh-의 헌혈자 구하기",nickname = "yeziyezi",time = "4일 전",heartcount = 67))
-            add(BoardData(title = "용산지역 혈액 수급",nickname = "yenomg34",time = "3시간 전",heartcount = 1002))
+            //새로 쓰는 글
+            //add(BoardData(title = "너무 급박했던 수술",nickname = "Snowflake",time = "1시간 전",heartcount = 2))
+            add(BoardData(title = "너무 급박했던 수술",nickname = "Snowflake",time = "1시간 전",heartcount = 2))
+            add(BoardData(title = "희귀혈액형 지정 헌혈 과정 공유",nickname = "시종설",time = "3시간 전",heartcount = 5))
+            add(BoardData(title = "뿌듯한 첫 지정 헌혈 후기",nickname = "청파동",time = "1일 전",heartcount = 8))
+            add(BoardData(title = "Rh-형 지정 헌혈하고 왔어요",nickname = "장구벌레",time = "4일 전",heartcount = 14))
+            add(BoardData(title = "헌혈해주신 분들께 감사의 말씀",nickname = "yenomq34",time = "지난 주",heartcount = 25))
+            add(BoardData(title = "성분 헌혈 과정 공유해봐요!",nickname = "눈송이",time = "지난 주",heartcount = 7))
+            add(BoardData(title = "용산지역 혈액 수급",nickname = "yenomg34",time = "지난 주",heartcount = 12))
 
             boardAdapter.datas = datas
             boardAdapter.notifyDataSetChanged()
