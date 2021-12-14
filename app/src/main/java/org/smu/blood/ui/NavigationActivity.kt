@@ -1,5 +1,6 @@
 package org.smu.blood.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import org.smu.blood.databinding.ActivityNavigationBinding
@@ -8,6 +9,7 @@ import org.smu.blood.ui.main.MainFragment
 import org.smu.blood.ui.main.MainReadFragment
 import org.smu.blood.ui.main.MainRequestFragment
 import org.smu.blood.ui.main.MainSearchHospitalFragment
+import org.smu.blood.ui.map.MapActivity
 import org.smu.blood.ui.map.MapFragment
 import org.smu.blood.ui.my.MyRequestFragment
 import org.smu.blood.ui.my.MyFragment
@@ -35,7 +37,9 @@ class NavigationActivity : AppCompatActivity() {
             replaceFragment(binding.fragmentContainer, MainFragment::class.java, withAnim = false)
         }
         binding.btnMap.setOnClickListener {
-            replaceFragment(binding.fragmentContainer, MapFragment::class.java, withAnim = false)
+            //replaceFragment(binding.fragmentContainer, MapFragment::class.java, withAnim = false)
+            val intent = Intent(this, MapActivity::class.java)
+            startActivity(intent)
         }
         binding.btnReview.setOnClickListener {
             replaceFragment(binding.fragmentContainer, BoardFragment::class.java, withAnim = false)
