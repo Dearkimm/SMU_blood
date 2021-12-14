@@ -43,7 +43,7 @@ class MapActivity : AppCompatActivity() , GoogleMap.OnMarkerClickListener, Googl
     //바인딩
     //private var mBinding: ActivityMapBinding? = null
     //private val binding get() = mBinding!!
-
+//
     //구글맵 관련 변수들
     private lateinit var mMap:GoogleMap
     private lateinit var mCameraPosition:CameraPosition

@@ -22,13 +22,7 @@
         android:usesCleartextTraffic="true" >
         <activity
             android:name=".ui.map.MapActivity"
-            android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="true"/>
         <activity
             android:name=".ui.SplashActivity"
             android:exported="true"
@@ -46,7 +40,13 @@
             android:exported="true" /> <!-- Download -->
         <activity
             android:name=".ui.NavigationActivity"
-            android:exported="true" /> <!-- main -->
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity> <!-- main -->
         <activity
             android:name=".ui.board.BoardWritingActivity"
             android:exported="true" />
