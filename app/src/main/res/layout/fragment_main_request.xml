@@ -348,7 +348,7 @@
                 android:layout_marginTop="29dp"
                 android:fontFamily="@font/notosans_regular"
                 android:includeFontPadding="false"
-                android:text="@string/rmain_tv19"
+                android:text="환자 등록번호 (필수)"
                 android:textColor="@color/black"
                 android:textSize="13sp"
                 app:layout_constraintLeft_toLeftOf="parent"
