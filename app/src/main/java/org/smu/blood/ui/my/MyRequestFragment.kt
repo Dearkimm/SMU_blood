@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.gms.common.util.CollectionUtils.listOf
 import org.smu.blood.api.database.MainRequest
 import org.smu.blood.databinding.FragmentMyRequestBinding
 import org.smu.blood.ui.NavigationActivity
@@ -91,13 +92,14 @@ class MyRequestFragment : BaseFragment<FragmentMyRequestBinding>() {
 
     private fun configureMyRequestNavigation() {
         requireActivity().onBackPressedDispatcher.addCallback {
-            (activity as NavigationActivity).popMyRequest()
+            (activity as NavigationActivity).navigateMyToRequest()
         }
     }
 
     private fun configureClickEvent() {
         myCardAdapter.setItemClickListener(object : MainRequestAdapter.ItemClickListener {
             override fun onClick(requestInfo: MainRequest) {
+                //
                 hospitalId = requestInfo.hospitalId
                 rhType = requestInfo.rhType
                 bloodType = requestInfo.bloodType

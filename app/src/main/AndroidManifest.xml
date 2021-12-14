@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.smu.blood">
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -15,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SMU_blood"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".ui.map.MapActivity"
+            android:exported="true"/>
         <activity
             android:name=".ui.SplashActivity"
             android:windowSoftInputMode="adjustPan"
@@ -38,7 +40,9 @@
         <activity
             android:name=".ui.NavigationActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustPan"/> <!-- main -->
+            android:windowSoftInputMode="adjustPan">
+
+        </activity> <!-- main -->
         <activity
             android:name=".ui.board.BoardWritingActivity"
             android:exported="true" />
@@ -60,6 +64,9 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyB57Q2RnPpZ7n7oLc5Ky9K7wBUPTsa395o" />
 
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />

@@ -12,7 +12,7 @@ import org.smu.blood.ui.main.MainFragment
 import org.smu.blood.ui.main.MainReadFragment
 import org.smu.blood.ui.main.MainRequestFragment
 import org.smu.blood.ui.main.MainSearchHospitalFragment
-import org.smu.blood.ui.map.MapFragment
+import org.smu.blood.ui.map.MapActivity
 import org.smu.blood.ui.my.MyRequestFragment
 import org.smu.blood.ui.my.MyFragment
 import org.smu.blood.util.popFragment
@@ -39,7 +39,9 @@ class NavigationActivity : AppCompatActivity() {
             changeFragment(MainFragment())
         }
         binding.btnMap.setOnClickListener {
-            changeFragment(MapFragment())
+            //replaceFragment(binding.fragmentContainer, MapFragment::class.java, withAnim = false)
+            val intent = Intent(this, MapActivity::class.java)
+            startActivity(intent)
         }
         binding.btnReview.setOnClickListener {
             changeFragment(BoardFragment())
@@ -70,24 +72,32 @@ class NavigationActivity : AppCompatActivity() {
         replaceFragment(binding.fragmentContainer, MyRequestFragment::class.java, true)
     }
 
+    fun navigateCardApply(){
+        replaceFragment(binding.fragmentContainer, MyRequestFragment::class.java, true)
+    }
+
     fun popMainSearchHospital(){
         popFragment(MainSearchHospitalFragment::class.java)
     }
 
-    fun popMainRequest() {
-        popFragment(MainRequestFragment::class.java)
-    }
-
-    fun popMainRead() {
+    fun popMainRequest(){
         popFragment(MainReadFragment::class.java)
     }
 
-    fun popMy() {
+    fun popMainRead(){
+        popFragment(MainReadFragment::class.java)
+    }
+
+    fun popMy(){
         popFragment(MyFragment::class.java)
     }
 
-    fun popMyRequest() {
+    fun popMyRequest(){
         popFragment(MyRequestFragment::class.java)
+    }
+
+    fun logoutAndfinish(){
+        finish()
     }
 
     fun showFinishToast() {
@@ -95,25 +105,8 @@ class NavigationActivity : AppCompatActivity() {
             finish()
             return
         }
-        shortToast("한 번 더 누르시면 종료됩니다")
+        shortToast("한 번 더 누르시면 종료됩니다.")
         backPressedTime = System.currentTimeMillis()
-    }
-
-    fun logoutAndfinish(){
-        finish()
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if(data != null){
-            Log.d("코드", resultCode.toString())
-            if(resultCode == -1){
-                var confirmState = data.getBooleanExtra("confirmState", false)
-                if(!confirmState){
-                    replaceFragment(binding.fragmentContainer, MyRequestFragment::class.java, true)
-                }
-            }
-        }
     }
 
 }
