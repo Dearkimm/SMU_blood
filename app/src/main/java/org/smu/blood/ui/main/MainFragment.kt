@@ -60,7 +60,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
                     //"시종설 후기게시판 작성 예시", "2021.12.12(일) 오후 20:42"),
 
                 //신청하고 나서 count: 1로 바꾸야 함
-               MainRequest(29, true, 1,"혈소판",
+               MainRequest(29, true, 2,"혈소판",
                     "21.12.12", "21.12.23", 0,
                     "가족 중에 한 분이 혈액암으로 많이 안 좋아요.. B형이신 분 지정헌혈 부탁드려요. 코로나로 헌혈하시는 분들이 많이 줄어서 B형 혈소판이 부족합니다.", "2021.12.11(토) 오후 20:42"),
                 MainRequest(32, true, 4,"혈소판",

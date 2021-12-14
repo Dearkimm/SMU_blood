@@ -172,7 +172,7 @@
                     android:textSize="13sp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_up_date"
-                    android:text="Rh+ AB 혈소판" />
+                    android:text="Rh+ B 전혈" />
 
                 <TextView
                     android:id="@+id/tv_up_hos"
