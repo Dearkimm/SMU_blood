@@ -85,6 +85,7 @@ class MainReadFragment : BaseFragment<FragmentMainReadBinding>() {
                 if (hospitalId == it.id) hospital = it.hospitalName
             }
         binding.apply {
+            //binding.atvType.text
             atvType.text = "RH${rh} $blood"
             atvHos.text = hospital
             atvType2.text = "Rh${rh} ${blood}형 ${donationType}"

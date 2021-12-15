@@ -29,6 +29,7 @@ class MainRequestFragment : BaseFragment<FragmentMainRequestBinding>() {
         when (hospitalName) {
             "" -> binding.imgbHos.text = "병원 찾기"
             else -> binding.imgbHos.text = hospitalName
+
         }
     }
 
