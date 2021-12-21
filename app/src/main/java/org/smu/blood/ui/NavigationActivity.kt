@@ -4,8 +4,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.WindowManager
 import androidx.fragment.app.Fragment
+import com.google.android.gms.common.util.CollectionUtils
 import org.smu.blood.R
+import org.smu.blood.api.database.MainRequest
 import org.smu.blood.databinding.ActivityNavigationBinding
 import org.smu.blood.ui.board.BoardFragment
 import org.smu.blood.ui.main.MainFragment
@@ -13,6 +16,7 @@ import org.smu.blood.ui.main.MainReadFragment
 import org.smu.blood.ui.main.MainRequestFragment
 import org.smu.blood.ui.main.MainSearchHospitalFragment
 import org.smu.blood.ui.map.MapActivity
+import org.smu.blood.ui.map.MapApplicationActivity
 import org.smu.blood.ui.my.MyRequestFragment
 import org.smu.blood.ui.my.MyFragment
 import org.smu.blood.util.popFragment
@@ -26,12 +30,37 @@ class NavigationActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         binding = ActivityNavigationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        replaceFragment(binding.fragmentContainer, MainFragment::class.java, withAnim = false)
 
+        //replaceFragment(binding.fragmentContainer, MainFragment::class.java, withAnim = false)
+        initMain()
         configureBottomNav()
+    }
+
+    private fun initMain() {
+        Log.d("mapState", MapActivity.mapState.toString())
+        when (MapActivity.mapState) {
+            1 -> {
+                replaceFragment(binding.fragmentContainer, MainReadFragment::class.java, withAnim = false)
+                MapActivity.mapState = 0
+            }
+
+            else -> {
+                when(MapApplicationActivity.goCardState){
+                    1 -> {
+                        replaceFragment(binding.fragmentContainer, MyRequestFragment::class.java, withAnim = false)
+
+                    }
+                    else ->replaceFragment(binding.fragmentContainer, MainFragment::class.java, withAnim = false)
+
+                }
+            }
+        }
+
     }
 
     private fun configureBottomNav() {
@@ -81,7 +110,8 @@ class NavigationActivity : AppCompatActivity() {
     }
 
     fun popMainRequest(){
-        popFragment(MainReadFragment::class.java)
+        popFragment(MainRequestFragment::class.java)
+
     }
 
     fun popMainRead(){

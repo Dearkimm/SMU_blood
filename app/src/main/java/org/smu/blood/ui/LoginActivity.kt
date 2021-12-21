@@ -14,6 +14,7 @@ import org.smu.blood.R
 import org.smu.blood.databinding.ActivityLoginBinding
 import org.smu.blood.util.shortToast
 import android.view.View.OnFocusChangeListener
+import android.view.WindowManager
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -45,6 +46,8 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         auth = FirebaseAuth.getInstance()

@@ -3,6 +3,7 @@ package org.smu.blood.ui.board
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.WindowManager
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import org.smu.blood.R
@@ -28,6 +29,8 @@ class BoardRegisterActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_board_register)
         binding = ActivityBoardRegisterBinding.inflate(layoutInflater)
         var registerButton = findViewById<TextView>(R.id.register_button)

@@ -8,9 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.addCallback
+import androidx.fragment.app.Fragment
 import org.smu.blood.ui.NavigationActivity
 import org.smu.blood.R
 import org.smu.blood.databinding.FragmentMainRequestBinding
+import org.smu.blood.model.Hospital
 import org.smu.blood.ui.base.BaseFragment
 import org.smu.blood.ui.main.MainSearchHospitalFragment.Companion.hospitalName
 
@@ -43,7 +45,11 @@ class MainRequestFragment : BaseFragment<FragmentMainRequestBinding>() {
                 val dlg = MainRequestAlert(requireContext())
                 dlg.callFunction()
                 dlg.show()
-                (activity as NavigationActivity).popMainRequest()}
+                requestState = 1
+                (activity as NavigationActivity).popMainRequest()
+
+
+            }
         }
 
         binding.imgbHos.setOnClickListener {
@@ -52,7 +58,6 @@ class MainRequestFragment : BaseFragment<FragmentMainRequestBinding>() {
 
         requireActivity().onBackPressedDispatcher.addCallback {
             (activity as NavigationActivity).popMainRequest()
-            hospitalName = ""
         }
     }
 
@@ -140,5 +145,9 @@ class MainRequestFragment : BaseFragment<FragmentMainRequestBinding>() {
             binding.radio1.setTextColor(Color.BLACK)
         }
         binding.metGnum.addTextChangedListener(PhoneNumberFormattingTextWatcher())
+    }
+
+    companion object {
+        var requestState = 0
     }
 }

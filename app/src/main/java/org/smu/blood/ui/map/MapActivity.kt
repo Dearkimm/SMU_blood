@@ -30,12 +30,14 @@ import org.smu.blood.databinding.ActivityMapBinding
 import org.smu.blood.R
 import android.view.LayoutInflater
 import android.view.View.VISIBLE
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContentProviderCompat.requireContext
 import com.google.android.gms.maps.model.*
+import org.smu.blood.ui.NavigationActivity
 
 
 class MapActivity : AppCompatActivity() , GoogleMap.OnMarkerClickListener, GoogleMap.OnMyLocationButtonClickListener,
@@ -94,6 +96,7 @@ class MapActivity : AppCompatActivity() , GoogleMap.OnMarkerClickListener, Googl
             mLastKnownLocation = savedInstanceState.getParcelable<Location>(KEY_LOCATION)!!
             mCameraPosition = savedInstanceState.getParcelable<CameraPosition>(KEY_CAMERA_POSITION)!!
         }
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_map)
 
@@ -108,21 +111,9 @@ class MapActivity : AppCompatActivity() , GoogleMap.OnMarkerClickListener, Googl
         //팝업 버튼 이벤트
         var btnGo = findViewById<Button>(R.id.btn_go)
         btnGo.setOnClickListener {
-            val dlg = MapCheckConditionAlert(this)
-            dlg.callFunction()
-            dlg.show()
-            dlg.setOnDismissListener {
-                var checkState = dlg.returnState()
-                if(checkState){ // true일때 건너뛰기
-                    val intent = Intent(this, MapApplicationActivity()::class.java)
-                    startActivity(intent)
-                }
-                else{ //false 일때 전자문진
-                    var intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.bloodinfo.net/emi2/login.do?_ga=2.29800319.1190218835.1637677364-178623010.1637677364"))
-                    startActivity(intent)
-                }
-
-            }
+            mapState = 1
+            val intent = Intent(this, NavigationActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -188,6 +179,7 @@ class MapActivity : AppCompatActivity() , GoogleMap.OnMarkerClickListener, Googl
             // 2. 마커 생성 (마커를 나타냄)
             mMap.addMarker(makerOptions)
         }
+
         getLocationPermission()
         getDeviceLocation()
 
@@ -202,6 +194,7 @@ class MapActivity : AppCompatActivity() , GoogleMap.OnMarkerClickListener, Googl
         //가장 최근의 위치를 바당올 수 있도록 함
         //구글맵에 간혹 위치가 안찍히는 장소가 있다고 하는데... 거기에 당첨이 될지..?
         try {
+            getLocationPermission()
             if(mLocationPermissionGranted){
                 var locationResult: Task<Location>  = mFusedLocationProviderClient.lastLocation
                 locationResult.addOnCompleteListener(this, object : OnCompleteListener<Location> {
@@ -308,7 +301,7 @@ class MapActivity : AppCompatActivity() , GoogleMap.OnMarkerClickListener, Googl
         }
         
         //사용자 디폴트 마커 찍기
-        mMap.addMarker(MarkerOptions().title("지도 테스트").position(mDefaultLocation).snippet("이건 뭐임?"))
+        //mMap.addMarker(MarkerOptions().title("지도 테스트").position(mDefaultLocation).snippet("이건 뭐임?"))
         //사용자한테 위치 권한 받기
         getLocationPermission()
     }
@@ -383,6 +376,7 @@ class MapActivity : AppCompatActivity() , GoogleMap.OnMarkerClickListener, Googl
 
         //현재 장소 선택?(나중에 생략해도 될듯)
         private val M_MAX_ENTRIES = 5
+        var mapState = 0
     }
 
     override fun onMarkerClick(marker: Marker): Boolean {
@@ -394,6 +388,5 @@ class MapActivity : AppCompatActivity() , GoogleMap.OnMarkerClickListener, Googl
         return true
 
     }
-
 
 }
