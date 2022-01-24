@@ -110,10 +110,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
         // 더미데이터
         mainRequestAdapter.setItems(
             listOf(
-                //신규로 작성했을때 주석 처리 지우면 돼(고대 안암 병원, A형 Rh-,시간은 영상 찍는 때로..)
-                //MainRequest(10, false, 1,"혈소판",
-                    //"21.12.12", "21.12.17", 0,
-                    //"시종설 후기게시판 작성 예시", "2021.12.12(일) 오후 20:42"),
 
                 //신청하고 나서 count: 1로 바꾸야 함
                MainRequest(29, true, 2,"혈소판",
