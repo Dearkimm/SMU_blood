@@ -148,4 +148,5 @@
     <string name="apply_record">신청 기록 카드</string>
     <string name="ltv_id_type">ex) abc@naver.com</string>
     <string name="total_person">신청자 총 2명</string>
+    <string name="tv_login_ing">로그인 유지</string>
 </resources>
