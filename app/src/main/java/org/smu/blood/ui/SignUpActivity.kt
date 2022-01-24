@@ -27,6 +27,10 @@ import com.google.firebase.auth.GetTokenResult
 import androidx.annotation.NonNull
 
 import com.google.android.gms.tasks.OnCompleteListener
+import org.smu.blood.api.ServiceCreator
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class SignUpActivity : AppCompatActivity() {
@@ -179,10 +183,20 @@ class SignUpActivity : AppCompatActivity() {
                 passwordText = editPassword.text.toString()
                 nicknameText = editName.text.toString()
 
+                // user 객체에 입력 내용 넣기
+                userInfo.id = idText
+                userInfo.password = passwordText
+                userInfo.nickname = nicknameText
+                userInfo.bloodType = bloodType
+                userInfo.rhType = rhType
+                Log.d("USERINFO: ", userInfo.toString())
+
                 //입력한 내용을 서버에 넣어주기
-                createUser(idText,passwordText)
+                signUp(userInfo)
+                //createUser(idText,passwordText)
                 Toast.makeText(applicationContext, "회원가입 완료", Toast.LENGTH_SHORT).show()
 
+                /*
                 //Realtime Database 에 회원정보 추가
                 Log.d("uid 뭐임", suid)
                 userInfo.id = idText
@@ -204,10 +218,29 @@ class SignUpActivity : AppCompatActivity() {
                 // 4. ActivityResultLauncher에 해당 intent 전달
                 // RESULT_OK : resultCode
                 setResult(RESULT_OK, intent)*/
+
+                 */
                 finish()
             }
         }
 
+    }
+    // 회원가입 정보 Spring 서버로 전송
+    private fun signUp(user: User){
+        val call = ServiceCreator.bumService.getSignUpResponse(user)
+        call.enqueue(object : Callback<String> {
+            override fun onResponse(call: Call<String>, response: Response<String>) {
+                if(response.isSuccessful()){ // 통신 성공 and 응답 잘 받은 경우
+                    Log.d("RESPONSE FROM SERVER: ", response.body().toString())
+                }else{ // 통신 성공 but 응답 실패
+                    Log.d("RESPONSE FROM SERVER: ", "FAILURE")
+                }
+            }
+
+            override fun onFailure(call: Call<String>, t: Throwable) {
+                Log.d("CONNECTION TO SERVER FAILURE: ", t.localizedMessage)
+            }
+        })
     }
     //파이어베이스에서 계정 생성
     private fun createUser(email: String, password: String) {
