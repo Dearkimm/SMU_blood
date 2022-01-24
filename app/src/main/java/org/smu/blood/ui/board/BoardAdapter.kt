@@ -47,9 +47,14 @@ RecyclerView.Adapter<BoardAdapter.ViewHolder>() {
             notifyDataSetChanged()
         }
     }
-
-
-
+    /*//아이템 추가
+    fun addItem(position: Int){
+        if(position>=0){
+            datas.add(position,BoardData())
+            notifyItemChanged(position)
+            notifyDataSetChanged()
+        }
+    }*/
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(datas[position])
     }

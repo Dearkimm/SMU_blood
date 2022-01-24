@@ -112,7 +112,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/notosans_light"
         android:includeFontPadding="false"
-        tools:text="어제 집 근처에 요청이 떠있어서 지정헌혈 하고 왔습니다. 제 피가 도움이 된것 같아 굉장히 뿌듯하네요."
+        android:text="안녕하세요, 얼마 전 Rh- O형의 헌혈이 시급하다는 소식을 듣고 Rh- 혈액은 워낙 구하기가 힘들다는 걸 알기에 지정 헌혈에 참여했습니다. 이번에는 헌혈자이지만 미래에 제가 혈액이 필요한 요청자가 될 수 있다는 걸 희귀 혈액형인 저는 너무나도 잘 압니다. 빠른 시일 내에 회복하시길 바라요. Rh- 환자분들 다들 힘내세요!"
         android:textColor="@color/black"
         android:textSize="13sp"
         android:layout_marginTop="15dp"

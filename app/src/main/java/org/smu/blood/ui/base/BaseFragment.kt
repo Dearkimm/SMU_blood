@@ -9,8 +9,8 @@ import androidx.viewbinding.ViewBinding
 
 abstract class BaseFragment<T : ViewBinding> : Fragment() {
     private var _binding: T? = null
-    val binding get() = _binding ?: error("View를 참조하기 위해 binding이 초기화되지 않았습니다.")
-
+    //val binding get() = _binding ?: error("View를 참조하기 위해 binding이 초기화되지 않았습니다.")
+    val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
