@@ -19,6 +19,7 @@ class BoardFragment : Fragment() {
     lateinit var boardAdapter: BoardAdapter
     lateinit var recyclerview:RecyclerView
     val datas = mutableListOf<BoardData>()
+
     private var _binding : FragmentBoardBinding? = null
     private val binding get() = _binding!!
 

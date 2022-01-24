@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.TextView
@@ -22,6 +23,8 @@ class MapApplicationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_blood_notice)
 
 
@@ -64,18 +67,21 @@ class MapApplicationActivity : AppCompatActivity() {
                 dlg.setOnDismissListener {
                     confirmState = dlg.returnState()
                     if (confirmState) { //건너뛰기
-                        val intent = Intent(this, NavigationActivity::class.java)
-                        startActivity(intent)
-                        this.finish()
+                        goCardState = 0
                     } else { //마이페이지에서 신청 확인하기
-                        val intent = Intent()
-                        intent.putExtra("confirmState", confirmState)
-                        setResult(RESULT_OK, intent)
-                        this.finish()
+                        goCardState = 1
                     }
+
+                    val intent = Intent(this, NavigationActivity::class.java)
+                    startActivity(intent)
+                    this.finish()
                 }
             } else
                 Toast.makeText(this, "주의사항 확인 후 체크해주세요", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    companion object{
+        var goCardState = 0
     }
 }

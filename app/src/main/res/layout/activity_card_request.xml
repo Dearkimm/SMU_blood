@@ -214,7 +214,7 @@
                     android:textSize="13sp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_up_pnum"
-                    android:text="요청 시작 2021.12.09 ~ 요청 마감 2021.12.17" />
+                    android:text="요청 시작 2021.12.11 ~ 요청 마감 2021.12.17" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 

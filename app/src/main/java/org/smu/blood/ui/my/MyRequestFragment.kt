@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.gms.common.util.CollectionUtils.listOf
 import org.smu.blood.api.database.MainRequest
 import org.smu.blood.databinding.FragmentMyRequestBinding
 import org.smu.blood.ui.NavigationActivity
@@ -31,6 +32,17 @@ class MyRequestFragment : BaseFragment<FragmentMyRequestBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.myCardList.layoutManager = LinearLayoutManager(activity)
         binding.myCardList.adapter = myCardAdapter
+        myCardAdapter.setItems(
+            listOf(
+                MainRequest(2, true, 2,"전혈",
+                    "21.12.15", "21.12.20", 0,
+                    "가족 중에 한 분이 혈액암으로 많이 안 좋아요.. B형이신 분 지정헌혈 부탁드려요. 코로나로 헌혈하시는 분들이 많이 줄어서 B형 혈소판이 부족합니다.", "2021.12.15(화) 오후 16:35"),
+
+                MainRequest(5, true, 2,"전혈",
+                    "21.12.09", "21.12.17", 2,
+                    "친한 언니가 급성 심근염으로 중환자실에서 힘든 시간을 보내고 있습니다. Rh+ A형 혈소판을 구하고 있으니 가능하시다면 헌혈을 간곡하게 부탁드립니다.", "2021.12.11(토) 오전 10:31"),
+            )
+        )
 
         //요청자 시점
         binding.recRequest.setOnClickListener {
@@ -39,9 +51,13 @@ class MyRequestFragment : BaseFragment<FragmentMyRequestBinding>() {
             cardState = 0
             myCardAdapter.setItems(
                 listOf(
-                    MainRequest(32, true, 4,"혈소판",
+                    MainRequest(2, true, 2,"전혈",
+                        "21.12.15", "21.12.20", 0,
+                        "가족 중에 한 분이 혈액암으로 많이 안 좋아요.. B형이신 분 지정헌혈 부탁드려요. 코로나로 헌혈하시는 분들이 많이 줄어서 B형 혈소판이 부족합니다.", "2021.12.15(화) 오후 14:40"),
+
+                    MainRequest(5, true, 4,"혈소판",
                         "21.12.13", "21.12.21", 2,
-                        "친한 언니가 급성 심근염으로 중환자실에서 힘든 시간을 보내고 있습니다. Rh+ A형 혈소판을 구하고 있으니 가능하시다면 헌혈을 간곡하게 부탁드립니다.", "2021.12.13(월) 오전 10:24"),
+                        "친한 언니가 급성 심근염으로 중환자실에서 힘든 시간을 보내고 있습니다. Rh+ A형 혈소판을 구하고 있으니 가능하시다면 헌혈을 간곡하게 부탁드립니다.", "2021.12.11(토) 오전 10:31"),
                 )
             )
 
@@ -82,22 +98,27 @@ class MyRequestFragment : BaseFragment<FragmentMyRequestBinding>() {
         // 더미데이터
         myCardAdapter.setItems(
             listOf(
+                MainRequest(2, true, 2,"전혈",
+                    "21.12.15", "21.12.20", 0,
+                    "가족 중에 한 분이 혈액암으로 많이 안 좋아요.. B형이신 분 지정헌혈 부탁드려요. 코로나로 헌혈하시는 분들이 많이 줄어서 B형 혈소판이 부족합니다.", "2021.12.15(화) 오후 16:37"),
+
                 MainRequest(5, true, 2,"전혈",
-                    "21.12.09", "21.12.15", 2,
-                    "가족 중에 한 분이 혈액암으로 많이 안 좋아요.. B형이신 분 지정헌혈 부탁드려요. 코로나로 헌혈하시는 분들이 많이 줄어서 B형 혈소판이 부족합니다.", LocalDateTime.now().dateTimeString),
+                    "21.12.09", "21.12.25", 2,
+                    "친한 언니가 급성 심근염으로 중환자실에서 힘든 시간을 보내고 있습니다. Rh+ A형 혈소판을 구하고 있으니 가능하시다면 헌혈을 간곡하게 부탁드립니다.", "2021.12.11(토) 오전 10:31"),
             )
         )
     }
 
     private fun configureMyRequestNavigation() {
         requireActivity().onBackPressedDispatcher.addCallback {
-            (activity as NavigationActivity).popMyRequest()
+            (activity as NavigationActivity).navigateMyToRequest()
         }
     }
 
     private fun configureClickEvent() {
         myCardAdapter.setItemClickListener(object : MainRequestAdapter.ItemClickListener {
             override fun onClick(requestInfo: MainRequest) {
+                //
                 hospitalId = requestInfo.hospitalId
                 rhType = requestInfo.rhType
                 bloodType = requestInfo.bloodType
@@ -119,6 +140,7 @@ class MyRequestFragment : BaseFragment<FragmentMyRequestBinding>() {
             }
         })
     }
+
 
     companion object {
         var hospitalId = -1
