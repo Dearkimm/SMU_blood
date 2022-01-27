@@ -10,5 +10,5 @@ interface BlringService {
     @POST("signUp")
     fun createUser(@Body user: User): Call<HashMap<String, Int>>
     @POST("signIn")
-    fun loginUser(@Body id: String, @Body password: String): Call<User>
+    fun loginUser(@Body info: HashMap<String,String>): Call<User>
 }
