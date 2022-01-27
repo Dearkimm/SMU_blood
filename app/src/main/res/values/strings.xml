@@ -109,7 +109,7 @@
     <string name="page_tv12">탈퇴하기</string>
     <string name="su_tv1">회원가입</string>
     <string name="su_tv2">아이디</string>
-    <string name="su_tv3">사용 가능한 이메일입니다.</string>
+    <string name="su_tv3">사용 중인 이메일입니다.</string>
     <string name="su_tv4">사용 가능한 \'이메일\'을 입력해주세요</string>
     <string name="su_tv5">비밀번호</string>
     <string name="su_tv6">비밀번호를 입력해주세요</string>
