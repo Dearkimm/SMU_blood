@@ -22,7 +22,11 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
+import org.smu.blood.api.ServiceCreator
 import org.smu.blood.api.database.User
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class LoginActivity : AppCompatActivity() {
@@ -70,9 +74,18 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun configureNavigation() {
+        var user: User
         // 로그인 버튼 클릭 시
         binding.btnLog.setOnClickListener {
             if (binding.letId.text.isNotBlank() && binding.letPwd.text.isNotBlank()) {
+                user = signIn(binding.letId.getText().toString(), binding.letPwd.getText().toString())
+                if(user != null){
+                    Toast.makeText(baseContext, "로그인에 성공하였습니다", Toast.LENGTH_SHORT).show()
+                    navigateHome(user)
+                }else{
+                    Toast.makeText(baseContext, "로그인에 실패하였습니다", Toast.LENGTH_SHORT).show()
+                }
+                /*
                 login(binding.letId.getText().toString(), binding.letPwd.getText().toString())
                 //파이어베이스데이터읽어오기
                 Log.d("로그인 uid: ",tempuid)
@@ -88,7 +101,7 @@ class LoginActivity : AppCompatActivity() {
                     override fun onCancelled(error: DatabaseError) {
                     } //onCancelled
                 }) //addValueEventListener
-
+                */
             } else {
                 shortToast("빈 칸이 있습니다")
             }
@@ -100,7 +113,40 @@ class LoginActivity : AppCompatActivity() {
             startActivityForResult(intent, 111)
         }
     }
+    private fun signIn(id: String, password: String): User{
+        var user: User? = null
+        val loginUser = ServiceCreator.bumService.loginUser(id, password)
+        loginUser.enqueue(object : Callback<User>{
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                if(response.isSuccessful){
+                    if (response.body() == null) { // 해당 사용자가 없는 경우
+                        Log.d("LOGIN", "FAILED")
+                    } else{ // 사용자 있는 경우
+                        Log.d("LOGIN", "SUCCESS")
+                        user = response.body()
+                    }
+                }else{
+                    Log.d("RESPONSE FROM SERVER: ", "FAILURE")
+                }
+            }
 
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                Log.d("CONNECTION TO SERVER FAILURE: ", t.localizedMessage)
+            }
+
+        })
+        Log.d("LOGIN USER", user.toString())
+        return user!!
+    }
+
+    private fun navigateHome(user: User?) {
+        if( user!= null){
+            val intent = Intent(this, NavigationActivity::class.java)
+            startActivity(intent)
+            this.finish()
+        }
+    }
+    /*
     private fun login(email: String, password: String) {
         auth?.signInWithEmailAndPassword(binding.letId.text.toString(), binding.letPwd.text.toString())
             ?.addOnCompleteListener(this) { task ->
@@ -113,6 +159,7 @@ class LoginActivity : AppCompatActivity() {
             }
     }
 
+
     private fun navigateHome(user: FirebaseUser?) {
         if( user!= null){
             val intent = Intent(this, NavigationActivity::class.java)
@@ -120,4 +167,7 @@ class LoginActivity : AppCompatActivity() {
             this.finish()
         }
     }
+
+     */
+
 }

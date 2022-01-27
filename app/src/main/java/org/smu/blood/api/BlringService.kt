@@ -6,7 +6,9 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface BlringService {
-    // login
+    // create User
     @POST("signUp")
-    fun getSignUpResponse(@Body user: User): Call<String>
+    fun createUser(@Body user: User): Call<HashMap<String, Int>>
+    @POST("signIn")
+    fun loginUser(@Body id: String, @Body password: String): Call<User>
 }
