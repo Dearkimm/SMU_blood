@@ -27,6 +27,10 @@ import com.google.firebase.auth.GetTokenResult
 import androidx.annotation.NonNull
 
 import com.google.android.gms.tasks.OnCompleteListener
+import org.smu.blood.api.ServiceCreator
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class SignUpActivity : AppCompatActivity() {
@@ -41,6 +45,8 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var myRef: DatabaseReference //데이터베이스 리퍼런스
     var userInfo = User()
     lateinit var suid: String
+    lateinit var cid: TextView
+    lateinit var dname: TextView
 
     @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,8 +86,9 @@ class SignUpActivity : AppCompatActivity() {
         var typeAB = findViewById<Button>(R.id.type_ab)
 
         //textView
-        var dname = findViewById<TextView>(R.id.stv_dname)
         var checkpwd= findViewById<TextView>(R.id.stv_npwd)
+        cid = findViewById<TextView>(R.id.stv_cid)
+        dname = findViewById<TextView>(R.id.stv_dname)
 
         //dname.setVisibility(VISIBLE)
 
@@ -179,10 +186,25 @@ class SignUpActivity : AppCompatActivity() {
                 passwordText = editPassword.text.toString()
                 nicknameText = editName.text.toString()
 
-                //입력한 내용을 서버에 넣어주기
-                createUser(idText,passwordText)
-                Toast.makeText(applicationContext, "회원가입 완료", Toast.LENGTH_SHORT).show()
+                // user 객체에 입력 내용 넣기
+                userInfo.id = idText
+                userInfo.password = passwordText
+                userInfo.nickname = nicknameText
+                userInfo.bloodType = bloodType
+                userInfo.rhType = rhType
+                Log.d("USERINFO: ", userInfo.toString())
 
+                //입력한 내용을 서버에 넣어주기
+                if(signUp(userInfo)){
+                    Toast.makeText(applicationContext, "회원가입 완료", Toast.LENGTH_SHORT).show()
+                    finish()
+                }else{
+                    Toast.makeText(applicationContext, "회원가입 실패", Toast.LENGTH_SHORT).show()
+                }
+                //createUser(idText,passwordText)
+
+
+                /*
                 //Realtime Database 에 회원정보 추가
                 Log.d("uid 뭐임", suid)
                 userInfo.id = idText
@@ -205,10 +227,48 @@ class SignUpActivity : AppCompatActivity() {
                 // RESULT_OK : resultCode
                 setResult(RESULT_OK, intent)*/
                 finish()
+                 */
+
             }
         }
 
     }
+
+    // 회원가입 정보 Spring 서버로 전송
+    private fun signUp(user: User): Boolean {
+        var createAvailable:Boolean = false
+        val createUser = ServiceCreator.bumService.createUser(user)
+
+        createUser.enqueue(object : Callback<HashMap<String, Int>> {
+            override fun onResponse(call: Call<HashMap<String, Int>>, response: Response<HashMap<String, Int>>) {
+                if(response.isSuccessful){ // 통신 성공 and 응답 성공
+                    response.body()!!.forEach { (key, value) -> Log.d("RESPONSE: ", "$key = $value") }
+                    if(response.body()!!["create"]!! == 1) {
+                        Log.d("RESPONSE", "USER CREATION SUCCESS")
+                        createAvailable = true
+                    }
+                    if(response.body()!!["sameId"]!! == 1){ // id 중복
+                        Log.d("RESPONSE", "SAME ID EXISTS")
+                        cid.visibility = VISIBLE
+                    }
+                    if(response.body()!!["sameNickname"]!! == 1){ // nickname 중복
+                        Log.d("RESPONSE", "SAME NICKNAME EXISTS")
+                        dname.visibility = VISIBLE
+                        dname.setText(R.string.su_tv12)
+                    }
+                }else{ // 통신 성공 but 응답 실패
+                    Log.d("RESPONSE FROM SERVER: ", "FAILURE")
+                }
+            }
+
+            override fun onFailure(call: Call<HashMap<String, Int>>, t: Throwable) {
+                Log.d("CONNECTION TO SERVER FAILURE: ", t.localizedMessage)
+            }
+        })
+        Log.d("createAvailable", createAvailable.toString())
+        return createAvailable
+    }
+    /*
     //파이어베이스에서 계정 생성
     private fun createUser(email: String, password: String) {
         //Log.d("변수", email+", "+password)
@@ -225,6 +285,7 @@ class SignUpActivity : AppCompatActivity() {
             }
         Log.d("뒤에서 uid", auth.currentUser.toString())
     }
+    */
 }
 
 
