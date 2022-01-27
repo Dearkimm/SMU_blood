@@ -83,7 +83,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:src="@drawable/ic_comments" />
             <TextView
-                android:id="@+id/commments_count"
+                android:id="@+id/board_commments_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
