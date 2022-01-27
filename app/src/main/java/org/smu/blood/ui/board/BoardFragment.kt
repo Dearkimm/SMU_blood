@@ -55,6 +55,8 @@ class BoardFragment : Fragment() {
                 intent.putExtra("nickname", data.nickname)
                 intent.putExtra("time", data.time)
                 intent.putExtra("heartcount", data.heartcount)
+                intent.putExtra("commentcount",data.commentcount)
+                intent.putExtra("boardtext",data.boardtext)
                 startActivity(intent)
             }
         })
@@ -74,7 +76,7 @@ class BoardFragment : Fragment() {
                     //글쓰기 데이터
                     Log.d("글삭제 데이터", deleteState.toString())
                 }
-                /*글 삭제할때 써야되나
+                /* db에서 글 삭제할때사용
                 val intent = Intent(context, BoardWritingActivity::class.java)
                 intent.putExtra("position", position)
                 intent.putExtra("title", data.title)
@@ -100,7 +102,7 @@ class BoardFragment : Fragment() {
         writeButton.setOnClickListener {
             val intent = Intent(context, BoardRegisterActivity()::class.java)
             startActivity(intent)
-            //보드 레지스터에서 데이터 받아오기
+            //보드 레지스터에서 데이터 받아오기 (DB 없이 테스트)
             //_binding = FragmentBoardBinding.inflate(inflater,container,false)
             val title = arguments?.getString("title")
             val contents = arguments?.getString("contents")
@@ -108,7 +110,7 @@ class BoardFragment : Fragment() {
             if (title != null) {
                 Log.d("데이터받아와졋나 확인",title)
             }
-            else Log.d("데이터받아와졋냐?","아니")
+            else Log.d("데이터받아와졌나","아니")
            /* var datas = mutableListOf<BoardData>()
             datas.add(0, BoardData(title = title.toString() ,nickname = "장구벌레", time = time.toString(),heartcount = 0))
             boardAdapter.notifyItemInserted(0)*/
@@ -145,25 +147,25 @@ class BoardFragment : Fragment() {
 
     private fun initRecycler() {
         datas.apply {
-            //새로 쓰는 글
-            //add(BoardData(title = "너무 급박했던 수술",nickname = "Snowflake",time = "1시간 전",heartcount = 2))
-            add(BoardData(title = "너무 급박했던 수술",nickname = "Snowflake",time = "1시간 전",heartcount = 2))
-            add(BoardData(title = "희귀혈액형 지정 헌혈 과정 공유",nickname = "시종설",time = "3시간 전",heartcount = 5))
-            add(BoardData(title = "뿌듯한 첫 지정 헌혈 후기",nickname = "청파동",time = "1일 전",heartcount = 8))
-            add(BoardData(title = "Rh-형 지정 헌혈하고 왔어요",nickname = "장구벌레",time = "4일 전",heartcount = 14))
-            add(BoardData(title = "헌혈해주신 분들께 감사의 말씀",nickname = "yenomq34",time = "지난 주",heartcount = 25))
-            add(BoardData(title = "성분 헌혈 과정 공유해봐요!",nickname = "눈송이",time = "지난 주",heartcount = 7))
-            add(BoardData(title = "용산지역 혈액 수급",nickname = "yenomg34",time = "지난 주",heartcount = 12))
+            add(BoardData(id = "게시글 id", title = "너무 급박했던 수술",nickname = "Snowflake",time = "1시간 전"
+                ,heartcount = 2, commentcount = 3,boardtext = "안녕하세요, 얼마 전 Rh- O형의 헌혈이 시급하다는 소식을 듣고 Rh- 혈액은 워낙 구하기가" +
+                        " 힘들다는 걸 알기에 지정 헌혈에 참여했습니다. 이번에는 헌혈자이지만 미래에 제가 혈액이 필요한 " +
+                        "요청자가 될 수 있다는 걸 희귀 혈액형인 저는 너무나도 잘 압니다. 빠른 시일 내에 회복하시길 바라요. " +
+                        "Rh- 환자분들 다들 힘내세요!"))
+            add(BoardData(id = "게시글 id",title = "희귀혈액형 지정 헌혈 과정 공유",nickname = "시종설",time = "3시간 전"
+                ,heartcount = 5, commentcount = 6,boardtext = "본문내용2"))
+            add(BoardData(id = "게시글 id",title = "뿌듯한 첫 지정 헌혈 후기",nickname = "청파동",time = "1일 전"
+                ,heartcount = 8, commentcount = 5,boardtext = "본문내용3"))
+            add(BoardData(id = "게시글 id",title = "Rh-형 지정 헌혈하고 왔어요",nickname = "장구벌레",time = "4일 전"
+                ,heartcount = 14, commentcount = 1,boardtext = "본문내용4"))
+            add(BoardData(id = "게시글 id",title = "헌혈해주신 분들께 감사의 말씀",nickname = "yenomq34",time = "지난 주"
+                ,heartcount = 25, commentcount = 0,boardtext = "본문내용5"))
+            add(BoardData(id = "게시글 id",title = "성분 헌혈 과정 공유해봐요!",nickname = "눈송이",time = "지난 주"
+                ,heartcount = 7, commentcount = 0,boardtext = "본문내용6"))
+            add(BoardData(id = "게시글 id",title = "용산지역 혈액 수급",nickname = "yenomg34",time = "지난 주"
+                ,heartcount = 12, commentcount = 0,boardtext = "본문내용7"))
             boardAdapter.datas = datas
             boardAdapter.notifyDataSetChanged()
         }
     }
-    /*private fun initRecycler2() {
-        datas.apply {
-            add(BoardData(title = "희귀혈액형 지정헌혈 후기",nickname = "장구벌레",time = "지난 주",heartcount = 25))
-            boardAdapter.datas = datas
-            boardAdapter.notifyDataSetChanged()
-
-        }
-    }*/
 }
