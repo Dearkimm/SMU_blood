@@ -3,15 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white">
     <ScrollView
-        android:id="@+id/writing_scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/comment_et"
+        android:layout_marginBottom="60dp"
+        android:background="@color/white">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -178,19 +180,52 @@
         />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rc_comments_list"
-        app:layout_constraintTop_toBottomOf="@id/view_3"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:clipToPadding="false"
         android:overScrollMode="never"
         android:paddingHorizontal="0dp"
         android:paddingBottom="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_comments"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:listitem="@layout/item_comments" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
+    <EditText
+        android:id="@+id/comment_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/comment_bt"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginEnd="70dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:hint="댓글을 입력하세요"
+        android:textSize="11sp"
+        android:fontFamily="@font/notosans_light"
+        android:textColor="@color/warm_grey_2"
+        android:background="@drawable/bg_record" />
+    <Button
+        android:id="@+id/comment_bt"
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/comment_et"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="17dp"
+        android:layout_marginEnd="15dp"
+        android:hint="등록"
+        android:includeFontPadding="false"
+        android:textSize="11sp"
+        android:fontFamily="@font/notosans_light"
+        android:textColor="@color/warm_grey_2"
+        android:background="@drawable/bg_record"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
