@@ -74,16 +74,22 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun configureNavigation() {
-        var user: User
+
         // 로그인 버튼 클릭 시
         binding.btnLog.setOnClickListener {
             if (binding.letId.text.isNotBlank() && binding.letPwd.text.isNotBlank()) {
-                user = signIn(binding.letId.getText().toString(), binding.letPwd.getText().toString())
-                if(user != null){
-                    Toast.makeText(baseContext, "로그인에 성공하였습니다", Toast.LENGTH_SHORT).show()
-                    navigateHome(user)
-                }else{
-                    Toast.makeText(baseContext, "로그인에 실패하였습니다", Toast.LENGTH_SHORT).show()
+                var user = User()
+                val loginInfo = HashMap<String,String>()
+                loginInfo.put("id", binding.letId.getText().toString())
+                loginInfo.put("password", binding.letPwd.getText().toString())
+                signIn(loginInfo){
+                    if(it != null){
+                        Log.d("LOGIN USER", it.toString())
+                        Toast.makeText(baseContext, "로그인 성공", Toast.LENGTH_SHORT).show()
+                        navigateHome(it)
+                    }else{
+                        Toast.makeText(baseContext, "로그인 실패", Toast.LENGTH_SHORT).show()
+                    }
                 }
                 /*
                 login(binding.letId.getText().toString(), binding.letPwd.getText().toString())
@@ -113,30 +119,30 @@ class LoginActivity : AppCompatActivity() {
             startActivityForResult(intent, 111)
         }
     }
-    private fun signIn(id: String, password: String): User{
-        var user: User? = null
-        val loginUser = ServiceCreator.bumService.loginUser(id, password)
-        loginUser.enqueue(object : Callback<User>{
+    private fun signIn(userInfo: HashMap<String,String>, onResult: (User?)->Unit){
+        val apiService = ServiceCreator.bumService.loginUser(userInfo)
+        apiService.enqueue(object : Callback<User>{
             override fun onResponse(call: Call<User>, response: Response<User>) {
+                // 서버 응답 성공
                 if(response.isSuccessful){
-                    if (response.body() == null) { // 해당 사용자가 없는 경우
+                    // 해당 사용자가 없는 경우
+                    if (response.body() == null) {
                         Log.d("LOGIN", "FAILED")
+                        onResult(null)
                     } else{ // 사용자 있는 경우
                         Log.d("LOGIN", "SUCCESS")
-                        user = response.body()
+                        onResult(response.body())
                     }
                 }else{
+                    // 서버 응답 오류
                     Log.d("RESPONSE FROM SERVER: ", "FAILURE")
                 }
             }
-
             override fun onFailure(call: Call<User>, t: Throwable) {
+                // 서버 연결 오류
                 Log.d("CONNECTION TO SERVER FAILURE: ", t.localizedMessage)
             }
-
         })
-        Log.d("LOGIN USER", user.toString())
-        return user!!
     }
 
     private fun navigateHome(user: User?) {
