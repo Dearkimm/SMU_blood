@@ -16,7 +16,7 @@ import org.smu.blood.ui.base.BaseFragment
 import org.smu.blood.ui.main.MainFragment
 import org.smu.blood.ui.board.BoardFragment
 import org.w3c.dom.Comment
-//--------------------------------사용안하는코드---------------
+//--------------------------------이 파일 삭제하기(안씀)---------------
 class BoardReadFragment : BaseFragment<FragmentBoardBinding>() {
     lateinit var boardreadAdapter: BoardReadAdapter
     lateinit var recyclerview: RecyclerView

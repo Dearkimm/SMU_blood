@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import org.smu.blood.R
@@ -28,6 +29,15 @@ RecyclerView.Adapter<BoardReadAdapter.ViewHolder>(){
         this.listener = listener
     }
 
+    //댓글 삭제
+    fun removeItem(position: Int){
+        if(position>=0) {
+            datas.removeAt(position)
+            notifyItemRemoved(position)
+            notifyDataSetChanged()
+        }
+    }
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(datas[position])
     }
@@ -35,6 +45,7 @@ RecyclerView.Adapter<BoardReadAdapter.ViewHolder>(){
         private val txtNickname: TextView = itemView.findViewById(R.id.comment_nickname)
         private val txtTime: TextView = itemView.findViewById(R.id.comment_time)
         private val txtComment: TextView = itemView.findViewById(R.id.comment_body)
+        private val commentEdit: Button = itemView.findViewById(R.id.comment_edit)
 
         fun bind(item: CommentData) {
             txtNickname.text = item.nickname
@@ -42,13 +53,15 @@ RecyclerView.Adapter<BoardReadAdapter.ViewHolder>(){
             txtComment.text = item.comment
 
             val position = adapterPosition
-            if(position!= RecyclerView.NO_POSITION)
-            {
+            if(position!= RecyclerView.NO_POSITION) {
                 itemView.setOnClickListener {
                     listener?.onItemClick(itemView,item,position)
                 }
+                commentEdit.setOnClickListener {
+                    listener?.onItemClick(itemView,item,position)
+                }
             }
-
         }
+
     }
 }
