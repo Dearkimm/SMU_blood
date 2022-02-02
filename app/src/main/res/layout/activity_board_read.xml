@@ -31,6 +31,17 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
+    <ImageButton
+        android:id="@+id/board_change"
+        android:layout_width="30dp"
+        android:layout_height="40dp"
+        android:padding="0dp"
+        android:src="@drawable/ic_board_edit"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@android:color/transparent"/>
     <TextView
         android:id="@+id/writing_title"
         android:layout_width="wrap_content"
