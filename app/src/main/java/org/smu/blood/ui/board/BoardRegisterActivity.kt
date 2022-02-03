@@ -20,7 +20,7 @@ import java.nio.BufferUnderflowException
 import java.nio.ByteOrder
 
 
-class BoardRegisterActivity : AppCompatActivity() {
+class BoardRegisterActivity : AppCompatActivity() { //게시판 글 등록
     private lateinit var binding: ActivityBoardRegisterBinding
     var writingState = false
     lateinit var title : String
@@ -35,21 +35,22 @@ class BoardRegisterActivity : AppCompatActivity() {
         binding = ActivityBoardRegisterBinding.inflate(layoutInflater)
         var registerButton = findViewById<TextView>(R.id.register_button)
 
-        //글 작성 후 메인으로 이동
+        //글 등록 버튼 클릭
         registerButton.setOnClickListener {
             title = findViewById<EditText>(R.id.writing_edit_title).text.toString()
             contents = findViewById<EditText>(R.id.writing_edit_body).text.toString()
             if (title.isNotBlank() && contents.isNotBlank()) {
-                //글 작성 버튼 누르면 팝업 띄워주고
+                //등록 전 팝업
                 val dlg = BoardRegisterAlert(this)
                 dlg.callFunction()
                 dlg.show()
                 dlg.setOnDismissListener {
                     writingState = dlg.returnState()
                     if (writingState) {
-                        //글쓰기 데이터
+                        //글쓰기 데이터 DB에 넘기기
                         Log.d("글쓰기 데이터", writingState.toString() + ", " + title + ", " + contents)
                         Log.d("현재날짜시간", writingState.toString() + ", " + dateandtime)
+
                         //BoardFragment로 데이터 넘겨주기
                         val boardfragment = BoardFragment()
                         val bundle = Bundle()
@@ -60,18 +61,8 @@ class BoardRegisterActivity : AppCompatActivity() {
                         }
                         boardfragment.arguments = bundle
 
-                       /* val transaction = supportFragmentManager.beginTransaction()
-                        transaction.add(mutableListOf<BoardData>(), boardfragment)
-                        transaction.commit()*/
-                        /*val intent = Intent(this, BoardFragment::class.java)
-                        intent.putExtra("title",title)
-                        intent.putExtra("contents",contents)
-                        intent.putExtra("time",dateandtime.toString())*/
-                        //startActivity(intent,)
-
-                        //게시판으로 이동
                         finish()
-                        //startActivity(intent,bundle)
+
                     }
                 }
             }else

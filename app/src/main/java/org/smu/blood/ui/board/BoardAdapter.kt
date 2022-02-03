@@ -64,12 +64,14 @@ RecyclerView.Adapter<BoardAdapter.ViewHolder>() {
         private val txtNickname: TextView = itemView.findViewById(R.id.board_nickname)
         private val txtTime: TextView = itemView.findViewById(R.id.board_time)
         private val txtHeartCount: TextView = itemView.findViewById(R.id.board_heart_count)
+        private val txtCommentCount: TextView = itemView.findViewById(R.id.board_commments_count)
 
         fun bind(item: BoardData) {
             txtTitle.text = item.title
             txtNickname.text = item.nickname
             txtTime.text = item.time
             txtHeartCount.text = item.heartcount.toString()
+            txtCommentCount.text = item.commentcount.toString()
 
             val position = adapterPosition
             if(position!= RecyclerView.NO_POSITION)
