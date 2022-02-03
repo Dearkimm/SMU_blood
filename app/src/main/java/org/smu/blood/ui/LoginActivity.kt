@@ -1,9 +1,8 @@
 package org.smu.blood.ui
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.EditText
@@ -17,12 +16,9 @@ import android.view.View.OnFocusChangeListener
 import android.view.WindowManager
 
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
-import com.google.firebase.database.ktx.getValue
-import com.google.firebase.ktx.Firebase
 import org.smu.blood.api.ServiceCreator
+import org.smu.blood.api.SessionManager
 import org.smu.blood.api.database.User
 import retrofit2.Call
 import retrofit2.Callback
@@ -37,7 +33,7 @@ class LoginActivity : AppCompatActivity() {
     lateinit var mDatabase: FirebaseDatabase //데이터베이스
     private lateinit var tempuid :String
     var idText: String = ""
-
+    lateinit var token : String
 
     override fun onBackPressed(){
         if (System.currentTimeMillis()> backKeyPressedTime + 2500){
@@ -74,18 +70,27 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun configureNavigation() {
-
+        var AutoLogin:Boolean=false
+        lateinit var context: Context
+        // 로그인 유지 체크
+        binding.ltvCb.setOnCheckedChangeListener { _, isChecked ->
+            AutoLogin = isChecked
+        }
         // 로그인 버튼 클릭 시
         binding.btnLog.setOnClickListener {
             if (binding.letId.text.isNotBlank() && binding.letPwd.text.isNotBlank()) {
-                var user = User()
                 val loginInfo = HashMap<String,String>()
-                loginInfo.put("id", binding.letId.getText().toString())
-                loginInfo.put("password", binding.letPwd.getText().toString())
+                loginInfo["id"] = binding.letId.text.toString()
+                loginInfo["password"] = binding.letPwd.text.toString()
+                loginInfo["AutoLogin"] = AutoLogin.toString()
                 signIn(loginInfo){
                     if(it != null){
-                        Log.d("LOGIN USER", it.toString())
+
+                        Log.d("LOGIN USER", "user: $it, token: $token")
                         Toast.makeText(baseContext, "로그인 성공", Toast.LENGTH_SHORT).show()
+                        // 사용자 토큰 저장
+                        var sessionManager = SessionManager(this)
+                        sessionManager.saveToken(token)
                         navigateHome(it)
                     }else{
                         Toast.makeText(baseContext, "로그인 실패", Toast.LENGTH_SHORT).show()
@@ -131,6 +136,7 @@ class LoginActivity : AppCompatActivity() {
                         onResult(null)
                     } else{ // 사용자 있는 경우
                         Log.d("LOGIN", "SUCCESS")
+                        token = response.headers()["jwt-token"].toString()
                         onResult(response.body())
                     }
                 }else{

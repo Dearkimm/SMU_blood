@@ -261,13 +261,13 @@ class SignUpActivity : AppCompatActivity() {
                         onResult(false)
                     }
                 }else{ // 통신 성공 but 응답 실패
-                    Log.d("RESPONSE FROM SERVER: ", "FAILURE")
+                    Log.d("RESPONSE FROM SERVER", "FAILURE")
                     onResult(false)
                 }
             }
 
             override fun onFailure(call: Call<HashMap<String, Int>>, t: Throwable) {
-                Log.d("CONNECTION TO SERVER FAILURE: ", t.localizedMessage)
+                Log.d("CONNECTION TO SERVER FAILURE", t.localizedMessage)
                 onResult(false)
             }
         })
