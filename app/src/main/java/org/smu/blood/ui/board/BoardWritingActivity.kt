@@ -1,8 +1,12 @@
 package org.smu.blood.ui.board
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.view.WindowManager
+import android.widget.PopupMenu
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DataSnapshot
@@ -31,11 +35,31 @@ class BoardWritingActivity : AppCompatActivity() { //게시판 글 읽기
         _binding = ActivityBoardReadBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initBoardRead()
+        //게시글 수정/삭제 클릭 시
+        binding.boardChange.setOnClickListener{
+            var popupMenu = PopupMenu(applicationContext,it)
+            menuInflater?.inflate(R.menu.menu,popupMenu.menu)
+            popupMenu.show()
+            popupMenu.setOnMenuItemClickListener {
+                when(it.itemId){
+                    R.id.action_menu1->{
+                        Toast.makeText(applicationContext,"수정 클릭",Toast.LENGTH_SHORT).show()
+                        return@setOnMenuItemClickListener true
+                    }
+                    R.id.action_menu2-> {
+                        Toast.makeText(applicationContext, "삭제 클릭", Toast.LENGTH_SHORT).show()
+                        return@setOnMenuItemClickListener true
+                    }else-> return@setOnMenuItemClickListener false
+                }
+            }
+        }
 
         //댓글 등록 클릭시
         binding.commentBt.setOnClickListener {
             if (binding.commentEt.text.isNotBlank()) { //댓글edittext 빈칸 아닐 경우
-                //댓글 DB에 댓글 추가
+
+                //댓글 DB에 댓글 추가하기(id, nickname, time, comment)
+
             } else {
                 shortToast("빈 칸이 있습니다")
             }
@@ -46,6 +70,13 @@ class BoardWritingActivity : AppCompatActivity() { //게시판 글 읽기
         recyclerview.adapter = boardreadAdapter
         initRecycler()
 
+        //댓글 리사이클러뷰 어댑터 클릭 이벤트 (댓글 수정 , 삭제)
+        boardreadAdapter.setOnItemClickListener(object: BoardReadAdapter.OnItemClickListener{
+            override fun onItemClick(v: View, data: CommentData, position: Int) {
+
+            }
+
+        })
     }
 
     private fun initBoardRead() {
@@ -74,7 +105,6 @@ class BoardWritingActivity : AppCompatActivity() { //게시판 글 읽기
             boardreadAdapter.datas = datas
             boardreadAdapter.notifyDataSetChanged()
         }
-        //내가 쓴 댓글( 댓글 닉네임 = 내 닉네임 일경우)
-        //리사이클러뷰에서 수정, 삭제버튼 visibility true 로 바꾸기
+        //내가 쓴 댓글( 댓글 닉네임 = 내 닉네임 일경우) 댓글 수정,삭제버튼 visibility true 로 바꾸기
     }
 }
