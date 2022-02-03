@@ -149,11 +149,6 @@ class MyFragment : BaseFragment<FragmentMyBinding>() {
             dlg.setOnDismissListener {
                 var withdrawState = dlg.returnState()
                 if(withdrawState){ //탈퇴하기
-                    /*
-                    // token 삭제
-                    var sessionManager = SessionManager(requireContext())
-                    sessionManager.removeToken()
-                     */
                     Toast.makeText(context, "탈퇴 완료", Toast.LENGTH_SHORT).show()
                     //로그인화면으로 이동
                     val intent2 = Intent(context, LoginActivity()::class.java)
