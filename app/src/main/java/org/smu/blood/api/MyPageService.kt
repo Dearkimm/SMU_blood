@@ -11,6 +11,32 @@ import retrofit2.Response
 
 class MyPageService(context: Context) {
     private var sessionManager= SessionManager(context)
+    // 내 아이디 가져오기
+    public fun myId(onResult: (String?) -> Unit){
+        val myIdAPI = ServiceCreator.bumService.getMyId(token = "${sessionManager.fetchToken()}")
+        myIdAPI.enqueue(object: Callback<String>{
+            override fun onResponse(call: Call<String>, response: Response<String>) {
+                // 서버 응답 성공
+                if(response.isSuccessful){
+                    // 토큰 유효하지 않은 경우
+                    if (response.body() == null) {
+                        Log.d("[MY ID] TOKEN VALIDATION", "FAILED")
+                        onResult(null)
+                    } else{ // 토큰 유효한 경우
+                        Log.d("[MY ID] TOKEN VALIDATION", "SUCCESS")
+                        onResult(response.body())
+                    }
+                }else{
+                    // 서버 응답 실패
+                    Log.d("[MY ID] RESPONSE FROM SERVER: ", response.message())
+                }
+            }
+
+            override fun onFailure(call: Call<String>, t: Throwable) {
+                Log.d("[MY ID] CONNECTION TO SERVER", t.localizedMessage)
+            }
+        })
+    }
     // 내 정보 가져오기
     public fun myInfo(onResult: (User?)->Unit){
 
