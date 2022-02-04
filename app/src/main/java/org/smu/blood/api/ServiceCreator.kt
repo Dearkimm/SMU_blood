@@ -1,5 +1,7 @@
 package org.smu.blood.api
 
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -16,6 +18,10 @@ object ServiceCreator {
     private const val BASE_URL = "http://192.168.35.140" + ":8090/blood/"
 
     init{
+        var gson = GsonBuilder()
+            .setLenient()
+            .create()
+
     /*
         val okHttpClient = OkHttpClient.Builder()
             .connectTimeout(1, TimeUnit.MINUTES)
@@ -28,7 +34,7 @@ object ServiceCreator {
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
             //.client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
 
         bumService = retrofit.create(BlringService::class.java)

@@ -31,9 +31,19 @@ class MyModActivity : AppCompatActivity() {
 
         //text 등록
         var checkpwd = findViewById<TextView>(R.id.wrong_pwd)
+        var current_id = findViewById<TextView>(R.id.mtv_id2)
 
         //버튼 등록
         var modButton = findViewById<Button>(R.id.btn_mod2)
+
+        // 내 아이디 가져오기
+        var myPageService = MyPageService(this)
+        myPageService.myId(){
+            if(it!=null){
+                Log.d("[MY ID]",it)
+                current_id.text = it
+            }
+        }
 
         //비밀번호 일치 여부
         confirmPassword.addTextChangedListener(object: TextWatcher {

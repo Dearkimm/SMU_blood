@@ -16,6 +16,10 @@ interface BlringService {
     @POST("signIn")
     fun loginUser(@Body info: HashMap<String,String>): Call<User>
 
+    // get user id
+    @GET("myPage/myId")
+    fun getMyId(@Header("token") token: String): Call<String>
+
     // get user info API
     @GET("myPage/info")
     fun getMyData(@Header("token") token: String): Call<User>
