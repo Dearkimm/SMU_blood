@@ -47,7 +47,7 @@ class MyWithdraw(context: Context) :
                     withdrawState = true
                 } else Log.d("[WITHDRAW]", "FAILURE")
             }
-            //returnState()
+            returnState()
             /*
             val user = Firebase.auth.currentUser!!
 

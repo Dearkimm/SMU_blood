@@ -1,5 +1,6 @@
 package org.smu.blood.api
 
+import org.smu.blood.api.database.Review
 import org.smu.blood.api.database.User
 import retrofit2.Call
 import retrofit2.http.Body
@@ -16,7 +17,11 @@ interface BlringService {
     @POST("signIn")
     fun loginUser(@Body info: HashMap<String,String>): Call<User>
 
-    // get user id
+    // token validation API
+    @GET("tokenValid")
+    fun tokenValid(@Header("token") token: String): Call<Boolean>
+
+    // get user id API
     @GET("myPage/myId")
     fun getMyId(@Header("token") token: String): Call<String>
 
@@ -31,4 +36,16 @@ interface BlringService {
     // withdraw API
     @GET("myPage/withdraw")
     fun withdrawUser(@Header("token") token: String): Call<Boolean>
+
+    // get user nickname API
+    @GET("review/myNickname")
+    fun getMyNickname(@Header("token") token: String): Call<String>
+
+    // save user writing API
+    @POST("review/write")
+    fun reviewWrite(@Header("token") token: String, @Body reviewInfo: Review): Call<Review>
+
+    // get list of reviews
+    @GET("review/list")
+    fun getReviewList(): Call<List<Review>>
 }

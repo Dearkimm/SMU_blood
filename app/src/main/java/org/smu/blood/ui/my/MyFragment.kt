@@ -134,8 +134,8 @@ class MyFragment : BaseFragment<FragmentMyBinding>() {
                     //로그인화면으로 이동
                     val intent2 = Intent(context, LoginActivity()::class.java)
                     //네비게이션 액티비티
-                    (activity as NavigationActivity).logoutAndfinish()
                     startActivity(intent2)
+                    (activity as NavigationActivity).logoutAndfinish()
                 }
             }
         }
@@ -153,8 +153,8 @@ class MyFragment : BaseFragment<FragmentMyBinding>() {
                     //로그인화면으로 이동
                     val intent2 = Intent(context, LoginActivity()::class.java)
                     //네비게이션 액티비티
-                    (activity as NavigationActivity).logoutAndfinish()
                     startActivity(intent2)
+                    (activity as NavigationActivity).logoutAndfinish()
                 }
             }
         }

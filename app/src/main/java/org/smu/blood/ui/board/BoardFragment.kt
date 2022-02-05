@@ -9,10 +9,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.ImageButton
+import android.widget.TextView
 import androidx.activity.addCallback
 import androidx.recyclerview.widget.RecyclerView
 import org.smu.blood.ui.NavigationActivity
 import org.smu.blood.R
+import org.smu.blood.api.ReviewService
+import org.smu.blood.api.database.Review
 import org.smu.blood.databinding.FragmentBoardBinding
 
 class BoardFragment : Fragment() {
@@ -45,6 +48,17 @@ class BoardFragment : Fragment() {
         initRecycler()
 
         configureBoardNavigation()
+
+        var currentNickname = rootView.findViewById<TextView>(R.id.btv_nickname)
+
+        // 사용자 닉네임 가져오기
+        var reviewService = ReviewService(requireContext())
+        reviewService.myNickname(){
+            if(it!=null){
+                Log.d("[MY NICKNAME]",it)
+                currentNickname.text = it
+            }else Log.d("[MY NICKNAME]","GET FAILURE")
+        }
 
         //리사이클러뷰 어댑터 클릭 이벤트
         boardAdapter.setOnItemClickListener(object: BoardAdapter.OnItemClickListener{
@@ -104,14 +118,20 @@ class BoardFragment : Fragment() {
             startActivity(intent)
             //보드 레지스터에서 데이터 받아오기 (DB 없이 테스트)
             //_binding = FragmentBoardBinding.inflate(inflater,container,false)
+            val reviewId = arguments?.getInt("reviewId")
+            val userId = arguments?.getString("userId")
+            val userNickname = arguments?.getString("userNickname")
             val title = arguments?.getString("title")
             val contents = arguments?.getString("contents")
+            val date = arguments?.getString("date")
             val time = arguments?.getString("time")
+            val heartCount = arguments?.getInt("heartCount")
             if (title != null) {
-                Log.d("데이터받아와졋나 확인",title)
+                Log.d("데이터받아와졋나 확인",reviewId.toString()+userId+userNickname+title+contents+date+time)
             }
             else Log.d("데이터받아와졌나","아니")
-           /* var datas = mutableListOf<BoardData>()
+
+            /* var datas = mutableListOf<BoardData>()
             datas.add(0, BoardData(title = title.toString() ,nickname = "장구벌레", time = time.toString(),heartcount = 0))
             boardAdapter.notifyItemInserted(0)*/
             /* val title = arguments?.getString("title")
@@ -146,26 +166,46 @@ class BoardFragment : Fragment() {
     }
 
     private fun initRecycler() {
+        // DB에서 전체 후기 가져와서 보여주기
+        var reviewService = ReviewService(requireContext())
+
         datas.apply {
-            add(BoardData(id = "게시글 id", title = "너무 급박했던 수술",nickname = "Snowflake",time = "1시간 전"
+            reviewService.reviewList(){
+                if(it!=null){
+                    for(review: Review in it) Log.d("[REVIEW LIST2]", review.toString())
+                    Log.d("[REVIEW LIST2]", "get all reviews")
+                    for(review in it){
+                        add(
+                            BoardData(boardId=review.reviewId.toString(), title=review.title.toString(), nickname=review.userNickname.toString(), time=review.writeDate+" "+review.writeTime,
+                                heartcount=review.likeNum.toString(), boardtext=review.contents.toString(), commentcount="0")
+                        )
+                    }
+                }else Log.d("[REVIEW LIST2]", "FAILURE")
+            }
+
+            /*
+            add(BoardData(boardId = 2, title = "너무 급박했던 수술",nickname = "Snowflake",time = "1시간 전"
                 ,heartcount = 2, commentcount = 3,boardtext = "안녕하세요, 얼마 전 Rh- O형의 헌혈이 시급하다는 소식을 듣고 Rh- 혈액은 워낙 구하기가" +
                         " 힘들다는 걸 알기에 지정 헌혈에 참여했습니다. 이번에는 헌혈자이지만 미래에 제가 혈액이 필요한 " +
                         "요청자가 될 수 있다는 걸 희귀 혈액형인 저는 너무나도 잘 압니다. 빠른 시일 내에 회복하시길 바라요. " +
                         "Rh- 환자분들 다들 힘내세요!"))
-            add(BoardData(id = "게시글 id",title = "희귀혈액형 지정 헌혈 과정 공유",nickname = "시종설",time = "3시간 전"
+            add(BoardData(boardId = "게시글 id",title = "희귀혈액형 지정 헌혈 과정 공유",nickname = "시종설",time = "3시간 전"
                 ,heartcount = 5, commentcount = 6,boardtext = "본문내용2"))
-            add(BoardData(id = "게시글 id",title = "뿌듯한 첫 지정 헌혈 후기",nickname = "청파동",time = "1일 전"
+            add(BoardData(boardId = "게시글 id",title = "뿌듯한 첫 지정 헌혈 후기",nickname = "청파동",time = "1일 전"
                 ,heartcount = 8, commentcount = 5,boardtext = "본문내용3"))
-            add(BoardData(id = "게시글 id",title = "Rh-형 지정 헌혈하고 왔어요",nickname = "장구벌레",time = "4일 전"
+            add(BoardData(boardId = "게시글 id",title = "Rh-형 지정 헌혈하고 왔어요",nickname = "장구벌레",time = "4일 전"
                 ,heartcount = 14, commentcount = 1,boardtext = "본문내용4"))
-            add(BoardData(id = "게시글 id",title = "헌혈해주신 분들께 감사의 말씀",nickname = "yenomq34",time = "지난 주"
+            add(BoardData(boardId = "게시글 id",title = "헌혈해주신 분들께 감사의 말씀",nickname = "yenomq34",time = "지난 주"
                 ,heartcount = 25, commentcount = 0,boardtext = "본문내용5"))
-            add(BoardData(id = "게시글 id",title = "성분 헌혈 과정 공유해봐요!",nickname = "눈송이",time = "지난 주"
+            add(BoardData(boardId = "게시글 id",title = "성분 헌혈 과정 공유해봐요!",nickname = "눈송이",time = "지난 주"
                 ,heartcount = 7, commentcount = 0,boardtext = "본문내용6"))
-            add(BoardData(id = "게시글 id",title = "용산지역 혈액 수급",nickname = "yenomg34",time = "지난 주"
+            add(BoardData(boardId = "게시글 id",title = "용산지역 혈액 수급",nickname = "yenomg34",time = "지난 주"
                 ,heartcount = 12, commentcount = 0,boardtext = "본문내용7"))
+
+             */
             boardAdapter.datas = datas
             boardAdapter.notifyDataSetChanged()
         }
+
     }
 }

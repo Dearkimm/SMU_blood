@@ -60,18 +60,18 @@ RecyclerView.Adapter<BoardAdapter.ViewHolder>() {
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val txtTitle: TextView = itemView.findViewById(R.id.board_title)
-        private val txtNickname: TextView = itemView.findViewById(R.id.board_nickname)
-        private val txtTime: TextView = itemView.findViewById(R.id.board_time)
-        private val txtHeartCount: TextView = itemView.findViewById(R.id.board_heart_count)
-        private val txtCommentCount: TextView = itemView.findViewById(R.id.board_commments_count)
+        private var txtTitle: TextView = itemView.findViewById(R.id.board_title)
+        private var txtNickname: TextView = itemView.findViewById(R.id.board_nickname)
+        private var txtTime: TextView = itemView.findViewById(R.id.board_time)
+        private var txtHeartCount: TextView = itemView.findViewById(R.id.board_heart_count)
+        private var txtCommentCount: TextView = itemView.findViewById(R.id.board_commments_count)
 
         fun bind(item: BoardData) {
             txtTitle.text = item.title
             txtNickname.text = item.nickname
             txtTime.text = item.time
-            txtHeartCount.text = item.heartcount.toString()
-            txtCommentCount.text = item.commentcount.toString()
+            txtHeartCount.text = item.heartcount
+            txtCommentCount.text = item.commentcount
 
             val position = adapterPosition
             if(position!= RecyclerView.NO_POSITION)
@@ -84,7 +84,7 @@ RecyclerView.Adapter<BoardAdapter.ViewHolder>() {
                     longlistener?.onItemLongClick(itemView,item,position)
                     return@setOnLongClickListener true
                 }
-            }//aaa
+            }
 
         }
     }
