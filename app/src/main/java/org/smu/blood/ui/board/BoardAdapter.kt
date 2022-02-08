@@ -16,11 +16,47 @@ RecyclerView.Adapter<BoardAdapter.ViewHolder>() {
 
     var datas = mutableListOf<BoardData>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        Log.d("[REVIEW LIST3]","ADD REVIEW")
         val view = LayoutInflater.from(context).inflate(R.layout.item_board,parent,false)
         return ViewHolder(view)
     }
     override fun getItemCount(): Int = datas.size
 
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        Log.d("[REVIEW LIST3]","ADD REVIEW")
+        holder.bind(datas[position])
+    }
+
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        private var txtTitle: TextView = itemView.findViewById(R.id.board_title)
+        private var txtNickname: TextView = itemView.findViewById(R.id.board_nickname)
+        private var txtTime: TextView = itemView.findViewById(R.id.board_time)
+        private var txtHeartCount: TextView = itemView.findViewById(R.id.board_heart_count)
+        private var txtCommentCount: TextView = itemView.findViewById(R.id.board_commments_count)
+
+        fun bind(item: BoardData) {
+            Log.d("[REVIEW LIST3]","ADD REVIEW")
+            txtTitle.text = item.title
+            txtNickname.text = item.nickname
+            txtTime.text = item.time
+            txtHeartCount.text = item.heartcount.toString()
+            txtCommentCount.text = item.commentcount.toString()
+
+            val position = adapterPosition
+            if(position!= RecyclerView.NO_POSITION)
+            {
+                itemView.setOnClickListener {
+                    listener?.onItemClick(itemView,item,position)
+                }
+
+                itemView.setOnLongClickListener {
+                    longlistener?.onItemLongClick(itemView,item,position)
+                    return@setOnLongClickListener true
+                }
+            }
+
+        }
+    }
 
     // 클릭 이벤트 리스너 인터페이스 정의
     interface OnItemClickListener{
@@ -55,37 +91,5 @@ RecyclerView.Adapter<BoardAdapter.ViewHolder>() {
             notifyDataSetChanged()
         }
     }*/
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(datas[position])
-    }
 
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private var txtTitle: TextView = itemView.findViewById(R.id.board_title)
-        private var txtNickname: TextView = itemView.findViewById(R.id.board_nickname)
-        private var txtTime: TextView = itemView.findViewById(R.id.board_time)
-        private var txtHeartCount: TextView = itemView.findViewById(R.id.board_heart_count)
-        private var txtCommentCount: TextView = itemView.findViewById(R.id.board_commments_count)
-
-        fun bind(item: BoardData) {
-            txtTitle.text = item.title
-            txtNickname.text = item.nickname
-            txtTime.text = item.time
-            txtHeartCount.text = item.heartcount
-            txtCommentCount.text = item.commentcount
-
-            val position = adapterPosition
-            if(position!= RecyclerView.NO_POSITION)
-            {
-                itemView.setOnClickListener {
-                    listener?.onItemClick(itemView,item,position)
-                }
-
-                itemView.setOnLongClickListener {
-                    longlistener?.onItemLongClick(itemView,item,position)
-                    return@setOnLongClickListener true
-                }
-            }
-
-        }
-    }
 }

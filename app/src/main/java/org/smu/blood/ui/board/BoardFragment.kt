@@ -21,7 +21,8 @@ import org.smu.blood.databinding.FragmentBoardBinding
 class BoardFragment : Fragment() {
     lateinit var boardAdapter: BoardAdapter
     lateinit var recyclerview:RecyclerView
-    val datas = mutableListOf<BoardData>()
+    var datas = mutableListOf<BoardData>()
+    lateinit var rootView: View
 
     private var _binding : FragmentBoardBinding? = null
     private val binding get() = _binding!!
@@ -39,21 +40,17 @@ class BoardFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        var rootView = inflater.inflate(R.layout.fragment_board, container, false)
+        rootView = inflater.inflate(R.layout.fragment_board, container, false)
 
-        //리사이클러뷰 어댑터
-        boardAdapter = context?.let { BoardAdapter(it) }!!
-        recyclerview = rootView.findViewById<RecyclerView>(R.id.rc_board_list)
-        recyclerview.adapter = boardAdapter
         initRecycler()
-
+        setUpAdapter()
         configureBoardNavigation()
 
         var currentNickname = rootView.findViewById<TextView>(R.id.btv_nickname)
+        var reviewService = ReviewService(requireContext())
 
         // 사용자 닉네임 가져오기
-        var reviewService = ReviewService(requireContext())
-        reviewService.myNickname(){
+        reviewService.myNickname{
             if(it!=null){
                 Log.d("[MY NICKNAME]",it)
                 currentNickname.text = it
@@ -120,14 +117,13 @@ class BoardFragment : Fragment() {
             //_binding = FragmentBoardBinding.inflate(inflater,container,false)
             val reviewId = arguments?.getInt("reviewId")
             val userId = arguments?.getString("userId")
-            val userNickname = arguments?.getString("userNickname")
+            val userNickname = arguments?.getString("nickname")
             val title = arguments?.getString("title")
             val contents = arguments?.getString("contents")
-            val date = arguments?.getString("date")
             val time = arguments?.getString("time")
             val heartCount = arguments?.getInt("heartCount")
             if (title != null) {
-                Log.d("데이터받아와졋나 확인",reviewId.toString()+userId+userNickname+title+contents+date+time)
+                Log.d("데이터받아와졋나 확인",reviewId.toString()+" "+userId+" "+userNickname+" "+title+" "+contents+" "+time+" "+heartCount)
             }
             else Log.d("데이터받아와졌나","아니")
 
@@ -166,25 +162,31 @@ class BoardFragment : Fragment() {
     }
 
     private fun initRecycler() {
+
+
         // DB에서 전체 후기 가져와서 보여주기
         var reviewService = ReviewService(requireContext())
 
-        datas.apply {
-            reviewService.reviewList(){
-                if(it!=null){
-                    for(review: Review in it) Log.d("[REVIEW LIST2]", review.toString())
-                    Log.d("[REVIEW LIST2]", "get all reviews")
-                    for(review in it){
-                        add(
-                            BoardData(boardId=review.reviewId.toString(), title=review.title.toString(), nickname=review.userNickname.toString(), time=review.writeDate+" "+review.writeTime,
-                                heartcount=review.likeNum.toString(), boardtext=review.contents.toString(), commentcount="0")
-                        )
+        reviewService.reviewList{
+            if(it!=null){
+                for(review in it) Log.d("[REVIEW LIST2]", "$review")
+                Log.d("[REVIEW LIST2]", "get all reviews")
+                for(review in it){
+                    datas.apply{
+                        Log.d("[REVIEW LIST2]","ADD ALL REVIEWS")
+                        var boardData = BoardData(boardId="${review.reviewId}", title="${review.title}", nickname="${review.nickname}", time="${review.writeTime}",
+                            heartcount=review.likeNum!!, boardtext="${review.contents}", commentcount=0)
+                        add(boardData)
+                        Log.d("[REVIEW LIST2]", boardData.toString())
                     }
-                }else Log.d("[REVIEW LIST2]", "FAILURE")
-            }
+                }
+            }else Log.d("[REVIEW LIST2]", "FAILURE")
+        }
 
-            /*
-            add(BoardData(boardId = 2, title = "너무 급박했던 수술",nickname = "Snowflake",time = "1시간 전"
+        /*
+        datas.apply {
+            Log.d("ADD","REVIEWS")
+            add(BoardData(boardId = "게시글 id", title = "너무 급박했던 수술",nickname = "Snowflake",time = "1시간 전"
                 ,heartcount = 2, commentcount = 3,boardtext = "안녕하세요, 얼마 전 Rh- O형의 헌혈이 시급하다는 소식을 듣고 Rh- 혈액은 워낙 구하기가" +
                         " 힘들다는 걸 알기에 지정 헌혈에 참여했습니다. 이번에는 헌혈자이지만 미래에 제가 혈액이 필요한 " +
                         "요청자가 될 수 있다는 걸 희귀 혈액형인 저는 너무나도 잘 압니다. 빠른 시일 내에 회복하시길 바라요. " +
@@ -201,11 +203,16 @@ class BoardFragment : Fragment() {
                 ,heartcount = 7, commentcount = 0,boardtext = "본문내용6"))
             add(BoardData(boardId = "게시글 id",title = "용산지역 혈액 수급",nickname = "yenomg34",time = "지난 주"
                 ,heartcount = 12, commentcount = 0,boardtext = "본문내용7"))
-
-             */
-            boardAdapter.datas = datas
-            boardAdapter.notifyDataSetChanged()
         }
 
+         */
+    }
+    private fun setUpAdapter(){
+        //리사이클러뷰 어댑터 세팅
+        boardAdapter = BoardAdapter(requireContext())
+        recyclerview = rootView.findViewById<RecyclerView>(R.id.rc_board_list)
+        recyclerview.adapter = boardAdapter
+        boardAdapter.datas = datas
+        boardAdapter.notifyDataSetChanged()
     }
 }

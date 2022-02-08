@@ -33,20 +33,21 @@ class BoardRegisterActivity : AppCompatActivity() { //게시판 글 등록
         lateinit var title : String
         lateinit var contents : String
         var reviewId: Int = 0
-
-        // 날짜, 시간 설정
+        var userId: String? = null
+        var userNickname: String? = null
+        var heartCount: Int = 0
+        lateinit var writeTime: String
+        // 날짜, 시간 가져오기
         val time = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm"))
         val date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"))
+        writeTime = "$date $time"
 
         //글 등록 버튼 클릭
         registerButton.setOnClickListener {
             title = findViewById<EditText>(R.id.writing_edit_title).text.toString()
             contents = findViewById<EditText>(R.id.writing_edit_body).text.toString()
-            var map = HashMap<String,String>()
+
             var reviewInfo = Review()
-            var userId: String? = null
-            var userNickname: String? = null
-            var heartCount: Int = 0
             if (title.isNotBlank() && contents.isNotBlank()) {
                 //등록 전 팝업
                 val dlg = BoardRegisterAlert(this)
@@ -56,20 +57,21 @@ class BoardRegisterActivity : AppCompatActivity() { //게시판 글 등록
                     writingState = dlg.returnState()
                     if (writingState) {
                         //글쓰기 데이터 DB에 넘기기
-                        reviewInfo.reviewId = reviewId
+                        reviewInfo.reviewId = 0
                         reviewInfo.userId = null
+                        reviewInfo.nickname = null
                         reviewInfo.title = title
                         reviewInfo.contents = contents
-                        reviewInfo.writeDate = date
-                        reviewInfo.writeTime = time
-                        Log.d("[REVIEW WRITE] reviewInfo", reviewInfo.toString())
+                        reviewInfo.writeTime = writeTime
+                        reviewInfo.likeNum = 0 // 초기 좋아요 0으로 설정
+                        Log.d("[REVIEW WRITE] reviewInfo", "$reviewInfo")
                         reviewService.myWrite(reviewInfo){
                             if(it != null) {
                                 reviewId = it.reviewId!!
                                 userId=  it.userId
-                                userNickname = it.userNickname
+                                userNickname = it.nickname
                                 heartCount = it.likeNum!!
-                                Log.d("[REVIEW WRITE]", it.toString())
+                                Log.d("[REVIEW WRITE]", "$it")
                             }
                             else Log.d("[REVIEW WRITE]", "FAILURE")
                         }
@@ -79,17 +81,15 @@ class BoardRegisterActivity : AppCompatActivity() { //게시판 글 등록
                         bundle.apply {
                             putInt("reviewId", reviewId)
                             putString("userId", userId)
-                            putString("userNickname", userNickname)
+                            putString("nickname", userNickname)
                             putString("title",title)
                             putString("contents",contents)
-                            putString("date", date.toString())
-                            putString("time",time.toString())
+                            putString("time",writeTime)
                             putInt("heartCount", heartCount)
                         }
                         boardfragment.arguments = bundle
 
                         finish()
-
                     }
                 }
             }else

@@ -70,22 +70,22 @@ class ReviewService(context: Context) {
                 if(response.isSuccessful){
                     // 토큰 유효하지 않은 경우
                     if (response.body() == null) {
-                        Log.d("[REVIEW LIST]", "FAILED")
+                        Log.d("[REVIEW LIST1]", "FAILED")
                         onResult(null)
                     } else{ // 토큰 유효, 응답 성공
-                        Log.d("[REVIEW LIST]", "SUCCESS")
+                        Log.d("[REVIEW LIST1]", "SUCCESS")
                         for(review: Review in response.body()!!) Log.d("[REVIEW LIST1]", review.toString())
                         onResult(response.body())
                     }
                 }else{
                     // 서버 응답 실패
-                    Log.d("[REVIEW LIST] RESPONSE FROM SERVER", response.message())
+                    Log.d("[REVIEW LIST1] RESPONSE FROM SERVER", response.message())
                     onResult(null)
                 }
             }
 
             override fun onFailure(call: Call<List<Review>>, t: Throwable) {
-                Log.d("[REVIEW LIST] CONNECTION TO SERVER", t.localizedMessage)
+                Log.d("[REVIEW LIST1] CONNECTION TO SERVER", t.localizedMessage)
                 onResult(null)
             }
         })
