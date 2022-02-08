@@ -50,7 +50,10 @@
             android:exported="true" />
         <activity
             android:name=".ui.board.BoardRegisterActivity"
-            android:exported="true" /> <!-- Mypage -->
+            android:exported="true" />
+        <activity
+            android:name=".ui.board.BoardEditActivity"
+            android:exported="true" />
         <activity
             android:name=".ui.my.MyModActivity"
             android:exported="true" />

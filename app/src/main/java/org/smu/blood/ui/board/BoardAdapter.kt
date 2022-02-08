@@ -6,20 +6,52 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import org.smu.blood.R
 
 class BoardAdapter(private val context:Context) :
-RecyclerView.Adapter<BoardAdapter.ViewHolder>() {
+RecyclerView.Adapter<BoardAdapter.ViewHolder>(),Filterable {
 
     var datas = mutableListOf<BoardData>()
+
+    //필터링 관련 변수들
+    private var unFilteredList = datas
+    private var filteredList = datas
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_board,parent,false)
         return ViewHolder(view)
     }
     override fun getItemCount(): Int = datas.size
+
+    //필터링
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                val charString = constraint.toString() //내 id
+                filteredList = if (charString.isEmpty()) {
+                    unFilteredList
+                } else {
+                    var filteringList = mutableListOf<BoardData>()
+                    for (item in unFilteredList) {
+                        if (item.nickname == charString) filteringList.add(item) //내 id = 글 id
+                    }
+                    filteringList
+                }
+                val filterResults = FilterResults()
+                filterResults.values = filteredList
+                return filterResults
+            }
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                filteredList = results?.values as MutableList<BoardData>
+                notifyDataSetChanged()
+            }
+        }
+    }
 
 
     // 클릭 이벤트 리스너 인터페이스 정의
@@ -47,14 +79,7 @@ RecyclerView.Adapter<BoardAdapter.ViewHolder>() {
             notifyDataSetChanged()
         }
     }
-    /*//아이템 추가
-    fun addItem(position: Int){
-        if(position>=0){
-            datas.add(position,BoardData())
-            notifyItemChanged(position)
-            notifyDataSetChanged()
-        }
-    }*/
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(datas[position])
     }
@@ -84,7 +109,7 @@ RecyclerView.Adapter<BoardAdapter.ViewHolder>() {
                     longlistener?.onItemLongClick(itemView,item,position)
                     return@setOnLongClickListener true
                 }
-            }//aaa
+            }
 
         }
     }
