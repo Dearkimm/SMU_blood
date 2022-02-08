@@ -21,25 +21,34 @@ class MyModActivity : AppCompatActivity() {
         //val newPassword = "SOME-SECURE-PASSWORD"
 
         //edittext 등록
+        var beforePassword = findViewById<EditText>(R.id.met_pwd)
         var editPassword = findViewById<EditText>(R.id.met_pwd2)
         var editPassword2 = findViewById<EditText>(R.id.met_pwd3)
 
         //text 등록
         var checkpwd = findViewById<TextView>(R.id.wrong_pwd)
+        var checkbeforepwd = findViewById<TextView>(R.id.different_pwd)
 
-        //비밀번호 일치 여부
-        editPassword2.addTextChangedListener(object: TextWatcher {
-            // EditText에 문자 입력 전
+        //기존 비밀번호 일치 여부
+        beforePassword.addTextChangedListener(object: TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-            // EditText에 변화가 있을 경우
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun afterTextChanged(p0: Editable?) {
+                if(beforePassword.getText().toString() == "aaaaaa"){ //"aaaaaa"부분 바꾸기
+                        checkbeforepwd.visibility = View.INVISIBLE
+                } else
+                    checkbeforepwd.visibility = View.VISIBLE
+            }
+        })
 
-            // EditText 입력이 끝난 후
+        //변경 비밀번호 일치 여부
+        editPassword2.addTextChangedListener(object: TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun afterTextChanged(p0: Editable?) {
                 if(editPassword.getText().toString().equals(editPassword2.getText().toString())){
                     checkpwd.visibility = View.INVISIBLE
-                }
-                else
+                } else
                     checkpwd.visibility = View.VISIBLE
             }
         })
