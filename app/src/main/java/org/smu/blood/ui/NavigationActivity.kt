@@ -23,6 +23,7 @@ import org.smu.blood.util.popFragment
 import org.smu.blood.util.replaceFragment
 import org.smu.blood.util.shortToast
 
+
 class NavigationActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityNavigationBinding

@@ -39,6 +39,7 @@ class BoardWritingActivity : AppCompatActivity() { //게시판 글내용 읽기
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
@@ -153,9 +154,10 @@ class BoardWritingActivity : AppCompatActivity() { //게시판 글내용 읽기
         var boardtext = intent.getStringExtra("boardtext")
 
         val apply = binding.apply {
+            Log.d("SHOW","REVIEWS")
             writingTitle.text = title
             writingNickname.text = nickname
-            writingTime.text = time.toString()
+            writingTime.text = time
             heartCounts.text = heartcount.toString()
             commentsCounts.text = commentcount.toString()
             writingBody.text = boardtext
@@ -163,6 +165,7 @@ class BoardWritingActivity : AppCompatActivity() { //게시판 글내용 읽기
     }
     private fun initRecycler() {
         datas.apply {
+            Log.d("SHOW","COMMENTS")
             add(CommentData(id = "게시판 id" ,nickname = "장구벌레",time = "2021/12/20", comment = "좋은 일 하셨어요!!"))
             add(CommentData(id = "게시판 id" ,nickname = "짬뽕",time = "2022/01/03", comment = "대단해요"))
             add(CommentData(id = "게시판 id" ,nickname = "가나다라",time = "2022/01/05", comment = "멋져요"))

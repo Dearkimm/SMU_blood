@@ -1,5 +1,8 @@
 package org.smu.blood.ui.my
 
+import android.app.PendingIntent.getActivity
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,11 +12,18 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import org.smu.blood.R
 import org.smu.blood.api.MyPageService
+import org.smu.blood.api.database.User
+import org.smu.blood.databinding.ActivityNavigationBinding
+import org.smu.blood.ui.NavigationActivity
+import org.smu.blood.ui.main.MainReadFragment
+import org.smu.blood.util.popFragment
+import org.smu.blood.util.replaceFragment
 
 class MyModActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,6 +86,7 @@ class MyModActivity : AppCompatActivity() {
             // 기존 비밀번호 누락된 경우
             if(currentPassword.text.isNullOrEmpty()) {
                 // 기존 비밀번호 입력하도록 TextView 메시지 띄우기
+            
                 Toast.makeText(baseContext, "정보 업데이트 실패", Toast.LENGTH_SHORT).show()
             }
             else{
@@ -89,8 +100,13 @@ class MyModActivity : AppCompatActivity() {
                     if(it==false) Toast.makeText(baseContext, "정보 업데이트 실패", Toast.LENGTH_SHORT).show()
                     else Toast.makeText(baseContext, "정보 업데이트 성공", Toast.LENGTH_SHORT).show()
                 }
-                //종료
-                finish()
+                //마이페이지로 이동
+                // 수정 이후에도 업데이트 된 내 정보를 보여주도록 마이페이지 가져오기
+                // NavigationActivity의 navigateMainToMy() 호출할 수 있으면 해당 코드로 바꾸기
+                var binding: ActivityNavigationBinding = ActivityNavigationBinding.inflate(layoutInflater)
+                setContentView(binding.root)
+                replaceFragment(binding.fragmentContainer, MyFragment::class.java, true)
+                //finish()
             }
 
         }
