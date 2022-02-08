@@ -24,6 +24,7 @@ class MyModActivity : AppCompatActivity() {
         //val newPassword = "SOME-SECURE-PASSWORD"
 
         //edittext 등록
+
         var currentPassword = findViewById<EditText>(R.id.met_pwd) // 현재 비밀번호
         var newPassword = findViewById<EditText>(R.id.met_pwd2) // 변경 비밀번호
         var confirmPassword = findViewById<EditText>(R.id.met_pwd3)
@@ -31,6 +32,7 @@ class MyModActivity : AppCompatActivity() {
 
         //text 등록
         var checkpwd = findViewById<TextView>(R.id.wrong_pwd)
+        var checkbeforepwd = findViewById<TextView>(R.id.different_pwd)
         var current_id = findViewById<TextView>(R.id.mtv_id2)
 
         //버튼 등록
@@ -45,19 +47,26 @@ class MyModActivity : AppCompatActivity() {
             }
         }
 
-        //비밀번호 일치 여부
-        confirmPassword.addTextChangedListener(object: TextWatcher {
-            // EditText에 문자 입력 전
+        //기존 비밀번호 일치 여부
+        currentPassword.addTextChangedListener(object: TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-            // EditText에 변화가 있을 경우
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun afterTextChanged(p0: Editable?) {
+                if(currentPassword.getText().toString() == "aaaaaa"){ //"aaaaaa"부분 바꾸기
+                        checkbeforepwd.visibility = View.INVISIBLE
+                } else
+                    checkbeforepwd.visibility = View.VISIBLE
+            }
+        })
 
-            // EditText 입력이 끝난 후
+        //변경 비밀번호 일치 여부
+        confirmPassword.addTextChangedListener(object: TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun afterTextChanged(p0: Editable?) {
                 if(newPassword.text.equals(confirmPassword.text)){
                     checkpwd.visibility = View.INVISIBLE
-                }
-                else
+                } else
                     checkpwd.visibility = View.VISIBLE
             }
         })
