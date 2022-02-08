@@ -195,15 +195,18 @@ class SignUpActivity : AppCompatActivity() {
                 Log.d("USERINFO: ", userInfo.toString())
 
                 //입력한 내용을 서버에 넣어주기
-                if(signUp(userInfo)){
-                    Toast.makeText(applicationContext, "회원가입 완료", Toast.LENGTH_SHORT).show()
-                    finish()
-                }else{
-                    Toast.makeText(applicationContext, "회원가입 실패", Toast.LENGTH_SHORT).show()
+                signUp(userInfo){
+                    if(it == true){
+                        // 회원가입 성공한 경우
+                        Toast.makeText(applicationContext, "회원가입 완료", Toast.LENGTH_SHORT).show()
+                        finish()
+                    } else{
+                        // 회원가입 실패한 경우
+                        Toast.makeText(applicationContext, "회원가입 실패", Toast.LENGTH_SHORT).show()
+                    }
                 }
+
                 //createUser(idText,passwordText)
-
-
                 /*
                 //Realtime Database 에 회원정보 추가
                 Log.d("uid 뭐임", suid)
@@ -235,38 +238,39 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     // 회원가입 정보 Spring 서버로 전송
-    private fun signUp(user: User): Boolean {
-        var createAvailable:Boolean = false
-        val createUser = ServiceCreator.bumService.createUser(user)
+    private fun signUp(user: User, onResult: (Boolean?)->Unit) {
+        val signUpAPIService = ServiceCreator.bumService.createUser(user)
 
-        createUser.enqueue(object : Callback<HashMap<String, Int>> {
+        signUpAPIService.enqueue(object : Callback<HashMap<String, Int>> {
             override fun onResponse(call: Call<HashMap<String, Int>>, response: Response<HashMap<String, Int>>) {
                 if(response.isSuccessful){ // 통신 성공 and 응답 성공
                     response.body()!!.forEach { (key, value) -> Log.d("RESPONSE: ", "$key = $value") }
                     if(response.body()!!["create"]!! == 1) {
                         Log.d("RESPONSE", "USER CREATION SUCCESS")
-                        createAvailable = true
+                        onResult(true)
                     }
                     if(response.body()!!["sameId"]!! == 1){ // id 중복
                         Log.d("RESPONSE", "SAME ID EXISTS")
                         cid.visibility = VISIBLE
+                        onResult(false)
                     }
                     if(response.body()!!["sameNickname"]!! == 1){ // nickname 중복
                         Log.d("RESPONSE", "SAME NICKNAME EXISTS")
                         dname.visibility = VISIBLE
                         dname.setText(R.string.su_tv12)
+                        onResult(false)
                     }
                 }else{ // 통신 성공 but 응답 실패
-                    Log.d("RESPONSE FROM SERVER: ", "FAILURE")
+                    Log.d("RESPONSE FROM SERVER", "FAILURE")
+                    onResult(false)
                 }
             }
 
             override fun onFailure(call: Call<HashMap<String, Int>>, t: Throwable) {
-                Log.d("CONNECTION TO SERVER FAILURE: ", t.localizedMessage)
+                Log.d("CONNECTION TO SERVER FAILURE", t.localizedMessage)
+                onResult(false)
             }
         })
-        Log.d("createAvailable", createAvailable.toString())
-        return createAvailable
     }
     /*
     //파이어베이스에서 계정 생성
