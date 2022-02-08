@@ -86,17 +86,23 @@ class BoardFragment : Fragment() {
                 startActivity(intent)*/
             }
         })
-
-
         //버튼
         var writeButton = rootView.findViewById<ImageButton>(R.id.btv_write)
         var myButton = rootView.findViewById<ImageButton>(R.id.btv_mypage)
         var myboardread = rootView.findViewById<CheckBox>(R.id.btv_cb)
 
         //내가 쓴 글 누르기 이벤트
-        myboardread.setOnClickListener{
-        }
+        myboardread.setOnCheckedChangeListener{ buttonview, isChecked ->
+            if(isChecked) {//내가 쓴 글 필터링
+                boardAdapter.filter.filter("장구벌레")
+                Log.d("내가쓴글", "체크선택")
+                boardAdapter.notifyDataSetChanged()
+            }
+            else {
+                Log.d("내가쓴글", "체크해제")
 
+            }
+        }
 
         //글쓰기로 이동
         writeButton.setOnClickListener {

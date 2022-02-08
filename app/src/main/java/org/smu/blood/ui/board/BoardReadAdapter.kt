@@ -23,6 +23,8 @@ RecyclerView.Adapter<BoardReadAdapter.ViewHolder>(){
     // 리사이클러뷰 클릭 이벤트
     interface OnItemClickListener{
         fun onItemClick(v:View, data: CommentData, pos : Int)
+        fun onEditClick(v:View, data: CommentData, pos : Int)
+        fun onDeleteClick(v:View, data: CommentData, pos : Int)
     }
     private var listener : OnItemClickListener? = null
     fun setOnItemClickListener(listener : OnItemClickListener) {
@@ -46,6 +48,7 @@ RecyclerView.Adapter<BoardReadAdapter.ViewHolder>(){
         private val txtTime: TextView = itemView.findViewById(R.id.comment_time)
         private val txtComment: TextView = itemView.findViewById(R.id.comment_body)
         private val commentEdit: Button = itemView.findViewById(R.id.comment_edit)
+        private val commentDelete: Button = itemView.findViewById(R.id.comment_delete)
 
         fun bind(item: CommentData) {
             txtNickname.text = item.nickname
@@ -54,11 +57,11 @@ RecyclerView.Adapter<BoardReadAdapter.ViewHolder>(){
 
             val position = adapterPosition
             if(position!= RecyclerView.NO_POSITION) {
-                itemView.setOnClickListener {
-                    listener?.onItemClick(itemView,item,position)
-                }
                 commentEdit.setOnClickListener {
-                    listener?.onItemClick(itemView,item,position)
+                    listener?.onEditClick(itemView,item,position) //수정버튼클릭
+                }
+                commentDelete.setOnClickListener {
+                    listener?.onDeleteClick(itemView,item,position) //삭제버튼클릭
                 }
             }
         }

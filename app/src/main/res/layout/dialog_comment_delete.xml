@@ -21,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
-            android:text="게시글을 등록하시겠습니까?"
+            android:text="댓글을 삭제하시겠습니까?"
             android:textAlignment="center"
             android:fontFamily="@font/notosans_light"
             android:includeFontPadding="false"
@@ -32,7 +32,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/board_notregister"
+            android:id="@+id/board_notdelete"
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_marginStart="27dp"
@@ -46,12 +46,12 @@
             android:textColor="@color/white"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/board_register"
+            app:layout_constraintEnd_toStartOf="@+id/board_delete"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
 
         <Button
-            android:id="@+id/board_register"
+            android:id="@+id/board_delete"
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_marginTop="21dp"
@@ -64,7 +64,7 @@
             android:textColor="@color/white"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/board_notregister"
+            app:layout_constraintStart_toEndOf="@+id/board_notdelete"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
