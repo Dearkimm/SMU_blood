@@ -31,10 +31,8 @@ class MyModActivity : AppCompatActivity() {
         setContentView(R.layout.activity_my_mod)
         //val user = Firebase.auth.currentUser
         var map= HashMap<String,String>()
-        //val newPassword = "SOME-SECURE-PASSWORD"
 
         //edittext 등록
-
         var currentPassword = findViewById<EditText>(R.id.met_pwd) // 현재 비밀번호
         var newPassword = findViewById<EditText>(R.id.met_pwd2) // 변경 비밀번호
         var confirmPassword = findViewById<EditText>(R.id.met_pwd3)
@@ -57,7 +55,8 @@ class MyModActivity : AppCompatActivity() {
             }
         }
 
-        //기존 비밀번호 일치 여부
+        /*
+        //기존 비밀번호 일치 여부 -> 서버에서 확인하므로 사용 X
         currentPassword.addTextChangedListener(object: TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -68,6 +67,8 @@ class MyModActivity : AppCompatActivity() {
                     checkbeforepwd.visibility = View.VISIBLE
             }
         })
+
+         */
 
         //변경 비밀번호 일치 여부
         confirmPassword.addTextChangedListener(object: TextWatcher {
@@ -83,29 +84,40 @@ class MyModActivity : AppCompatActivity() {
 
         //수정 완료 후 화면 종료
         modButton.setOnClickListener {
+            var binding: ActivityNavigationBinding = ActivityNavigationBinding.inflate(layoutInflater)
             // 기존 비밀번호 누락된 경우
             if(currentPassword.text.isNullOrEmpty()) {
                 // 기존 비밀번호 입력하도록 TextView 메시지 띄우기
-            
                 Toast.makeText(baseContext, "정보 업데이트 실패", Toast.LENGTH_SHORT).show()
             }
             else{
                 map.put("current_pw", currentPassword.text.toString())
+                // 패스워드 변경하는 경우
                 if(!newPassword.text.isNullOrEmpty()) map.put("new_pw", newPassword.text.toString())
+                // 닉네임 변경하는 경우
                 if(!newNickname.text.isNullOrEmpty()) map.put("new_nickname", newNickname.text.toString())
                 map.forEach { (key, value) -> Log.d("INPUT DATA", "$key = $value") }
                 var myPageService = MyPageService(this)
                 myPageService.editData(map){
-                    //수정 완료
-                    if(it==false) Toast.makeText(baseContext, "정보 업데이트 실패", Toast.LENGTH_SHORT).show()
-                    else Toast.makeText(baseContext, "정보 업데이트 성공", Toast.LENGTH_SHORT).show()
+                    if(it!=null){
+                        it.forEach { (key, value) -> Log.d("RESPONSE DATA", "$key = $value") }
+                        // 입력한 기존 비밀번호가 사용자 비밀번호와 일치하지 않는 경우
+                        if(it["wrong_pw"]==1) checkbeforepwd.visibility = View.VISIBLE
+                        // 토큰이 유효하지 않는 경우
+                        if(it["invalid_token"]==1) Toast.makeText(baseContext, "정보 업데이트 실패", Toast.LENGTH_SHORT).show()
+                        //수정 완료
+                        if(!it.containsKey("wrong_pw")&&!it.containsKey("invalid_token")) {
+                            Toast.makeText(baseContext, "정보 업데이트 성공", Toast.LENGTH_SHORT).show()
+                            //마이페이지로 이동
+                            // 수정 이후에도 업데이트 된 내 정보를 보여주도록 마이페이지 가져오기
+                            // NavigationActivity의 navigateMainToMy() 호출할 수 있으면 해당 코드로 바꾸기
+                            setContentView(binding.root)
+                            replaceFragment(binding.fragmentContainer, MyFragment::class.java, true)
+                        }
+                    }else{
+                        Toast.makeText(baseContext, "정보 업데이트 실패", Toast.LENGTH_SHORT).show()
+                    }
                 }
-                //마이페이지로 이동
-                // 수정 이후에도 업데이트 된 내 정보를 보여주도록 마이페이지 가져오기
-                // NavigationActivity의 navigateMainToMy() 호출할 수 있으면 해당 코드로 바꾸기
-                var binding: ActivityNavigationBinding = ActivityNavigationBinding.inflate(layoutInflater)
-                setContentView(binding.root)
-                replaceFragment(binding.fragmentContainer, MyFragment::class.java, true)
                 //finish()
             }
 

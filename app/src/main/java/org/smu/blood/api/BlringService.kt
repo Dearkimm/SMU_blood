@@ -31,7 +31,7 @@ interface BlringService {
 
     // edit user info API
     @POST("myPage/edit")
-    fun editMyData(@Header("token") token: String, @Body info: HashMap<String,String>): Call<Boolean>
+    fun editMyData(@Header("token") token: String, @Body info: HashMap<String,String>): Call<HashMap<String,Int>>
 
     // withdraw API
     @GET("myPage/withdraw")

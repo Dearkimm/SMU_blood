@@ -2,6 +2,8 @@ package org.smu.blood.api
 
 import android.content.Context
 import android.util.Log
+import android.view.View
+import android.widget.Toast
 import org.smu.blood.api.database.User
 import org.smu.blood.ui.my.MyFragment
 import org.smu.blood.util.enqueueUtil
@@ -65,30 +67,32 @@ class MyPageService(context: Context) {
         })
     }
     // 내 정보 수정
-    public fun editData(map: HashMap<String,String>, onResult: (Boolean?) -> Unit){
+    public fun editData(map: HashMap<String,String>, onResult: (HashMap<String,Int>?) -> Unit){
 
         val myeditAPI = ServiceCreator.bumService.editMyData(token = "${sessionManager.fetchToken()}", map)
         Log.d("get token", sessionManager.fetchToken().toString())
-        myeditAPI.enqueue(object : Callback<Boolean>{
-            override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
+        myeditAPI.enqueue(object : Callback<HashMap<String,Int>>{
+            override fun onResponse(call: Call<HashMap<String,Int>>, response: Response<HashMap<String,Int>>) {
                 // 서버 응답 성공
                 if(response.isSuccessful){
-                    // 토큰 유효하지 않은 경우
-                    if (response.body()==false) {
-                        Log.d("[EDIT INFO] TOKEN VALIDATION", "FAILED")
-                        onResult(false)
-                    } else{ // 토큰 유효한 경우
-                        Log.d("[EDIT INFO] TOKEN VALIDATION", "SUCCESS")
+                    if(response.body()!=null){
+                        Log.d("[EDIT INFO]", "COMPLETE")
                         onResult(response.body())
+                    }
+                    else {
+                        Log.d("[EDIT INFO]", "FAILED")
+                        onResult(null)
                     }
                 }else{
                     // 서버 응답 실패
                     Log.d("[EDIT INFO] RESPONSE FROM SERVER: ", response.message())
+                    onResult(null)
                 }
             }
 
-            override fun onFailure(call: Call<Boolean>, t: Throwable) {
+            override fun onFailure(call: Call<HashMap<String,Int>>, t: Throwable) {
                 Log.d("[EDIT INFO] CONNECTION TO SERVER", t.localizedMessage)
+                onResult(null)
             }
         })
     }
