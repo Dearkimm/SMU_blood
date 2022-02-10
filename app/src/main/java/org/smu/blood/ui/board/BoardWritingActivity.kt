@@ -17,14 +17,18 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
 import org.smu.blood.R
+import org.smu.blood.api.ReviewService
 import org.smu.blood.api.database.User
 import org.smu.blood.databinding.ActivityBoardReadBinding
+import org.smu.blood.databinding.ActivityNavigationBinding
 import org.smu.blood.ui.LoginActivity
 import org.smu.blood.ui.NavigationActivity
+import org.smu.blood.ui.my.MyFragment
+import org.smu.blood.util.replaceFragment
 import org.smu.blood.util.shortToast
 import java.lang.reflect.Member
-
-class BoardWritingActivity : AppCompatActivity() { //게시판 글내용 읽기
+//게시판 글내용 읽기
+class BoardWritingActivity : AppCompatActivity() {
     private var _binding: ActivityBoardReadBinding? = null
     private val binding get() = _binding!!
     var commentState = false
@@ -32,7 +36,7 @@ class BoardWritingActivity : AppCompatActivity() { //게시판 글내용 읽기
     //댓글 리사이클러뷰 어댑터추가
     lateinit var boardreadAdapter: BoardReadAdapter
     lateinit var recyclerview: RecyclerView
-    val datas = mutableListOf<CommentData>()
+    var datas = mutableListOf<CommentData>()
 
     //글 삭제 다이얼로그 관련변수
     var deleteState = false
@@ -43,13 +47,21 @@ class BoardWritingActivity : AppCompatActivity() { //게시판 글내용 읽기
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
+
         _binding = ActivityBoardReadBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initBoardRead()
 
         //게시글 닉네임 = 내 닉네임 일때만 수정삭제 메뉴버튼 보이게
-        //----------------
-        binding.boardChange.visibility = View.VISIBLE
+        // 게시글 닉네임 가져오기
+        val reviewNickname:String = binding.writingNickname.text as String
+        var reviewService = ReviewService(this)
+        // 현재 사용자의 닉네임과 게시글 닉네임 일치 여부 확인
+        reviewService.checkReviewNickname(reviewNickname){
+            if(it==true) binding.boardChange.visibility = View.VISIBLE
+            else Log.d("[CHECK REVIEW NICKNAME]", "NOT MY REVIEW OR INVALID")
+        }
+
         //----------------
 
         //게시글 수정/삭제 클릭 시
@@ -62,8 +74,10 @@ class BoardWritingActivity : AppCompatActivity() { //게시판 글내용 읽기
                     R.id.action_menu1->{ //내가 쓴 글 수정
                         Toast.makeText(applicationContext,"수정 클릭",Toast.LENGTH_SHORT).show()
                         val intent = Intent(this,BoardEditActivity::class.java)
-                        intent.putExtra("제목", _binding!!.writingTitle.text)
-                        intent.putExtra("내용",_binding!!.writingBody.text)
+                        intent.putExtra("originTitle", _binding!!.writingTitle.text)
+                        intent.putExtra("originContent",_binding!!.writingBody.text)
+                        intent.putExtra("originTime", _binding!!.writingTime.text)
+                        intent.putExtra("nickname", _binding!!.writingNickname.text)
                         startActivity(intent)
                         return@setOnMenuItemClickListener true
                     }
@@ -74,9 +88,23 @@ class BoardWritingActivity : AppCompatActivity() { //게시판 글내용 읽기
                         dlg.setOnDismissListener {
                             deleteState = dlg.returnState()
                             if(deleteState){
+                                // nickname, writeTime 가져오기
+                                var nickname = _binding!!.writingNickname.text.toString()
+                                var writeTime = _binding!!.writingTime.text.toString()
+                                var requestBody = HashMap<String,String>()
+                                requestBody["nickname"] = nickname
+                                requestBody["writeTime"] = writeTime
                                 //DB 에서 게시글 삭제
-                                Toast.makeText(applicationContext, "삭제 완료", Toast.LENGTH_SHORT).show()
-                                finish()
+                                reviewService.reviewDelete(requestBody){
+                                    if(it==true){
+                                        Toast.makeText(applicationContext, "삭제 완료", Toast.LENGTH_SHORT).show()
+                                        // 업데이트된 후기 게시판으로 가져오기
+                                        var binding2: ActivityNavigationBinding = ActivityNavigationBinding.inflate(layoutInflater)
+                                        setContentView(binding2.root)
+                                        replaceFragment(binding2.fragmentContainer, BoardFragment::class.java, true)
+                                        //finish()
+                                    }
+                                }
                             }
                         }
                         return@setOnMenuItemClickListener true
@@ -154,7 +182,7 @@ class BoardWritingActivity : AppCompatActivity() { //게시판 글내용 읽기
         var boardtext = intent.getStringExtra("boardtext")
 
         val apply = binding.apply {
-            Log.d("SHOW","REVIEWS")
+            Log.d("SHOW","REVIEW")
             writingTitle.text = title
             writingNickname.text = nickname
             writingTime.text = time
@@ -166,9 +194,9 @@ class BoardWritingActivity : AppCompatActivity() { //게시판 글내용 읽기
     private fun initRecycler() {
         datas.apply {
             Log.d("SHOW","COMMENTS")
-            add(CommentData(id = "게시판 id" ,nickname = "장구벌레",time = "2021/12/20", comment = "좋은 일 하셨어요!!"))
-            add(CommentData(id = "게시판 id" ,nickname = "짬뽕",time = "2022/01/03", comment = "대단해요"))
-            add(CommentData(id = "게시판 id" ,nickname = "가나다라",time = "2022/01/05", comment = "멋져요"))
+            add(CommentData(reviewId = 1 ,nickname = "장구벌레",time = "2021/12/20", comment = "좋은 일 하셨어요!!"))
+            add(CommentData(reviewId = 2 ,nickname = "짬뽕",time = "2022/01/03", comment = "대단해요"))
+            add(CommentData(reviewId = 3 ,nickname = "가나다라",time = "2022/01/05", comment = "멋져요"))
             boardreadAdapter.datas = datas
             boardreadAdapter.notifyDataSetChanged()
         }

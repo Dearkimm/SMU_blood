@@ -48,12 +48,14 @@ class BoardFragment : Fragment() {
 
         var currentNickname = rootView.findViewById<TextView>(R.id.btv_nickname)
         var reviewService = ReviewService(requireContext())
+        lateinit var nickname: String
 
         // 사용자 닉네임 가져오기
         reviewService.myNickname{
             if(it!=null){
                 Log.d("[MY NICKNAME]",it)
                 currentNickname.text = it
+                nickname = it
             }else Log.d("[MY NICKNAME]","GET FAILURE")
         }
 
@@ -105,13 +107,33 @@ class BoardFragment : Fragment() {
         //내가 쓴 글 누르기 이벤트
         myboardread.setOnCheckedChangeListener{ buttonview, isChecked ->
             if(isChecked) {//내가 쓴 글 필터링
+                /*
                 boardAdapter.filter.filter("장구벌레")
+                */
+                /*
+                reviewService.getMyReviewList(nickname){
+                    if(it!=null){
+                        datas.apply {
+                            for(review in it){
+                                Log.d("[MY REVIEW LIST]","ADD ALL MY REVIEWS")
+                                var boardData = BoardData(boardId="${review.reviewId}", title="${review.title}", nickname="${review.nickname}", time="${review.writeTime}",
+                                    heartcount=review.likeNum!!, boardtext="${review.contents}", commentcount=0)
+                                add(boardData)
+                                Log.d("[MY REVIEW LIST]", boardData.toString())
+                            }
+                            boardAdapter.datas = datas
+                            boardAdapter.notifyDataSetChanged()
+                        }
+                    }
+                }
+
+                 */
+                boardAdapter.filter.filter(nickname)
                 Log.d("내가쓴글", "체크선택")
                 boardAdapter.notifyDataSetChanged()
             }
             else {
                 Log.d("내가쓴글", "체크해제")
-
             }
         }
 
@@ -168,8 +190,6 @@ class BoardFragment : Fragment() {
     }
 
     private fun initRecycler() {
-
-
         // DB에서 전체 후기 가져와서 보여주기
         var reviewService = ReviewService(requireContext())
 
@@ -177,14 +197,16 @@ class BoardFragment : Fragment() {
             if(it!=null){
                 for(review in it) Log.d("[REVIEW LIST2]", "$review")
                 Log.d("[REVIEW LIST2]", "get all reviews")
-                for(review in it){
-                    datas.apply{
+                datas.apply{
+                    for(review in it){
                         Log.d("[REVIEW LIST2]","ADD ALL REVIEWS")
                         var boardData = BoardData(boardId="${review.reviewId}", title="${review.title}", nickname="${review.nickname}", time="${review.writeTime}",
                             heartcount=review.likeNum!!, boardtext="${review.contents}", commentcount=0)
                         add(boardData)
                         Log.d("[REVIEW LIST2]", boardData.toString())
                     }
+                    boardAdapter.datas = datas
+                    boardAdapter.notifyDataSetChanged()
                 }
             }else Log.d("[REVIEW LIST2]", "FAILURE")
         }
@@ -218,7 +240,5 @@ class BoardFragment : Fragment() {
         boardAdapter = BoardAdapter(requireContext())
         recyclerview = rootView.findViewById<RecyclerView>(R.id.rc_board_list)
         recyclerview.adapter = boardAdapter
-        boardAdapter.datas = datas
-        boardAdapter.notifyDataSetChanged()
     }
 }

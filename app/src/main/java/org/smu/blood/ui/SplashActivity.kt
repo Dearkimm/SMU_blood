@@ -16,7 +16,6 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class SplashActivity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         lateinit var intent: Intent
         super.onCreate(savedInstanceState)
@@ -29,12 +28,11 @@ class SplashActivity : AppCompatActivity() {
             var token = sessionManager.fetchToken()
             if(token!=null){
                 // 토큰 유효성 검증
-                checkTokenValid(token){
-                    // 토큰 유효한 경우
-                    if(it==true) {
+                checkTokenValid(token="${sessionManager.fetchToken()}"){
+                    if(it==true) { // 토큰 유효한 경우
                         Log.d("[CHECK TOKEN VALID]", it.toString())
                         intent = Intent(this, NavigationActivity::class.java)
-                    } else {
+                    } else { // 토큰 유효하지 않은 경우
                         // 토큰 삭제
                         sessionManager.removeToken()
                         intent = Intent(this, LoginActivity::class.java)
@@ -53,17 +51,12 @@ class SplashActivity : AppCompatActivity() {
             override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
                 // 서버 응답 성공
                 if(response.isSuccessful){
-                    // 토큰 유효하지 않은 경우
-                    if (response.body()==null) {
-                        Log.d("[CHECK TOKEN VALID]", "FAILED")
-                        onResult(false)
-                    } else{ // 응답 반환 (토큰 유효성 여부)
-                        Log.d("[CHECK TOKEN VALID]", response.body().toString())
-                        onResult(response.body())
-                    }
+                    // 응답 반환 (토큰 유효성 여부)
+                    Log.d("[CHECK TOKEN VALID]", response.body().toString())
+                    onResult(response.body())
                 }else{
                     // 서버 응답 실패
-                    Log.d("[CHECK TOKEN VALID] RESPONSE FROM SERVER: ", response.message())
+                    Log.d("[CHECK TOKEN VALID]", response.message())
                     onResult(false)
                 }
             }

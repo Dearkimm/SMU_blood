@@ -29,7 +29,6 @@ RecyclerView.Adapter<BoardAdapter.ViewHolder>(),Filterable {
     }
     override fun getItemCount(): Int = datas.size
 
-
     //필터링
     override fun getFilter(): Filter {
         return object : Filter() {
@@ -90,7 +89,6 @@ RecyclerView.Adapter<BoardAdapter.ViewHolder>(),Filterable {
 
         }
     }
-
 
     // 클릭 이벤트 리스너 인터페이스 정의
     interface OnItemClickListener{

@@ -1,5 +1,6 @@
 package org.smu.blood.ui.board
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.WindowManager
@@ -37,6 +38,7 @@ class BoardRegisterActivity : AppCompatActivity() { //게시판 글쓰고 등록
         var userNickname: String? = null
         var heartCount: Int = 0
         lateinit var writeTime: String
+
         // 날짜, 시간 가져오기
         val time = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm"))
         val date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"))
@@ -65,7 +67,7 @@ class BoardRegisterActivity : AppCompatActivity() { //게시판 글쓰고 등록
                         reviewInfo.writeTime = writeTime
                         reviewInfo.likeNum = 0 // 초기 좋아요 0으로 설정
                         Log.d("[REVIEW WRITE] reviewInfo", "$reviewInfo")
-                        reviewService.myWrite(reviewInfo){
+                        reviewService.reviewWrite(reviewInfo){
                             if(it != null) {
                                 reviewId = it.reviewId!!
                                 userId=  it.userId
@@ -92,7 +94,6 @@ class BoardRegisterActivity : AppCompatActivity() { //게시판 글쓰고 등록
                         finish()
                         val intent = Intent(this,BoardWritingActivity::class.java)
                         startActivity(intent)
-
                     }
                 }
             }else

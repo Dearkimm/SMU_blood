@@ -45,7 +45,23 @@ interface BlringService {
     @POST("review/write")
     fun reviewWrite(@Header("token") token: String, @Body reviewInfo: Review): Call<Review>
 
-    // get list of reviews
+    // get list of reviews API
     @GET("review/list")
     fun getReviewList(): Call<List<Review>>
+
+    // check if this review == my review
+    @POST("review/checkReviewNickname")
+    fun checkNickname(@Header("token") token: String, @Body nickname: String): Call<Boolean>
+
+    // edit review API
+    @POST("review/edit")
+    fun reviewEdit(@Header("token") token: String, @Body editInfo: HashMap<String,String>): Call<Boolean>
+
+    // delete review API
+    @POST("review/delete")
+    fun reviewDelete(@Header("token") token: String, @Body deleteInfo: HashMap<String,String>): Call<Boolean>
+
+    // get my review list
+    @GET("review/myList")
+    fun getMyReviewList(@Header("nickname") nickname: String): Call<List<Review>>
 }
