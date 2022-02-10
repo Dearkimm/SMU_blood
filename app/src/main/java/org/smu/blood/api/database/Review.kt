@@ -8,6 +8,7 @@ class Review {
     var writeTime: String? = null
     var contents: String? = null
     var likeNum: Int? = null
+    var commentCount: Int? = null
 
     constructor()
 
@@ -18,7 +19,8 @@ class Review {
         title: String?,
         writeTime: String?,
         contents: String?,
-        likeNum: Int?
+        likeNum: Int?,
+        commentCount: Int?
     ) {
         this.reviewId = reviewId
         this.userId = userId
@@ -27,10 +29,11 @@ class Review {
         this.writeTime = writeTime
         this.contents = contents
         this.likeNum = likeNum
+        this.commentCount = commentCount
     }
 
     override fun toString(): String {
-        return "Review(id=$reviewId, userId=$userId, userNickname=$nickname, title=$title, writeTime=$writeTime, contents=$contents, likeNum=$likeNum)"
+        return "Review(id=$reviewId, userId=$userId, userNickname=$nickname, title=$title, writeTime=$writeTime, contents=$contents, likeNum=$likeNum, commentCount=$commentCount)"
     }
 
 

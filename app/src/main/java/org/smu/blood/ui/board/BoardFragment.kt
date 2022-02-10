@@ -201,7 +201,7 @@ class BoardFragment : Fragment() {
                     for(review in it){
                         Log.d("[REVIEW LIST2]","ADD ALL REVIEWS")
                         var boardData = BoardData(boardId="${review.reviewId}", title="${review.title}", nickname="${review.nickname}", time="${review.writeTime}",
-                            heartcount=review.likeNum!!, boardtext="${review.contents}", commentcount=0)
+                            heartcount=review.likeNum!!, boardtext="${review.contents}", commentcount=review.commentCount!!)
                         add(boardData)
                         Log.d("[REVIEW LIST2]", boardData.toString())
                     }
