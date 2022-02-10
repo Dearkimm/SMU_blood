@@ -28,19 +28,24 @@ class SplashActivity : AppCompatActivity() {
             var token = sessionManager.fetchToken()
             if(token!=null){
                 // 토큰 유효성 검증
-                checkTokenValid(token="${sessionManager.fetchToken()}"){
+                checkTokenValid("$token"){
                     if(it==true) { // 토큰 유효한 경우
                         Log.d("[CHECK TOKEN VALID]", it.toString())
+                        finish()
                         intent = Intent(this, NavigationActivity::class.java)
                     } else { // 토큰 유효하지 않은 경우
                         // 토큰 삭제
                         sessionManager.removeToken()
+                        finish()
                         intent = Intent(this, LoginActivity::class.java)
                     }
                 }
-            } else { intent = Intent(this, LoginActivity::class.java) }
+            } else {
+                finish()
+                intent = Intent(this, LoginActivity::class.java)
+            }
+            //네비게이션 액티비티
             startActivity(intent)
-            finish()
         }, 1000)
     }
     private fun checkTokenValid(token: String, onResult: (Boolean?) -> Unit){

@@ -1,12 +1,10 @@
 package org.smu.blood.api
 
+import org.smu.blood.api.database.Comment
 import org.smu.blood.api.database.Review
 import org.smu.blood.api.database.User
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface BlringService {
     // create User API
@@ -64,4 +62,12 @@ interface BlringService {
     // get my review list
     @GET("review/myList")
     fun getMyReviewList(@Header("nickname") nickname: String): Call<List<Review>>
+
+    // write comment API
+    @POST("review/addComment")
+    fun writeComment(@Header("token") token: String, @Body reviewInfo: HashMap<String,String>): Call<Boolean>
+
+    // get all comments of review
+    @POST("review/commentList")
+    fun getCommentList(@Body reviewInfo: HashMap<String,String>): Call<List<Comment>>
 }

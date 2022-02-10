@@ -42,8 +42,8 @@ class BoardFragment : Fragment() {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_board, container, false)
 
-        initRecycler()
         setUpAdapter()
+        initRecycler()
         configureBoardNavigation()
 
         var currentNickname = rootView.findViewById<TextView>(R.id.btv_nickname)

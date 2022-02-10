@@ -97,10 +97,12 @@ class BoardEditActivity : AppCompatActivity() {
                                 var binding2: ActivityNavigationBinding = ActivityNavigationBinding.inflate(layoutInflater)
                                 setContentView(binding2.root)
                                 replaceFragment(binding2.fragmentContainer, BoardFragment::class.java, true)
-                                //val intent = Intent(this,BoardWritingActivity::class.java)
-                                //startActivity(intent)
-                                //finish()
+                                /*
+                                finish()
+                                val intent = Intent(this,BoardWritingActivity::class.java)
+                                startActivity(intent)
 
+                                 */
                             }
                             else Log.d("[EDIT REVIEW]", "FAILED")
                         }

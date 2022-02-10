@@ -13,6 +13,8 @@ import org.smu.blood.util.shortToast
 import java.time.LocalDateTime
 import org.smu.blood.api.ReviewService
 import org.smu.blood.api.database.Review
+import org.smu.blood.databinding.ActivityNavigationBinding
+import org.smu.blood.util.replaceFragment
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
@@ -91,9 +93,16 @@ class BoardRegisterActivity : AppCompatActivity() { //게시판 글쓰고 등록
                         }
                         boardfragment.arguments = bundle
 
+                        /*
                         finish()
                         val intent = Intent(this,BoardWritingActivity::class.java)
                         startActivity(intent)
+
+                         */
+                        // 수정 후 BoardWritingActivity로 이동해서 정보가 업데이트된 게시글 가져오기
+                        var binding2: ActivityNavigationBinding = ActivityNavigationBinding.inflate(layoutInflater)
+                        setContentView(binding2.root)
+                        replaceFragment(binding2.fragmentContainer, BoardFragment::class.java, true)
                     }
                 }
             }else

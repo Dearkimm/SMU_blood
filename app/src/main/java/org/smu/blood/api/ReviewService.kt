@@ -2,7 +2,9 @@ package org.smu.blood.api
 
 import android.content.Context
 import android.util.Log
+import org.smu.blood.api.database.Comment
 import org.smu.blood.api.database.Review
+import org.smu.blood.ui.board.CommentData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -180,6 +182,48 @@ class ReviewService(context: Context) {
 
             override fun onFailure(call: Call<List<Review>>, t: Throwable) {
                 Log.d("[REVIEW LIST1] CONNECTION TO SERVER", t.localizedMessage)
+                onResult(null)
+            }
+        })
+    }
+
+    // add comment
+    fun commentWrite(info: HashMap<String,String>, onResult: (Boolean?) -> Unit){
+        val addCommentAPI = ServiceCreator.bumService.writeComment("${sessionManager.fetchToken()}", info)
+        addCommentAPI.enqueue(object : Callback<Boolean>{
+            override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
+                if(response.isSuccessful){
+                    Log.d("[ADD COMMENT]", response.body().toString())
+                    onResult(response.body())
+                }else{
+                    Log.d("[ADD COMMENT]", "RESPONSE FAILURE")
+                    onResult(false)
+                }
+            }
+
+            override fun onFailure(call: Call<Boolean>, t: Throwable) {
+                Log.d("[ADD COMMENT] CONNECTION TO SERVER", t.localizedMessage)
+                onResult(false)
+            }
+        })
+    }
+
+    // get comment list of review
+    fun commentList(reviewInfo: HashMap<String,String>, onResult: (List<Comment>?) -> Unit){
+        val commentListAPI = ServiceCreator.bumService.getCommentList(reviewInfo)
+        commentListAPI.enqueue(object : Callback<List<Comment>> {
+            override fun onResponse(call: Call<List<Comment>>, response: Response<List<Comment>>) {
+                if(response.isSuccessful){
+                    Log.d("[COMMENT LIST]", response.body().toString())
+                    onResult(response.body())
+                }else{
+                    Log.d("[COMMENT LIST]", "RESPONSE FAILURE")
+                    onResult(null)
+                }
+            }
+
+            override fun onFailure(call: Call<List<Comment>>, t: Throwable) {
+                Log.d("[COMMENT LIST] CONNECTION TO SERVER", t.localizedMessage)
                 onResult(null)
             }
         })
