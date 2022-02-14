@@ -150,8 +150,8 @@ class MyFragment : BaseFragment<FragmentMyBinding>() {
                 var withdrawState = dlg.returnState()
                 if(withdrawState){ //탈퇴하기
                     Toast.makeText(context, "탈퇴 완료", Toast.LENGTH_SHORT).show()
-                    //로그인화면으로 이동
                     (activity as NavigationActivity).logoutAndfinish()
+                    //로그인화면으로 이동
                     val intent3 = Intent(context, LoginActivity()::class.java)
                     //네비게이션 액티비티
                     startActivity(intent3)

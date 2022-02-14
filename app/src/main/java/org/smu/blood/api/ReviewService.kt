@@ -24,7 +24,7 @@ class ReviewService(context: Context) {
                         Log.d("[MY NICKNAME] TOKEN VALIDATION", "FAILED")
                         onResult(null)
                     } else{ // 토큰 유효, 응답 성공
-                        Log.d("[MY NICKNAME] TOKEN VALIDATION", "SUCCESS")
+                        Log.d("[MY NICKNAME]", response.body().toString())
                         onResult(response.body())
                     }
                 }else{
@@ -90,27 +90,6 @@ class ReviewService(context: Context) {
             override fun onFailure(call: Call<List<Review>>, t: Throwable) {
                 Log.d("[REVIEW LIST1] CONNECTION TO SERVER", t.localizedMessage)
                 onResult(null)
-            }
-        })
-    }
-
-    // 내가 쓴 후기글인지 확인
-    fun checkReviewNickname( reviewNickname: String, onResult: (Boolean?) -> Unit){
-        val checkNicknameAPI = ServiceCreator.bumService.checkNickname(token="${sessionManager.fetchToken()}", reviewNickname)
-        checkNicknameAPI.enqueue(object : Callback<Boolean>{
-            override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
-                if(response.isSuccessful){
-                    Log.d("[CHECK REVIEW NICKNAME]", response.body().toString())
-                    onResult(response.body())
-                }else{
-                    Log.d("[CHECK REVIEW NICKNAME]", "RESPONSE FAILURE")
-                    onResult(false)
-                }
-            }
-
-            override fun onFailure(call: Call<Boolean>, t: Throwable) {
-                Log.d("[CHECK REVIEW NICKNAME] CONNECTION TO SERVER", t.localizedMessage)
-                onResult(false)
             }
         })
     }
@@ -225,6 +204,69 @@ class ReviewService(context: Context) {
             override fun onFailure(call: Call<List<Comment>>, t: Throwable) {
                 Log.d("[COMMENT LIST] CONNECTION TO SERVER", t.localizedMessage)
                 onResult(null)
+            }
+        })
+    }
+
+    // edit comment
+    fun commentEdit(editInfo: HashMap<String,String>, onResult: (Boolean?) -> Unit){
+        val editCommentAPI = ServiceCreator.bumService.editComment("${sessionManager.fetchToken()}", editInfo)
+        editCommentAPI.enqueue(object : Callback<Boolean>{
+            override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
+                if(response.isSuccessful){
+                    Log.d("[EDIT COMMENT]", response.body().toString())
+                    onResult(response.body())
+                }else{
+                    Log.d("[EDIT COMMENT]", "RESPONSE FAILURE")
+                    onResult(false)
+                }
+            }
+
+            override fun onFailure(call: Call<Boolean>, t: Throwable) {
+                Log.d("[EDIT COMMENT] CONNECTION TO SERVER", t.localizedMessage)
+                onResult(false)
+            }
+        })
+    }
+
+    // delete comment
+    fun commentDelete(deleteInfo: HashMap<String, String>, onResult: (Boolean?) -> Unit){
+        val deleteCommentAPI = ServiceCreator.bumService.deleteComment("${sessionManager.fetchToken()}", deleteInfo)
+        deleteCommentAPI.enqueue(object : Callback<Boolean>{
+            override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
+                if(response.isSuccessful){
+                    Log.d("[DELETE COMMENT]", response.body().toString())
+                    onResult(response.body())
+                }else{
+                    Log.d("[DELETE COMMENT]", "RESPONSE FAILURE")
+                    onResult(false)
+                }
+            }
+
+            override fun onFailure(call: Call<Boolean>, t: Throwable) {
+                Log.d("[DELETE COMMENT] CONNECTION TO SERVER", t.localizedMessage)
+                onResult(false)
+            }
+        })
+    }
+
+    // heart check event
+    fun heartCheck(reviewInfo: HashMap<String, String>, onResult: (Boolean?) -> Unit){
+        val checkHeartAPI = ServiceCreator.bumService.checkHeart("${sessionManager.fetchToken()}", reviewInfo)
+        checkHeartAPI.enqueue(object : Callback<Boolean>{
+            override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
+                if(response.isSuccessful){
+                    Log.d("[HEART EVENT]", response.body().toString())
+                    onResult(response.body())
+                }else{
+                    Log.d("[HEART EVENT]", "RESPONSE FAILURE")
+                    onResult(false)
+                }
+            }
+
+            override fun onFailure(call: Call<Boolean>, t: Throwable) {
+                Log.d("[HEART EVENT] CONNECTION TO SERVER", t.localizedMessage)
+                onResult(false)
             }
         })
     }

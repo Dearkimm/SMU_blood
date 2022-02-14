@@ -6,12 +6,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Filter
-import android.widget.Filterable
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import org.smu.blood.R
+import org.smu.blood.api.SessionManager
 
 class BoardAdapter(private val context:Context) :
 RecyclerView.Adapter<BoardAdapter.ViewHolder>(),Filterable {

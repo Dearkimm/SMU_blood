@@ -62,7 +62,7 @@
         android:textSize="8sp"
         android:fontFamily="@font/notosans_light"
         android:background="@drawable/bg_btn_type"
-        android:visibility="visible"
+        android:visibility="invisible"
         android:onClick="showKeyboard"/>
     <Button
         android:id="@+id/comment_delete"
@@ -78,7 +78,7 @@
         android:textSize="8sp"
         android:fontFamily="@font/notosans_light"
         android:background="@drawable/bg_btn_type"
-        android:visibility="visible"/>
+        android:visibility="invisible"/>
     <View
         android:id="@+id/comment_line"
         android:layout_width="match_parent"

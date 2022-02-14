@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView
 import org.smu.blood.ui.NavigationActivity
 import org.smu.blood.R
 import org.smu.blood.api.ReviewService
-import org.smu.blood.api.database.Review
 import org.smu.blood.databinding.FragmentBoardBinding
 
 class BoardFragment : Fragment() {
@@ -53,9 +52,9 @@ class BoardFragment : Fragment() {
         // 사용자 닉네임 가져오기
         reviewService.myNickname{
             if(it!=null){
-                Log.d("[MY NICKNAME]",it)
-                currentNickname.text = it
-                nickname = it
+                nickname = it.toString()
+                Log.d("[MY NICKNAME]",nickname)
+                currentNickname.text = nickname
             }else Log.d("[MY NICKNAME]","GET FAILURE")
         }
 
@@ -70,6 +69,8 @@ class BoardFragment : Fragment() {
                 intent.putExtra("heartcount", data.heartcount)
                 intent.putExtra("commentcount",data.commentcount)
                 intent.putExtra("boardtext",data.boardtext)
+                intent.putExtra("boardId", data.boardId)
+                intent.putExtra("userNickname", nickname)
                 startActivity(intent)
             }
         })
@@ -189,18 +190,23 @@ class BoardFragment : Fragment() {
         }
     }
 
+    private fun setUpAdapter(){
+        //리사이클러뷰 어댑터 세팅
+        boardAdapter = BoardAdapter(requireContext())
+        recyclerview = rootView.findViewById<RecyclerView>(R.id.rc_board_list)
+        recyclerview.adapter = boardAdapter
+    }
+
     private fun initRecycler() {
         // DB에서 전체 후기 가져와서 보여주기
-        var reviewService = ReviewService(requireContext())
-
-        reviewService.reviewList{
+        ReviewService(requireContext()).reviewList{
             if(it!=null){
                 for(review in it) Log.d("[REVIEW LIST2]", "$review")
                 Log.d("[REVIEW LIST2]", "get all reviews")
                 datas.apply{
                     for(review in it){
                         Log.d("[REVIEW LIST2]","ADD ALL REVIEWS")
-                        var boardData = BoardData(boardId="${review.reviewId}", title="${review.title}", nickname="${review.nickname}", time="${review.writeTime}",
+                        var boardData = BoardData(boardId=review.reviewId!!, title="${review.title}", nickname="${review.nickname}", time="${review.writeTime}",
                             heartcount=review.likeNum!!, boardtext="${review.contents}", commentcount=review.commentCount!!)
                         add(boardData)
                         Log.d("[REVIEW LIST2]", boardData.toString())
@@ -234,11 +240,5 @@ class BoardFragment : Fragment() {
         }
 
          */
-    }
-    private fun setUpAdapter(){
-        //리사이클러뷰 어댑터 세팅
-        boardAdapter = BoardAdapter(requireContext())
-        recyclerview = rootView.findViewById<RecyclerView>(R.id.rc_board_list)
-        recyclerview.adapter = boardAdapter
     }
 }

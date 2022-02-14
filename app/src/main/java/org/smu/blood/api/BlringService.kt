@@ -70,4 +70,16 @@ interface BlringService {
     // get all comments of review
     @POST("review/commentList")
     fun getCommentList(@Body reviewInfo: HashMap<String,String>): Call<List<Comment>>
+
+    // edit comment
+    @POST("review/editComment")
+    fun editComment(@Header("token") token: String, @Body editInfo: HashMap<String,String>): Call<Boolean>
+
+    // delete comment
+    @POST("review/deleteComment")
+    fun deleteComment(@Header("token") token: String, @Body deleteInfo: HashMap<String, String>): Call<Boolean>
+
+    // heart check event
+    @POST("review/heart")
+    fun checkHeart(@Header("token") token: String, @Body reviewInfo: HashMap<String, String>): Call<Boolean>
 }
