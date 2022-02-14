@@ -214,7 +214,7 @@ class BoardWritingActivity : AppCompatActivity() {
                 reviewHeart = binding.heartCounts.text.toString().toInt()-1
             }
             // 게시글에 대한 사용자의 좋아요 체크 여부 저장
-            SessionManager(this).fetchHeart(currentNickname, boardId, isChecked)
+            SessionManager(this).saveHeart(currentNickname, boardId, isChecked)
 
             reviewInfo["reviewNickname"] = reviewNickname
             reviewInfo["reviewTime"] = reviewTime
@@ -285,7 +285,7 @@ class BoardWritingActivity : AppCompatActivity() {
             else Log.d("[CHECK REVIEW NICKNAME]", "NOT MY REVIEW OR INVALID")
 
             // 현재 사용자가 해당 게시물에 좋아요 눌렀으면 setChecked(true)
-            val heartState = sessionManager.checkHeart(userNickname!!, boardId)
+            val heartState = sessionManager.fetchHeart(userNickname!!, boardId)
             if(heartState){
                 Log.d("[HEART EVENT3] nickname $userNickname check state of reviewId $boardId", heartState.toString())
                 heartCheckbox.isChecked = true
