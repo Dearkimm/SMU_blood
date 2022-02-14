@@ -47,7 +47,7 @@ class BoardEditActivity : AppCompatActivity() {
 
         // 수정 날짜, 시간 가져오기
         val time = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm"))
-        val date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"))
+        val date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
         editTime = "$date $time"
 
         //원래 내용 게시글에서 가져오기
@@ -93,7 +93,7 @@ class BoardEditActivity : AppCompatActivity() {
 
                         reviewService.reviewEdit(editInfo){
                             if(it==true){
-                                // 수정 후 BoardWritingActivity로 이동해서 정보가 업데이트된 게시글 가져오기
+                                // 수정 후 정보가 업데이트된 게시글 가져오기
                                 var binding2: ActivityNavigationBinding = ActivityNavigationBinding.inflate(layoutInflater)
                                 setContentView(binding2.root)
                                 replaceFragment(binding2.fragmentContainer, BoardFragment::class.java, true)
