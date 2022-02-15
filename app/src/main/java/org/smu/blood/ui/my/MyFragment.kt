@@ -3,15 +3,11 @@ package org.smu.blood.ui.my
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
 import androidx.activity.addCallback
 import org.smu.blood.ui.NavigationActivity
-import org.smu.blood.R
 import org.smu.blood.ui.LoginActivity
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -23,18 +19,14 @@ import com.google.firebase.database.DatabaseError
 import org.smu.blood.databinding.FragmentMyBinding
 import android.util.Log
 import android.widget.Toast
-import androidx.fragment.app.FragmentTransaction
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.auth.UserInfo
 import com.google.firebase.database.ktx.getValue
-import org.smu.blood.databinding.ActivityBoardRegisterBinding
-import org.smu.blood.databinding.FragmentMainBinding
+import org.smu.blood.api.MyPageService
+import org.smu.blood.api.SessionManager
 import org.smu.blood.ui.base.BaseFragment
 
 
 class MyFragment : BaseFragment<FragmentMyBinding>() {
     var logoutState = false
-    var withdrawState = false
     lateinit var mDatabase: FirebaseDatabase //데이터베이스
     private lateinit var myRef: DatabaseReference //데이터베이스 리퍼런스
     private lateinit var auth: FirebaseAuth //파이어베이스 계정
@@ -48,6 +40,9 @@ class MyFragment : BaseFragment<FragmentMyBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         arguments?.let {
         }
+        var myPageService = MyPageService(requireContext())
+
+        /*
         auth = FirebaseAuth.getInstance()
         tempuid = auth.currentUser?.uid.toString()
         Log.d("온크리에이트 마이페이지 uid: ", auth.currentUser?.uid.toString())
@@ -60,6 +55,7 @@ class MyFragment : BaseFragment<FragmentMyBinding>() {
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val userInfo = snapshot.getValue<User>()
+
                 if (userInfo != null) {
                     Log.d("마이페이지 아이디 읽어오기 ",userInfo.id.toString())
                     Log.d("비번 읽어오기 ",userInfo.password.toString())
@@ -78,6 +74,28 @@ class MyFragment : BaseFragment<FragmentMyBinding>() {
             override fun onCancelled(error: DatabaseError) {
             } //onCancelled
         }) //addValueEventListener
+
+
+         */
+        // 사용자 정보 가져오기
+        myPageService.myInfo(){
+            if(it!=null){
+                Log.d("MY INFO", it.toString())
+                when(it.bloodType){
+                    1-> bloodTypetext = "A"
+                    2 -> bloodTypetext = "B"
+                    3 -> bloodTypetext = "O"
+                    4 -> bloodTypetext = "AB"
+                }
+                when(it.rhType){
+                    true -> rhTypetext = "Rh- "
+                    false -> rhTypetext = "Rh+ "
+                }
+                binding.userId.text = it.id
+                binding.userName.text = it.nickname
+                binding.userType.text = rhTypetext + bloodTypetext
+            }
+        }
 
         //버튼
         val logout = binding.tvR
@@ -110,11 +128,14 @@ class MyFragment : BaseFragment<FragmentMyBinding>() {
             dlg.setOnDismissListener {
                 logoutState = dlg.returnState()
                 if(logoutState){ //로그아웃
+                    // token 삭제
+                    var sessionManager = SessionManager(requireContext())
+                    sessionManager.removeToken()
                     //로그인화면으로 이동
                     val intent2 = Intent(context, LoginActivity()::class.java)
                     //네비게이션 액티비티
-                    (activity as NavigationActivity).logoutAndfinish()
                     startActivity(intent2)
+                    (activity as NavigationActivity).logoutAndfinish()
                 }
             }
         }
@@ -126,13 +147,14 @@ class MyFragment : BaseFragment<FragmentMyBinding>() {
             dlg.show()
 
             dlg.setOnDismissListener {
-                withdrawState = dlg.returnState()
+                var withdrawState = dlg.returnState()
                 if(withdrawState){ //탈퇴하기
-                    //로그인화면으로 이동
-                    val intent2 = Intent(context, LoginActivity()::class.java)
-                    //네비게이션 액티비티
+                    Toast.makeText(context, "탈퇴 완료", Toast.LENGTH_SHORT).show()
                     (activity as NavigationActivity).logoutAndfinish()
-                    startActivity(intent2)
+                    //로그인화면으로 이동
+                    val intent3 = Intent(context, LoginActivity()::class.java)
+                    //네비게이션 액티비티
+                    startActivity(intent3)
                 }
             }
         }

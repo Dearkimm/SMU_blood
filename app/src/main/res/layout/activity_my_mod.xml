@@ -78,6 +78,21 @@
         android:includeFontPadding="false"
         android:layout_marginStart="18dp"
         />
+    <TextView
+        android:id="@+id/different_pwd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="비밀번호가 일치하지 않습니다."
+        android:textColor="@color/red"
+        android:textSize="10sp"
+        android:visibility="invisible"
+        android:fontFamily="@font/notosans_light"
+        android:includeFontPadding="false"
+        app:layout_constraintTop_toTopOf="@id/mtv_pwd"
+        app:layout_constraintLeft_toRightOf="@id/mtv_pwd"
+        android:layout_marginTop="3dp"
+        android:layout_marginStart="16dp"
+        />
     <EditText
         android:id="@+id/met_pwd"
         android:layout_width="match_parent"

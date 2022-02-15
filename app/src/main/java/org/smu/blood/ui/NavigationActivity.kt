@@ -23,6 +23,7 @@ import org.smu.blood.util.popFragment
 import org.smu.blood.util.replaceFragment
 import org.smu.blood.util.shortToast
 
+
 class NavigationActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityNavigationBinding
@@ -30,7 +31,7 @@ class NavigationActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         binding = ActivityNavigationBinding.inflate(layoutInflater)
         setContentView(binding.root)

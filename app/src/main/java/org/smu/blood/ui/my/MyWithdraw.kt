@@ -7,9 +7,12 @@ import android.util.Log
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import org.smu.blood.R
+import org.smu.blood.api.MyPageService
+import org.smu.blood.api.SessionManager
 
 class MyWithdraw(context: Context) :
     Dialog(context, android.R.style.Theme_Translucent_NoTitleBar){
@@ -17,6 +20,7 @@ class MyWithdraw(context: Context) :
     var withdrawState = false
 
     fun callFunction() {
+        var myPageService = MyPageService(context)
         val lpWindow = WindowManager.LayoutParams()
         lpWindow.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND
         lpWindow.dimAmount = 0.5f
@@ -32,9 +36,19 @@ class MyWithdraw(context: Context) :
             dismiss()
         }
         withdraw.setOnClickListener { //탈퇴하기
-            Toast.makeText(context,"탈퇴되었습니다", Toast.LENGTH_SHORT).show()
-            withdrawState = true
-            //returnState()
+
+            // 회원 정보 DB에서 삭제
+            myPageService.withDraw{
+                if(it==true) {
+                    // token 삭제
+                    var sessionManager = SessionManager(context)
+                    sessionManager.removeToken()
+                    Log.d("[WITHDRAW]", "SUCCESS")
+                    withdrawState = true
+                } else Log.d("[WITHDRAW]", "FAILURE")
+            }
+            returnState()
+            /*
             val user = Firebase.auth.currentUser!!
 
             user.delete()
@@ -43,9 +57,12 @@ class MyWithdraw(context: Context) :
                         Log.d(TAG, "User account deleted.")
                     }
                 }
+
+             */
             dismiss()
         }
-    }fun returnState(): Boolean{
+    }
+    fun returnState(): Boolean{
         return withdrawState
     }
 

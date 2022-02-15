@@ -1,18 +1,25 @@
 package org.smu.blood.ui.board
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.CheckBox
 import android.widget.TextView
+import androidx.annotation.VisibleForTesting
 import androidx.recyclerview.widget.RecyclerView
 import org.smu.blood.R
+import org.smu.blood.api.SessionManager
 import org.w3c.dom.Comment
 
 class BoardReadAdapter (private val context: Context) : //댓글 리사이클러뷰 어댑터
 RecyclerView.Adapter<BoardReadAdapter.ViewHolder>(){
-
+    lateinit var currentNickname : String
     var datas = mutableListOf<CommentData>()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BoardReadAdapter.ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_comments,parent,false)
         return ViewHolder(view)
@@ -22,10 +29,21 @@ RecyclerView.Adapter<BoardReadAdapter.ViewHolder>(){
     // 리사이클러뷰 클릭 이벤트
     interface OnItemClickListener{
         fun onItemClick(v:View, data: CommentData, pos : Int)
+        fun onEditClick(v:View, data: CommentData, pos : Int)
+        fun onDeleteClick(v:View, data: CommentData, pos : Int)
     }
     private var listener : OnItemClickListener? = null
     fun setOnItemClickListener(listener : OnItemClickListener) {
         this.listener = listener
+    }
+
+    //댓글 삭제
+    fun removeItem(position: Int){
+        if(position>=0) {
+            datas.removeAt(position)
+            notifyItemRemoved(position)
+            notifyDataSetChanged()
+        }
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -35,20 +53,30 @@ RecyclerView.Adapter<BoardReadAdapter.ViewHolder>(){
         private val txtNickname: TextView = itemView.findViewById(R.id.comment_nickname)
         private val txtTime: TextView = itemView.findViewById(R.id.comment_time)
         private val txtComment: TextView = itemView.findViewById(R.id.comment_body)
+        private val commentEdit: Button = itemView.findViewById(R.id.comment_edit)
+        private val commentDelete: Button = itemView.findViewById(R.id.comment_delete)
 
         fun bind(item: CommentData) {
             txtNickname.text = item.nickname
             txtTime.text = item.time
             txtComment.text = item.comment
 
-            val position = adapterPosition
-            if(position!= RecyclerView.NO_POSITION)
-            {
-                itemView.setOnClickListener {
-                    listener?.onItemClick(itemView,item,position)
-                }
+            // 현재 사용자 닉네임 == 댓글 닉네임이면 수정/삭제 visible
+            if(currentNickname == item.nickname){
+                commentEdit.visibility = VISIBLE
+                commentDelete.visibility = VISIBLE
             }
 
+            val position = adapterPosition
+            if(position!= RecyclerView.NO_POSITION) {
+                commentEdit.setOnClickListener {
+                    listener?.onEditClick(itemView,item,position) //수정버튼클릭
+                }
+                commentDelete.setOnClickListener {
+                    listener?.onDeleteClick(itemView,item,position) //삭제버튼클릭
+                }
+            }
         }
+
     }
 }
