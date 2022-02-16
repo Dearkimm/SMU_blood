@@ -47,7 +47,7 @@ class BoardFragment : Fragment() {
 
         var currentNickname = rootView.findViewById<TextView>(R.id.btv_nickname)
         var reviewService = ReviewService(requireContext())
-        lateinit var nickname: String
+        lateinit var nickname: String // 로그인 한 사용자 닉네임
 
         // 사용자 닉네임 가져오기
         reviewService.myNickname{
@@ -111,24 +111,6 @@ class BoardFragment : Fragment() {
                 /*
                 boardAdapter.filter.filter("장구벌레")
                 */
-                /*
-                reviewService.getMyReviewList(nickname){
-                    if(it!=null){
-                        datas.apply {
-                            for(review in it){
-                                Log.d("[MY REVIEW LIST]","ADD ALL MY REVIEWS")
-                                var boardData = BoardData(boardId="${review.reviewId}", title="${review.title}", nickname="${review.nickname}", time="${review.writeTime}",
-                                    heartcount=review.likeNum!!, boardtext="${review.contents}", commentcount=0)
-                                add(boardData)
-                                Log.d("[MY REVIEW LIST]", boardData.toString())
-                            }
-                            boardAdapter.datas = datas
-                            boardAdapter.notifyDataSetChanged()
-                        }
-                    }
-                }
-
-                 */
                 boardAdapter.filter.filter(nickname)
                 Log.d("내가쓴글", "체크선택")
                 boardAdapter.notifyDataSetChanged()

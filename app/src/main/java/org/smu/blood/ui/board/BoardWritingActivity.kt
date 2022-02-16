@@ -49,8 +49,9 @@ class BoardWritingActivity : AppCompatActivity() {
         _binding = ActivityBoardReadBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        var reviewService = ReviewService(this)
+        val reviewService = ReviewService(this)
 
+        /*
         // 사용자 닉네임 가져오기
         reviewService.myNickname{
             if(it!=null){
@@ -59,18 +60,20 @@ class BoardWritingActivity : AppCompatActivity() {
             }else Log.d("[MY NICKNAME]","GET FAILURE")
         }
 
+         */
+
         // 게시글 내용 세팅
         initBoardRead()
 
         // 게시글 닉네임 가져오기
-        val reviewNickname:String = binding.writingNickname.text as String
-        var nickname: String
-        var writeTime: String
+        //val reviewNickname:String = binding.writingNickname.text as String
+        var nickname: String // 게시글 닉네임
+        var writeTime: String // 게시글 작성시간
 
         //게시글 수정/삭제 클릭 시
         binding.boardChange.setOnClickListener{
-            var popupMenu = PopupMenu(applicationContext,it)
-            menuInflater?.inflate(R.menu.menu,popupMenu.menu)
+            val popupMenu = PopupMenu(applicationContext,it)
+            menuInflater.inflate(R.menu.menu,popupMenu.menu)
             popupMenu.show()
             popupMenu.setOnMenuItemClickListener {
                 when(it.itemId){
@@ -94,16 +97,16 @@ class BoardWritingActivity : AppCompatActivity() {
                                 // nickname, writeTime 가져오기
                                 nickname = _binding!!.writingNickname.text.toString()
                                 writeTime = _binding!!.writingTime.text.toString()
-                                var requestBody = HashMap<String,String>()
-                                requestBody["nickname"] = nickname!!
-                                requestBody["writeTime"] = writeTime!!
+                                val requestBody = HashMap<String,String>()
+                                requestBody["nickname"] = nickname
+                                requestBody["writeTime"] = writeTime
                                 //DB 에서 게시글 삭제
                                 reviewService.reviewDelete(requestBody){
                                     if(it==true){
                                         Toast.makeText(applicationContext, "삭제 완료", Toast.LENGTH_SHORT).show()
                                         // 업데이트된 후기 게시판으로 가져오기
                                         //액티비티 새로고침
-                                        var binding2: ActivityNavigationBinding = ActivityNavigationBinding.inflate(layoutInflater)
+                                        val binding2: ActivityNavigationBinding = ActivityNavigationBinding.inflate(layoutInflater)
                                         setContentView(binding2.root)
                                         replaceFragment(binding2.fragmentContainer, BoardFragment::class.java, true)
                                     }
@@ -119,12 +122,12 @@ class BoardWritingActivity : AppCompatActivity() {
         binding.commentBt.setOnClickListener {
             if (binding.commentEt.text.isNotBlank()) { //댓글edittext 빈칸 아닐 경우
                 //댓글 DB에 댓글 추가하기(id, nickname, time, comment)
-                var requestInfo= HashMap<String,String>()
+                val requestInfo= HashMap<String,String>()
 
                 requestInfo["comment"] = binding.commentEt.text.toString()
                 requestInfo["commentNickname"] = currentNickname
-                requestInfo["commentTime"] = "${LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))}" + " " +
-                    "${LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm"))}"
+                requestInfo["commentTime"] = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd")) + " " +
+                        LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm"))
                 requestInfo["reviewNickname"] = _binding!!.writingNickname.text.toString()
                 requestInfo["reviewTime"] = _binding!!.writingTime.text.toString()
 
@@ -150,10 +153,10 @@ class BoardWritingActivity : AppCompatActivity() {
 
         //댓글 리사이클러뷰 어댑터 클릭 이벤트 (댓글 수정 , 삭제)
         boardreadAdapter.setOnItemClickListener(object: BoardReadAdapter.OnItemClickListener{
-            override fun onItemClick(v: View, data: CommentData, position: Int) {
+            override fun onItemClick(v: View, data: CommentData, pos: Int) {
 
             }
-            override fun onEditClick(v: View, data: CommentData, position: Int) { //댓글 수정
+            override fun onEditClick(v: View, data: CommentData, pos: Int) { //댓글 수정
                 binding.commentEt.requestFocus()
                 imm.showSoftInput(binding.commentEt,0)
 
@@ -172,7 +175,7 @@ class BoardWritingActivity : AppCompatActivity() {
                     val date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
                     val editTime = "$date $time"
 
-                    var editInfo = HashMap<String,String>()
+                    val editInfo = HashMap<String,String>()
                     editInfo["commentId"] = data.commentId.toString()
                     editInfo["editComment"] = editComment
                     editInfo["editTime"] = editTime
@@ -193,7 +196,7 @@ class BoardWritingActivity : AppCompatActivity() {
                 // --------------------------------------------
 
             }
-            override fun onDeleteClick(v: View, data: CommentData, position: Int) { //댓글 삭제
+            override fun onDeleteClick(v: View, data: CommentData, pos: Int) { //댓글 삭제
                 if (binding.commentEt.toString().isNotBlank()) {
                     commentdelete(data)
                 }else
@@ -203,10 +206,10 @@ class BoardWritingActivity : AppCompatActivity() {
 
         // 좋아요 이벤트
         binding.heartCheckbox.setOnCheckedChangeListener { buttonview, isChecked ->
-            var reviewInfo = HashMap<String,String>()
+            val reviewInfo = HashMap<String,String>()
             val reviewNickname = binding.writingNickname.text.toString()
             val reviewTime = binding.writingTime.text.toString()
-            var reviewHeart: Int
+            val reviewHeart: Int
 
             if(isChecked){
                 reviewHeart = binding.heartCounts.text.toString().toInt()+1
@@ -238,7 +241,7 @@ class BoardWritingActivity : AppCompatActivity() {
             commentState = dlg.returnState()
             if (commentState) {
                 //DB에서 댓글 삭제
-                var deleteInfo = HashMap<String,String>()
+                val deleteInfo = HashMap<String,String>()
                 deleteInfo["commentId"] = data.commentId.toString()
                 deleteInfo["commentNickname"] = data.nickname
                 deleteInfo["commentTime"] = data.time
@@ -261,16 +264,19 @@ class BoardWritingActivity : AppCompatActivity() {
     private fun initBoardRead() {
         val sessionManager = SessionManager(this)
         val intent = intent
-        var title = intent.getStringExtra("title")
-        var reviewNickname = intent.getStringExtra("nickname")
-        var time = intent.getStringExtra("time")
-        var heartcount = intent.getIntExtra("heartcount", 0)
-        var commentcount = intent.getIntExtra("commentcount",0)
-        var boardtext = intent.getStringExtra("boardtext")
-        var userNickname = intent.getStringExtra("userNickname")
+        val title = intent.getStringExtra("title")
+        val reviewNickname = intent.getStringExtra("nickname")
+        val time = intent.getStringExtra("time")
+        val heartcount = intent.getIntExtra("heartcount", 0)
+        val commentcount = intent.getIntExtra("commentcount",0)
+        val boardtext = intent.getStringExtra("boardtext")
+        val userNickname = intent.getStringExtra("userNickname")
         boardId = intent.getIntExtra("boardId", 0)
 
-        val apply = binding.apply {
+        currentNickname = userNickname.toString()
+        Log.d("[CURRENT USERNICKNAME", currentNickname)
+
+        binding.apply {
             Log.d("SHOW","REVIEW")
             writingTitle.text = title
             writingNickname.text = reviewNickname
@@ -295,8 +301,8 @@ class BoardWritingActivity : AppCompatActivity() {
 
     private fun initRecycler() {
         // DB에서 특정 후기글의 댓글 리스트 가져오기
-        var reviewService = ReviewService(this)
-        var reviewInfo = HashMap<String,String>()
+        val reviewService = ReviewService(this)
+        val reviewInfo = HashMap<String,String>()
         reviewInfo["reviewNickname"] = binding.writingNickname.text.toString()
         reviewInfo["reviewTime"] = binding.writingTime.text.toString()
 
@@ -307,7 +313,7 @@ class BoardWritingActivity : AppCompatActivity() {
                 datas.apply{
                     for(comment in it){
                         Log.d("[COMMENT LIST]","ADD ALL REVIEWS")
-                        var commentData = CommentData(commentId= comment.commentId!!, reviewId=comment.reviewId!!, nickname=comment.nickname!!, time=comment.time!!, comment=comment.comment!!)
+                        val commentData = CommentData(commentId= comment.commentId!!, reviewId=comment.reviewId!!, nickname=comment.nickname!!, time=comment.time!!, comment=comment.comment!!)
                         add(commentData)
                         Log.d("[COMMENT LIST]", commentData.toString())
                     }
