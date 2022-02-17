@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.ImageButton
 import androidx.activity.addCallback
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
 import org.smu.blood.ui.NavigationActivity
 import org.smu.blood.R
@@ -76,14 +78,6 @@ class BoardFragment : Fragment() {
                     //글쓰기 데이터
                     Log.d("글삭제 데이터", deleteState.toString())
                 }
-                /* db에서 글 삭제할때사용
-                val intent = Intent(context, BoardWritingActivity::class.java)
-                intent.putExtra("position", position)
-                intent.putExtra("title", data.title)
-                intent.putExtra("nickname", data.nickname)
-                intent.putExtra("time", data.time)
-                intent.putExtra("heartcount", data.heartcount)
-                startActivity(intent)*/
             }
         })
         //버튼
@@ -94,13 +88,12 @@ class BoardFragment : Fragment() {
         //내가 쓴 글 누르기 이벤트
         myboardread.setOnCheckedChangeListener{ buttonview, isChecked ->
             if(isChecked) {//내가 쓴 글 필터링
-                boardAdapter.filter.filter("장구벌레")
+                boardAdapter.filter.filter("Snowflake") //필터링 내 닉네임
                 Log.d("내가쓴글", "체크선택")
-                boardAdapter.notifyDataSetChanged()
             }
             else {
                 Log.d("내가쓴글", "체크해제")
-
+                boardAdapter.filter.filter("")
             }
         }
 
@@ -114,19 +107,9 @@ class BoardFragment : Fragment() {
             val contents = arguments?.getString("contents")
             val time = arguments?.getString("time")
             if (title != null) {
-                Log.d("데이터받아와졋나 확인",title)
+                Log.d("data",title)
             }
-            else Log.d("데이터받아와졌나","아니")
-           /* var datas = mutableListOf<BoardData>()
-            datas.add(0, BoardData(title = title.toString() ,nickname = "장구벌레", time = time.toString(),heartcount = 0))
-            boardAdapter.notifyItemInserted(0)*/
-            /* val title = arguments?.getString("title")
-            val contents = arguments?.getString("contents")
-            val time = arguments?.getString("time")
-            val title = intent.getStringExtra("title")
-            val contents = ar.getStringExtra("contents")
-            val time = intent.getStringExtra("time")
-            Log.d("보드 레지스터에서 받아온거",title+contents+time)*/
+            else Log.d("data","x")
         }
 
         //마이페이지로 이동
@@ -150,6 +133,10 @@ class BoardFragment : Fragment() {
             (activity as NavigationActivity).showFinishToast()
         }
     }
+    fun refreshFragment(fragment: Fragment, fragmentManager: FragmentManager) {
+        var ft: FragmentTransaction = fragmentManager.beginTransaction()
+        ft.detach(fragment).attach(fragment).commit()
+    }
 
     private fun initRecycler() {
         datas.apply {
@@ -170,8 +157,9 @@ class BoardFragment : Fragment() {
                 ,heartcount = 7, commentcount = 0,boardtext = "본문내용6"))
             add(BoardData(id = "게시글 id",title = "용산지역 혈액 수급",nickname = "yenomg34",time = "지난 주"
                 ,heartcount = 12, commentcount = 0,boardtext = "본문내용7"))
-            boardAdapter.datas = datas
+            boardAdapter.unFilteredList = datas
             boardAdapter.notifyDataSetChanged()
         }
+        boardAdapter.filter.filter("")
     }
 }
