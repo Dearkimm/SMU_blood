@@ -93,12 +93,6 @@ class BoardRegisterActivity : AppCompatActivity() { //게시판 글쓰고 등록
                         }
                         boardfragment.arguments = bundle
 
-                        /*
-                        finish()
-                        val intent = Intent(this,BoardWritingActivity::class.java)
-                        startActivity(intent)
-
-                         */
                         // 수정 후 BoardWritingActivity로 이동해서 정보가 업데이트된 게시글 가져오기
                         var binding2: ActivityNavigationBinding = ActivityNavigationBinding.inflate(layoutInflater)
                         setContentView(binding2.root)

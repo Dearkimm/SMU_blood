@@ -1,6 +1,7 @@
 package org.smu.blood.ui.main
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import org.smu.blood.ui.base.BaseFragment
 import org.smu.blood.ui.main.adapter.MainRequestAdapter
 import androidx.activity.addCallback
 import com.google.android.gms.common.util.CollectionUtils.listOf
+import org.smu.blood.api.MainService
 import org.smu.blood.model.BloodType
 import org.smu.blood.model.Hospital
 import org.smu.blood.util.*
@@ -30,13 +32,32 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
 
         configureMainNavigation()
         initMain()
-        //addMainRequestInfo()
+        addMainRequestInfo()
         configureClickEvent()
     }
 
     private fun initMain() {
+        MainService(requireContext()).mainList {
+            // DB에서 가져온 리스트 서버로부터 받기
+            if(it!=null){
+                Log.d("[BLOOD REQUEST LIST]","GET LIST")
+                var requestList = mutableListOf<MainRequest>()
+                for(request in it){
+                    var mainRequest = MainRequest(request.hospitalId!!, request.rhType!!, request.bloodType!!, request.donationType!!, request.startDate!!, request.endDate!!, request.applicantNum!!, request.story!!, request.registerTime!!)
+                    Log.d("[BLOOD REQUEST LIST]", mainRequest.toString())
+                    // MainRequest 리스트에 넣기
+                    requestList.add(mainRequest)
+                }
+                for(request in requestList) Log.d("[BLOOD REQUEST LIST]", request.toString())
+                mainRequestAdapter.setItems(requestList)
+            }else{
+                Log.d("[BLOOD REQUEST LIST]","GET LIST FAILURE OR NO LIST")
+            }
+        }
+        /*
         when (MainRequestFragment.requestState) {
-            1 -> mainRequestAdapter.setItems(
+            1 -> {
+                mainRequestAdapter.setItems(
                 listOf(
                     MainRequest(2, true, 2,"전혈",
                         "21.12.15", "21.12.20", 0,
@@ -58,7 +79,9 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
                         "할아버지께서 급하게 수혈이 필요한 상황인데 저는 타지에서 근무 중이라 직접 지정 헌혈을 할 수 없게 되어 간절한 마음을 담아 지정 헌혈 요청을 해봅니다.", "2021.12.04(토) 오후 21:48"),
 
                     )
-            )
+                )
+
+            }
 
             else -> mainRequestAdapter.setItems(
                 listOf(
@@ -80,8 +103,9 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
 
                     )
             )
-
         }
+
+         */
     }
 
 
@@ -98,15 +122,25 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
         }
     }
 
+    // 서버에 requestInfo 보내기
     private fun addMainRequestInfo() {
-        // 서버 통신 코드
-//        val call: Call<ResponseRequest> = ServiceCreator.bumService.getRequest(
-//        call.enqueueUtil(
-//            onSuccess = {
-//                mainRequestAdapter.setItems()
-//            }
-//        )
-
+        when (MainRequestFragment.requestState) {
+            1 -> {
+                Log.d(
+                    "[REGISTER BLOOD REQUEST] SEND REQUEST INFO",
+                    MainRequestFragment.requestInfo.toString()
+                )
+                MainService(requireContext()).mainRequest(MainRequestFragment.requestInfo) {
+                    if (it == true) {
+                        Log.d("[REGISTER BLOOD REQUEST]", "SUCCESS")
+                    }else{
+                        Log.d("[REGISTER BLOOD REQUEST]", "FAILURE")
+                    }
+                }
+                MainRequestFragment.requestState = 0
+            }
+        }
+        /*
         // 더미데이터
         mainRequestAdapter.setItems(
             listOf(
@@ -130,7 +164,9 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
 
                 )
         )
+         */
     }
+
 
     private fun configureClickEvent() {
         mainRequestAdapter.setItemClickListener(object : MainRequestAdapter.ItemClickListener {

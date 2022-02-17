@@ -27,14 +27,20 @@ class MainRequestAdapter: RecyclerView.Adapter<MainRequestAdapter.MainRequestVie
     ) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(requestInfo: MainRequest, position: Int) {
             val rh = if (requestInfo.rhType) "+" else "-"
-            var blood = ""
+            /*var blood = ""
             var hospital = ""
+
             BloodType.values().forEach {
                 if (requestInfo.bloodType == it.id) blood = it.bloodType
             }
             Hospital.values().forEach {
                 if (requestInfo.hospitalId == it.id) hospital = it.hospitalName
             }
+            */
+
+            val blood = BloodType.values().first { it.id == requestInfo.bloodType }.bloodType
+            val hospital = Hospital.values().first { it.id == requestInfo.hospitalId }.hospitalName
+
             binding.apply {
                 reqHospital.text = hospital
                 reqBlood.text = "RH${rh} ${blood}형 ${requestInfo.donationType}"
