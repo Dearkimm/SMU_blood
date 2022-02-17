@@ -14,24 +14,24 @@ import org.smu.blood.api.SessionManager
 class BoardAdapter(private val context:Context) :
 RecyclerView.Adapter<BoardAdapter.ViewHolder>(),Filterable {
 
-    var datas = mutableListOf<BoardData>()
+    //var datas = mutableListOf<BoardData>()
 
     //필터링 관련 변수들
-    private var unFilteredList = datas
-    private var filteredList = datas
+    var unFilteredList = mutableListOf<BoardData>()
+    var filteredList = mutableListOf<BoardData>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         Log.d("[REVIEW LIST3]","ADD REVIEW")
         val view = LayoutInflater.from(context).inflate(R.layout.item_board,parent,false)
         return ViewHolder(view)
     }
-    override fun getItemCount(): Int = datas.size
+    override fun getItemCount(): Int = filteredList.size
 
     //필터링
     override fun getFilter(): Filter {
         return object : Filter() {
             override fun performFiltering(constraint: CharSequence?): FilterResults {
-                val charString = constraint.toString() //내 id
+                val charString = constraint.toString()
                 filteredList = if (charString.isEmpty()) {
                     unFilteredList
                 } else {
@@ -54,7 +54,7 @@ RecyclerView.Adapter<BoardAdapter.ViewHolder>(),Filterable {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Log.d("[REVIEW LIST3]","ADD REVIEW")
-        holder.bind(datas[position])
+        holder.bind(filteredList[position])
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -108,7 +108,7 @@ RecyclerView.Adapter<BoardAdapter.ViewHolder>(),Filterable {
     //삭제
     fun removeItem(position: Int){
         if(position>=0) {
-            datas.removeAt(position)
+            filteredList.removeAt(position)
             notifyItemRemoved(position)
             notifyDataSetChanged()
         }

@@ -108,15 +108,12 @@ class BoardFragment : Fragment() {
         //내가 쓴 글 누르기 이벤트
         myboardread.setOnCheckedChangeListener{ buttonview, isChecked ->
             if(isChecked) {//내가 쓴 글 필터링
-                /*
-                boardAdapter.filter.filter("장구벌레")
-                */
-                boardAdapter.filter.filter(nickname)
+                boardAdapter.filter.filter(nickname) //필터링 내 닉네임
                 Log.d("내가쓴글", "체크선택")
-                boardAdapter.notifyDataSetChanged()
             }
             else {
                 Log.d("내가쓴글", "체크해제")
+                boardAdapter.filter.filter("")
             }
         }
 
@@ -134,20 +131,9 @@ class BoardFragment : Fragment() {
             val time = arguments?.getString("time")
             val heartCount = arguments?.getInt("heartCount")
             if (title != null) {
-                Log.d("데이터받아와졋나 확인",reviewId.toString()+" "+userId+" "+userNickname+" "+title+" "+contents+" "+time+" "+heartCount)
+                Log.d("데이터 확인",reviewId.toString()+" "+userId+" "+userNickname+" "+title+" "+contents+" "+time+" "+heartCount)
             }
-            else Log.d("데이터받아와졌나","아니")
-
-            /* var datas = mutableListOf<BoardData>()
-            datas.add(0, BoardData(title = title.toString() ,nickname = "장구벌레", time = time.toString(),heartcount = 0))
-            boardAdapter.notifyItemInserted(0)*/
-            /* val title = arguments?.getString("title")
-            val contents = arguments?.getString("contents")
-            val time = arguments?.getString("time")
-            val title = intent.getStringExtra("title")
-            val contents = ar.getStringExtra("contents")
-            val time = intent.getStringExtra("time")
-            Log.d("보드 레지스터에서 받아온거",title+contents+time)*/
+            else Log.d("데이터","x")
         }
 
         //마이페이지로 이동
@@ -193,9 +179,10 @@ class BoardFragment : Fragment() {
                         add(boardData)
                         Log.d("[REVIEW LIST2]", boardData.toString())
                     }
-                    boardAdapter.datas = datas
+                    boardAdapter.unFilteredList = datas
                     boardAdapter.notifyDataSetChanged()
                 }
+                boardAdapter.filter.filter("")
             }else Log.d("[REVIEW LIST2]", "FAILURE")
         }
 
