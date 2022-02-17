@@ -10,12 +10,15 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.recyclerview.widget.RecyclerView
 import org.smu.blood.ui.NavigationActivity
 import org.smu.blood.R
 import org.smu.blood.api.ReviewService
+import org.smu.blood.databinding.ActivityNavigationBinding
 import org.smu.blood.databinding.FragmentBoardBinding
+import org.smu.blood.util.replaceFragment
 
 class BoardFragment : Fragment() {
     lateinit var boardAdapter: BoardAdapter
@@ -167,12 +170,12 @@ class BoardFragment : Fragment() {
 
     private fun initRecycler() {
         // DB에서 전체 후기 가져와서 보여주기
-        ReviewService(requireContext()).reviewList{
-            if(it!=null){
-                for(review in it) Log.d("[REVIEW LIST2]", "$review")
+        ReviewService(requireContext()).reviewList{ reviewList ->
+            if(reviewList!=null){
+                for(review in reviewList) Log.d("[REVIEW LIST2]", "$review")
                 Log.d("[REVIEW LIST2]", "get all reviews")
                 datas.apply{
-                    for(review in it){
+                    for(review in reviewList){
                         Log.d("[REVIEW LIST2]","ADD ALL REVIEWS")
                         var boardData = BoardData(boardId=review.reviewId!!, title="${review.title}", nickname="${review.nickname}", time="${review.writeTime}",
                             heartcount=review.likeNum!!, boardtext="${review.contents}", commentcount=review.commentCount!!)

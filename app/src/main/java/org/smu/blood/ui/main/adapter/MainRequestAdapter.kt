@@ -1,5 +1,6 @@
 package org.smu.blood.ui.main.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -7,6 +8,7 @@ import org.smu.blood.api.database.MainRequest
 import org.smu.blood.databinding.ItemCardRequestBinding
 import org.smu.blood.model.BloodType
 import org.smu.blood.model.Hospital
+
 
 class MainRequestAdapter: RecyclerView.Adapter<MainRequestAdapter.MainRequestViewHolder>() {
 
@@ -25,21 +27,12 @@ class MainRequestAdapter: RecyclerView.Adapter<MainRequestAdapter.MainRequestVie
         private val binding: ItemCardRequestBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(requestInfo: MainRequest, position: Int) {
+            Log.d("[REQUEST OF MY APPLY]", "SET REQUEST INFO")
             val rh = if (requestInfo.rhType) "+" else "-"
-            /*var blood = ""
-            var hospital = ""
-
-            BloodType.values().forEach {
-                if (requestInfo.bloodType == it.id) blood = it.bloodType
-            }
-            Hospital.values().forEach {
-                if (requestInfo.hospitalId == it.id) hospital = it.hospitalName
-            }
-            */
-
             val blood = BloodType.values().first { it.id == requestInfo.bloodType }.bloodType
             val hospital = Hospital.values().first { it.id == requestInfo.hospitalId }.hospitalName
 
+            // main 페이지에서 보여주는 request 정보, 지정 헌혈 기록 카드에서 보여주는 정보
             binding.apply {
                 reqHospital.text = hospital
                 reqBlood.text = "RH${rh} ${blood}형 ${requestInfo.donationType}"

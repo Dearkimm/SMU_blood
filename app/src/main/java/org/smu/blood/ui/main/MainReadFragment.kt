@@ -37,7 +37,7 @@ class MainReadFragment : BaseFragment<FragmentMainReadBinding>() {
     }
 
     private fun readDialog(){
-        // show request info -------------
+        // show request info
         val rh = if (request.rhType) "+" else "-"
         val blood = BloodType.values().first { it.id == request.bloodType }.bloodType
         val hospital = Hospital.values().first { it.id == request.hospitalId }.hospitalName
@@ -50,7 +50,6 @@ class MainReadFragment : BaseFragment<FragmentMainReadBinding>() {
         binding.atvEnddate.text = request.endDate
         binding.atvNum.text = request.count.toString()
         binding.atvCon.text = request.content
-        // ------------------
 
         binding.mainreadButton.setOnClickListener {
             val dlg = MapCheckConditionAlert(requireContext())
