@@ -65,7 +65,7 @@
                     app:layout_constraintTop_toBottomOf="@id/tv_req" />
 
                 <TextView
-                    android:id="@+id/tv_up_date"
+                    android:id="@+id/tv_up_datetxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
@@ -76,10 +76,23 @@
                     android:textSize="13sp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/view"
-                    android:text="글 등록일자 : 2021.12.11 20:42" />
+                    android:text="글 등록 일자 :" />
+                <TextView
+                    android:id="@+id/tv_up_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="14dp"
+                    android:fontFamily="@font/notosans_light"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    app:layout_constraintLeft_toRightOf="@+id/tv_up_datetxt"
+                    app:layout_constraintTop_toBottomOf="@id/view"
+                    android:text="2021.12.11 10:31" />
 
                 <TextView
-                    android:id="@+id/tv_up_type"
+                    android:id="@+id/tv_up_type1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
@@ -90,7 +103,33 @@
                     android:textSize="13sp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_up_date"
-                    android:text="Rh+ B 전혈" />
+                    android:text="Rh+" />
+                <TextView
+                    android:id="@+id/tv_up_type2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginTop="9dp"
+                    android:fontFamily="@font/notosans_light"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    app:layout_constraintLeft_toRightOf="@+id/tv_up_type1"
+                    app:layout_constraintTop_toBottomOf="@id/tv_up_date"
+                    android:text="B" />
+                <TextView
+                    android:id="@+id/tv_up_type3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginTop="9dp"
+                    android:fontFamily="@font/notosans_light"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    app:layout_constraintLeft_toRightOf="@+id/tv_up_type2"
+                    app:layout_constraintTop_toBottomOf="@id/tv_up_date"
+                    android:text="전혈" />
 
                 <TextView
                     android:id="@+id/tv_up_hos"
@@ -103,10 +142,63 @@
                     android:textColor="@color/black"
                     android:textSize="13sp"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_up_type"
-                    android:text="신촌세브란스병원 301호 박요청 (87654321)" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_up_type1"
+                    android:text="강동성심병원" />
                 <TextView
-                    android:id="@+id/tv_up_num"
+                    android:id="@+id/tv_up_hosroom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="9dp"
+                    android:fontFamily="@font/notosans_light"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    app:layout_constraintLeft_toRightOf="@id/tv_up_hos"
+                    app:layout_constraintTop_toBottomOf="@id/tv_up_type1"
+                    android:text="517" />
+                <TextView
+                    android:id="@+id/tv_up_hosroomtxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="9dp"
+                    android:fontFamily="@font/notosans_light"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    app:layout_constraintLeft_toRightOf="@id/tv_up_hosroom"
+                    app:layout_constraintTop_toBottomOf="@id/tv_up_type1"
+                    android:text="호" />
+                <TextView
+                    android:id="@+id/tv_up_patient"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="9dp"
+                    android:fontFamily="@font/notosans_light"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    app:layout_constraintLeft_toRightOf="@id/tv_up_hosroomtxt"
+                    app:layout_constraintTop_toBottomOf="@id/tv_up_type1"
+                    android:text="김숙명" />
+                <TextView
+                    android:id="@+id/tv_up_patientnumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="9dp"
+                    android:fontFamily="@font/notosans_light"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    app:layout_constraintLeft_toRightOf="@id/tv_up_patient"
+                    app:layout_constraintTop_toBottomOf="@id/tv_up_type1"
+                    android:text="12345678" />
+
+                <TextView
+                    android:id="@+id/tv_up_pnumtxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
@@ -117,10 +209,23 @@
                     android:textSize="13sp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_up_hos"
-                    android:text="보호자 연락처 : 010-4321-8765" />
+                    android:text="보호자 연락처:" />
+                <TextView
+                    android:id="@+id/tv_up_pnum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="9dp"
+                    android:fontFamily="@font/notosans_light"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    app:layout_constraintLeft_toRightOf="@id/tv_up_pnumtxt"
+                    app:layout_constraintTop_toBottomOf="@id/tv_up_hos"
+                    android:text="010 1234 5678" />
 
                 <TextView
-                    android:id="@+id/tv_up_dates"
+                    android:id="@+id/tv_up_starttxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
@@ -130,8 +235,47 @@
                     android:textColor="@color/black"
                     android:textSize="13sp"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_up_num"
-                    android:text="요청 시작 2021.12.12 ~ 요청 마감 2021.12.23" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_up_pnum"
+                    android:text="요청 시작" />
+                <TextView
+                    android:id="@+id/tv_up_startdate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="9dp"
+                    android:fontFamily="@font/notosans_light"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    app:layout_constraintLeft_toRightOf="@id/tv_up_starttxt"
+                    app:layout_constraintTop_toBottomOf="@id/tv_up_pnum"
+                    android:text="2021.12.11" />
+                <TextView
+                    android:id="@+id/tv_up_endtxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="9dp"
+                    android:fontFamily="@font/notosans_light"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    app:layout_constraintLeft_toRightOf="@id/tv_up_startdate"
+                    app:layout_constraintTop_toBottomOf="@id/tv_up_pnum"
+                    android:text="~ 요청 마감" />
+                <TextView
+                    android:id="@+id/tv_up_enddate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="9dp"
+                    android:fontFamily="@font/notosans_light"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    app:layout_constraintLeft_toRightOf="@id/tv_up_endtxt"
+                    app:layout_constraintTop_toBottomOf="@id/tv_up_pnum"
+                    android:text="2021.12.17" />
             <!-- 열람 기한 지난 개인정보
                 <TextView
                     android:id="@+id/tv_notice"
@@ -184,7 +328,7 @@
                     app:layout_constraintTop_toBottomOf="@id/tv_info" />
 
                 <TextView
-                    android:id="@+id/tv_total"
+                    android:id="@+id/tv_totaltxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
@@ -197,7 +341,22 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/view_2"
-                    android:text="신청 일시 : 2021.12.15 16:38" />
+                    android:text="신청 일시 :" />
+                <TextView
+                    android:id="@+id/tv_total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginBottom="17dp"
+                    android:fontFamily="@font/notosans_light"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/tv_totaltxt"
+                    app:layout_constraintTop_toBottomOf="@id/view_2"
+                    android:text="2021.12.15 16:38" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

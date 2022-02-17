@@ -12,7 +12,7 @@ import org.smu.blood.R
 import org.smu.blood.api.SessionManager
 
 class BoardAdapter(private val context:Context) :
-RecyclerView.Adapter<BoardAdapter.ViewHolder>(),Filterable {
+    RecyclerView.Adapter<BoardAdapter.ViewHolder>(),Filterable {
 
     //var datas = mutableListOf<BoardData>()
 

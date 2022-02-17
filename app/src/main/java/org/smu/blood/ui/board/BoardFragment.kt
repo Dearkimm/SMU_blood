@@ -36,7 +36,7 @@ class BoardFragment : Fragment() {
     }
 
     override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+                               savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_board, container, false)
@@ -144,7 +144,7 @@ class BoardFragment : Fragment() {
     }
 
     companion object {
-         @JvmStatic
+        @JvmStatic
         fun newInstance(param1: String, param2: String) =
             BoardFragment().apply {
                 arguments = Bundle().apply {
