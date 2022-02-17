@@ -1,7 +1,7 @@
 package org.smu.blood.api.database
 
 class Request {
-    var id: Int? = null
+    var requestId: Int? = null
     var userId: String? = null
     var hospitalId: Int? = null
     var bloodType: Int? = null
@@ -21,7 +21,7 @@ class Request {
     }
 
     constructor(
-        id: Int?,
+        requestId: Int?,
         userId: String?,
         hospitalId: Int?,
         bloodType: Int?,
@@ -37,7 +37,7 @@ class Request {
         story: String?,
         applicantNum: Int?
     ) {
-        this.id = id
+        this.requestId = requestId
         this.userId = userId
         this.hospitalId = hospitalId
         this.bloodType = bloodType
@@ -55,6 +55,6 @@ class Request {
     }
 
     override fun toString(): String {
-        return "Request(id=$id, userId=$userId, hospitalId=$hospitalId, bloodType=$bloodType, rhType=$rhType, donationType=$donationType, wardNum=$wardNum, patientName=$patientName, patientNum=$patientNum, protectorContact=$protectorContact, startDate=$startDate, endDate=$endDate, registerTime=$registerTime, story=$story, applicantNum=$applicantNum, donationType=$donationType)"
+        return "Request(requestId=$requestId, userId=$userId, hospitalId=$hospitalId, bloodType=$bloodType, rhType=$rhType, donationType=$donationType, wardNum=$wardNum, patientName=$patientName, patientNum=$patientNum, protectorContact=$protectorContact, startDate=$startDate, endDate=$endDate, registerTime=$registerTime, story=$story, applicantNum=$applicantNum)"
     }
 }

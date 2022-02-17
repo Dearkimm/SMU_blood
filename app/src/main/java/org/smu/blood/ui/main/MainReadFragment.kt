@@ -52,6 +52,7 @@ class MainReadFragment : BaseFragment<FragmentMainReadBinding>() {
     }
 
     private fun readDialog(){
+
         binding.mainreadButton.setOnClickListener {
             val dlg = MapCheckConditionAlert(requireContext())
 

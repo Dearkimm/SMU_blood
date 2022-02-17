@@ -1,6 +1,7 @@
 package org.smu.blood.api
 
 import org.smu.blood.api.database.Comment
+import org.smu.blood.api.database.Request
 import org.smu.blood.api.database.Review
 import org.smu.blood.api.database.User
 import retrofit2.Call
@@ -63,6 +64,7 @@ interface BlringService {
     @GET("review/myList")
     fun getMyReviewList(@Header("nickname") nickname: String): Call<List<Review>>
 
+
     // write comment API
     @POST("review/addComment")
     fun writeComment(@Header("token") token: String, @Body reviewInfo: HashMap<String,String>): Call<Boolean>
@@ -82,4 +84,12 @@ interface BlringService {
     // heart check event
     @POST("review/heart")
     fun checkHeart(@Header("token") token: String, @Body reviewInfo: HashMap<String, String>): Call<Boolean>
+
+    // blood request in main page
+    @POST("main/registerRequest")
+    fun bloodRequest(@Header("token") token: String, @Body requestInfo: Request): Call<Boolean>
+
+    // get list of blood donation request
+    @GET("main/list")
+    fun getRequestList(): Call<List<Request>>
 }

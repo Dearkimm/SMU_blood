@@ -13,4 +13,6 @@ data class MainRequest(
     val count: Int,
     val content: String,
     val updatedDate: DateString,
-)
+){
+
+}
