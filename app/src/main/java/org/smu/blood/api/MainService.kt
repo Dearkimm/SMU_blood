@@ -2,6 +2,7 @@ package org.smu.blood.api
 
 import android.content.Context
 import android.util.Log
+import org.smu.blood.api.database.Apply
 import org.smu.blood.api.database.Request
 import retrofit2.Call
 import retrofit2.Callback
@@ -47,6 +48,27 @@ class MainService(context: Context) {
             override fun onFailure(call: Call<List<Request>>, t: Throwable) {
                 Log.d("[BLOOD REQUEST LIST]", t.localizedMessage)
                 onResult(null)
+            }
+        })
+    }
+
+    // register blood donation apply
+    fun registerApply(applyInfo: HashMap<String, String>, onResult: (Boolean?) -> Unit){
+        val bloodApplyAPI = ServiceCreator.bumService.bloodApply("${sessionManager.fetchToken()}", applyInfo)
+        bloodApplyAPI.enqueue(object : Callback<Boolean>{
+            override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
+                if(response.isSuccessful){
+                    Log.d("[REGISTER BLOOD APPLY]", response.body().toString())
+                    onResult(response.body())
+                }else{
+                    Log.d("[REGISTER BLOOD APPLY] GET RESPONSE", "FAILURE")
+                    onResult(false)
+                }
+            }
+
+            override fun onFailure(call: Call<Boolean>, t: Throwable) {
+                Log.d("[REGISTER BLOOD APPLY]", t.localizedMessage)
+                onResult(false)
             }
         })
     }

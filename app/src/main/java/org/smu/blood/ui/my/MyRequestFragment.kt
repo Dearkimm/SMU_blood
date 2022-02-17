@@ -32,7 +32,9 @@ class MyRequestFragment : BaseFragment<FragmentMyRequestBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.myCardList.layoutManager = LinearLayoutManager(activity)
         binding.myCardList.adapter = myCardAdapter
+        /*
         myCardAdapter.setItems(
+
             listOf(
                 MainRequest(2, true, 2,"전혈",
                     "21.12.15", "21.12.20", 0,
@@ -42,13 +44,18 @@ class MyRequestFragment : BaseFragment<FragmentMyRequestBinding>() {
                     "21.12.09", "21.12.17", 2,
                     "친한 언니가 급성 심근염으로 중환자실에서 힘든 시간을 보내고 있습니다. Rh+ A형 혈소판을 구하고 있으니 가능하시다면 헌혈을 간곡하게 부탁드립니다.", "2021.12.11(토) 오전 10:31"),
             )
+
+
         )
+
+         */
 
         //요청자 시점
         binding.recRequest.setOnClickListener {
             binding.recRequest.setTextColor(Color.RED)
             binding.recApply.setTextColor(Color.BLACK)
             cardState = 0
+            /*
             myCardAdapter.setItems(
                 listOf(
                     MainRequest(2, true, 2,"전혈",
@@ -61,12 +68,15 @@ class MyRequestFragment : BaseFragment<FragmentMyRequestBinding>() {
                 )
             )
 
+             */
+
         }
         //신청자 시점
         binding.recApply.setOnClickListener {
             binding.recApply.setTextColor(Color.RED)
             binding.recRequest.setTextColor(Color.BLACK)
             cardState = 1
+            /*
             myCardAdapter.setItems(
                 listOf(
                     //최근꺼에 신청 눌렀을 때,
@@ -79,6 +89,8 @@ class MyRequestFragment : BaseFragment<FragmentMyRequestBinding>() {
                         "어쩌구저쩌구..ㅠ", "2021.10.01(금) 오전 09:20"),
                 )
             )
+
+             */
         }
 
         addMyCardInfo()
@@ -95,6 +107,7 @@ class MyRequestFragment : BaseFragment<FragmentMyRequestBinding>() {
 //            }
 //        )
 
+        /*
         // 더미데이터
         myCardAdapter.setItems(
             listOf(
@@ -107,6 +120,8 @@ class MyRequestFragment : BaseFragment<FragmentMyRequestBinding>() {
                     "친한 언니가 급성 심근염으로 중환자실에서 힘든 시간을 보내고 있습니다. Rh+ A형 혈소판을 구하고 있으니 가능하시다면 헌혈을 간곡하게 부탁드립니다.", "2021.12.11(토) 오전 10:31"),
             )
         )
+
+         */
     }
 
     private fun configureMyRequestNavigation() {
@@ -118,16 +133,8 @@ class MyRequestFragment : BaseFragment<FragmentMyRequestBinding>() {
     private fun configureClickEvent() {
         myCardAdapter.setItemClickListener(object : MainRequestAdapter.ItemClickListener {
             override fun onClick(requestInfo: MainRequest) {
-                //
-                hospitalId = requestInfo.hospitalId
-                rhType = requestInfo.rhType
-                bloodType = requestInfo.bloodType
-                donationType = requestInfo.donationType
-                startDate = requestInfo.startDate
-                endDate = requestInfo.endDate
-                count = requestInfo.count
-                content = requestInfo.content
-                updatedDate = requestInfo.updatedDate
+                // 지정 헌혈 요청 내용 정보 넣기
+                request = requestInfo
 
                 //(activity as NavigationActivity).navigateMainToRead()
                 if(cardState == 0){ //요청 기록 카드
@@ -143,6 +150,7 @@ class MyRequestFragment : BaseFragment<FragmentMyRequestBinding>() {
 
 
     companion object {
+        lateinit var request: MainRequest
         var hospitalId = -1
         var rhType = false
         var bloodType = -1

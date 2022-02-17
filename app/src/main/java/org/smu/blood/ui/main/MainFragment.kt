@@ -43,7 +43,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
                 Log.d("[BLOOD REQUEST LIST]","GET LIST")
                 var requestList = mutableListOf<MainRequest>()
                 for(request in it){
-                    var mainRequest = MainRequest(request.hospitalId!!, request.rhType!!, request.bloodType!!, request.donationType!!, request.startDate!!, request.endDate!!, request.applicantNum!!, request.story!!, request.registerTime!!)
+                    var mainRequest = MainRequest(request.hospitalId!!, request.requestId!!, request.rhType!!, request.bloodType!!, request.donationType!!, request.startDate!!, request.endDate!!, request.applicantNum!!, request.story!!, request.registerTime!!)
                     Log.d("[BLOOD REQUEST LIST]", mainRequest.toString())
                     // MainRequest 리스트에 넣기
                     requestList.add(mainRequest)
@@ -171,15 +171,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
     private fun configureClickEvent() {
         mainRequestAdapter.setItemClickListener(object : MainRequestAdapter.ItemClickListener {
             override fun onClick(requestInfo: MainRequest) {
-                hospitalId = requestInfo.hospitalId
-                rhType = requestInfo.rhType
-                bloodType = requestInfo.bloodType
-                donationType = requestInfo.donationType
-                startDate = requestInfo.startDate
-                endDate = requestInfo.endDate
-                count = requestInfo.count
-                content = requestInfo.content
-                updatedDate = requestInfo.updatedDate
+                request = requestInfo
+                Log.d("[SHOW REQUEST INFO]",request.toString())
 
                 (activity as NavigationActivity).navigateMainToRead()
             }
@@ -189,14 +182,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
     }
 
     companion object {
-        var hospitalId = -1
-        var rhType = false
-        var bloodType = -1
-        var donationType = ""
-        var startDate = ""
-        var endDate = ""
-        var count = -1
-        var content = ""
-        var updatedDate = ""
+        lateinit var request: MainRequest
     }
 }

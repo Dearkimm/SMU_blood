@@ -4,18 +4,24 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.TextView
 import android.widget.Toast
 import org.smu.blood.R
+import org.smu.blood.api.MainService
+import org.smu.blood.api.database.Apply
 import org.smu.blood.databinding.FragmentMainReadBinding
 import org.smu.blood.ui.NavigationActivity
 import org.smu.blood.ui.main.MainFragment
 import org.smu.blood.ui.main.MainReadFragment
 import org.smu.blood.ui.my.MyCardActivity
 import org.smu.blood.ui.my.MyRequestFragment
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 
 class MapApplicationActivity : AppCompatActivity() {
     var confirmState = false
@@ -70,6 +76,19 @@ class MapApplicationActivity : AppCompatActivity() {
                         goCardState = 0
                     } else { //마이페이지에서 신청 확인하기
                         goCardState = 1
+                    }
+
+                    // 서버에 보낼 Apply 정보 넣기
+                    val applyInfo = HashMap<String, String>()
+                    applyInfo["applyDate"] = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd")) + " " +
+                            LocalTime.now().format(DateTimeFormatter.ofPattern("hh:mm"))
+                    applyInfo["requestId"] = MainFragment.request.requestId.toString()
+
+                    // Apply 정보 서버에 보내기
+                    MainService(this).registerApply(applyInfo){
+                        Log.d("[REGISTER BLOOD APPLY] SEND APPLY INFO", "applyDate: ${applyInfo["applyDate"]}, requestId: ${applyInfo["requestId"]}")
+                        if(it==true) Log.d("[REGISTER BLOOD APPLY]", "SUCCESS")
+                        else Log.d("[REGISTER BLOOD APPLY]", "FAILURE")
                     }
 
                     val intent = Intent(this, NavigationActivity::class.java)

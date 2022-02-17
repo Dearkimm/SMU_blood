@@ -1,9 +1,6 @@
 package org.smu.blood.api
 
-import org.smu.blood.api.database.Comment
-import org.smu.blood.api.database.Request
-import org.smu.blood.api.database.Review
-import org.smu.blood.api.database.User
+import org.smu.blood.api.database.*
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -92,4 +89,8 @@ interface BlringService {
     // get list of blood donation request
     @GET("main/list")
     fun getRequestList(): Call<List<Request>>
+
+    // register blood donation apply
+    @POST("main/apply")
+    fun bloodApply(@Header("token") token: String, @Body applyInfo: HashMap<String, String>): Call<Boolean>
 }

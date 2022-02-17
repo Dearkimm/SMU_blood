@@ -51,17 +51,6 @@ class BoardWritingActivity : AppCompatActivity() {
 
         val reviewService = ReviewService(this)
 
-        /*
-        // 사용자 닉네임 가져오기
-        reviewService.myNickname{
-            if(it!=null){
-                currentNickname = it.toString()
-                Log.d("[MY NICKNAME]",currentNickname)
-            }else Log.d("[MY NICKNAME]","GET FAILURE")
-        }
-
-         */
-
         // 게시글 내용 세팅
         initBoardRead()
 
@@ -169,7 +158,8 @@ class BoardWritingActivity : AppCompatActivity() {
                 binding.commentBt.setOnClickListener {
 
                     // 수정하는 comment 내용 가져오기
-                    val editComment = binding.commentBt.text.toString()
+                    val editComment = binding.commentEt.text.toString()
+                    Log.d("[EDIT COMMENT]", editComment)
                     // 수정 날짜, 시간 가져오기
                     val time = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm"))
                     val date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
@@ -209,13 +199,16 @@ class BoardWritingActivity : AppCompatActivity() {
             val reviewInfo = HashMap<String,String>()
             val reviewNickname = binding.writingNickname.text.toString()
             val reviewTime = binding.writingTime.text.toString()
-            val reviewHeart: Int
+            val reviewHeart: Int = if(isChecked) binding.heartCounts.text.toString().toInt()+1 else binding.heartCounts.text.toString().toInt()-1
 
+            /*
             if(isChecked){
                 reviewHeart = binding.heartCounts.text.toString().toInt()+1
             }else{
                 reviewHeart = binding.heartCounts.text.toString().toInt()-1
             }
+             */
+
             // 게시글에 대한 사용자의 좋아요 체크 여부 저장
             SessionManager(this).saveHeart(currentNickname, boardId, isChecked)
 
@@ -333,6 +326,5 @@ class BoardWritingActivity : AppCompatActivity() {
             boardreadAdapter.notifyDataSetChanged()
         }
          */
-        //내가 쓴 댓글( 댓글 닉네임 = 내 닉네임 일경우) 댓글 수정,삭제버튼 visibility true 로 바꾸기
     }
 }

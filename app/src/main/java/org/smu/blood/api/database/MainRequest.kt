@@ -5,6 +5,7 @@ import java.util.*
 
 data class MainRequest(
     val hospitalId: Int,
+    val requestId: Int,
     val rhType: Boolean,
     val bloodType: Int,
     var donationType: String,
@@ -13,6 +14,4 @@ data class MainRequest(
     val count: Int,
     val content: String,
     val updatedDate: DateString,
-){
-
-}
+)

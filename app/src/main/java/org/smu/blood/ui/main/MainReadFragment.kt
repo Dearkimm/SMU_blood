@@ -1,37 +1,22 @@
 package org.smu.blood.ui.main
 
-import android.app.Activity
-import android.app.Instrumentation
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat.startActivityForResult
-import androidx.fragment.app.Fragment
 import org.smu.blood.databinding.FragmentMainReadBinding
 import org.smu.blood.model.BloodType
 import org.smu.blood.model.Hospital
 import org.smu.blood.ui.NavigationActivity
 import org.smu.blood.ui.base.BaseFragment
-import org.smu.blood.ui.main.MainFragment.Companion.bloodType
-import org.smu.blood.ui.main.MainFragment.Companion.content
-import org.smu.blood.ui.main.MainFragment.Companion.count
-import org.smu.blood.ui.main.MainFragment.Companion.donationType
-import org.smu.blood.ui.main.MainFragment.Companion.endDate
-import org.smu.blood.ui.main.MainFragment.Companion.hospitalId
-import org.smu.blood.ui.main.MainFragment.Companion.rhType
-import org.smu.blood.ui.main.MainFragment.Companion.startDate
+import org.smu.blood.ui.main.MainFragment.Companion.request
 import org.smu.blood.ui.main.adapter.MainRequestAdapter
 import org.smu.blood.ui.map.MapApplicationActivity
-import org.smu.blood.ui.map.MapApplicationCompleteAlert
 import org.smu.blood.ui.map.MapCheckConditionAlert
-import org.smu.blood.ui.my.MyRequestFragment
+
 
 class MainReadFragment : BaseFragment<FragmentMainReadBinding>() {
     private val mainRequestAdapter = MainRequestAdapter()
@@ -52,6 +37,20 @@ class MainReadFragment : BaseFragment<FragmentMainReadBinding>() {
     }
 
     private fun readDialog(){
+        // show request info -------------
+        val rh = if (request.rhType) "+" else "-"
+        val blood = BloodType.values().first { it.id == request.bloodType }.bloodType
+        val hospital = Hospital.values().first { it.id == request.hospitalId }.hospitalName
+        binding.atvType.text = "RH${rh} ${blood}"
+        binding.atvHos.text = hospital
+        binding.atvType2.text = "Rh${rh}"
+        binding.atvType3.text = "${blood}형"
+        binding.atvType4.text = request.donationType
+        binding.atvStartdate.text = request.startDate
+        binding.atvEnddate.text = request.endDate
+        binding.atvNum.text = request.count.toString()
+        binding.atvCon.text = request.content
+        // ------------------
 
         binding.mainreadButton.setOnClickListener {
             val dlg = MapCheckConditionAlert(requireContext())
