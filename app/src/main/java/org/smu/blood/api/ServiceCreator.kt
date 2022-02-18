@@ -14,16 +14,9 @@ object ServiceCreator {
         var gson = GsonBuilder()
             .setLenient()
             .create()
-    /*
-        val okHttpClient = OkHttpClient.Builder()
-            .connectTimeout(1, TimeUnit.MINUTES)
-            .readTimeout(30, TimeUnit.SECONDS)
-            .writeTimeout(15, TimeUnit.SECONDS)
-            .build()
-     */
+
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
-            //.client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
 
