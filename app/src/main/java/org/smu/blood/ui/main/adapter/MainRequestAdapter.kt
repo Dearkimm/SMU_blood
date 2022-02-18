@@ -12,12 +12,12 @@ import org.smu.blood.model.BloodType
 import org.smu.blood.model.Hospital
 import org.smu.blood.ui.board.BoardData
 import org.smu.blood.ui.main.MainFragment
-import org.smu.blood.ui.main.MainFragment.Companion.donationType
+//import org.smu.blood.ui.main.MainFragment.Companion.donationType
 
 class MainRequestAdapter: RecyclerView.Adapter<MainRequestAdapter.MainRequestViewHolder>(),
     Filterable {
 
-    val request = mutableListOf<MainRequest>()
+    //val request = mutableListOf<MainRequest>()
     private lateinit var itemClickListener: ItemClickListener
 
     var unFilteredList = mutableListOf<MainRequest>()
@@ -77,7 +77,7 @@ class MainRequestAdapter: RecyclerView.Adapter<MainRequestAdapter.MainRequestVie
                 reqTime.text = requestInfo.updatedDate
 
                 itemView.setOnClickListener {
-                    itemClickListener.onClick(request[position])
+                    itemClickListener.onClick(filteredList[position])
                 }
             }
         }
@@ -91,13 +91,13 @@ class MainRequestAdapter: RecyclerView.Adapter<MainRequestAdapter.MainRequestVie
     // override fun getItemCount(): Int = request.size
 
     fun setItems(newItems: List<MainRequest>) {
-        request.clear()
-        request.addAll(newItems)
+        filteredList.clear()
+        filteredList.addAll(newItems)
         notifyDataSetChanged()
     }
 
     fun addItems(newItems: List<MainRequest>) {
-        request.addAll(newItems)
+        filteredList.addAll(newItems)
         notifyDataSetChanged()
     }
 
