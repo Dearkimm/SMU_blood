@@ -9,17 +9,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.addCallback
-import androidx.fragment.app.Fragment
 import org.smu.blood.ui.NavigationActivity
 import org.smu.blood.R
-import org.smu.blood.api.MainService
 import org.smu.blood.api.database.Request
 import org.smu.blood.databinding.FragmentMainRequestBinding
 import org.smu.blood.model.Hospital
 import org.smu.blood.ui.base.BaseFragment
 import org.smu.blood.ui.main.MainSearchHospitalFragment.Companion.hospitalName
-import org.smu.blood.util.DateString
-import org.smu.blood.util.padZero
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter

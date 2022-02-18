@@ -60,10 +60,35 @@
         android:textSize="13sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/atv_hos"
-        android:text="Rh+ B형 혈소판" />
-
+        android:text="Rh+" />
     <TextView
-        android:id="@+id/atv_time"
+        android:id="@+id/atv_type3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="35dp"
+        android:fontFamily="@font/notosans_regular"
+        android:includeFontPadding="false"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintLeft_toRightOf="@id/atv_type2"
+        app:layout_constraintTop_toBottomOf="@id/atv_hos"
+        android:text="B형" />
+    <TextView
+        android:id="@+id/atv_type4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="35dp"
+        android:fontFamily="@font/notosans_regular"
+        android:includeFontPadding="false"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintLeft_toRightOf="@id/atv_type3"
+        app:layout_constraintTop_toBottomOf="@id/atv_hos"
+        android:text="혈소판" />
+    <TextView
+        android:id="@+id/atv_start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
@@ -74,10 +99,49 @@
         android:textSize="13sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/atv_type2"
-        android:text="요청 시작일 2021.12.12 ~ 마감일 2021.12.23" />
+        android:text="요청 시작일" />
+    <TextView
+        android:id="@+id/atv_startdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="35dp"
+        android:fontFamily="@font/notosans_regular"
+        android:includeFontPadding="false"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintLeft_toRightOf="@id/atv_start"
+        app:layout_constraintTop_toBottomOf="@id/atv_type2"
+        android:text="2021.12.12" />
+    <TextView
+        android:id="@+id/atv_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="35dp"
+        android:fontFamily="@font/notosans_regular"
+        android:includeFontPadding="false"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintLeft_toRightOf="@id/atv_startdate"
+        app:layout_constraintTop_toBottomOf="@id/atv_type2"
+        android:text="~ 마감일" />
+    <TextView
+        android:id="@+id/atv_enddate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="35dp"
+        android:fontFamily="@font/notosans_regular"
+        android:includeFontPadding="false"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintLeft_toRightOf="@id/atv_end"
+        app:layout_constraintTop_toBottomOf="@id/atv_type2"
+        android:text="2021.12.23" />
 
     <TextView
-        android:id="@+id/atv_num"
+        android:id="@+id/atv_numtxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
@@ -87,8 +151,34 @@
         android:textColor="@color/black"
         android:textSize="13sp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/atv_time"
-        android:text="신청 0명" />
+        app:layout_constraintTop_toBottomOf="@id/atv_startdate"
+        android:text="신청" />
+    <TextView
+        android:id="@+id/atv_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="35dp"
+        android:fontFamily="@font/notosans_regular"
+        android:includeFontPadding="false"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintLeft_toRightOf="@id/atv_numtxt"
+        app:layout_constraintTop_toBottomOf="@id/atv_startdate"
+        android:text="0" />
+    <TextView
+        android:id="@+id/atv_numtxt2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="35dp"
+        android:fontFamily="@font/notosans_regular"
+        android:includeFontPadding="false"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintLeft_toRightOf="@id/atv_num"
+        app:layout_constraintTop_toBottomOf="@id/atv_startdate"
+        android:text="명" />
 
     <TextView
         android:id="@+id/atv_con"

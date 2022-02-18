@@ -1,5 +1,6 @@
 package org.smu.blood.ui.main.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Filter
@@ -61,27 +62,18 @@ class MainRequestAdapter: RecyclerView.Adapter<MainRequestAdapter.MainRequestVie
         private val binding: ItemCardRequestBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(requestInfo: MainRequest, position: Int) {
-            val rh = if (requestInfo.rhType) "+" else "-"
-            /*var blood = ""
-            var hospital = ""
-
-            BloodType.values().forEach {
-                if (requestInfo.bloodType == it.id) blood = it.bloodType
-            }
-            Hospital.values().forEach {
-                if (requestInfo.hospitalId == it.id) hospital = it.hospitalName
-            }
-            */
-
+            Log.d("[REQUEST OF MY APPLY]", "SET REQUEST INFO")
+            val rh = if (requestInfo.rhType) "-" else "+"
             val blood = BloodType.values().first { it.id == requestInfo.bloodType }.bloodType
             val hospital = Hospital.values().first { it.id == requestInfo.hospitalId }.hospitalName
 
+            // main 페이지에서 보여주는 request 정보, 지정 헌혈 기록 카드에서 보여주는 정보
             binding.apply {
                 reqHospital.text = hospital
                 reqBlood.text = "RH${rh} ${blood}형 ${requestInfo.donationType}"
                 reqDate.text = "${requestInfo.startDate}~${requestInfo.endDate}"
                 reqCount.text = "${requestInfo.count}명"
-                circleBlood.text = "RH $blood$rh"
+                circleBlood.text = "RH$rh $blood"
                 reqTime.text = requestInfo.updatedDate
 
                 itemView.setOnClickListener {
