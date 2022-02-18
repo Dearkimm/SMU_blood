@@ -2,17 +2,52 @@ package org.smu.blood.ui.main.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import org.smu.blood.api.database.MainRequest
 import org.smu.blood.databinding.ItemCardRequestBinding
 import org.smu.blood.model.BloodType
 import org.smu.blood.model.Hospital
+import org.smu.blood.ui.board.BoardData
+import org.smu.blood.ui.main.MainFragment
 import org.smu.blood.ui.main.MainFragment.Companion.donationType
 
-class MainRequestAdapter: RecyclerView.Adapter<MainRequestAdapter.MainRequestViewHolder>() {
+class MainRequestAdapter: RecyclerView.Adapter<MainRequestAdapter.MainRequestViewHolder>(),
+    Filterable {
 
     val request = mutableListOf<MainRequest>()
     private lateinit var itemClickListener: ItemClickListener
+
+    var unFilteredList = mutableListOf<MainRequest>()
+    var filteredList = mutableListOf<MainRequest>()
+
+    override fun getItemCount(): Int = filteredList.size
+
+    //필터링
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                val charString = constraint.toString()
+                filteredList = if (charString.isEmpty()) {
+                    unFilteredList
+                } else {
+                    var filteringList = mutableListOf<MainRequest>()
+                    for (item in unFilteredList) {
+                        if (item.bloodType.toString() == charString) filteringList.add(item) //내 id = 글 id
+                    }
+                    filteringList
+                }
+                val filterResults = FilterResults()
+                filterResults.values = filteredList
+                return filterResults
+            }
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                filteredList = results?.values as MutableList<MainRequest>
+                notifyDataSetChanged()
+            }
+        }
+    }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -57,10 +92,11 @@ class MainRequestAdapter: RecyclerView.Adapter<MainRequestAdapter.MainRequestVie
     }
 
     override fun onBindViewHolder(holder: MainRequestViewHolder, position: Int) {
-        holder.onBind(request[position], position)
+        holder.onBind(filteredList[position], position)
     }
 
-    override fun getItemCount(): Int = request.size
+    // 원래 있던거 필터때문에 잠시 주석
+    // override fun getItemCount(): Int = request.size
 
     fun setItems(newItems: List<MainRequest>) {
         request.clear()
