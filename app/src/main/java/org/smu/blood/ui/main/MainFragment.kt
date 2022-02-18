@@ -101,8 +101,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
     private fun configureClickEvent() {
         mainRequestAdapter.setItemClickListener(object : MainRequestAdapter.ItemClickListener {
             override fun onClick(requestInfo: MainRequest) {
-                filteredList = requestInfo
-                Log.d("[SHOW REQUEST INFO]",filteredList.toString())
+                unFilteredList = requestInfo
+                Log.d("[SHOW REQUEST INFO]",unFilteredList.toString())
 
                 (activity as NavigationActivity).navigateMainToRead()
             }
@@ -112,7 +112,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
         binding.mainSwitch.setOnCheckedChangeListener{buttonView, isChecked ->
             if (isChecked){
                 //필터사용
-                mainRequestAdapter.filter.filter(filteredList.bloodType.toString())
+                mainRequestAdapter.filter.filter(unFilteredList.bloodType.toString())
                 Log.d("내혈액형만보기", "체크선택")
             }
             else{
@@ -126,6 +126,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
     }
 
     companion object {
-        lateinit var filteredList: MainRequest
+        lateinit var unFilteredList: MainRequest
     }
 }
