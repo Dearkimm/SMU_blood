@@ -38,7 +38,7 @@ class MainReadFragment : BaseFragment<FragmentMainReadBinding>() {
 
     private fun readDialog(){
         // show request info
-        val rh = if (request.rhType) "+" else "-"
+        val rh = if (request.rhType) "-" else "+"
         val blood = BloodType.values().first { it.id == request.bloodType }.bloodType
         val hospital = Hospital.values().first { it.id == request.hospitalId }.hospitalName
         binding.atvType.text = "RH${rh} ${blood}"

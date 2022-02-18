@@ -28,7 +28,7 @@ class MainRequestAdapter: RecyclerView.Adapter<MainRequestAdapter.MainRequestVie
     ) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(requestInfo: MainRequest, position: Int) {
             Log.d("[REQUEST OF MY APPLY]", "SET REQUEST INFO")
-            val rh = if (requestInfo.rhType) "+" else "-"
+            val rh = if (requestInfo.rhType) "-" else "+"
             val blood = BloodType.values().first { it.id == requestInfo.bloodType }.bloodType
             val hospital = Hospital.values().first { it.id == requestInfo.hospitalId }.hospitalName
 
@@ -38,7 +38,7 @@ class MainRequestAdapter: RecyclerView.Adapter<MainRequestAdapter.MainRequestVie
                 reqBlood.text = "RH${rh} ${blood}형 ${requestInfo.donationType}"
                 reqDate.text = "${requestInfo.startDate}~${requestInfo.endDate}"
                 reqCount.text = "${requestInfo.count}명"
-                circleBlood.text = "RH $blood$rh"
+                circleBlood.text = "RH$rh $blood"
                 reqTime.text = requestInfo.updatedDate
 
                 itemView.setOnClickListener {

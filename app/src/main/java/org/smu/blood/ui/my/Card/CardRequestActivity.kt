@@ -26,7 +26,7 @@ class CardRequestActivity : AppCompatActivity() {
          */
 
         // 나의 요청 정보
-        val rh = if(MyRequestFragment.myRequest.rhType!!) "+" else "-"
+        val rh = if(MyRequestFragment.myRequest.rhType!!) "-" else "+"
         val blood = BloodType.values().first { it.id == MyRequestFragment.myRequest.bloodType }.bloodType
         val hospital = Hospital.values().first { it.id == MyRequestFragment.myRequest.hospitalId }.hospitalName
         findViewById<TextView>(R.id.tv_up_date).text = MyRequestFragment.myRequest.registerTime
