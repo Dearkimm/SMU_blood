@@ -52,7 +52,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
                     // MainRequest 리스트에 넣기
                     requestList.add(mainRequest)
                 }
-                mainRequestAdapter.setItems(requestList)
+                //mainRequestAdapter.setItems(requestList)
                 mainRequestAdapter.unFilteredList = requestList
                 mainRequestAdapter.notifyDataSetChanged()
                 for(request in requestList) Log.d("[BLOOD REQUEST LIST]", request.toString())
