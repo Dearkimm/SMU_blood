@@ -103,10 +103,10 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
     private fun configureClickEvent() {
         mainRequestAdapter.setItemClickListener(object : MainRequestAdapter.ItemClickListener {
             override fun onClick(requestInfo: MainRequest) {
-                unFilteredList = requestInfo
+                //unFilteredList = requestInfo
                 request = requestInfo
 
-                Log.d("[SHOW REQUEST INFO]",unFilteredList.toString())
+                Log.d("[SHOW REQUEST INFO]",request.toString())
 
                 (activity as NavigationActivity).navigateMainToRead()
             }

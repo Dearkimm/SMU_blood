@@ -7,10 +7,13 @@ import android.widget.TextView
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import org.smu.blood.R
+import org.smu.blood.ui.main.adapter.MainRequestAdapter
 
 class MyCardActivity : AppCompatActivity() {
     //프래그먼트 관련 변수
     private var fragmentManager: FragmentManager? = null
+    //어댑터
+    private val myCardAdapter = MainRequestAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,6 +25,7 @@ class MyCardActivity : AppCompatActivity() {
 
         //프래그먼트 관련 초기화
         fragmentManager = supportFragmentManager
+
 
         //요청카드 띄우기
         request.setOnClickListener {
