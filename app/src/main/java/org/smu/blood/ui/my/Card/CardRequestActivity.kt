@@ -27,8 +27,8 @@ class CardRequestActivity : AppCompatActivity() {
         for(apply in MyRequestFragment.applyList)
             findViewById<TextView>(R.id.tv_date1).text = apply.applyDate
          */
-
-        val applytimelist: LinearLayout = findViewById(R.id.card_request_list)
+        //val timelist: LinearLayout = findViewById(R.id.card_request_list)
+        val timeList = findViewById<LinearLayout>(R.id.card_request_list)
         for(apply in MyRequestFragment.applyList){
             val time = TextView(this@CardRequestActivity)
             val layoutParams = LinearLayout.LayoutParams(
@@ -39,10 +39,10 @@ class CardRequestActivity : AppCompatActivity() {
             time.layoutParams = layoutParams
             time.text = apply.applyDate //신청일시
             time.setTextSize(Dimension.SP,13.0f)
-            time.setTypeface(resources.getFont(R.font.notosans_light))
+            time.typeface = resources.getFont(R.font.notosans_light)
             time.includeFontPadding = false
             time.setTextColor(Color.BLACK)
-            applytimelist.addView(time)
+            timeList.addView(time)
         }
 
         // 나의 요청 정보
