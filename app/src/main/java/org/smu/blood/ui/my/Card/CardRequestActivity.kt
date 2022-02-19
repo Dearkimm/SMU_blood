@@ -1,8 +1,11 @@
 package org.smu.blood.ui.my.Card
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.WindowManager
+import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.annotation.Dimension
 import androidx.appcompat.app.AppCompatActivity
 import org.smu.blood.R
 import org.smu.blood.model.BloodType
@@ -24,6 +27,23 @@ class CardRequestActivity : AppCompatActivity() {
         for(apply in MyRequestFragment.applyList)
             findViewById<TextView>(R.id.tv_date1).text = apply.applyDate
          */
+
+        val applytimelist: LinearLayout = findViewById(R.id.card_request_list)
+        for(apply in MyRequestFragment.applyList){
+            val time = TextView(this@CardRequestActivity)
+            val layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+            )
+            layoutParams.setMargins(0,0,0,5)
+            time.layoutParams = layoutParams
+            time.text = apply.applyDate //신청일시
+            time.setTextSize(Dimension.SP,13.0f)
+            time.setTypeface(resources.getFont(R.font.notosans_light))
+            time.includeFontPadding = false
+            time.setTextColor(Color.BLACK)
+            applytimelist.addView(time)
+        }
 
         // 나의 요청 정보
         val rh = if(MyRequestFragment.myRequest.rhType!!) "-" else "+"
