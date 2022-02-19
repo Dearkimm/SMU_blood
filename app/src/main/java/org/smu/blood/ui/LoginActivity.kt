@@ -85,6 +85,7 @@ class LoginActivity : AppCompatActivity() {
                 loginInfo["AutoLogin"] = AutoLogin.toString()
                 signIn(loginInfo){
                     if(it != null){
+
                         Log.d("LOGIN USER", "user: $it, token: $token")
                         Toast.makeText(baseContext, "로그인 성공", Toast.LENGTH_SHORT).show()
                         // 사용자 토큰 저장
@@ -131,23 +132,21 @@ class LoginActivity : AppCompatActivity() {
                 if(response.isSuccessful){
                     // 해당 사용자가 없는 경우
                     if (response.body() == null) {
-                        Log.d("[LOGIN]", "FAILED")
+                        Log.d("LOGIN", "FAILED")
                         onResult(null)
                     } else{ // 사용자 있는 경우
-                        Log.d("[LOGIN]", response.message())
+                        Log.d("LOGIN", "SUCCESS")
                         token = response.headers()["jwt-token"].toString()
                         onResult(response.body())
                     }
                 }else{
                     // 서버 응답 오류
-                    Log.d("[LOGIN] RESPONSE FROM SERVER", "FAILURE")
-                    onResult(null)
+                    Log.d("RESPONSE FROM SERVER: ", "FAILURE")
                 }
             }
             override fun onFailure(call: Call<User>, t: Throwable) {
                 // 서버 연결 오류
-                Log.d("CONNECTION TO SERVER FAILURE", t.localizedMessage)
-                onResult(null)
+                Log.d("CONNECTION TO SERVER FAILURE: ", t.localizedMessage)
             }
         })
     }

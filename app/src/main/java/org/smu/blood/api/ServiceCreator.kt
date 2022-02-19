@@ -1,6 +1,10 @@
 package org.smu.blood.api
 
 import com.google.gson.GsonBuilder
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
+import okhttp3.Response
+//import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -14,16 +18,9 @@ object ServiceCreator {
         var gson = GsonBuilder()
             .setLenient()
             .create()
-    /*
-        val okHttpClient = OkHttpClient.Builder()
-            .connectTimeout(1, TimeUnit.MINUTES)
-            .readTimeout(30, TimeUnit.SECONDS)
-            .writeTimeout(15, TimeUnit.SECONDS)
-            .build()
-     */
+
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
-            //.client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
 
