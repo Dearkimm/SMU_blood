@@ -130,7 +130,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginBottom="20dp"
                     >
-                    <TextView
+                    <!--<TextView
                         android:id="@+id/tv_date1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -159,7 +159,7 @@
                         android:paddingBottom="5dp"
                         android:textColor="@color/black"
                         android:textSize="13sp"
-                        android:text="ddddddd" />
+                        android:text="ddddddd" />-->
                 </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
