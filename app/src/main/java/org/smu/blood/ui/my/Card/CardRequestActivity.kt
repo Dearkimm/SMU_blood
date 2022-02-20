@@ -2,6 +2,7 @@ package org.smu.blood.ui.my.Card
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.WindowManager
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -43,6 +44,7 @@ class CardRequestActivity : AppCompatActivity() {
             time.includeFontPadding = false
             time.setTextColor(Color.BLACK)
             timeList.addView(time)
+            Log.d("check ",time.toString())
         }
 
         // 나의 요청 정보
