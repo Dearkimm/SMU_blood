@@ -57,11 +57,6 @@ interface BlringService {
     @POST("review/delete")
     fun reviewDelete(@Header("token") token: String, @Body deleteInfo: HashMap<String,String>): Call<Boolean>
 
-    // get my review list
-    @GET("review/myList")
-    fun getMyReviewList(@Header("nickname") nickname: String): Call<List<Review>>
-
-
     // write comment API
     @POST("review/addComment")
     fun writeComment(@Header("token") token: String, @Body reviewInfo: HashMap<String,String>): Call<Boolean>
@@ -81,6 +76,9 @@ interface BlringService {
     // heart check event
     @POST("review/heart")
     fun checkHeart(@Header("token") token: String, @Body reviewInfo: HashMap<String, String>): Call<Boolean>
+
+    @POST("review/getHeartState")
+    fun getHeart(@Header("token") token: String, @Body reviewId: Int): Call<ReviewLike>
 
     // blood request in main page
     @POST("main/registerRequest")

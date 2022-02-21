@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.Log
 import org.smu.blood.api.database.Comment
 import org.smu.blood.api.database.Review
-import org.smu.blood.ui.board.CommentData
+import org.smu.blood.api.database.ReviewLike
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -136,36 +136,6 @@ class ReviewService(context: Context) {
         })
     }
 
-    // get my review list
-    fun getMyReviewList(nickname: String, onResult: (List<Review>?) -> Unit){
-        val myReviewListAPI = ServiceCreator.bumService.getMyReviewList(nickname)
-        myReviewListAPI.enqueue(object : Callback<List<Review>>{
-            override fun onResponse(call: Call<List<Review>>, response: Response<List<Review>>) {
-                // 서버 응답 성공
-                if(response.isSuccessful){
-                    // 토큰 유효하지 않은 경우
-                    if (response.body() == null) {
-                        Log.d("[REVIEW LIST1]", "FAILED")
-                        onResult(null)
-                    } else{ // 토큰 유효, 응답 성공
-                        Log.d("[REVIEW LIST1]", "SUCCESS")
-                        for(review: Review in response.body()!!) Log.d("[REVIEW LIST1]", review.toString())
-                        onResult(response.body())
-                    }
-                }else{
-                    // 서버 응답 실패
-                    Log.d("[REVIEW LIST1] RESPONSE FROM SERVER", response.message())
-                    onResult(null)
-                }
-            }
-
-            override fun onFailure(call: Call<List<Review>>, t: Throwable) {
-                Log.d("[REVIEW LIST1] CONNECTION TO SERVER", t.localizedMessage)
-                onResult(null)
-            }
-        })
-    }
-
     // add comment
     fun commentWrite(info: HashMap<String,String>, onResult: (Boolean?) -> Unit){
         val addCommentAPI = ServiceCreator.bumService.writeComment("${sessionManager.fetchToken()}", info)
@@ -269,5 +239,26 @@ class ReviewService(context: Context) {
                 onResult(false)
             }
         })
+    }
+
+    // get my heart state of review
+    fun getMyHeartState(reviewId: Int, onResult: (ReviewLike?) -> Unit){
+        ServiceCreator.bumService.getHeart("${sessionManager.fetchToken()}", reviewId)
+            .enqueue(object : Callback<ReviewLike>{
+                override fun onResponse(call: Call<ReviewLike>, response: Response<ReviewLike>) {
+                    if(response.isSuccessful){
+                        Log.d("[GET HEART STATE OF REVIEW]", response.body().toString())
+                        onResult(response.body())
+                    }else{
+                        Log.d("[GET HEART STATE OF REVIEW]", "RESPONSE FAILURE")
+                        onResult(null)
+                    }
+                }
+
+                override fun onFailure(call: Call<ReviewLike>, t: Throwable) {
+                    Log.d("[GET HEART STATE OF REVIEW] CONNECTION TO SERVER", t.localizedMessage)
+                    onResult(null)
+                }
+            })
     }
 }

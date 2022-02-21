@@ -105,6 +105,7 @@ class MyRequestFragment : BaseFragment<FragmentMyRequestBinding>() {
                     Log.d("[MY APPLY LIST]", "GET LIST")
                     // 내 신청 정보 리스트에 넣기
                     applyList = myApplyList
+                    val mainRequestList = mutableListOf<MainRequest>()
                     val requestListForApply = mutableListOf<MainRequest>()
 
                     for(apply in myApplyList){
@@ -114,10 +115,20 @@ class MyRequestFragment : BaseFragment<FragmentMyRequestBinding>() {
                                 Log.d("[REQUEST OF MY APPLY] GET REQUEST", "$request")
 
                                 val mainRequest = MainRequest(request.hospitalId!!, request.requestId!!, request.rhType!!, request.bloodType!!, request.donationType!!, request.startDate!!, request.endDate!!, request.applicantNum!!, request.story!!, request.registerTime!!)
+                                Log.d("[MY REQUEST LIST]", mainRequest.toString())
+                                // 각 request 정보 MainRequest 리스트에 넣기
+                                mainRequestList.add(mainRequest)
+
+                                /*
+                                val mainRequest = MainRequest(request.hospitalId!!, request.requestId!!, request.rhType!!, request.bloodType!!, request.donationType!!, request.startDate!!, request.endDate!!, request.applicantNum!!, request.story!!, request.registerTime!!)
                                 Log.d("[REQUEST OF MY APPLY]", mainRequest.toString())
 
                                 // 내가 신청한 지정 헌혈 요청 정보 MainRequest 리스트에 넣기
-                                requestListForApply.add(mainRequest)
+                                requestListForApply.add(
+                                    MainRequest(request.hospitalId!!, request.requestId!!, request.rhType!!, request.bloodType!!, request.donationType!!, request.startDate!!, request.endDate!!, request.applicantNum!!, request.story!!, request.registerTime!!)
+                                )
+
+                                 */
 
                                 // Request 객체를 requestList에 넣기
                                 requestList.add(request)
@@ -125,9 +136,11 @@ class MyRequestFragment : BaseFragment<FragmentMyRequestBinding>() {
                         }
                     }
                     // 신청 기록에 보여줄 MainRequest 리스트 세팅
-                    requestListForApply.forEach { Log.d("[REQUEST OF MY APPLY] REQUEST LIST",it.toString()) }
-                    myCardAdapter.setItems(requestListForApply)
-                    myCardAdapter.notifyDataSetChanged()
+                    mainRequestList.forEach {
+                        Log.d("[REQUEST OF MY APPLY] requestListForApply", it.toString())
+                    }
+                    myCardAdapter.setItems(mainRequestList)
+                    //myCardAdapter.setItems(requestListForApply)
                 }else{
                     Log.d("[REQUEST OF MY APPLY]", "GET APPLY LIST FAILURE")
                 }
@@ -149,7 +162,8 @@ class MyRequestFragment : BaseFragment<FragmentMyRequestBinding>() {
                 myRequest  = requestList.first { it.requestId ==  requestInfo.requestId }
 
                 //(activity as NavigationActivity).navigateMainToRead()
-                intent = if(cardState==0) Intent(context, CardRequestActivity::class.java) else Intent(context, CardApplyActivity::class.java)
+                if(cardState == 0) intent = Intent(context, CardRequestActivity::class.java)
+                else intent = Intent(context, CardApplyActivity::class.java)
 
                 startActivity(intent)
 
