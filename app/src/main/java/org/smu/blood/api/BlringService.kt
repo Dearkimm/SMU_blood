@@ -10,12 +10,16 @@ interface BlringService {
     fun createUser(@Body user: User): Call<HashMap<String, Int>>
 
     // Login API
-    @POST("signIn")
+    @POST("signIn/general")
     fun loginUser(@Body info: HashMap<String,String>): Call<User>
 
     // token validation API
-    @GET("tokenValid")
+    @GET("signIn/tokenValid")
     fun tokenValid(@Header("token") token: String): Call<Boolean>
+
+    // login (google) API
+    @POST("signIn/google")
+    fun gloginUser(@Body info: HashMap<String,String>): Call<User>
 
     // get user id API
     @GET("myPage/myId")

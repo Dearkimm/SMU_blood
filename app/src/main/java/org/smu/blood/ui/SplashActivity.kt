@@ -7,6 +7,7 @@ import android.os.Looper
 import android.util.Log
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.auth.api.signin.GoogleSignIn
 import org.smu.blood.R
 import org.smu.blood.api.*
 import retrofit2.Call
@@ -24,26 +25,38 @@ class SplashActivity : AppCompatActivity() {
 
         Handler(Looper.getMainLooper()).postDelayed({
             var token = sessionManager.fetchToken()
+
             if(token!=null){
                 // 토큰 유효성 검증
                 checkTokenValid("$token"){
                     if(it==true) { // 토큰 유효한 경우
-                        Log.d("[CHECK TOKEN VALID]", it.toString())
-                        finish()
-                        val intent1 = Intent(this, NavigationActivity::class.java)
-                        startActivity(intent1)
+                        // 구글 연동하여 로그인한 경우
+                        val account = GoogleSignIn.getLastSignedInAccount(this)
+                        if(account != null) {
+                            Log.d("[GOOGLE LOGIN]", account.toString())
+                            when(account?.isExpired){
+                                true -> {
+                                    Log.d("[GOOGLE LOGIN]", "GOOGLE ID TOKEN EXPIRED")
+                                    goLogin()
+                                }
+                                false -> {
+                                    Log.d("[GOOGLE LOGIN]", "id: ${account.id}, displayname: ${account.displayName}, givenname: ${account.givenName}, familyname: ${account.familyName}, email: ${account.email}")
+                                    goMain()
+                                }
+                            }
+                        }else{
+                            Log.d("[CHECK TOKEN VALID]", it.toString())
+                            goMain()
+                        }
                     } else { // 토큰 유효하지 않은 경우
                         // 토큰 삭제
                         sessionManager.removeToken()
-                        finish()
-                        val intent2 = Intent(this, LoginActivity::class.java)
-                        startActivity(intent2)
+                        goLogin()
                     }
                 }
             } else {
-                finish()
-                val intent3 = Intent(this, LoginActivity::class.java)
-                startActivity(intent3)
+                Log.d("[GOOGLE LOGIN]", "NO JWT TOKEN")
+                goLogin()
             }
             //네비게이션 액티비티
             //startActivity(intent)
@@ -71,5 +84,17 @@ class SplashActivity : AppCompatActivity() {
                 onResult(false)
             }
         })
+    }
+
+    private fun goLogin(){
+        finish()
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun goMain(){
+        finish()
+        val intent = Intent(this, NavigationActivity::class.java)
+        startActivity(intent)
     }
 }
