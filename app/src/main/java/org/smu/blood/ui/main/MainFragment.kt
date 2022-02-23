@@ -47,6 +47,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
             if(it!=null){
                 Log.d("[BLOOD REQUEST LIST]","GET LIST")
                 var requestList = mutableListOf<MainRequest>()
+                rList = requestList
                 for(request in it){
                     var mainRequest = MainRequest(request.hospitalId!!, request.requestId!!, request.rhType!!, request.bloodType!!, request.donationType!!, request.startDate!!, request.endDate!!, request.applicantNum!!, request.story!!, request.registerTime!!)
                     Log.d("[BLOOD REQUEST LIST]", mainRequest.toString())
@@ -131,7 +132,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
     }
 
     companion object {
-        lateinit var unFilteredList: MainRequest
         lateinit var request: MainRequest
+        lateinit var rList: List<MainRequest>
     }
 }

@@ -108,27 +108,17 @@ class MyRequestFragment : BaseFragment<FragmentMyRequestBinding>() {
                     val mainRequestList = mutableListOf<MainRequest>()
                     val requestListForApply = mutableListOf<MainRequest>()
 
+                    // 서버에서 내가 신청한 요청은 가져오는데 mainRequest 리스트에 안 들어가서 신청 기록 안 보여줌 (수정 필요)
                     for(apply in myApplyList){
                         // get request of my apply
                         MainService(requireContext()).requestOfApply(apply.requestId!!){ request ->
                             if(request!=null){
                                 Log.d("[REQUEST OF MY APPLY] GET REQUEST", "$request")
-
+                                // 내가 신청한 지정 헌혈 요청 정보 MainRequest 리스트에 넣기
                                 val mainRequest = MainRequest(request.hospitalId!!, request.requestId!!, request.rhType!!, request.bloodType!!, request.donationType!!, request.startDate!!, request.endDate!!, request.applicantNum!!, request.story!!, request.registerTime!!)
                                 Log.d("[MY REQUEST LIST]", mainRequest.toString())
                                 // 각 request 정보 MainRequest 리스트에 넣기
                                 mainRequestList.add(mainRequest)
-
-                                /*
-                                val mainRequest = MainRequest(request.hospitalId!!, request.requestId!!, request.rhType!!, request.bloodType!!, request.donationType!!, request.startDate!!, request.endDate!!, request.applicantNum!!, request.story!!, request.registerTime!!)
-                                Log.d("[REQUEST OF MY APPLY]", mainRequest.toString())
-
-                                // 내가 신청한 지정 헌혈 요청 정보 MainRequest 리스트에 넣기
-                                requestListForApply.add(
-                                    MainRequest(request.hospitalId!!, request.requestId!!, request.rhType!!, request.bloodType!!, request.donationType!!, request.startDate!!, request.endDate!!, request.applicantNum!!, request.story!!, request.registerTime!!)
-                                )
-
-                                 */
 
                                 // Request 객체를 requestList에 넣기
                                 requestList.add(request)
