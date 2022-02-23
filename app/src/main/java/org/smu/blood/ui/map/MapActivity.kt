@@ -3,11 +3,9 @@ package org.smu.blood.ui.map
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
-import android.net.Uri
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
@@ -26,16 +24,12 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
-import org.smu.blood.databinding.ActivityMapBinding
 import org.smu.blood.R
-import android.view.LayoutInflater
 import android.view.View.VISIBLE
 import android.view.WindowManager
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContentProviderCompat.requireContext
 import com.google.android.gms.maps.model.*
 import org.smu.blood.ui.NavigationActivity
 
@@ -48,7 +42,7 @@ class MapActivity : AppCompatActivity() , GoogleMap.OnMarkerClickListener, Googl
 //
     //구글맵 관련 변수들
     private lateinit var mMap:GoogleMap
-    private lateinit var mCameraPosition:CameraPosition
+    private var mCameraPosition:CameraPosition? = null
 
     //Places api의 엔트리 포인트(?)
     private lateinit var mGeoDataClient: GeoDataClient
@@ -89,14 +83,15 @@ class MapActivity : AppCompatActivity() , GoogleMap.OnMarkerClickListener, Googl
         37.55601572907209, 37.485228339956684, 37.47869303536205, 37.51287217850732, 37.50707682233656)
     private var bloodCenterLon = arrayOf(126.870757963193, 126.96943844782595, 126.93729104782592, 126.93781013988672, 126.92031837854357,
         126.92282714782516, 126.9015716784774, 126.95257816313065, 126.92599587849107, 126.8902613784882)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //위치랑 카메라 권한 상태인가?? 아니면 걍 포지션..?
         if(savedInstanceState != null){
-            mLastKnownLocation = savedInstanceState.getParcelable<Location>(KEY_LOCATION)!!
-            mCameraPosition = savedInstanceState.getParcelable<CameraPosition>(KEY_CAMERA_POSITION)!!
+            mLastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION)
+            mCameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION)
         }
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
         setContentView(R.layout.activity_map)
 
@@ -108,8 +103,9 @@ class MapActivity : AppCompatActivity() , GoogleMap.OnMarkerClickListener, Googl
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map_fragment) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
+
         //팝업 버튼 이벤트
-        var btnGo = findViewById<Button>(R.id.btn_go)
+        val btnGo = findViewById<Button>(R.id.btn_go)
         btnGo.setOnClickListener {
             mapState = 1
             val intent = Intent(this, NavigationActivity::class.java)
@@ -118,11 +114,9 @@ class MapActivity : AppCompatActivity() , GoogleMap.OnMarkerClickListener, Googl
     }
 
     override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
-        if(mMap != null){
-            outState.putParcelable(KEY_CAMERA_POSITION, mMap.cameraPosition)
-            outState.putParcelable(KEY_LOCATION, mLastKnownLocation)
-            super.onSaveInstanceState(outState, outPersistentState)
-        }
+        outState.putParcelable(KEY_CAMERA_POSITION, mMap.cameraPosition)
+        outState.putParcelable(KEY_LOCATION, mLastKnownLocation)
+        super.onSaveInstanceState(outState, outPersistentState)
     }
 
     override fun onMyLocationButtonClick(): Boolean {
@@ -196,28 +190,30 @@ class MapActivity : AppCompatActivity() , GoogleMap.OnMarkerClickListener, Googl
         try {
             getLocationPermission()
             if(mLocationPermissionGranted){
-                var locationResult: Task<Location>  = mFusedLocationProviderClient.lastLocation
-                locationResult.addOnCompleteListener(this, object : OnCompleteListener<Location> {
-                    override fun onComplete(@NonNull task: Task<Location>) {
-                        if(task.isSuccessful){
-                            //지도 카메라 위치를 내 위치로 땡겨오기
-                            mLastKnownLocation = task?.result!!
-                            Log.d("내 위치", mLastKnownLocation!!.latitude.toString()+", "+mLastKnownLocation!!.longitude)
-                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(
-                                mLastKnownLocation!!.latitude, mLastKnownLocation!!.longitude),
-                                DEFAULT_ZOOM.toFloat()
-                            ))
-                        } else{
-                            Log.d(TAG, "현재 위치를 찾을 수 없어서 디폴트 씀")
-                            Log.e(TAG, "exception: %s", task.exception)
+                val locationResult: Task<Location>  = mFusedLocationProviderClient.lastLocation
+
+                locationResult.addOnCompleteListener(this){ task ->
+                    if(task.isSuccessful){
+                        //지도 카메라 위치를 내 위치로 땡겨오기
+                        mLastKnownLocation = task.result
+                        if(mLastKnownLocation != null){
+                            val myLatitude = mLastKnownLocation!!.latitude
+                            val myLongitude = mLastKnownLocation!!.longitude
+                            Log.d("내 위치", "latitude: $myLatitude, longitude: $myLongitude")
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                                mDefaultLocation,
+                                LatLng(mLastKnownLocation!!.latitude, mLastKnownLocation!!.longitude),
                                 DEFAULT_ZOOM.toFloat()
                             ))
-                            mMap.uiSettings.isMyLocationButtonEnabled = false
                         }
+                    }else{
+                        Log.d(TAG, "현재 위치를 찾을 수 없어서 디폴트 위치 사용")
+                        Log.e(TAG, "Exception: %s", task.exception)
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mDefaultLocation, DEFAULT_ZOOM.toFloat()))
+                        mMap.uiSettings.isMyLocationButtonEnabled = false
                     }
-                })
+                }
+
+
 
             }
         } catch (e: SecurityException){
@@ -227,7 +223,7 @@ class MapActivity : AppCompatActivity() , GoogleMap.OnMarkerClickListener, Googl
 
     //사용자한테 기기 위치 권한 받아오기
     private fun getLocationPermission(){
-        if(ContextCompat.checkSelfPermission(this.applicationContext, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        if(ContextCompat.checkSelfPermission(this.applicationContext, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             mLocationPermissionGranted = true
 
         } else {
@@ -263,13 +259,12 @@ class MapActivity : AppCompatActivity() , GoogleMap.OnMarkerClickListener, Googl
             placeResult.addOnCompleteListener(
                 object : OnCompleteListener<PlaceLikelihoodBufferResponse>{
                     override fun onComplete(task: Task<PlaceLikelihoodBufferResponse>) {
-                       if(task.isSuccessful() && task.getResult() != null){
-                           var likelyPlaces = task.getResult()
-                           var count = 0
-                           if(likelyPlaces.count < M_MAX_ENTRIES){
-                               count = likelyPlaces.count
+                       if(task.isSuccessful && task.result != null){
+                           var likelyPlaces = task.result
+                           var count = if(likelyPlaces.count < M_MAX_ENTRIES){
+                               likelyPlaces.count
                            } else{
-                               count = M_MAX_ENTRIES
+                               M_MAX_ENTRIES
                            }
 
                            var i = 0
