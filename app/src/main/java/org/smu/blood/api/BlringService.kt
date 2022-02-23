@@ -10,12 +10,16 @@ interface BlringService {
     fun createUser(@Body user: User): Call<HashMap<String, Int>>
 
     // Login API
-    @POST("signIn")
+    @POST("signIn/general")
     fun loginUser(@Body info: HashMap<String,String>): Call<User>
 
     // token validation API
-    @GET("tokenValid")
+    @GET("signIn/tokenValid")
     fun tokenValid(@Header("token") token: String): Call<Boolean>
+
+    // login (google) API
+    @POST("signIn/google")
+    fun gloginUser(@Body info: HashMap<String,String>): Call<User>
 
     // get user id API
     @GET("myPage/myId")
@@ -57,11 +61,6 @@ interface BlringService {
     @POST("review/delete")
     fun reviewDelete(@Header("token") token: String, @Body deleteInfo: HashMap<String,String>): Call<Boolean>
 
-    // get my review list
-    @GET("review/myList")
-    fun getMyReviewList(@Header("nickname") nickname: String): Call<List<Review>>
-
-
     // write comment API
     @POST("review/addComment")
     fun writeComment(@Header("token") token: String, @Body reviewInfo: HashMap<String,String>): Call<Boolean>
@@ -81,6 +80,9 @@ interface BlringService {
     // heart check event
     @POST("review/heart")
     fun checkHeart(@Header("token") token: String, @Body reviewInfo: HashMap<String, String>): Call<Boolean>
+
+    @POST("review/getHeartState")
+    fun getHeart(@Header("token") token: String, @Body reviewId: Int): Call<ReviewLike>
 
     // blood request in main page
     @POST("main/registerRequest")
