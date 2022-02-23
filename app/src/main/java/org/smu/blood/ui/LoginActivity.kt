@@ -178,6 +178,7 @@ class LoginActivity : AppCompatActivity() {
 
         // 구글 통해 앱 로그인 여부 확인
         val account = GoogleSignIn.getLastSignedInAccount(this)
+        val task = mGoogleSignInClient!!.silentSignIn()
         if(account!=null){ // 로그인 했으면 토큰 저장
             val loginInfo = HashMap<String,String>()
             loginInfo["id"] = account.email!!

@@ -8,8 +8,12 @@ import android.util.Log
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.tasks.Task
 import org.smu.blood.R
 import org.smu.blood.api.*
+import org.smu.blood.ui.LoginActivity.Companion.mGoogleSignInClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,7 +35,9 @@ class SplashActivity : AppCompatActivity() {
                 checkTokenValid("$token"){
                     if(it==true) { // 토큰 유효한 경우
                         // 구글 연동하여 로그인한 경우
+                        /*
                         val account = GoogleSignIn.getLastSignedInAccount(this)
+
                         if(account != null) {
                             Log.d("[GOOGLE LOGIN]", account.toString())
                             when(account?.isExpired){
@@ -40,6 +46,25 @@ class SplashActivity : AppCompatActivity() {
                                     goLogin()
                                 }
                                 false -> {
+                                    Log.d("[GOOGLE LOGIN]", "id: ${account.id}, displayname: ${account.displayName}, givenname: ${account.givenName}, familyname: ${account.familyName}, email: ${account.email}")
+                                    goMain()
+                                }
+                            }
+                        }else{
+                            Log.d("[CHECK TOKEN VALID]", it.toString())
+                            goMain()
+                        }
+
+                         */
+                        var task = mGoogleSignInClient?.silentSignIn()
+                        if(task != null){
+                            if(task!!.isSuccessful){
+                                val account = task.result
+                                Log.d("[GOOGLE LOGIN]", account.toString())
+                                if(account.isExpired){
+                                    Log.d("[GOOGLE LOGIN]", "GOOGLE ID TOKEN EXPIRED")
+                                    goLogin()
+                                }else{
                                     Log.d("[GOOGLE LOGIN]", "id: ${account.id}, displayname: ${account.displayName}, givenname: ${account.givenName}, familyname: ${account.familyName}, email: ${account.email}")
                                     goMain()
                                 }
