@@ -201,7 +201,7 @@ class MapActivity : AppCompatActivity() , GoogleMap.OnMarkerClickListener, Googl
                     override fun onComplete(@NonNull task: Task<Location>) {
                         if(task.isSuccessful){
                             //지도 카메라 위치를 내 위치로 땡겨오기
-                            mLastKnownLocation = task?.result!!
+                            mLastKnownLocation = task.result!!
                             Log.d("내 위치", mLastKnownLocation!!.latitude.toString()+", "+mLastKnownLocation!!.longitude)
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(
                                 mLastKnownLocation!!.latitude, mLastKnownLocation!!.longitude),
