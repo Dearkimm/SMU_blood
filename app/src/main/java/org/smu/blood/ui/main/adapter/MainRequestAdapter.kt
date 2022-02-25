@@ -71,8 +71,8 @@ class MainRequestAdapter: RecyclerView.Adapter<MainRequestAdapter.MainRequestVie
             binding.apply {
                 reqHospital.text = hospital
                 reqBlood.text = "RH${rh} ${blood}형 ${requestInfo.donationType}"
-                reqDate.text = "${requestInfo.startDate}~${requestInfo.endDate}"
-                reqCount.text = "${requestInfo.count}명"
+                reqDate.text = "요청 기간: ${requestInfo.startDate}~${requestInfo.endDate}"
+                reqCount.text = "신청자 수: ${requestInfo.count}명"
                 circleBlood.text = "RH$rh $blood"
                 reqTime.text = requestInfo.updatedDate
 
