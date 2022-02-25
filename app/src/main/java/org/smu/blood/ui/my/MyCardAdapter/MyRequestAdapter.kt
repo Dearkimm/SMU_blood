@@ -26,7 +26,7 @@ class MyRequestAdapter: RecyclerView.Adapter<MyRequestAdapter.MyRequestViewHolde
         private val binding: ItemCardRequestBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(requestInfo: MainRequest, position: Int) {
-            val rh = if (requestInfo.rhType) "+" else "-"
+            val rh = if (requestInfo.rhType) "-" else "+"
             var blood = ""
             var hospital = ""
             BloodType.values().forEach {

@@ -23,7 +23,7 @@ import org.smu.blood.ui.my.Card.CardRequestActivity
 class MyRequestFragment : BaseFragment<FragmentMyRequestBinding>() {
     //카드 기록 상태(0->요청, 1->등록)
     var cardState = 0
-    lateinit var intent : Intent
+
     //어댑터
     private val myCardAdapter = MainRequestAdapter()
 
@@ -34,7 +34,9 @@ class MyRequestFragment : BaseFragment<FragmentMyRequestBinding>() {
         binding.myCardList.layoutManager = LinearLayoutManager(activity)
         binding.myCardList.adapter = myCardAdapter
 
-        /*
+
+
+        /* 서버 없이 테스트 시 사용
         //요청자 시점
         binding.recRequest.setOnClickListener {
             binding.recRequest.setTextColor(Color.RED)
@@ -75,6 +77,7 @@ class MyRequestFragment : BaseFragment<FragmentMyRequestBinding>() {
         }
          */
 
+        getMyRequest() // 헌혈 기록 카드 진입 시 요청 리스트 보여주기
         addMyCardInfo()
         configureMyRequestNavigation()
         configureClickEvent()
@@ -86,37 +89,8 @@ class MyRequestFragment : BaseFragment<FragmentMyRequestBinding>() {
             binding.recRequest.setTextColor(Color.RED)
             binding.recApply.setTextColor(Color.BLACK)
             cardState = 0
-            // DB에서 내 요청 리스트 가져오기
-            MainService(requireContext()).myRequestList { myRequestList ->
-                if(myRequestList!=null){
-                    Log.d("[MY REQUEST LIST]","GET LIST")
-                    val mainRequestList = mutableListOf<MainRequest>()
-                    myRequestList.forEach { requestList.add(it) }
 
-                    for(request in myRequestList){
-                        val mainRequest = MainRequest(request.hospitalId!!, request.requestId!!, request.rhType!!, request.bloodType!!, request.donationType!!, request.startDate!!, request.endDate!!, request.applicantNum!!, request.story!!, request.registerTime!!)
-                        Log.d("[MY REQUEST LIST]", mainRequest.toString())
-                        // 각 request 정보 MainRequest 리스트에 넣기
-                        mainRequestList.add(mainRequest)
-
-                        // get apply list of my request
-                        MainService(requireContext()).applylistOfRequest(request.requestId!!){
-                            if(it != null){
-                                Log.d("[APPLY LIST OF MY REQUEST]", "GET APPLY LIST")
-                                // apply 리스트에 넣기
-                                applyList = it
-
-                                for(apply in applyList) Log.d("[APPLY LIST OF MY REQUEST]", "$apply")
-                            }
-                        }
-                    }
-                    myCardAdapter.setItems(mainRequestList)
-                }else{
-                    Log.d("[MY REQUEST LIST]", "GET REQUEST LIST FAILURE")
-                }
-            }
-
-
+            getMyRequest()
         }
 
         //신청자 시점
@@ -125,34 +99,35 @@ class MyRequestFragment : BaseFragment<FragmentMyRequestBinding>() {
             binding.recRequest.setTextColor(Color.BLACK)
             cardState = 1
 
+            myCardAdapter.setItems(emptyList())
             // DB에서 내 신청 리스트 가져오기
             MainService(requireContext()).myApplyList { myApplyList ->
+                // 리스트 초기화
+                myCardAdapter.setItems(emptyList())
+
                 if(myApplyList!=null){
                     Log.d("[MY APPLY LIST]", "GET LIST")
                     // 내 신청 정보 리스트에 넣기
                     applyList = myApplyList
-                    val requestListForApply:List<MainRequest> = ArrayList()
 
+                    // 서버에서 내가 신청한 요청은 가져오는데 mainRequest 리스트에 안 들어가서 신청 기록 안 보여줌 (수정 필요)
                     for(apply in myApplyList){
                         // get request of my apply
                         MainService(requireContext()).requestOfApply(apply.requestId!!){ request ->
                             if(request!=null){
-                                Log.d("[REQUEST OF MY APPLY] GET REQUEST", "$request")
-
-                                val mainRequest = MainRequest(request.hospitalId!!, request.requestId!!, request.rhType!!, request.bloodType!!, request.donationType!!, request.startDate!!, request.endDate!!, request.applicantNum!!, request.story!!, request.registerTime!!)
-                                Log.d("[REQUEST OF MY APPLY]", mainRequest.toString())
-
-                                // 내가 신청한 지정 헌혈 요청 정보 MainRequest 리스트에 넣기
-                                requestListForApply.plus(mainRequest)
-
                                 // Request 객체를 requestList에 넣기
                                 requestList.add(request)
+                                Log.d("[REQUEST OF MY APPLY] GET REQUEST", "$request")
+
+                                // 내가 신청한 지정 헌혈 요청 정보 MainRequest 리스트에 넣기
+                                val mainRequest = MainRequest(request.hospitalId!!, request.requestId!!, request.rhType!!, request.bloodType!!, request.donationType!!, request.startDate!!, request.endDate!!, request.applicantNum!!, request.story!!, request.registerTime!!)
+                                Log.d("[MY REQUEST LIST]", mainRequest.toString())
+
+                                // 각 request 정보 MainRequest 리스트에 넣기 - setItems로 계속 안 돼서 addItems 사용
+                                myCardAdapter.addItems(mutableListOf(mainRequest))
                             }
                         }
                     }
-                    // 신청 기록에 보여줄 MainRequest 리스트 세팅
-                    requestListForApply.forEach { Log.d("[REQUEST OF MY APPLY] REQUEST LIST",it.toString()) }
-                    myCardAdapter.setItems(requestListForApply)
                 }else{
                     Log.d("[REQUEST OF MY APPLY]", "GET APPLY LIST FAILURE")
                 }
@@ -174,7 +149,9 @@ class MyRequestFragment : BaseFragment<FragmentMyRequestBinding>() {
                 myRequest  = requestList.first { it.requestId ==  requestInfo.requestId }
 
                 //(activity as NavigationActivity).navigateMainToRead()
-                intent = if(cardState==0) Intent(context, CardRequestActivity::class.java) else Intent(context, CardApplyActivity::class.java)
+                val intent: Intent
+                if(cardState == 0) intent = Intent(context, CardRequestActivity::class.java)
+                else intent = Intent(context, CardApplyActivity::class.java)
 
                 startActivity(intent)
 
@@ -182,22 +159,42 @@ class MyRequestFragment : BaseFragment<FragmentMyRequestBinding>() {
         })
     }
 
+    private fun getMyRequest(){
+        // DB에서 내 요청 리스트 가져오기
+        MainService(requireContext()).myRequestList { myRequestList ->
+            if(myRequestList!=null){
+                Log.d("[MY REQUEST LIST]","GET LIST")
+                val mainRequestList = mutableListOf<MainRequest>()
+                myRequestList.forEach { requestList.add(it) }
+
+                for(request in myRequestList){
+                    val mainRequest = MainRequest(request.hospitalId!!, request.requestId!!, request.rhType!!, request.bloodType!!, request.donationType!!, request.startDate!!, request.endDate!!, request.applicantNum!!, request.story!!, request.registerTime!!)
+                    Log.d("[MY REQUEST LIST]", mainRequest.toString())
+                    // 각 request 정보 MainRequest 리스트에 넣기
+                    mainRequestList.add(mainRequest)
+
+                    // get apply list of my request
+                    MainService(requireContext()).applylistOfRequest(request.requestId!!){
+                        if(it != null){
+                            Log.d("[APPLY LIST OF MY REQUEST]", "GET APPLY LIST")
+                            // apply 리스트에 넣기
+                            applyList = it
+
+                            for(apply in applyList) Log.d("[APPLY LIST OF MY REQUEST]", "$apply")
+                        }
+                    }
+                }
+                myCardAdapter.setItems(mainRequestList)
+            }else{
+                Log.d("[MY REQUEST LIST]", "GET REQUEST LIST FAILURE")
+            }
+        }
+    }
+
 
     companion object {
         lateinit var applyList: List<Apply> // 신청 정보 리스트
         var requestList = mutableListOf<Request>() // 요청 기록 카드에 필요
         lateinit var myRequest: Request // 요청 기록 카드, 신청 기록 카드에 필요
-        /*
-        var hospitalId = -1
-        var rhType = false
-        var bloodType = -1
-        var donationType = ""
-        var startDate = ""
-        var endDate = ""
-        var count = -1
-        var content = ""
-        var updatedDate = ""
-
-         */
     }
 }

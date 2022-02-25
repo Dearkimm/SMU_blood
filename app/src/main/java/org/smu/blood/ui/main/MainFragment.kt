@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.smu.blood.ui.NavigationActivity
 import org.smu.blood.api.database.MainRequest
@@ -13,19 +12,13 @@ import org.smu.blood.databinding.FragmentMainBinding
 import org.smu.blood.ui.base.BaseFragment
 import org.smu.blood.ui.main.adapter.MainRequestAdapter
 import androidx.activity.addCallback
-import com.google.android.gms.common.util.CollectionUtils.listOf
-import com.google.common.collect.Multisets.filter
-import org.smu.blood.R
 import org.smu.blood.api.MainService
-import org.smu.blood.model.BloodType
-import org.smu.blood.model.Hospital
-import org.smu.blood.util.*
-import java.time.LocalDateTime
-import java.util.Locale.filter
+import org.smu.blood.api.MyPageService
 
 
 class MainFragment : BaseFragment<FragmentMainBinding>() {
     private val mainRequestAdapter = MainRequestAdapter()
+    var bloodType: Int = 0
 
     override fun initBinding(inflater: LayoutInflater, container: ViewGroup?) =
         FragmentMainBinding.inflate(inflater, container, false)
@@ -41,21 +34,31 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
     }
 
     private fun initMain() {
+        // DB에서 로그인한 사용자 bloodType 가져오기
+        MyPageService(requireContext()).myInfo { user ->
+            if(user != null){
+                bloodType = user.bloodType!!
+                Log.d("[GET MY BLOOD TYPE]", bloodType.toString())
+            }
+        }
+
         MainService(requireContext()).mainList {
             // DB에서 가져온 리스트 서버로부터 받기
             if(it!=null){
                 Log.d("[BLOOD REQUEST LIST]","GET LIST")
                 var requestList = mutableListOf<MainRequest>()
+                rList = requestList
                 for(request in it){
                     var mainRequest = MainRequest(request.hospitalId!!, request.requestId!!, request.rhType!!, request.bloodType!!, request.donationType!!, request.startDate!!, request.endDate!!, request.applicantNum!!, request.story!!, request.registerTime!!)
                     Log.d("[BLOOD REQUEST LIST]", mainRequest.toString())
                     // MainRequest 리스트에 넣기
                     requestList.add(mainRequest)
                 }
-                //mainRequestAdapter.setItems(requestList)
+                for(request in requestList) Log.d("[BLOOD REQUEST LIST]", request.toString())
+                mainRequestAdapter.setItems(requestList)
+
                 mainRequestAdapter.unFilteredList = requestList
                 mainRequestAdapter.notifyDataSetChanged()
-                for(request in requestList) Log.d("[BLOOD REQUEST LIST]", request.toString())
                 mainRequestAdapter.filter.filter("")
             }
             else{
@@ -101,8 +104,10 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
     private fun configureClickEvent() {
         mainRequestAdapter.setItemClickListener(object : MainRequestAdapter.ItemClickListener {
             override fun onClick(requestInfo: MainRequest) {
-                unFilteredList = requestInfo
-                Log.d("[SHOW REQUEST INFO]",unFilteredList.toString())
+                //unFilteredList = requestInfo
+                request = requestInfo
+
+                Log.d("[SHOW REQUEST INFO]",request.toString())
 
                 (activity as NavigationActivity).navigateMainToRead()
             }
@@ -112,7 +117,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
         binding.mainSwitch.setOnCheckedChangeListener{buttonView, isChecked ->
             if (isChecked){
                 //필터사용
-                mainRequestAdapter.filter.filter(unFilteredList.bloodType.toString())
+                //mainRequestAdapter.filter.filter(unFilteredList.bloodType.toString())
+                mainRequestAdapter.filter.filter(bloodType.toString())
                 Log.d("내혈액형만보기", "체크선택")
             }
             else{
@@ -126,6 +132,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
     }
 
     companion object {
-        lateinit var unFilteredList: MainRequest
+        lateinit var request: MainRequest
+        lateinit var rList: List<MainRequest>
     }
 }

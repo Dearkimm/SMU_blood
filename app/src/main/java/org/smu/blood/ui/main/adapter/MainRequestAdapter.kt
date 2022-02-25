@@ -35,7 +35,7 @@ class MainRequestAdapter: RecyclerView.Adapter<MainRequestAdapter.MainRequestVie
                 } else {
                     var filteringList = mutableListOf<MainRequest>()
                     for (item in unFilteredList) {
-                        if (item.bloodType.toString() == charString) filteringList.add(item) //내 id = 글 id
+                        if (item.bloodType.toString() == charString) filteringList.add(item)
                     }
                     filteringList
                 }

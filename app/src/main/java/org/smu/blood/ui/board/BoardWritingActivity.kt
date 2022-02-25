@@ -49,8 +49,6 @@ class BoardWritingActivity : AppCompatActivity() {
         _binding = ActivityBoardReadBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val reviewService = ReviewService(this)
-
         // 게시글 내용 세팅
         initBoardRead()
 
@@ -87,10 +85,9 @@ class BoardWritingActivity : AppCompatActivity() {
                                 nickname = _binding!!.writingNickname.text.toString()
                                 writeTime = _binding!!.writingTime.text.toString()
                                 val requestBody = HashMap<String,String>()
-                                requestBody["nickname"] = nickname
-                                requestBody["writeTime"] = writeTime
+                                requestBody["reviewId"] = boardId.toString()
                                 //DB 에서 게시글 삭제
-                                reviewService.reviewDelete(requestBody){
+                                ReviewService(this).reviewDelete(requestBody){
                                     if(it==true){
                                         Toast.makeText(applicationContext, "삭제 완료", Toast.LENGTH_SHORT).show()
                                         // 업데이트된 후기 게시판으로 가져오기
@@ -117,10 +114,9 @@ class BoardWritingActivity : AppCompatActivity() {
                 requestInfo["commentNickname"] = currentNickname
                 requestInfo["commentTime"] = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd")) + " " +
                         LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm"))
-                requestInfo["reviewNickname"] = _binding!!.writingNickname.text.toString()
-                requestInfo["reviewTime"] = _binding!!.writingTime.text.toString()
+                requestInfo["reviewId"] = boardId.toString()
 
-                reviewService.commentWrite(requestInfo){
+                ReviewService(this).commentWrite(requestInfo){
                     if(it==true){
                         shortToast("댓글이 등록되었습니다")
                         imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0) //키보드 내리기
@@ -140,6 +136,7 @@ class BoardWritingActivity : AppCompatActivity() {
         recyclerview.adapter = boardreadAdapter
         initRecycler()
 
+        val reviewService = ReviewService(this)
         //댓글 리사이클러뷰 어댑터 클릭 이벤트 (댓글 수정 , 삭제)
         boardreadAdapter.setOnItemClickListener(object: BoardReadAdapter.OnItemClickListener{
             override fun onItemClick(v: View, data: CommentData, pos: Int) {
@@ -169,8 +166,6 @@ class BoardWritingActivity : AppCompatActivity() {
                     editInfo["commentId"] = data.commentId.toString()
                     editInfo["editComment"] = editComment
                     editInfo["editTime"] = editTime
-                    editInfo["commentNickname"] = commentNickname
-                    editInfo["writeTime"] = writeTime
 
                     reviewService.commentEdit(editInfo){
                         if(it==true){
@@ -197,26 +192,17 @@ class BoardWritingActivity : AppCompatActivity() {
         // 좋아요 이벤트
         binding.heartCheckbox.setOnCheckedChangeListener { buttonview, isChecked ->
             val reviewInfo = HashMap<String,String>()
-            val reviewNickname = binding.writingNickname.text.toString()
-            val reviewTime = binding.writingTime.text.toString()
-            val reviewHeart: Int = if(isChecked) binding.heartCounts.text.toString().toInt()+1 else binding.heartCounts.text.toString().toInt()-1
-
-            /*
-            if(isChecked){
-                reviewHeart = binding.heartCounts.text.toString().toInt()+1
-            }else{
-                reviewHeart = binding.heartCounts.text.toString().toInt()-1
-            }
-             */
+            val reviewHeart: Int
+            val heartState: Boolean = isChecked
 
             // 게시글에 대한 사용자의 좋아요 체크 여부 저장
-            SessionManager(this).saveHeart(currentNickname, boardId, isChecked)
+            //SessionManager(this).saveHeart(currentNickname, boardId, isChecked)
 
-            reviewInfo["reviewNickname"] = reviewNickname
-            reviewInfo["reviewTime"] = reviewTime
-            reviewInfo["reviewHeart"] = reviewHeart.toString()
-            // DB에 업데이트된 글 정보 보내기
-            reviewService.heartCheck(reviewInfo){
+            reviewInfo["boardId"] = boardId.toString()
+            reviewInfo["heartState"] = heartState.toString()
+
+            // DB에 업데이트된 글 정보, reviewLike 정보 보내기
+            ReviewService(this).heartCheck(reviewInfo){
                 if(it==true) {
                     // save heart checked state of review of log in user
                     Log.d("[HEART EVENT1] SAVE HEART STATE", "success")
@@ -269,6 +255,7 @@ class BoardWritingActivity : AppCompatActivity() {
         currentNickname = userNickname.toString()
         Log.d("[CURRENT USERNICKNAME", currentNickname)
 
+        val reviewService = ReviewService(this)
         binding.apply {
             Log.d("SHOW","REVIEW")
             writingTitle.text = title
@@ -284,22 +271,36 @@ class BoardWritingActivity : AppCompatActivity() {
             else Log.d("[CHECK REVIEW NICKNAME]", "NOT MY REVIEW OR INVALID")
 
             // 현재 사용자가 해당 게시물에 좋아요 눌렀으면 setChecked(true)
+            /*
             val heartState = sessionManager.fetchHeart(userNickname!!, boardId)
             if(heartState){
                 Log.d("[HEART EVENT3] nickname $userNickname check state of reviewId $boardId", heartState.toString())
                 heartCheckbox.isChecked = true
             } else heartCheckbox.isChecked = false
+
+             */
+            reviewService.getMyHeartState(boardId) { reviewLike ->
+                if(reviewLike != null){
+                    Log.d("[GET HEART STATE OF REVIEW]", reviewLike.toString())
+                    Log.d("[HEART EVENT3] nickname $userNickname check state of reviewId $boardId", reviewLike.heartState.toString())
+
+                    // heartState == true이면 체크 표시
+                    heartCheckbox.isChecked = reviewLike.heartState!!
+                } else heartCheckbox.isChecked = false
+                // reviewLike 없으면 false, heartState가 false이면 false
+
+            }
         }
     }
 
     private fun initRecycler() {
         // DB에서 특정 후기글의 댓글 리스트 가져오기
-        val reviewService = ReviewService(this)
+        //val reviewService = ReviewService(this)
         val reviewInfo = HashMap<String,String>()
         reviewInfo["reviewNickname"] = binding.writingNickname.text.toString()
         reviewInfo["reviewTime"] = binding.writingTime.text.toString()
 
-        reviewService.commentList(reviewInfo){
+        ReviewService(this).commentList(reviewInfo){
             if(it!=null){
                 for(comment in it) Log.d("[COMMENT LIST]", "$comment")
                 Log.d("[COMMENT LIST]", "get all comments of review")

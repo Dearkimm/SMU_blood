@@ -3,6 +3,7 @@ package org.smu.blood.ui
 import org.smu.blood.api.database.User
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
@@ -53,8 +54,10 @@ class SignUpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_sign_up)
+        /*
         auth = FirebaseAuth.getInstance()
         mDatabase = FirebaseDatabase.getInstance()
+
 
         auth.addAuthStateListener {
             val user = auth.currentUser
@@ -62,6 +65,7 @@ class SignUpActivity : AppCompatActivity() {
                 suid = user.uid
             }
         }
+         */
 
         //체크박스
         var checkbox = findViewById<CheckBox>(R.id.checkbox)
@@ -90,7 +94,13 @@ class SignUpActivity : AppCompatActivity() {
         cid = findViewById<TextView>(R.id.stv_cid)
         dname = findViewById<TextView>(R.id.stv_dname)
 
-        //dname.setVisibility(VISIBLE)
+        val email = intent.getStringExtra("email")
+        if(email != null){
+            Log.d("[GOOGLE LOGIN]", email)
+            editId.setText(email)
+            // 수정 못하도록 block 처리
+            editId.isEnabled = false
+        }
 
         //체크박스
         checkbox.setOnCheckedChangeListener { compoundButton, isChecked ->
@@ -199,7 +209,7 @@ class SignUpActivity : AppCompatActivity() {
                     if(it == true){
                         // 회원가입 성공한 경우
                         Toast.makeText(applicationContext, "회원가입 완료", Toast.LENGTH_SHORT).show()
-                        finish()
+                        startActivity(Intent(this, LoginActivity::class.java))
                     } else{
                         // 회원가입 실패한 경우
                         Toast.makeText(applicationContext, "회원가입 실패", Toast.LENGTH_SHORT).show()
