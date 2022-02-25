@@ -149,4 +149,5 @@
     <string name="ltv_id_type">ex) abc@naver.com</string>
     <string name="total_person">신청자 총 2명</string>
     <string name="tv_login_ing">로그인 유지</string>
+    <string name="apply_reject_tv">이미 신청한 헌혈 요청입니다.\n다른 헌혈 요청에 신청해주세요.</string>
 </resources>

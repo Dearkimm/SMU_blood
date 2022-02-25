@@ -94,7 +94,7 @@ interface BlringService {
 
     // register blood donation apply
     @POST("main/apply")
-    fun bloodApply(@Header("token") token: String, @Body applyInfo: HashMap<String, String>): Call<Boolean>
+    fun bloodApply(@Header("token") token: String, @Body applyInfo: HashMap<String, String>): Call<Int>
 
     // get my request info list
     @GET("main/myRequest/myRequestList")

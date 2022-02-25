@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import org.smu.blood.R
 import org.smu.blood.api.MainService
 import org.smu.blood.api.database.Apply
@@ -23,6 +24,7 @@ import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
+// 지도에서 헌혈하기, 지정 헌혈 요청에서 헌혈하기
 class MapApplicationActivity : AppCompatActivity() {
     var confirmState = false
 
@@ -63,38 +65,55 @@ class MapApplicationActivity : AppCompatActivity() {
         }
 
 
-            //확인 버튼 누르면 dialog 뜨게
+        // 헌혈 신청 처리
         okay.setOnClickListener {
             if (check.isChecked && check2.isChecked) {
-                val dlg = MapApplicationCompleteAlert(this) //헌혈신청완료 다이얼로그
-                dlg.callFunction()
-                dlg.show()
 
-                dlg.setOnDismissListener {
-                    confirmState = dlg.returnState()
-                    if (confirmState) { //건너뛰기
-                        goCardState = 0
-                    } else { //마이페이지에서 신청 확인하기
-                        goCardState = 1
+                // 서버에 보낼 Apply 정보 넣기
+                val applyInfo = HashMap<String, String>()
+                applyInfo["applyDate"] = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd")) + " " +
+                        LocalTime.now().format(DateTimeFormatter.ofPattern("hh:mm"))
+                applyInfo["requestId"] = MainFragment.request.requestId.toString()
+
+                // Apply 정보 서버에 보내기
+                MainService(this).registerApply(applyInfo){
+                    Log.d("[REGISTER BLOOD APPLY] SEND APPLY INFO", "applyDate: ${applyInfo["applyDate"]}, requestId: ${applyInfo["requestId"]}")
+                    when(it){
+                        401 ->{ // 중복 신청 오류
+                            val dialog = MapApplyRejectAlert(this)
+                            dialog.callFunction()
+                            dialog.show()
+
+                            dialog.setOnDismissListener {
+                                Log.d("[REGISTER BLOOD APPLY]", "same user apply in request")
+                                // 메인 페이지로 이동
+                                startActivity(Intent(this, NavigationActivity::class.java))
+                                this.finish()
+                            }
+                        }
+                        200 -> { // 헌혈 신청 성공
+                            Log.d("[REGISTER BLOOD APPLY]", "SUCCESS")
+                            val dlg = MapApplicationCompleteAlert(this) //헌혈신청완료 다이얼로그
+                            dlg.callFunction()
+                            dlg.show()
+
+                            dlg.setOnDismissListener {
+                                confirmState = dlg.returnState()
+                                goCardState = if (confirmState) { //건너뛰기
+                                    0
+                                } else { //마이페이지에서 신청 확인하기
+                                    1
+                                }
+
+                                val intent = Intent(this, NavigationActivity::class.java)
+                                startActivity(intent)
+                                this.finish()
+                            }
+                        }
+                        else -> Log.d("[REGISTER BLOOD APPLY]", "FAILURE") // 토큰 유효 X or 요청 X, 서버 접속 X, 서버 응답 실패
                     }
-
-                    // 서버에 보낼 Apply 정보 넣기
-                    val applyInfo = HashMap<String, String>()
-                    applyInfo["applyDate"] = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd")) + " " +
-                            LocalTime.now().format(DateTimeFormatter.ofPattern("hh:mm"))
-                    applyInfo["requestId"] = MainFragment.request.requestId.toString()
-
-                    // Apply 정보 서버에 보내기
-                    MainService(this).registerApply(applyInfo){
-                        Log.d("[REGISTER BLOOD APPLY] SEND APPLY INFO", "applyDate: ${applyInfo["applyDate"]}, requestId: ${applyInfo["requestId"]}")
-                        if(it==true) Log.d("[REGISTER BLOOD APPLY]", "SUCCESS")
-                        else Log.d("[REGISTER BLOOD APPLY]", "FAILURE")
-                    }
-
-                    val intent = Intent(this, NavigationActivity::class.java)
-                    startActivity(intent)
-                    this.finish()
                 }
+
             } else
                 Toast.makeText(this, "주의사항 확인 후 체크해주세요", Toast.LENGTH_SHORT).show()
         }
