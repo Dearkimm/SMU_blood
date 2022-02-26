@@ -52,11 +52,6 @@ class BoardWritingActivity : AppCompatActivity() {
         // 게시글 내용 세팅
         initBoardRead()
 
-        // 게시글 닉네임 가져오기
-        //val reviewNickname:String = binding.writingNickname.text as String
-        var nickname: String // 게시글 닉네임
-        var writeTime: String // 게시글 작성시간
-
         //게시글 수정/삭제 클릭 시
         binding.boardChange.setOnClickListener{
             val popupMenu = PopupMenu(applicationContext,it)
@@ -81,20 +76,19 @@ class BoardWritingActivity : AppCompatActivity() {
                         dlg.setOnDismissListener {
                             deleteState = dlg.returnState()
                             if(deleteState){
-                                // nickname, writeTime 가져오기
-                                nickname = _binding!!.writingNickname.text.toString()
-                                writeTime = _binding!!.writingTime.text.toString()
-                                val requestBody = HashMap<String,String>()
-                                requestBody["reviewId"] = boardId.toString()
                                 //DB 에서 게시글 삭제
-                                ReviewService(this).reviewDelete(requestBody){
+                                ReviewService(this).reviewDelete(boardId){
                                     if(it==true){
-                                        Toast.makeText(applicationContext, "삭제 완료", Toast.LENGTH_SHORT).show()
-                                        // 업데이트된 후기 게시판으로 가져오기
-                                        //액티비티 새로고침
-                                        val binding2: ActivityNavigationBinding = ActivityNavigationBinding.inflate(layoutInflater)
-                                        setContentView(binding2.root)
-                                        replaceFragment(binding2.fragmentContainer, BoardFragment::class.java, true)
+                                        val dialog = BoardDeleteConfirmAlert(this)
+                                        dialog.callFunction()
+                                        dialog.show()
+                                        dialog.setOnDismissListener {
+                                            // 업데이트된 후기 게시판으로 가져오기
+                                            //액티비티 새로고침
+                                            val binding2: ActivityNavigationBinding = ActivityNavigationBinding.inflate(layoutInflater)
+                                            setContentView(binding2.root)
+                                            replaceFragment(binding2.fragmentContainer, BoardFragment::class.java, true)
+                                        }
                                     }
                                 }
                             }
@@ -241,7 +235,6 @@ class BoardWritingActivity : AppCompatActivity() {
     }
 
     private fun initBoardRead() {
-        val sessionManager = SessionManager(this)
         val intent = intent
         val title = intent.getStringExtra("title")
         val reviewNickname = intent.getStringExtra("nickname")
@@ -270,7 +263,6 @@ class BoardWritingActivity : AppCompatActivity() {
             if(userNickname == reviewNickname) binding.boardChange.visibility = VISIBLE
             else Log.d("[CHECK REVIEW NICKNAME]", "NOT MY REVIEW OR INVALID")
 
-            // 현재 사용자가 해당 게시물에 좋아요 눌렀으면 setChecked(true)
             /*
             val heartState = sessionManager.fetchHeart(userNickname!!, boardId)
             if(heartState){
@@ -279,6 +271,7 @@ class BoardWritingActivity : AppCompatActivity() {
             } else heartCheckbox.isChecked = false
 
              */
+            // 현재 사용자가 해당 게시물에 좋아요 눌렀으면 set Checked
             reviewService.getMyHeartState(boardId) { reviewLike ->
                 if(reviewLike != null){
                     Log.d("[GET HEART STATE OF REVIEW]", reviewLike.toString())
@@ -287,15 +280,12 @@ class BoardWritingActivity : AppCompatActivity() {
                     // heartState == true이면 체크 표시
                     heartCheckbox.isChecked = reviewLike.heartState!!
                 } else heartCheckbox.isChecked = false
-                // reviewLike 없으면 false, heartState가 false이면 false
-
             }
         }
     }
 
     private fun initRecycler() {
         // DB에서 특정 후기글의 댓글 리스트 가져오기
-        //val reviewService = ReviewService(this)
         val reviewInfo = HashMap<String,String>()
         reviewInfo["reviewNickname"] = binding.writingNickname.text.toString()
         reviewInfo["reviewTime"] = binding.writingTime.text.toString()

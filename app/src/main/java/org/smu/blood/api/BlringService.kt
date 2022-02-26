@@ -59,7 +59,11 @@ interface BlringService {
 
     // delete review API
     @POST("review/delete")
-    fun reviewDelete(@Header("token") token: String, @Body deleteInfo: HashMap<String,String>): Call<Boolean>
+    fun reviewDelete(@Header("token") token: String, @Body reviewId: Int): Call<Boolean>
+
+    // delete my review (check user auth)
+    @POST("review/deleteAuth")
+    fun reviewDeleteAuth(@Header("token") token: String, @Body reviewId: Int): Call<Boolean>
 
     // write comment API
     @POST("review/addComment")

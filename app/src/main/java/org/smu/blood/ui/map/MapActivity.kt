@@ -35,7 +35,6 @@ import org.smu.blood.model.Hospital
 import org.smu.blood.ui.NavigationActivity
 import org.smu.blood.ui.main.MainFragment
 import org.smu.blood.ui.main.MainFragment.Companion.request
-import org.smu.blood.ui.main.adapter.MainRequestAdapter
 
 
 class MapActivity : AppCompatActivity() , GoogleMap.OnMarkerClickListener, GoogleMap.OnMyLocationButtonClickListener,

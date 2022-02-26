@@ -10,15 +10,12 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.ImageButton
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.recyclerview.widget.RecyclerView
 import org.smu.blood.ui.NavigationActivity
 import org.smu.blood.R
 import org.smu.blood.api.ReviewService
-import org.smu.blood.databinding.ActivityNavigationBinding
 import org.smu.blood.databinding.FragmentBoardBinding
-import org.smu.blood.util.replaceFragment
 
 class BoardFragment : Fragment() {
     lateinit var boardAdapter: BoardAdapter
@@ -81,26 +78,39 @@ class BoardFragment : Fragment() {
         //리사이클러뷰 어댑터 꾹누르기 이벤트
         boardAdapter.setOnItemLongClickListener(object: BoardAdapter.OnItemLongClickListener{
             override fun onItemLongClick(v: View, data: BoardData, pos: Int) {
-                val dlg = BoardDeleteAlert(requireContext())
-                dlg.callFunction()
-                dlg.show()
-                dlg.setOnDismissListener {
-                    deleteState = dlg.returnState()
-                    if(deleteState){
-                        boardAdapter.removeItem(pos)
-                        boardAdapter.notifyDataSetChanged()//데이더 값 변경 알림
+                // 내가 쓴 글인지 확인
+                ReviewService(requireContext()).reviewDeleteAuth(data.boardId){
+                    if(it == true){ // 글 삭제
+                        Log.d("[CHECK AUTH BEFORE DELETE]", "my review: true")
+                        val dlg = BoardDeleteAlert(requireContext())
+                        dlg.callFunction()
+                        dlg.show()
+                        dlg.setOnDismissListener {
+                            deleteState = dlg.returnState()
+                            if(deleteState){
+
+                                //DB 에서 게시글 삭제
+                                ReviewService(requireContext()).reviewDelete(data.boardId){
+                                    if(it==true){ // 삭제 완료 후 dialog 띄우기
+                                        Log.d("[REVIEW DELETE]", "$it")
+                                        val dialog = BoardDeleteConfirmAlert(requireContext())
+                                        dialog.callFunction()
+                                        dialog.show()
+                                        dialog.setOnDismissListener {
+                                            boardAdapter.removeItem(pos)
+                                            boardAdapter.notifyDataSetChanged()//데이더 값 변경 알림
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }else{ // 삭제 불가 dialog 띄우기
+                        Log.d("[CHECK AUTH BEFORE DELETE]", "my review: false")
+                        val dialog = BoardDeleteRejectAlert(requireContext())
+                        dialog.callFunction()
+                        dialog.show()
                     }
-                    //글쓰기 데이터
-                    Log.d("글삭제 데이터", deleteState.toString())
                 }
-                /* db에서 글 삭제할때사용
-                val intent = Intent(context, BoardWritingActivity::class.java)
-                intent.putExtra("position", position)
-                intent.putExtra("title", data.title)
-                intent.putExtra("nickname", data.nickname)
-                intent.putExtra("time", data.time)
-                intent.putExtra("heartcount", data.heartcount)
-                startActivity(intent)*/
             }
         })
         //버튼
