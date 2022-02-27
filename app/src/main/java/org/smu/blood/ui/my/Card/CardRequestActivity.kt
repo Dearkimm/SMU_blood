@@ -1,24 +1,32 @@
 package org.smu.blood.ui.my.Card
 
+import android.content.DialogInterface
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.WindowManager
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.Dimension
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import org.smu.blood.R
+import org.smu.blood.databinding.ActivityCardRequestBinding
+import org.smu.blood.databinding.ActivityLoginBinding
 import org.smu.blood.model.BloodType
 import org.smu.blood.model.Hospital
 import org.smu.blood.ui.my.MyRequestFragment
+import org.smu.blood.util.shortToast
 import org.w3c.dom.Text
 
 class CardRequestActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityCardRequestBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        binding = ActivityCardRequestBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_card_request)
 
         // 신청자 정보
@@ -43,22 +51,24 @@ class CardRequestActivity : AppCompatActivity() {
             Log.d("check ",time.toString())
         }
         /*for(apply in MyRequestFragment.applyList){
-            val time = TextView(this@CardRequestActivity)
-            val layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-            )
-            layoutParams.setMargins(0,0,0,5)
-            time.layoutParams = layoutParams
             time.text = apply.applyDate //신청일시
-            time.setTextSize(Dimension.SP,13.0f)
-            time.typeface = resources.getFont(R.font.notosans_light)
-            time.includeFontPadding = false
-            time.setTextColor(Color.BLACK)
-            timeList.addView(time)
-            Log.d("check ",time.toString())
-            MyRequestFragment.applyList[0]
         }*/
+        binding.requestDelete.setOnClickListener{
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("헌혈을 받으셨나요?")
+                .setMessage("헌혈 요청 글이 삭제됩니다.")
+                .setPositiveButton("확인",
+                    DialogInterface.OnClickListener { dialog, id ->
+                        shortToast("삭제되었습니다")
+
+                    })
+                .setNegativeButton("취소",
+                    DialogInterface.OnClickListener { dialog, id ->
+                    })
+            // 다이얼로그를 띄워주기
+            builder.show()
+
+        }
 
         // 나의 요청 정보
         val rh = if(MyRequestFragment.myRequest.rhType!!) "-" else "+"
