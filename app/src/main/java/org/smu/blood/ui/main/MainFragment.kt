@@ -36,7 +36,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
         initMain()
         //addMainRequestInfo()
         configureClickEvent()
-        setHasOptionsMenu(true)
         binding.mainSort.setOnClickListener{
             var popupMenu = PopupMenu(context,it)
             popupMenu.menuInflater.inflate(R.menu.main_sort_option,popupMenu.menu)
