@@ -1,9 +1,11 @@
 package org.smu.blood.ui.main
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.util.Log
+import android.view.*
+import android.widget.PopupMenu
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.smu.blood.ui.NavigationActivity
 import org.smu.blood.api.database.MainRequest
@@ -12,8 +14,10 @@ import org.smu.blood.ui.base.BaseFragment
 import org.smu.blood.ui.main.adapter.MainRequestAdapter
 import androidx.activity.addCallback
 import com.google.android.gms.common.util.CollectionUtils.listOf
+import org.smu.blood.R
 import org.smu.blood.model.BloodType
 import org.smu.blood.model.Hospital
+import org.smu.blood.ui.board.BoardEditActivity
 import org.smu.blood.util.*
 import java.time.LocalDateTime
 
@@ -32,6 +36,28 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
         initMain()
         //addMainRequestInfo()
         configureClickEvent()
+        setHasOptionsMenu(true)
+        binding.mainSort.setOnClickListener{
+            var popupMenu = PopupMenu(context,it)
+            popupMenu.menuInflater.inflate(R.menu.main_sort_option,popupMenu.menu)
+            popupMenu.show()
+            popupMenu.setOnMenuItemClickListener {
+                when(it.itemId){
+                    R.id.option_menu1->{ //최신순
+                        Log.d("메뉴1","클릭")
+                        return@setOnMenuItemClickListener true
+                    }
+                    R.id.option_menu2->{ //마감 임박 순
+                        Log.d("메뉴2","클릭")
+                        return@setOnMenuItemClickListener true
+                    }
+                    R.id.option_menu3->{ //신청자 적은 순
+                        Log.d("메뉴3","클릭")
+                        return@setOnMenuItemClickListener true
+                    }else-> return@setOnMenuItemClickListener false
+                }
+            }
+        }
     }
 
     private fun initMain() {
