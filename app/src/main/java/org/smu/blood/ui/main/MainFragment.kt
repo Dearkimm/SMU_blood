@@ -1,10 +1,11 @@
 package org.smu.blood.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.PopupMenu
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.smu.blood.ui.NavigationActivity
 import org.smu.blood.api.database.MainRequest
@@ -12,8 +13,17 @@ import org.smu.blood.databinding.FragmentMainBinding
 import org.smu.blood.ui.base.BaseFragment
 import org.smu.blood.ui.main.adapter.MainRequestAdapter
 import androidx.activity.addCallback
+import org.smu.blood.R
 import org.smu.blood.api.MainService
 import org.smu.blood.api.MyPageService
+import org.smu.blood.api.ReviewService
+import org.smu.blood.databinding.ActivityApplyBinding.inflate
+import org.smu.blood.databinding.ActivityNavigationBinding
+import org.smu.blood.ui.board.BoardDeleteAlert
+import org.smu.blood.ui.board.BoardDeleteConfirmAlert
+import org.smu.blood.ui.board.BoardEditActivity
+import org.smu.blood.ui.board.BoardFragment
+import org.smu.blood.util.replaceFragment
 
 
 class MainFragment : BaseFragment<FragmentMainBinding>() {
@@ -31,7 +41,25 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
         initMain()
         addMainRequestInfo()
         configureClickEvent()
+        setHasOptionsMenu(true)
     }
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.main_sort_option, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.option_menu1->
+                Log.d("메뉴1","클릭")
+            R.id.option_menu2->
+                Log.d("메뉴2","클릭")
+            R.id.option_menu3->
+                Log.d("메뉴3","클릭")
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
 
     private fun initMain() {
         // DB에서 로그인한 사용자 bloodType 가져오기
@@ -128,7 +156,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
             }
 
         }
-
     }
 
     companion object {
