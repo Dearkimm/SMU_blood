@@ -154,7 +154,27 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
                 Log.d("내혈액형만보기", "체크해제")
                 mainRequestAdapter.filter.filter("")
             }
-
+        }
+        binding.mainSort.setOnClickListener{
+            var popupMenu = PopupMenu(context,it)
+            popupMenu.menuInflater.inflate(R.menu.main_sort_option,popupMenu.menu)
+            popupMenu.show()
+            popupMenu.setOnMenuItemClickListener {
+                when(it.itemId){
+                    R.id.option_menu1->{ //최신순
+                        Log.d("메뉴1","클릭")
+                        return@setOnMenuItemClickListener true
+                    }
+                    R.id.option_menu2->{ //마감 임박 순
+                        Log.d("메뉴2","클릭")
+                        return@setOnMenuItemClickListener true
+                    }
+                    R.id.option_menu3->{ //신청자 적은 순
+                        Log.d("메뉴3","클릭")
+                        return@setOnMenuItemClickListener true
+                    }else-> return@setOnMenuItemClickListener false
+                }
+            }
         }
     }
 
