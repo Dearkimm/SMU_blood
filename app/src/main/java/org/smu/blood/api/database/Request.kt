@@ -16,6 +16,7 @@ class Request {
     var registerTime: String? = null
     var story: String? = null
     var applicantNum: Int? = null
+    var state: Boolean? = null
 
     constructor(){
     }
@@ -35,7 +36,8 @@ class Request {
         endDate: String?,
         registerTime: String?,
         story: String?,
-        applicantNum: Int?
+        applicantNum: Int?,
+        state: Boolean?
     ) {
         this.requestId = requestId
         this.userId = userId
@@ -52,9 +54,10 @@ class Request {
         this.registerTime = registerTime
         this.story = story
         this.applicantNum = applicantNum
+        this.state = state
     }
 
     override fun toString(): String {
-        return "Request(requestId=$requestId, userId=$userId, hospitalId=$hospitalId, bloodType=$bloodType, rhType=$rhType, donationType=$donationType, wardNum=$wardNum, patientName=$patientName, patientNum=$patientNum, protectorContact=$protectorContact, startDate=$startDate, endDate=$endDate, registerTime=$registerTime, story=$story, applicantNum=$applicantNum)"
+        return "Request(requestId=$requestId, userId=$userId, hospitalId=$hospitalId, bloodType=$bloodType, rhType=$rhType, donationType=$donationType, wardNum=$wardNum, patientName=$patientName, patientNum=$patientNum, protectorContact=$protectorContact, startDate=$startDate, endDate=$endDate, registerTime=$registerTime, story=$story, applicantNum=$applicantNum, state:$state)"
     }
 }

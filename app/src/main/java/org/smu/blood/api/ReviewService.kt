@@ -116,8 +116,8 @@ class ReviewService(context: Context) {
     }
 
     // 내가 쓴 후기글 삭제
-    fun reviewDelete(deleteInfo: HashMap<String,String>, onResult: (Boolean?) -> Unit){
-        val myDeleteAPI = ServiceCreator.bumService.reviewDelete(token="${sessionManager.fetchToken()}", deleteInfo)
+    fun reviewDelete(reviewId: Int, onResult: (Boolean?) -> Unit){
+        val myDeleteAPI = ServiceCreator.bumService.reviewDelete("${sessionManager.fetchToken()}", reviewId)
         myDeleteAPI.enqueue(object : Callback<Boolean>{
             override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
                 if(response.isSuccessful){
@@ -131,6 +131,27 @@ class ReviewService(context: Context) {
 
             override fun onFailure(call: Call<Boolean>, t: Throwable) {
                 Log.d("[REVIEW DELETE] CONNECTION TO SERVER", t.localizedMessage)
+                onResult(false)
+            }
+        })
+    }
+
+    // delete my review (user auth)
+    fun reviewDeleteAuth(reviewId: Int, onResult: (Boolean?) -> Unit){
+        val myDeleteAPI = ServiceCreator.bumService.reviewDeleteAuth("${sessionManager.fetchToken()}", reviewId)
+        myDeleteAPI.enqueue(object : Callback<Boolean>{
+            override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
+                if(response.isSuccessful){
+                    Log.d("[CHECK AUTH BEFORE DELETE]", response.body().toString())
+                    onResult(response.body())
+                }else{
+                    Log.d("[CHECK AUTH BEFORE DELETE]", "RESPONSE FAILURE")
+                    onResult(false)
+                }
+            }
+
+            override fun onFailure(call: Call<Boolean>, t: Throwable) {
+                Log.d("[CHECK AUTH BEFORE DELETE]", "CONNECTION TO SERVER: ${t.localizedMessage}")
                 onResult(false)
             }
         })

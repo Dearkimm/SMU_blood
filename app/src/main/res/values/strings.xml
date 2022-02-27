@@ -149,4 +149,7 @@
     <string name="ltv_id_type">ex) abc@naver.com</string>
     <string name="total_person">신청자 총 2명</string>
     <string name="tv_login_ing">로그인 유지</string>
+    <string name="apply_reject_tv">이미 신청한 헌혈 요청입니다.\n다른 헌혈 요청에 신청해주세요.</string>
+    <string name="board_delete_confirm_tv">삭제되었습니다.</string>
+    <string name="board_delete_reject_tv">삭제 불가능한 게시물입니다.</string>
 </resources>

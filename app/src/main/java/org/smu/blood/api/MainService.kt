@@ -53,22 +53,22 @@ class MainService(context: Context) {
     }
 
     // register blood donation apply
-    fun registerApply(applyInfo: HashMap<String, String>, onResult: (Boolean?) -> Unit){
+    fun registerApply(applyInfo: HashMap<String, String>, onResult: (Int?) -> Unit){
         val bloodApplyAPI = ServiceCreator.bumService.bloodApply("${sessionManager.fetchToken()}", applyInfo)
-        bloodApplyAPI.enqueue(object : Callback<Boolean>{
-            override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
+        bloodApplyAPI.enqueue(object : Callback<Int>{
+            override fun onResponse(call: Call<Int>, response: Response<Int>) {
                 if(response.isSuccessful){
                     Log.d("[REGISTER BLOOD APPLY]", response.body().toString())
                     onResult(response.body())
                 }else{
                     Log.d("[REGISTER BLOOD APPLY] GET RESPONSE", "FAILURE")
-                    onResult(false)
+                    onResult(201)
                 }
             }
 
-            override fun onFailure(call: Call<Boolean>, t: Throwable) {
+            override fun onFailure(call: Call<Int>, t: Throwable) {
                 Log.d("[REGISTER BLOOD APPLY]", t.localizedMessage)
-                onResult(false)
+                onResult(201)
             }
         })
     }
