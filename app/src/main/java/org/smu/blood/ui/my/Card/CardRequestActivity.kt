@@ -56,8 +56,6 @@ class CardRequestActivity : AppCompatActivity() {
         }*/
         val btn = findViewById<Button>(R.id.request_delete)
         btn.setOnClickListener{
-            Log.d("sd","ss")
-            shortToast("클릭")
             val builder = AlertDialog.Builder(this)
             builder.setTitle("헌혈을 받으셨나요?")
             builder.setMessage("헌혈 요청 글이 삭제됩니다.")
