@@ -68,8 +68,6 @@ class CardRequestActivity : AppCompatActivity() {
                     //해당 요청 글 삭제
 
 
-
-
                     DialogInterface.BUTTON_NEGATIVE ->
                         shortToast("취소")
                 }
