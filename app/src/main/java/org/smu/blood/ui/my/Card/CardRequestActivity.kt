@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.WindowManager
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -53,21 +54,29 @@ class CardRequestActivity : AppCompatActivity() {
         /*for(apply in MyRequestFragment.applyList){
             time.text = apply.applyDate //신청일시
         }*/
-        binding.requestDelete.setOnClickListener{
+        val btn = findViewById<Button>(R.id.request_delete)
+        btn.setOnClickListener{
+            Log.d("sd","ss")
+            shortToast("클릭")
             val builder = AlertDialog.Builder(this)
             builder.setTitle("헌혈을 받으셨나요?")
-                .setMessage("헌혈 요청 글이 삭제됩니다.")
-                .setPositiveButton("확인",
-                    DialogInterface.OnClickListener { dialog, id ->
-                        shortToast("삭제되었습니다")
+            builder.setMessage("헌혈 요청 글이 삭제됩니다.")
+            var listener = DialogInterface.OnClickListener { dialog, p1 ->
+                when (p1) {
+                    DialogInterface.BUTTON_POSITIVE ->
+                        shortToast("요청을 삭제했습니다")
+                    //해당 요청 글 삭제
 
-                    })
-                .setNegativeButton("취소",
-                    DialogInterface.OnClickListener { dialog, id ->
-                    })
-            // 다이얼로그를 띄워주기
+
+
+
+                    DialogInterface.BUTTON_NEGATIVE ->
+                        shortToast("취소")
+                }
+            }
+            builder.setPositiveButton("확인",listener)
+            builder.setNegativeButton("취소",listener)
             builder.show()
-
         }
 
         // 나의 요청 정보
