@@ -41,11 +41,11 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.option_menu1->
-                Log.d("메뉴1","클릭")
+                Log.d("메뉴1","클릭2")
             R.id.option_menu2->
-                Log.d("메뉴2","클릭")
+                Log.d("메뉴2","클릭2")
             R.id.option_menu3->
-                Log.d("메뉴3","클릭")
+                Log.d("메뉴3","클릭2")
         }
         return super.onOptionsItemSelected(item)
     }
@@ -64,10 +64,10 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
             // DB에서 가져온 리스트 서버로부터 받기
             if(it!=null){
                 Log.d("[BLOOD REQUEST LIST]","GET LIST")
-                var requestList = mutableListOf<MainRequest>()
+                val requestList = mutableListOf<MainRequest>()
                 rList = requestList
                 for(request in it){
-                    var mainRequest = MainRequest(request.hospitalId!!, request.requestId!!, request.rhType!!, request.bloodType!!, request.donationType!!, request.startDate!!, request.endDate!!, request.applicantNum!!, request.story!!, request.registerTime!!)
+                    val mainRequest = MainRequest(request.hospitalId!!, request.requestId!!, request.rhType!!, request.bloodType!!, request.donationType!!, request.startDate!!, request.endDate!!, request.applicantNum!!, request.story!!, request.registerTime!!)
                     Log.d("[BLOOD REQUEST LIST]", mainRequest.toString())
                     // MainRequest 리스트에 넣기
                     requestList.add(mainRequest)
@@ -145,6 +145,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
                 mainRequestAdapter.filter.filter("")
             }
         }
+
+        // sorting option click
         binding.mainSort.setOnClickListener{
             var popupMenu = PopupMenu(context,it)
             popupMenu.menuInflater.inflate(R.menu.main_sort_option,popupMenu.menu)
@@ -153,6 +155,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
                 when(it.itemId){
                     R.id.option_menu1->{ //최신순
                         Log.d("메뉴1","클릭")
+                        initMain()
                         return@setOnMenuItemClickListener true
                     }
                     R.id.option_menu2->{ //마감 임박 순

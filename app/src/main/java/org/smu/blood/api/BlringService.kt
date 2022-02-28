@@ -55,7 +55,7 @@ interface BlringService {
 
     // handling request end
     @POST("myPage/request/end")
-    fun requestEnd(@Header("token") token: String, requestId: Int): Call<Int>
+    fun requestEnd(@Header("token") token: String, @Body requestId: Int): Call<Int>
 
     // get user nickname API
     @GET("review/myNickname")

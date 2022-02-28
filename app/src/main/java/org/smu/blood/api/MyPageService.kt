@@ -2,13 +2,9 @@ package org.smu.blood.api
 
 import android.content.Context
 import android.util.Log
-import android.view.View
-import android.widget.Toast
 import org.smu.blood.api.database.Apply
 import org.smu.blood.api.database.Request
 import org.smu.blood.api.database.User
-import org.smu.blood.ui.my.MyFragment
-import org.smu.blood.util.enqueueUtil
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -210,6 +206,22 @@ class MyPageService(context: Context) {
     // 요청 마감 처리 (state = true 처리)
     fun requestEnd(requestId: Int, onResult: (Int?) -> Unit){
         ServiceCreator.bumService.requestEnd("${sessionManager.fetchToken()}", requestId)
+            .enqueue(object : Callback<Int>{
+                override fun onResponse(call: Call<Int>, response: Response<Int>) {
+                    if(response.isSuccessful){
+                        Log.d("[REQUEST END] RESPONSE SUCCESS", response.body().toString())
+                        onResult(response.body())
+                    }else{
+                        Log.d("[REQUEST END] RESPONSE FAILURE", response.errorBody().toString())
+                        onResult(400)
+                    }
+                }
+
+                override fun onFailure(call: Call<Int>, t: Throwable) {
+                    Log.d("[REQUEST END] CONNECTION FAILURE", t.localizedMessage)
+                    onResult(400)
+                }
+            })
 
     }
 }
