@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.recyclerview.widget.LinearLayoutManager
-import org.smu.blood.api.MainService
+import org.smu.blood.api.MyPageService
 import org.smu.blood.api.database.Apply
 import org.smu.blood.api.database.MainRequest
 import org.smu.blood.api.database.Request
@@ -101,7 +101,7 @@ class MyRequestFragment : BaseFragment<FragmentMyRequestBinding>() {
 
             myCardAdapter.setItems(emptyList())
             // DB에서 내 신청 리스트 가져오기
-            MainService(requireContext()).myApplyList { myApplyList ->
+            MyPageService(requireContext()).myApplyList { myApplyList ->
                 // 리스트 초기화
                 myCardAdapter.setItems(emptyList())
 
@@ -113,7 +113,7 @@ class MyRequestFragment : BaseFragment<FragmentMyRequestBinding>() {
                     // 서버에서 내가 신청한 요청은 가져오는데 mainRequest 리스트에 안 들어가서 신청 기록 안 보여줌 (수정 필요)
                     for(apply in myApplyList){
                         // get request of my apply
-                        MainService(requireContext()).requestOfApply(apply.requestId!!){ request ->
+                        MyPageService(requireContext()).requestOfApply(apply.requestId!!){ request ->
                             if(request!=null){
                                 // Request 객체를 requestList에 넣기
                                 requestList.add(request)
@@ -161,7 +161,7 @@ class MyRequestFragment : BaseFragment<FragmentMyRequestBinding>() {
 
     private fun getMyRequest(){
         // DB에서 내 요청 리스트 가져오기
-        MainService(requireContext()).myRequestList { myRequestList ->
+        MyPageService(requireContext()).myRequestList { myRequestList ->
             if(myRequestList!=null){
                 Log.d("[MY REQUEST LIST]","GET LIST")
                 val mainRequestList = mutableListOf<MainRequest>()
@@ -174,7 +174,7 @@ class MyRequestFragment : BaseFragment<FragmentMyRequestBinding>() {
                     mainRequestList.add(mainRequest)
 
                     // get apply list of my request
-                    MainService(requireContext()).applylistOfRequest(request.requestId!!){
+                    MyPageService(requireContext()).applylistOfRequest(request.requestId!!){
                         if(it != null){
                             Log.d("[APPLY LIST OF MY REQUEST]", "GET APPLY LIST")
                             // apply 리스트에 넣기

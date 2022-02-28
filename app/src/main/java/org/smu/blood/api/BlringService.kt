@@ -37,6 +37,26 @@ interface BlringService {
     @GET("myPage/withdraw")
     fun withdrawUser(@Header("token") token: String): Call<Boolean>
 
+    // get my request info list
+    @GET("myPage/myRequest/myRequestList")
+    fun getMyRequestList(@Header("token") token: String): Call<List<Request>>
+
+    // get apply list of my request
+    @POST("myPage/myRequest/applyList")
+    fun applyListOfRequest(@Header("token") token: String, @Body requestId: Int): Call<List<Apply>>
+
+    // get my apply info list
+    @GET("myPage/myApply/myApplyList")
+    fun getMyApplyList(@Header("token") token: String): Call<List<Apply>>
+
+    // get request of my apply
+    @POST("myPage/myApply/request")
+    fun requestOfApply(@Header("token") token: String, @Body requestId: Int): Call<Request>
+
+    // handling request end
+    @POST("myPage/request/end")
+    fun requestEnd(@Header("token") token: String, requestId: Int): Call<Int>
+
     // get user nickname API
     @GET("review/myNickname")
     fun getMyNickname(@Header("token") token: String): Call<String>
@@ -99,20 +119,4 @@ interface BlringService {
     // register blood donation apply
     @POST("main/apply")
     fun bloodApply(@Header("token") token: String, @Body applyInfo: HashMap<String, String>): Call<Int>
-
-    // get my request info list
-    @GET("main/myRequest/myRequestList")
-    fun getMyRequestList(@Header("token") token: String): Call<List<Request>>
-
-    // get apply list of my request
-    @POST("main/myRequest/applyList")
-    fun applyListOfRequest(@Body requestId: Int): Call<List<Apply>>
-
-    // get my apply info list
-    @GET("main/myApply/myApplyList")
-    fun getMyApplyList(@Header("token") token: String): Call<List<Apply>>
-
-    // get request of my apply
-    @POST("main/myApply/request")
-    fun requestOfApply(@Body requestId: Int): Call<Request>
 }

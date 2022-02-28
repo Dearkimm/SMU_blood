@@ -1,11 +1,9 @@
 package org.smu.blood.ui.main
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.PopupMenu
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.smu.blood.ui.NavigationActivity
 import org.smu.blood.api.database.MainRequest
@@ -16,14 +14,6 @@ import androidx.activity.addCallback
 import org.smu.blood.R
 import org.smu.blood.api.MainService
 import org.smu.blood.api.MyPageService
-import org.smu.blood.api.ReviewService
-import org.smu.blood.databinding.ActivityApplyBinding.inflate
-import org.smu.blood.databinding.ActivityNavigationBinding
-import org.smu.blood.ui.board.BoardDeleteAlert
-import org.smu.blood.ui.board.BoardDeleteConfirmAlert
-import org.smu.blood.ui.board.BoardEditActivity
-import org.smu.blood.ui.board.BoardFragment
-import org.smu.blood.util.replaceFragment
 
 
 class MainFragment : BaseFragment<FragmentMainBinding>() {

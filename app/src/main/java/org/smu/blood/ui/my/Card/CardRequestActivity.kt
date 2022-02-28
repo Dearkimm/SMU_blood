@@ -8,18 +8,15 @@ import android.view.WindowManager
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.annotation.Dimension
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import org.smu.blood.R
 import org.smu.blood.databinding.ActivityCardRequestBinding
-import org.smu.blood.databinding.ActivityLoginBinding
 import org.smu.blood.model.BloodType
 import org.smu.blood.model.Hospital
 import org.smu.blood.ui.my.MyRequestFragment
 import org.smu.blood.util.shortToast
-import org.w3c.dom.Text
 
 class CardRequestActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCardRequestBinding
@@ -34,16 +31,16 @@ class CardRequestActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.tv_total).text = MyRequestFragment.myRequest.applicantNum.toString()
         // 신청자 수에 따라 TextView 늘어나도록 하기 (신청일시 TextView를 3개로 제한하지 않고)
         val timeList = findViewById<LinearLayout>(R.id.card_request_list)
-        for(i:Int in 0..MyRequestFragment.applyList.size){
-            Log.d("List_size: ",MyRequestFragment.applyList.size.toString())
-            val time = TextView(this@CardRequestActivity)
+        Log.d("List_size: ",MyRequestFragment.applyList.size.toString())
+        for(apply in MyRequestFragment.applyList){
+            val time = TextView(this)
             val layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT,
             )
             layoutParams.setMargins(0,0,0,5)
             time.layoutParams = layoutParams
-            time.text = MyRequestFragment.applyList[i].applyDate//신청일시
+            time.text = apply.applyDate//신청일시
             time.setTextSize(Dimension.SP,13.0f)
             time.typeface = resources.getFont(R.font.notosans_light)
             time.includeFontPadding = false
