@@ -160,10 +160,47 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
                     }
                     R.id.option_menu2->{ //마감 임박 순
                         Log.d("메뉴2","클릭")
+                        MainService(requireContext()).sortByDate { response ->
+                            if(response != null){
+                                val requestList = mutableListOf<MainRequest>()
+                                Log.d("[GET REUQEST LIST ORDER BY DATE]", "success")
+                                response.forEach {
+                                    Log.d("[GET REUQEST LIST ORDER BY DATE]", it.toString())
+                                    val mainRequest = MainRequest(it.hospitalId!!, it.requestId!!, it.rhType!!, it.bloodType!!, it.donationType!!, it.startDate!!, it.endDate!!,it.applicantNum!!, it.story!!, it.registerTime!!)
+                                    requestList.add(mainRequest)
+                                }
+                                mainRequestAdapter.setItems(requestList)
+
+                                mainRequestAdapter.unFilteredList = requestList
+                                mainRequestAdapter.notifyDataSetChanged()
+                                mainRequestAdapter.filter.filter("")
+                            }else{
+                                Log.d("[GET REUQEST LIST ORDER BY DATE]", "failed")
+                            }
+                        }
                         return@setOnMenuItemClickListener true
                     }
                     R.id.option_menu3->{ //신청자 적은 순
                         Log.d("메뉴3","클릭")
+                        MainService(requireContext()).sortByApplicant{ response ->
+                            if(response != null){
+                                val requestList = mutableListOf<MainRequest>()
+                                Log.d("[REUQEST LIST ORDER BY APPLICANTNUM]", "success")
+                                response.forEach {
+                                    Log.d("[REUQEST LIST ORDER BY APPLICANTNUM]", it.toString())
+                                    val mainRequest = MainRequest(it.hospitalId!!, it.requestId!!, it.rhType!!, it.bloodType!!, it.donationType!!, it.startDate!!, it.endDate!!,it.applicantNum!!, it.story!!, it.registerTime!!)
+                                    requestList.add(mainRequest)
+                                }
+                                mainRequestAdapter.setItems(requestList)
+
+                                mainRequestAdapter.unFilteredList = requestList
+                                mainRequestAdapter.notifyDataSetChanged()
+                                mainRequestAdapter.filter.filter("")
+                            }else{
+                                Log.d("[REUQEST LIST ORDER BY APPLICANTNUM]", "failed")
+                            }
+
+                        }
                         return@setOnMenuItemClickListener true
                     }else-> return@setOnMenuItemClickListener false
                 }

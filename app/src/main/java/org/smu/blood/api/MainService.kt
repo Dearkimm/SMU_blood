@@ -72,4 +72,44 @@ class MainService(context: Context) {
             }
         })
     }
+
+    // sort by endDate
+    fun sortByDate(onResult: (List<Request>?) -> Unit){
+        ServiceCreator.bumService.sortByDate()
+            .enqueue(object : Callback<List<Request>>{
+                override fun onResponse(call: Call<List<Request>>, response: Response<List<Request>>) {
+                    if(response.isSuccessful){
+                        Log.d("[GET REUQEST LIST ORDER BY DATE]", "${response.body()}")
+                        onResult(response.body())
+                    }else{
+                        Log.d("[GET REUQEST LIST ORDER BY DATE]", "${response.errorBody()}")
+                        onResult(null)
+                    }
+                }
+
+                override fun onFailure(call: Call<List<Request>>, t: Throwable) {
+                    Log.d("[GET REUQEST LIST ORDER BY DATE]", t.localizedMessage)
+                    onResult(null)
+                }
+            })
+    }
+    fun sortByApplicant(onResult: (List<Request>?) -> Unit){
+        ServiceCreator.bumService.sortByApplicantNum()
+            .enqueue(object : Callback<List<Request>>{
+                override fun onResponse(call: Call<List<Request>>, response: Response<List<Request>>) {
+                    if(response.isSuccessful){
+                        Log.d("[REUQEST LIST ORDER BY APPLICANTNUM]", "${response.body()}")
+                        onResult(response.body())
+                    }else{
+                        Log.d("[REUQEST LIST ORDER BY APPLICANTNUM]", "${response.errorBody()}")
+                        onResult(null)
+                    }
+                }
+
+                override fun onFailure(call: Call<List<Request>>, t: Throwable) {
+                    Log.d("[REUQEST LIST ORDER BY APPLICANTNUM]", t.localizedMessage)
+                    onResult(null)
+                }
+            })
+    }
 }

@@ -119,4 +119,12 @@ interface BlringService {
     // register blood donation apply
     @POST("main/apply")
     fun bloodApply(@Header("token") token: String, @Body applyInfo: HashMap<String, String>): Call<Int>
+
+    // request list order by endDate
+    @GET("main/list/endDate")
+    fun sortByDate(): Call<List<Request>>
+
+    // request list order by applicantNum
+    @GET("main/list/applicantNum")
+    fun sortByApplicantNum(): Call<List<Request>>
 }
