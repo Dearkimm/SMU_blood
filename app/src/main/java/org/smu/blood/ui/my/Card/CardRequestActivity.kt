@@ -8,15 +8,19 @@ import android.view.WindowManager
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.Dimension
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import org.smu.blood.R
 import org.smu.blood.databinding.ActivityCardRequestBinding
+import org.smu.blood.ui.board.BoardDeleteAlert
 import org.smu.blood.util.shortToast
 
 class CardRequestActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCardRequestBinding
+    //카드 삭제 다이얼로그 관련변수
+    var deleteState = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,22 +47,16 @@ class CardRequestActivity : AppCompatActivity() {
         }
         val btn = findViewById<Button>(R.id.request_delete)
         btn.setOnClickListener{
-            Log.d("sd","ss")
-            shortToast("클릭")
-            val builder = AlertDialog.Builder(this)
-            builder.setTitle("헌혈을 받으셨나요?")
-            builder.setMessage("헌혈 요청 글이 삭제됩니다.")
-            var listener = DialogInterface.OnClickListener { dialog, p1 ->
-                when (p1) {
-                    DialogInterface.BUTTON_POSITIVE ->
-                        shortToast("요청을 삭제했습니다")
-                    DialogInterface.BUTTON_NEGATIVE ->
-                        shortToast("취소")
+            val dlg = CardDeleteAlert(this)
+            dlg.callFunction()
+            dlg.show()
+            dlg.setOnDismissListener {
+                deleteState = dlg.returnState()
+                if(deleteState){
+                    //카드 삭제
+                    finish()
                 }
             }
-            builder.setPositiveButton("확인",listener)
-            builder.setNegativeButton("취소",listener)
-            builder.show()
         }
 
 
