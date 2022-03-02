@@ -8,7 +8,7 @@ object ServiceCreator {
     var bumService: BlringService
 
     // 요청 보내는 API 서버 (url은 /로 끝나야 함)
-    private const val BASE_URL = "http://192.168.35.99" + ":8090/blood/"
+    private const val BASE_URL = "http://[IP]" + ":8090/SMU-Blood-Backend/"
 
     init{
         var gson = GsonBuilder()
