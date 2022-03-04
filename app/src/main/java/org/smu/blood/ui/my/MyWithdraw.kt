@@ -13,6 +13,7 @@ import com.google.firebase.ktx.Firebase
 import org.smu.blood.R
 import org.smu.blood.api.MyPageService
 import org.smu.blood.api.SessionManager
+import org.smu.blood.ui.LoginActivity
 
 class MyWithdraw(context: Context) :
     Dialog(context, android.R.style.Theme_Translucent_NoTitleBar){
@@ -38,16 +39,22 @@ class MyWithdraw(context: Context) :
         withdraw.setOnClickListener { //탈퇴하기
 
             // 회원 정보 DB에서 삭제
-            myPageService.withDraw(){
+            myPageService.withDraw{
                 if(it==true) {
                     // token 삭제
                     var sessionManager = SessionManager(context)
                     sessionManager.removeToken()
+
+                    // google 연동이면 삭제
+                    if(LoginActivity.mGoogleSignInClient != null){
+                        Log.d("[GOOGLE LOGIN]", "withdraw")
+                        LoginActivity.mGoogleSignInClient?.revokeAccess()
+                    }
                     Log.d("[WITHDRAW]", "SUCCESS")
                     withdrawState = true
                 } else Log.d("[WITHDRAW]", "FAILURE")
             }
-            //returnState()
+            returnState()
             /*
             val user = Firebase.auth.currentUser!!
 

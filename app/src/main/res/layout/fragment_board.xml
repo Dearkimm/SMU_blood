@@ -20,17 +20,33 @@
         android:includeFontPadding="false"
         android:layout_marginTop="20dp"
         />
+
+    <ImageButton
+        android:id="@+id/btv_notification"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="23dp"
+        android:layout_marginEnd="15dp"
+        android:background="@android:color/transparent"
+        android:padding="0dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/bell_ring"
+        app:layout_constraintLeft_toLeftOf="@id/btv_text"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/warm_grey_2"/>
+
     <ImageButton
         android:id="@+id/btv_mypage"
-        android:layout_width="21dp"
-        android:layout_height="22.09dp"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:padding="0dp"
         android:src="@drawable/mypage_icon"
         app:layout_constraintRight_toRightOf="@id/btv_text"
         app:layout_constraintTop_toTopOf="parent"
         android:scaleType="fitCenter"
         android:background="@android:color/transparent"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="23dp"
         android:layout_marginEnd="15dp"
         />
     <TextView
@@ -45,7 +61,6 @@
         app:layout_constraintTop_toBottomOf="@id/btv_text"
         android:layout_marginStart="15dp"
         android:layout_marginTop="30dp"
-        android:text="장구벌레"
         />
     <TextView
         android:id="@+id/btv_nickname_text_1"
@@ -56,9 +71,9 @@
         android:textColor="@color/black"
         android:fontFamily="@font/notosans_regular"
         android:includeFontPadding="false"
-        app:layout_constraintLeft_toLeftOf="@id/btv_nickname"
+        app:layout_constraintLeft_toRightOf="@id/btv_nickname"
         app:layout_constraintTop_toBottomOf="@id/btv_text"
-        android:layout_marginStart="60dp"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="30dp"
         />
     <TextView

@@ -24,5 +24,5 @@ class MainRequestAlert (context: Context):
         ndel.setOnClickListener {
             dismiss()
         }
-    } //ㄲ
+    }
 }

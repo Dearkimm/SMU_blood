@@ -3,16 +3,13 @@ package org.smu.blood.ui.map
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
-import android.net.Uri
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
 import android.view.View
-import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -26,18 +23,18 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
-import org.smu.blood.databinding.ActivityMapBinding
 import org.smu.blood.R
-import android.view.LayoutInflater
 import android.view.View.VISIBLE
 import android.view.WindowManager
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContentProviderCompat.requireContext
 import com.google.android.gms.maps.model.*
+import org.smu.blood.model.BloodType
+import org.smu.blood.model.Hospital
 import org.smu.blood.ui.NavigationActivity
+import org.smu.blood.ui.main.MainFragment
+import org.smu.blood.ui.main.MainFragment.Companion.request
 
 
 class MapActivity : AppCompatActivity() , GoogleMap.OnMarkerClickListener, GoogleMap.OnMyLocationButtonClickListener,
@@ -48,7 +45,7 @@ class MapActivity : AppCompatActivity() , GoogleMap.OnMarkerClickListener, Googl
 //
     //구글맵 관련 변수들
     private lateinit var mMap:GoogleMap
-    private lateinit var mCameraPosition:CameraPosition
+    private var mCameraPosition:CameraPosition? = null
 
     //Places api의 엔트리 포인트(?)
     private lateinit var mGeoDataClient: GeoDataClient
@@ -71,6 +68,7 @@ class MapActivity : AppCompatActivity() , GoogleMap.OnMarkerClickListener, Googl
     , "경희의료원", "목동힘찬병원", "서울아산병원", "신촌세브란스병원(연세의료원)", "서울대학교병원", "서울대학교어린이병원", "서울성모병원(가톨릭)"
     , "삼성서울병원(본원)", "삼성서울병원 암병원", "성애병원(신길)", "여의도성모병원(가톨릭)", "은평성모병원(가톨릭)"
     , "이대서울병원", "이대목동병원", "최원호병원", "척편한병원", "한강성심병원", "한양대학교구리병원", "혜민병원", "희명병원")
+
     private var hospitalLat = arrayOf(37.47668207240237, 37.50756717691139, 37.64563444869913, 37.55932815683345, 37.53623579906633
     , 37.492793432212835, 37.49114981693702, 37.55348577017648, 37.54081781433152, 37.58703944573309, 37.492219998055674
     , 37.59388695234703, 37.5249618918768, 37.527511354376344, 37.56234349074328, 37.579547092107504, 37.57934303139017, 37.5017816924235
@@ -89,14 +87,16 @@ class MapActivity : AppCompatActivity() , GoogleMap.OnMarkerClickListener, Googl
         37.55601572907209, 37.485228339956684, 37.47869303536205, 37.51287217850732, 37.50707682233656)
     private var bloodCenterLon = arrayOf(126.870757963193, 126.96943844782595, 126.93729104782592, 126.93781013988672, 126.92031837854357,
         126.92282714782516, 126.9015716784774, 126.95257816313065, 126.92599587849107, 126.8902613784882)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         //위치랑 카메라 권한 상태인가?? 아니면 걍 포지션..?
         if(savedInstanceState != null){
-            mLastKnownLocation = savedInstanceState.getParcelable<Location>(KEY_LOCATION)!!
-            mCameraPosition = savedInstanceState.getParcelable<CameraPosition>(KEY_CAMERA_POSITION)!!
+            mLastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION)
+            mCameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION)
         }
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
         setContentView(R.layout.activity_map)
 
@@ -108,21 +108,21 @@ class MapActivity : AppCompatActivity() , GoogleMap.OnMarkerClickListener, Googl
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map_fragment) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-        //팝업 버튼 이벤트
-        var btnGo = findViewById<Button>(R.id.btn_go)
+
+        // 헌혈하기 버튼 클릭 이벤트
+        val btnGo = findViewById<Button>(R.id.btn_go)
         btnGo.setOnClickListener {
             mapState = 1
+
             val intent = Intent(this, NavigationActivity::class.java)
             startActivity(intent)
         }
     }
 
     override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
-        if(mMap != null){
-            outState.putParcelable(KEY_CAMERA_POSITION, mMap.cameraPosition)
-            outState.putParcelable(KEY_LOCATION, mLastKnownLocation)
-            super.onSaveInstanceState(outState, outPersistentState)
-        }
+        outState.putParcelable(KEY_CAMERA_POSITION, mMap.cameraPosition)
+        outState.putParcelable(KEY_LOCATION, mLastKnownLocation)
+        super.onSaveInstanceState(outState, outPersistentState)
     }
 
     override fun onMyLocationButtonClick(): Boolean {
@@ -154,6 +154,7 @@ class MapActivity : AppCompatActivity() , GoogleMap.OnMarkerClickListener, Googl
 
         //리스너 달기
         mMap.setOnMarkerClickListener(this)
+        /* 하드코딩으로 보여줄 때
         //마커찍기(병원)
         for (i in hospitalName.indices) {
             // 1. 마커 옵션 설정 (만드는 과정)
@@ -165,6 +166,23 @@ class MapActivity : AppCompatActivity() , GoogleMap.OnMarkerClickListener, Googl
 
             // 2. 마커 생성 (마커를 나타냄)
             mMap.addMarker(makerOptions)
+        }
+         */
+
+        // 모든 요청 리스트 가져와서 마커 찍기
+        val requestList = MainFragment.rList
+        for(request in requestList){
+            Log.d("[MAP] ADD REQUEST MARKER", request.toString())
+            val hospital = Hospital.values().first { request.hospitalId == it.id }
+
+            val makerOptions = MarkerOptions()
+            makerOptions
+                .position(LatLng(hospital.latitude, hospital.logitude))
+                .title(hospital.hospitalName) // 타이틀.
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_mk_red))
+            val marker = mMap.addMarker(makerOptions)
+            markerList.add(marker!!)
+            Log.d("[MAP]", "request: ${request.requestId}, marker: ${marker.id}")
         }
 
         //마커찍기(헌혈의집)
@@ -196,28 +214,30 @@ class MapActivity : AppCompatActivity() , GoogleMap.OnMarkerClickListener, Googl
         try {
             getLocationPermission()
             if(mLocationPermissionGranted){
-                var locationResult: Task<Location>  = mFusedLocationProviderClient.lastLocation
-                locationResult.addOnCompleteListener(this, object : OnCompleteListener<Location> {
-                    override fun onComplete(@NonNull task: Task<Location>) {
-                        if(task.isSuccessful){
-                            //지도 카메라 위치를 내 위치로 땡겨오기
-                            mLastKnownLocation = task?.result!!
-                            Log.d("내 위치", mLastKnownLocation!!.latitude.toString()+", "+mLastKnownLocation!!.longitude)
-                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(
-                                mLastKnownLocation!!.latitude, mLastKnownLocation!!.longitude),
-                                DEFAULT_ZOOM.toFloat()
-                            ))
-                        } else{
-                            Log.d(TAG, "현재 위치를 찾을 수 없어서 디폴트 씀")
-                            Log.e(TAG, "exception: %s", task.exception)
+                val locationResult: Task<Location>  = mFusedLocationProviderClient.lastLocation
+
+                locationResult.addOnCompleteListener(this){ task ->
+                    if(task.isSuccessful){
+                        //지도 카메라 위치를 내 위치로 땡겨오기
+                        mLastKnownLocation = task.result
+                        if(mLastKnownLocation != null){
+                            val myLatitude = mLastKnownLocation!!.latitude
+                            val myLongitude = mLastKnownLocation!!.longitude
+                            Log.d("내 위치", "latitude: $myLatitude, longitude: $myLongitude")
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                                mDefaultLocation,
+                                LatLng(mLastKnownLocation!!.latitude, mLastKnownLocation!!.longitude),
                                 DEFAULT_ZOOM.toFloat()
                             ))
-                            mMap.uiSettings.isMyLocationButtonEnabled = false
                         }
+                    }else{
+                        Log.d(TAG, "현재 위치를 찾을 수 없어서 디폴트 위치 사용")
+                        Log.e(TAG, "Exception: %s", task.exception)
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mDefaultLocation, DEFAULT_ZOOM.toFloat()))
+                        mMap.uiSettings.isMyLocationButtonEnabled = false
                     }
-                })
+                }
+
+
 
             }
         } catch (e: SecurityException){
@@ -227,7 +247,7 @@ class MapActivity : AppCompatActivity() , GoogleMap.OnMarkerClickListener, Googl
 
     //사용자한테 기기 위치 권한 받아오기
     private fun getLocationPermission(){
-        if(ContextCompat.checkSelfPermission(this.applicationContext, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        if(ContextCompat.checkSelfPermission(this.applicationContext, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             mLocationPermissionGranted = true
 
         } else {
@@ -263,13 +283,12 @@ class MapActivity : AppCompatActivity() , GoogleMap.OnMarkerClickListener, Googl
             placeResult.addOnCompleteListener(
                 object : OnCompleteListener<PlaceLikelihoodBufferResponse>{
                     override fun onComplete(task: Task<PlaceLikelihoodBufferResponse>) {
-                       if(task.isSuccessful() && task.getResult() != null){
-                           var likelyPlaces = task.getResult()
-                           var count = 0
-                           if(likelyPlaces.count < M_MAX_ENTRIES){
-                               count = likelyPlaces.count
+                       if(task.isSuccessful && task.result != null){
+                           var likelyPlaces = task.result
+                           var count = if(likelyPlaces.count < M_MAX_ENTRIES){
+                               likelyPlaces.count
                            } else{
-                               count = M_MAX_ENTRIES
+                               M_MAX_ENTRIES
                            }
 
                            var i = 0
@@ -347,6 +366,7 @@ class MapActivity : AppCompatActivity() , GoogleMap.OnMarkerClickListener, Googl
             if(mLocationPermissionGranted){
                 mMap.isMyLocationEnabled = true
                 mMap.uiSettings.isMyLocationButtonEnabled = true
+                mMap.uiSettings.isZoomControlsEnabled = true
             } else{
                 mMap.isMyLocationEnabled = false
                 mMap.uiSettings.isMyLocationButtonEnabled=false
@@ -377,12 +397,27 @@ class MapActivity : AppCompatActivity() , GoogleMap.OnMarkerClickListener, Googl
         //현재 장소 선택?(나중에 생략해도 될듯)
         private val M_MAX_ENTRIES = 5
         var mapState = 0
+        var markerList = mutableListOf<Marker>()
     }
 
     override fun onMarkerClick(marker: Marker): Boolean {
         var popup = findViewById<ConstraintLayout>(R.id.con_popup)
         var hospital = findViewById<TextView>(R.id.tv_hospital)
+
+        // 마커에 대한 인덱스 가져오기
+        val index = markerList.indexOf(marker)
+
+        // 마커에 대한 요청 정보 세팅 (MainReadFragment 에서 필요)
+        request = MainFragment.rList[index]
+        Log.d("[MAP]", "GET REQUEST OF MARKER: $request")
+
+        // 병원 이름
         hospital.text = marker.title
+        // 혈액형
+        val blood = BloodType.values().first { request.bloodType == it.id}.bloodType
+        val rh = if(request.rhType) "-" else "+"
+        findViewById<TextView>(R.id.tv_bloodtype).text = "Rh$rh ${blood}형"
+
         popup.visibility = VISIBLE
 
         return true

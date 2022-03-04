@@ -32,7 +32,7 @@
                 android:textSize="13sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="서울특별시 서초구 강남 연세사랑병" />
+                tools:text="서울특별시 서초구 강남 연세사랑병원" />
 
             <TextView
                 android:id="@+id/req_blood"
@@ -45,7 +45,7 @@
                 android:textSize="10sp"
                 app:layout_constraintLeft_toLeftOf="@+id/req_hospital"
                 app:layout_constraintTop_toBottomOf="@id/req_hospital"
-                tools:text="Rh+ A형 전혈" />
+                tools:text="Rh+ A형 백혈구여과제거 적혈구" />
 
             <TextView
                 android:id="@+id/req_time"
@@ -57,6 +57,7 @@
                 android:includeFontPadding="false"
                 android:textColor="@color/black"
                 android:textSize="10sp"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="@id/req_blood"
                 app:layout_constraintTop_toBottomOf="@id/req_blood"
@@ -66,29 +67,28 @@
                 android:id="@+id/req_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="29dp"
                 android:fontFamily="@font/notosans_light"
                 android:includeFontPadding="false"
                 android:textColor="@color/black"
                 android:textSize="10sp"
-                app:layout_constraintBottom_toBottomOf="@id/req_blood"
-                app:layout_constraintLeft_toRightOf="@id/req_blood"
-                app:layout_constraintTop_toTopOf="@id/req_blood"
-                tools:text="21.10.01~21.10.15" />
+                android:layout_marginTop="4dp"
+                app:layout_constraintLeft_toLeftOf="@id/req_hospital"
+                app:layout_constraintTop_toBottomOf="@id/req_blood"
+                tools:text="요청 기간: 21.10.01~21.10.15" />
 
             <TextView
                 android:id="@+id/req_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="21dp"
+                android:layout_marginStart="17dp"
                 android:fontFamily="@font/notosans_light"
                 android:includeFontPadding="false"
                 android:textColor="@color/black"
                 android:textSize="10sp"
-                app:layout_constraintBottom_toBottomOf="@id/req_date"
-                app:layout_constraintLeft_toRightOf="@id/req_date"
-                app:layout_constraintTop_toTopOf="@id/req_date"
-                tools:text="3명" />
+                android:layout_marginTop="7dp"
+                app:layout_constraintTop_toBottomOf="@id/req_hospital"
+                app:layout_constraintLeft_toRightOf="@id/req_blood"
+                tools:text="신청자 수: 3명" />
 
             <ImageView
                 android:id="@+id/circle"

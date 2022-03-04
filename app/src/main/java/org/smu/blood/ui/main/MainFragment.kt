@@ -1,11 +1,9 @@
 package org.smu.blood.ui.main
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.PopupMenu
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.smu.blood.ui.NavigationActivity
 import org.smu.blood.api.database.MainRequest
@@ -13,17 +11,14 @@ import org.smu.blood.databinding.FragmentMainBinding
 import org.smu.blood.ui.base.BaseFragment
 import org.smu.blood.ui.main.adapter.MainRequestAdapter
 import androidx.activity.addCallback
-import com.google.android.gms.common.util.CollectionUtils.listOf
 import org.smu.blood.R
-import org.smu.blood.model.BloodType
-import org.smu.blood.model.Hospital
-import org.smu.blood.ui.board.BoardEditActivity
-import org.smu.blood.util.*
-import java.time.LocalDateTime
+import org.smu.blood.api.MainService
+import org.smu.blood.api.MyPageService
 
 
 class MainFragment : BaseFragment<FragmentMainBinding>() {
     private val mainRequestAdapter = MainRequestAdapter()
+    var bloodType: Int = 0
 
     override fun initBinding(inflater: LayoutInflater, container: ViewGroup?) =
         FragmentMainBinding.inflate(inflater, container, false)
@@ -34,82 +29,61 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
 
         configureMainNavigation()
         initMain()
-        //addMainRequestInfo()
+        addMainRequestInfo()
         configureClickEvent()
-        binding.mainSort.setOnClickListener{
-            var popupMenu = PopupMenu(context,it)
-            popupMenu.menuInflater.inflate(R.menu.main_sort_option,popupMenu.menu)
-            popupMenu.show()
-            popupMenu.setOnMenuItemClickListener {
-                when(it.itemId){
-                    R.id.option_menu1->{ //최신순
-                        Log.d("메뉴1","클릭")
-                        return@setOnMenuItemClickListener true
-                    }
-                    R.id.option_menu2->{ //마감 임박 순
-                        Log.d("메뉴2","클릭")
-                        return@setOnMenuItemClickListener true
-                    }
-                    R.id.option_menu3->{ //신청자 적은 순
-                        Log.d("메뉴3","클릭")
-                        return@setOnMenuItemClickListener true
-                    }else-> return@setOnMenuItemClickListener false
+        setHasOptionsMenu(true)
+    }
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.main_sort_option, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.option_menu1->
+                Log.d("메뉴1","클릭2")
+            R.id.option_menu2->
+                Log.d("메뉴2","클릭2")
+            R.id.option_menu3->
+                Log.d("메뉴3","클릭2")
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+
+    private fun initMain() {
+        // DB에서 로그인한 사용자 bloodType 가져오기
+        MyPageService(requireContext()).myInfo { user ->
+            if(user != null){
+                bloodType = user.bloodType!!
+                Log.d("[GET MY BLOOD TYPE]", bloodType.toString())
+            }
+        }
+
+        MainService(requireContext()).mainList {
+            // DB에서 가져온 리스트 서버로부터 받기
+            if(it!=null){
+                Log.d("[BLOOD REQUEST LIST]","GET LIST")
+                val requestList = mutableListOf<MainRequest>()
+                rList = requestList
+                for(request in it){
+                    val mainRequest = MainRequest(request.hospitalId!!, request.requestId!!, request.rhType!!, request.bloodType!!, request.donationType!!, request.startDate!!, request.endDate!!, request.applicantNum!!, request.story!!, request.registerTime!!)
+                    Log.d("[BLOOD REQUEST LIST]", mainRequest.toString())
+                    // MainRequest 리스트에 넣기
+                    requestList.add(mainRequest)
                 }
+                for(request in requestList) Log.d("[BLOOD REQUEST LIST]", request.toString())
+                mainRequestAdapter.setItems(requestList)
+
+                mainRequestAdapter.unFilteredList = requestList
+                mainRequestAdapter.notifyDataSetChanged()
+                mainRequestAdapter.filter.filter("")
+            }
+            else{
+                Log.d("[BLOOD REQUEST LIST]","GET LIST FAILURE OR NO LIST")
             }
         }
     }
-
-    private fun initMain() {
-        when (MainRequestFragment.requestState) {
-            1 -> mainRequestAdapter.setItems(
-                listOf(
-                    MainRequest(2, true, 2,"전혈",
-                        "21.12.15", "21.12.20", 0,
-                        "가족 중에 한 분이 혈액암으로 많이 안 좋아요.. B형이신 분 지정헌혈 부탁드려요. 코로나로 헌혈하시는 분들이 많이 줄어서 B형 혈소판이 부족합니다.", "2021.12.15(화) 오후 16:"),
-                    MainRequest(29, true, 2,"혈소판",
-                        "21.12.12", "21.12.23", 0,
-                        "가족 중에 한 분이 혈액암으로 많이 안 좋아요.. B형이신 분 지정헌혈 부탁드려요. 코로나로 헌혈하시는 분들이 많이 줄어서 B형 혈소판이 부족합니다.", "2021.12.11(토) 오후 20:42"),
-                    MainRequest(32, true, 4,"혈소판",
-                        "21.12.11", "21.12.19", 2,
-                        "친한 언니가 급성 심근염으로 중환자실에서 힘든 시간을 보내고 있습니다. Rh+ A형 혈소판을 구하고 있으니 가능하시다면 헌혈을 간곡하게 부탁드립니다.", "2021.12.11(토) 오전 10:31"),
-                    MainRequest(17, false, 3,"전혈",
-                        "21.12.08", "21.12.15", 1,
-                        "제 동생이 어제 사고를 당해서 수술을 했는데 예상보다 많은 출혈이 있었습니다.. 그런데 Rh- O형이라 혈액 구하기가 너무 어려운 상태입니다. 혈액형이 Rh- O형이신 분은 가까운 헌혈의 집에 가셔서 지정 헌혈을 해주시면 감사하겠습니다. 헌혈해주신다면 혈액이 해당 병원으로 바로 수송되어 환자에게 투여됩니다. 꼭 좀 부탁드려요." , "2021.12.08(수) 오전 07:09"),
-                    MainRequest(23, true, 1,"혈소판",
-                        "21.12.07", "21.12.15", 3,
-                        "결핵성 뇌수막염에 걸리신 어머니께서 항상 혈소판 수치가 낮게 나와 매일매일 수혈을 받으시면서 결핵 치료를 겨우 이어나가고 있었는데 피가 많이 부족해서 오늘 처음으로 수혈을 받지 못하셨습니다. 부디 좋은 분들이 나타나주셔서 수혈을 받으면서 결핵 치료를 받을 수 있게 도와주셨으면 감사하겠습니다. 부탁드립니다.. Rh+ AB형 혈소판 지정헌혈로 꼭 부탁드립니다." ,"2021.12.07(화) 오전 11:15"),
-                    MainRequest(54, true, 2,"전혈",
-                        "21.12.04", "21.12.13", 2,
-                        "할아버지께서 급하게 수혈이 필요한 상황인데 저는 타지에서 근무 중이라 직접 지정 헌혈을 할 수 없게 되어 간절한 마음을 담아 지정 헌혈 요청을 해봅니다.", "2021.12.04(토) 오후 21:48"),
-
-                    )
-            )
-
-            else -> mainRequestAdapter.setItems(
-                listOf(
-                   MainRequest(29, true, 2,"혈소판",
-                        "21.12.12", "21.12.23", 0,
-                        "가족 중에 한 분이 혈액암으로 많이 안 좋아요.. B형이신 분 지정헌혈 부탁드려요. 코로나로 헌혈하시는 분들이 많이 줄어서 B형 혈소판이 부족합니다.", "2021.12.11(토) 오후 20:42"),
-                    MainRequest(32, true, 4,"혈소판",
-                        "21.12.11", "21.12.19", 2,
-                        "친한 언니가 급성 심근염으로 중환자실에서 힘든 시간을 보내고 있습니다. Rh+ A형 혈소판을 구하고 있으니 가능하시다면 헌혈을 간곡하게 부탁드립니다.", "2021.12.11(토) 오전 10:31"),
-                    MainRequest(17, false, 3,"전혈",
-                        "21.12.08", "21.12.15", 1,
-                        "제 동생이 어제 사고를 당해서 수술을 했는데 예상보다 많은 출혈이 있었습니다.. 그런데 Rh- O형이라 혈액 구하기가 너무 어려운 상태입니다. 혈액형이 Rh- O형이신 분은 가까운 헌혈의 집에 가셔서 지정 헌혈을 해주시면 감사하겠습니다. 헌혈해주신다면 혈액이 해당 병원으로 바로 수송되어 환자에게 투여됩니다. 꼭 좀 부탁드려요." , "2021.12.08(수) 오전 07:09"),
-                    MainRequest(23, true, 1,"혈소판",
-                        "21.12.07", "21.12.15", 3,
-                        "결핵성 뇌수막염에 걸리신 어머니께서 항상 혈소판 수치가 낮게 나와 매일매일 수혈을 받으시면서 결핵 치료를 겨우 이어나가고 있었는데 피가 많이 부족해서 오늘 처음으로 수혈을 받지 못하셨습니다. 부디 좋은 분들이 나타나주셔서 수혈을 받으면서 결핵 치료를 받을 수 있게 도와주셨으면 감사하겠습니다. 부탁드립니다.. Rh+ AB형 혈소판 지정헌혈로 꼭 부탁드립니다." ,"2021.12.07(화) 오전 11:15"),
-                    MainRequest(54, true, 2,"전혈",
-                        "21.12.04", "21.12.13", 2,
-                        "할아버지께서 급하게 수혈이 필요한 상황인데 저는 타지에서 근무 중이라 직접 지정 헌혈을 할 수 없게 되어 간절한 마음을 담아 지정 헌혈 요청을 해봅니다.", "2021.12.04(토) 오후 21:48"),
-
-                    )
-            )
-
-        }
-    }
-
-
 
     private fun configureMainNavigation() {
         binding.btnRequest.setOnClickListener {
@@ -123,69 +97,119 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
         }
     }
 
+    // 서버에 requestInfo 보내기
     private fun addMainRequestInfo() {
-        // 서버 통신 코드
-//        val call: Call<ResponseRequest> = ServiceCreator.bumService.getRequest(
-//        call.enqueueUtil(
-//            onSuccess = {
-//                mainRequestAdapter.setItems()
-//            }
-//        )
-
-        // 더미데이터
-        mainRequestAdapter.setItems(
-            listOf(
-
-                //신청하고 나서 count: 1로 바꾸야 함
-               MainRequest(29, true, 2,"혈소판",
-                    "21.12.12", "21.12.23", 0,
-                    "가족 중에 한 분이 혈액암으로 많이 안 좋아요.. B형이신 분 지정헌혈 부탁드려요. 코로나로 헌혈하시는 분들이 많이 줄어서 B형 혈소판이 부족합니다.", "2021.12.11(토) 오후 20:42"),
-                MainRequest(32, true, 4,"혈소판",
-                    "21.12.11", "21.12.19", 2,
-                    "친한 언니가 급성 심근염으로 중환자실에서 힘든 시간을 보내고 있습니다. Rh+ A형 혈소판을 구하고 있으니 가능하시다면 헌혈을 간곡하게 부탁드립니다.", "2021.12.11(토) 오전 10:31"),
-                MainRequest(17, false, 3,"전혈",
-                    "21.12.08", "21.12.15", 1,
-                    "제 동생이 어제 사고를 당해서 수술을 했는데 예상보다 많은 출혈이 있었습니다.. 그런데 Rh- O형이라 혈액 구하기가 너무 어려운 상태입니다. 혈액형이 Rh- O형이신 분은 가까운 헌혈의 집에 가셔서 지정 헌혈을 해주시면 감사하겠습니다. 헌혈해주신다면 혈액이 해당 병원으로 바로 수송되어 환자에게 투여됩니다. 꼭 좀 부탁드려요." , "2021.12.08(수) 오전 07:09"),
-                MainRequest(23, true, 1,"혈소판",
-                    "21.12.07", "21.12.15", 3,
-                    "결핵성 뇌수막염에 걸리신 어머니께서 항상 혈소판 수치가 낮게 나와 매일매일 수혈을 받으시면서 결핵 치료를 겨우 이어나가고 있었는데 피가 많이 부족해서 오늘 처음으로 수혈을 받지 못하셨습니다. 부디 좋은 분들이 나타나주셔서 수혈을 받으면서 결핵 치료를 받을 수 있게 도와주셨으면 감사하겠습니다. 부탁드립니다.. Rh+ AB형 혈소판 지정헌혈로 꼭 부탁드립니다." ,"2021.12.07(화) 오전 11:15"),
-                MainRequest(54, true, 2,"전혈",
-                    "21.12.04", "21.12.13", 2,
-                    "할아버지께서 급하게 수혈이 필요한 상황인데 저는 타지에서 근무 중이라 직접 지정 헌혈을 할 수 없게 되어 간절한 마음을 담아 지정 헌혈 요청을 해봅니다.", "2021.12.04(토) 오후 21:48"),
-
+        when (MainRequestFragment.requestState) {
+            1 -> {
+                Log.d(
+                    "[REGISTER BLOOD REQUEST] SEND REQUEST INFO",
+                    MainRequestFragment.requestInfo.toString()
                 )
-        )
+                MainService(requireContext()).mainRequest(MainRequestFragment.requestInfo) {
+                    if (it == true) {
+                        Log.d("[REGISTER BLOOD REQUEST]", "SUCCESS")
+                    }else{
+                        Log.d("[REGISTER BLOOD REQUEST]", "FAILURE")
+                    }
+                }
+                MainRequestFragment.requestState = 0
+            }
+        }
     }
+
+
 
     private fun configureClickEvent() {
         mainRequestAdapter.setItemClickListener(object : MainRequestAdapter.ItemClickListener {
             override fun onClick(requestInfo: MainRequest) {
-                hospitalId = requestInfo.hospitalId
-                rhType = requestInfo.rhType
-                bloodType = requestInfo.bloodType
-                donationType = requestInfo.donationType
-                startDate = requestInfo.startDate
-                endDate = requestInfo.endDate
-                count = requestInfo.count
-                content = requestInfo.content
-                updatedDate = requestInfo.updatedDate
+                //unFilteredList = requestInfo
+                request = requestInfo
+
+                Log.d("[SHOW REQUEST INFO]",request.toString())
 
                 (activity as NavigationActivity).navigateMainToRead()
             }
         })
 
+        //필터링
+        binding.mainSwitch.setOnCheckedChangeListener{buttonView, isChecked ->
+            if (isChecked){
+                //필터사용
+                //mainRequestAdapter.filter.filter(unFilteredList.bloodType.toString())
+                mainRequestAdapter.filter.filter(bloodType.toString())
+                Log.d("내혈액형만보기", "체크선택")
+            }
+            else{
+                //필터 미사용
+                Log.d("내혈액형만보기", "체크해제")
+                mainRequestAdapter.filter.filter("")
+            }
+        }
 
+        // sorting option click
+        binding.mainSort.setOnClickListener{
+            var popupMenu = PopupMenu(context,it)
+            popupMenu.menuInflater.inflate(R.menu.main_sort_option,popupMenu.menu)
+            popupMenu.show()
+            popupMenu.setOnMenuItemClickListener {
+                when(it.itemId){
+                    R.id.option_menu1->{ //최신순
+                        Log.d("메뉴1","클릭")
+                        initMain()
+                        return@setOnMenuItemClickListener true
+                    }
+                    R.id.option_menu2->{ //마감 임박 순
+                        Log.d("메뉴2","클릭")
+                        MainService(requireContext()).sortByDate { response ->
+                            if(response != null){
+                                val requestList = mutableListOf<MainRequest>()
+                                Log.d("[GET REUQEST LIST ORDER BY DATE]", "success")
+                                response.forEach {
+                                    Log.d("[GET REUQEST LIST ORDER BY DATE]", it.toString())
+                                    val mainRequest = MainRequest(it.hospitalId!!, it.requestId!!, it.rhType!!, it.bloodType!!, it.donationType!!, it.startDate!!, it.endDate!!,it.applicantNum!!, it.story!!, it.registerTime!!)
+                                    requestList.add(mainRequest)
+                                }
+                                mainRequestAdapter.setItems(requestList)
+
+                                mainRequestAdapter.unFilteredList = requestList
+                                mainRequestAdapter.notifyDataSetChanged()
+                                mainRequestAdapter.filter.filter("")
+                            }else{
+                                Log.d("[GET REUQEST LIST ORDER BY DATE]", "failed")
+                            }
+                        }
+                        return@setOnMenuItemClickListener true
+                    }
+                    R.id.option_menu3->{ //신청자 적은 순
+                        Log.d("메뉴3","클릭")
+                        MainService(requireContext()).sortByApplicant{ response ->
+                            if(response != null){
+                                val requestList = mutableListOf<MainRequest>()
+                                Log.d("[REUQEST LIST ORDER BY APPLICANTNUM]", "success")
+                                response.forEach {
+                                    Log.d("[REUQEST LIST ORDER BY APPLICANTNUM]", it.toString())
+                                    val mainRequest = MainRequest(it.hospitalId!!, it.requestId!!, it.rhType!!, it.bloodType!!, it.donationType!!, it.startDate!!, it.endDate!!,it.applicantNum!!, it.story!!, it.registerTime!!)
+                                    requestList.add(mainRequest)
+                                }
+                                mainRequestAdapter.setItems(requestList)
+
+                                mainRequestAdapter.unFilteredList = requestList
+                                mainRequestAdapter.notifyDataSetChanged()
+                                mainRequestAdapter.filter.filter("")
+                            }else{
+                                Log.d("[REUQEST LIST ORDER BY APPLICANTNUM]", "failed")
+                            }
+
+                        }
+                        return@setOnMenuItemClickListener true
+                    }else-> return@setOnMenuItemClickListener false
+                }
+            }
+        }
     }
 
     companion object {
-        var hospitalId = -1
-        var rhType = false
-        var bloodType = -1
-        var donationType = ""
-        var startDate = ""
-        var endDate = ""
-        var count = -1
-        var content = ""
-        var updatedDate = ""
+        lateinit var request: MainRequest
+        lateinit var rList: List<MainRequest>
     }
 }

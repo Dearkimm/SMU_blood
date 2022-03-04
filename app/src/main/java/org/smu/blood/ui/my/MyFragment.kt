@@ -3,25 +3,24 @@ package org.smu.blood.ui.my
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.addCallback
-import org.smu.blood.ui.NavigationActivity
-import org.smu.blood.ui.LoginActivity
+import com.google.android.gms.auth.api.Auth
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.ValueEventListener
-import org.smu.blood.api.database.User
-import com.google.firebase.database.DatabaseError
-import org.smu.blood.databinding.FragmentMyBinding
-import android.util.Log
-import android.widget.Toast
-import com.google.firebase.database.ktx.getValue
 import org.smu.blood.api.MyPageService
 import org.smu.blood.api.SessionManager
+import org.smu.blood.databinding.FragmentMyBinding
+import org.smu.blood.ui.LoginActivity
+import org.smu.blood.ui.NavigationActivity
 import org.smu.blood.ui.base.BaseFragment
 
 
@@ -131,11 +130,18 @@ class MyFragment : BaseFragment<FragmentMyBinding>() {
                     // token 삭제
                     var sessionManager = SessionManager(requireContext())
                     sessionManager.removeToken()
+
+                    // 앱에 연결된 google 계정 삭제
+                    if(LoginActivity.mGoogleSignInClient != null){
+                        Log.d("[GOOGLE LOGIN]", "signout")
+                        LoginActivity.mGoogleSignInClient?.signOut()
+                    }
+
                     //로그인화면으로 이동
                     val intent2 = Intent(context, LoginActivity()::class.java)
                     //네비게이션 액티비티
-                    (activity as NavigationActivity).logoutAndfinish()
                     startActivity(intent2)
+                    (activity as NavigationActivity).logoutAndfinish()
                 }
             }
         }
@@ -149,12 +155,13 @@ class MyFragment : BaseFragment<FragmentMyBinding>() {
             dlg.setOnDismissListener {
                 var withdrawState = dlg.returnState()
                 if(withdrawState){ //탈퇴하기
+
                     Toast.makeText(context, "탈퇴 완료", Toast.LENGTH_SHORT).show()
-                    //로그인화면으로 이동
-                    val intent2 = Intent(context, LoginActivity()::class.java)
-                    //네비게이션 액티비티
                     (activity as NavigationActivity).logoutAndfinish()
-                    startActivity(intent2)
+                    //로그인화면으로 이동
+                    val intent3 = Intent(context, LoginActivity()::class.java)
+                    //네비게이션 액티비티
+                    startActivity(intent3)
                 }
             }
         }
@@ -170,6 +177,7 @@ class MyFragment : BaseFragment<FragmentMyBinding>() {
             (activity as NavigationActivity).popMy()
         }
     }
+
     companion object {
        @JvmStatic
         fun newInstance(param1: String, param2: String) =

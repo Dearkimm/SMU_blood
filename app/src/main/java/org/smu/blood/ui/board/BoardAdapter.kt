@@ -6,15 +6,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Filter
-import android.widget.Filterable
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import org.smu.blood.R
+import org.smu.blood.api.SessionManager
 
 class BoardAdapter(private val context:Context) :
-RecyclerView.Adapter<BoardAdapter.ViewHolder>(),Filterable {
+    RecyclerView.Adapter<BoardAdapter.ViewHolder>(),Filterable {
 
     //var datas = mutableListOf<BoardData>()
 
@@ -23,6 +21,7 @@ RecyclerView.Adapter<BoardAdapter.ViewHolder>(),Filterable {
     var filteredList = mutableListOf<BoardData>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        Log.d("[REVIEW LIST3]","ADD REVIEW")
         val view = LayoutInflater.from(context).inflate(R.layout.item_board,parent,false)
         return ViewHolder(view)
     }
@@ -32,7 +31,7 @@ RecyclerView.Adapter<BoardAdapter.ViewHolder>(),Filterable {
     override fun getFilter(): Filter {
         return object : Filter() {
             override fun performFiltering(constraint: CharSequence?): FilterResults {
-                val charString = constraint.toString() //내 닉네임
+                val charString = constraint.toString()
                 filteredList = if (charString.isEmpty()) {
                     unFilteredList
                 } else {
@@ -50,6 +49,42 @@ RecyclerView.Adapter<BoardAdapter.ViewHolder>(),Filterable {
                 filteredList = results?.values as MutableList<BoardData>
                 notifyDataSetChanged()
             }
+        }
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        Log.d("[REVIEW LIST3]","ADD REVIEW")
+        holder.bind(filteredList[position])
+    }
+
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        private var txtTitle: TextView = itemView.findViewById(R.id.board_title)
+        private var txtNickname: TextView = itemView.findViewById(R.id.board_nickname)
+        private var txtTime: TextView = itemView.findViewById(R.id.board_time)
+        private var txtHeartCount: TextView = itemView.findViewById(R.id.board_heart_count)
+        private var txtCommentCount: TextView = itemView.findViewById(R.id.board_commments_count)
+
+        fun bind(item: BoardData) {
+            Log.d("[REVIEW LIST3]","ADD REVIEW")
+            txtTitle.text = item.title
+            txtNickname.text = item.nickname
+            txtTime.text = item.time
+            txtHeartCount.text = item.heartcount.toString()
+            txtCommentCount.text = item.commentcount.toString()
+
+            val position = adapterPosition
+            if(position!= RecyclerView.NO_POSITION)
+            {
+                itemView.setOnClickListener {
+                    listener?.onItemClick(itemView,item,position)
+                }
+
+                itemView.setOnLongClickListener {
+                    longlistener?.onItemLongClick(itemView,item,position)
+                    return@setOnLongClickListener true
+                }
+            }
+
         }
     }
 
@@ -76,40 +111,6 @@ RecyclerView.Adapter<BoardAdapter.ViewHolder>(),Filterable {
             filteredList.removeAt(position)
             notifyItemRemoved(position)
             notifyDataSetChanged()
-        }
-    }
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(filteredList[position])
-    }
-
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val txtTitle: TextView = itemView.findViewById(R.id.board_title)
-        private val txtNickname: TextView = itemView.findViewById(R.id.board_nickname)
-        private val txtTime: TextView = itemView.findViewById(R.id.board_time)
-        private val txtHeartCount: TextView = itemView.findViewById(R.id.board_heart_count)
-        private val txtCommentCount: TextView = itemView.findViewById(R.id.board_commments_count)
-
-        fun bind(item: BoardData) {
-            txtTitle.text = item.title
-            txtNickname.text = item.nickname
-            txtTime.text = item.time
-            txtHeartCount.text = item.heartcount.toString()
-            txtCommentCount.text = item.commentcount.toString()
-
-            val position = adapterPosition
-            if(position!= RecyclerView.NO_POSITION)
-            {
-                itemView.setOnClickListener {
-                    listener?.onItemClick(itemView,item,position)
-                }
-
-                itemView.setOnLongClickListener {
-                    longlistener?.onItemLongClick(itemView,item,position)
-                    return@setOnLongClickListener true
-                }
-            }
-
         }
     }
 }

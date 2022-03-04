@@ -23,4 +23,26 @@ class SessionManager(context: Context) {
     fun removeToken(){
         pref.edit().remove("token").commit()
     }
+
+    // delete heart state
+    fun deleteHeartChecked(nickname: String, reviewId: Int){
+        pref.edit().remove("${nickname}_${reviewId}").commit()
+    }
+
+    // check heart state
+    fun fetchHeart(nickname: String, reviewId: Int):Boolean{
+        Log.d("[HEART EVENT2] HEART CHECK", "nickname:$nickname, reviewId: $reviewId")
+        if(pref.contains("${nickname}_${reviewId}")){
+            Log.d("[HEART EVENT2] HEART CHECK", pref.getBoolean("${nickname}_${reviewId}",false).toString())
+            return pref.getBoolean("${nickname}_${reviewId}", false)
+        }
+        // 없는 경우
+        return false
+    }
+
+    fun saveHeart(nickname: String, reviewId: Int, check: Boolean){
+        Log.d("[HEART EVENT2] FETCH HEART", "nickname:$nickname, reviewId: $reviewId")
+        pref.edit().putBoolean("${nickname}_${reviewId}", check).apply()
+    }
+
 }
