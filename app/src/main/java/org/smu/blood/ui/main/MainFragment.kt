@@ -1,5 +1,6 @@
 package org.smu.blood.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -14,6 +15,7 @@ import androidx.activity.addCallback
 import org.smu.blood.R
 import org.smu.blood.api.MainService
 import org.smu.blood.api.MyPageService
+import org.smu.blood.ui.Notice.NoticeActivity
 
 
 class MainFragment : BaseFragment<FragmentMainBinding>() {
@@ -94,6 +96,10 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
         }
         requireActivity().onBackPressedDispatcher.addCallback {
             (activity as NavigationActivity).showFinishToast()
+        }
+        binding.btvNoti.setOnClickListener{
+            val intent = Intent(context, NoticeActivity()::class.java)
+            startActivity(intent)
         }
     }
 
