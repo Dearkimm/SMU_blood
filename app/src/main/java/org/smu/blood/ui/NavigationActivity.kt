@@ -10,6 +10,7 @@ import com.google.android.gms.common.util.CollectionUtils
 import org.smu.blood.R
 import org.smu.blood.api.database.MainRequest
 import org.smu.blood.databinding.ActivityNavigationBinding
+import org.smu.blood.ui.Notice.NoticeFragment
 import org.smu.blood.ui.board.BoardFragment
 import org.smu.blood.ui.main.MainFragment
 import org.smu.blood.ui.main.MainReadFragment
@@ -104,6 +105,9 @@ class NavigationActivity : AppCompatActivity() {
 
     fun navigateCardApply(){
         replaceFragment(binding.fragmentContainer, MyRequestFragment::class.java, true)
+    }
+    fun navigateMainToNotice(){
+        replaceFragment(binding.fragmentContainer, NoticeFragment::class.java, true)
     }
 
     fun popMainSearchHospital(){
