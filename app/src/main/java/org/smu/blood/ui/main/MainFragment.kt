@@ -19,6 +19,7 @@ import org.smu.blood.api.MyPageService
 import org.smu.blood.ui.my.MyRequestFragment
 
 
+
 class MainFragment : BaseFragment<FragmentMainBinding>() {
     private val mainRequestAdapter = MainRequestAdapter()
     var bloodType: Int = 0
@@ -106,6 +107,9 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
         binding.btnMy.setOnClickListener {
             (activity as NavigationActivity).navigateMainToMy()
         }
+        binding.btvNoti.setOnClickListener{
+            (activity as NavigationActivity).navigateMainToNotice()
+        }
         requireActivity().onBackPressedDispatcher.addCallback {
             (activity as NavigationActivity).showFinishToast()
         }
@@ -144,11 +148,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
                 (activity as NavigationActivity).navigateMainToRead()
             }
         })
-        //알람 버튼 클릭
-        binding.btvNoti.setOnClickListener{
-            val intent = Intent(context, NoticeActivity()::class.java)
-            startActivity(intent)
-        }
 
         //필터링
         binding.mainSwitch.setOnCheckedChangeListener{buttonView, isChecked ->

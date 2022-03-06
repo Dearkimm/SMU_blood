@@ -1,46 +1,49 @@
 package org.smu.blood.ui.Notice
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
-import android.view.WindowManager
-import android.view.inputmethod.InputMethodManager
-import androidx.appcompat.app.AppCompatActivity
+import android.view.ViewGroup
+import android.widget.CheckBox
+import android.widget.ImageButton
+import android.widget.TextView
+import androidx.activity.addCallback
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import org.smu.blood.R
 import org.smu.blood.api.ReviewService
 import org.smu.blood.databinding.ActivityNoticeBinding
-import org.smu.blood.ui.board.BoardReadAdapter
-import org.smu.blood.ui.board.BoardRegisterActivity
-import org.smu.blood.ui.my.Card.CardRequestActivity
-import org.smu.blood.util.shortToast
+import org.smu.blood.databinding.FragmentBoardBinding
+import org.smu.blood.databinding.FragmentNoticeBinding
+import org.smu.blood.ui.NavigationActivity
+import org.smu.blood.ui.board.*
 
-
-class NoticeActivity : AppCompatActivity() {
-    private var _binding: ActivityNoticeBinding? = null
+class NoticeFragment : Fragment() {
+    private var _binding: FragmentNoticeBinding? = null
     private val binding get() = _binding!!
+    lateinit var rootView: View
 
-    //알림 리사이클러뷰 어댑터추가
+    //알림 리사이클러뷰 어댑터
     lateinit var noticeAdapter: NoticeAdapter
     lateinit var recyclerview: RecyclerView
     var datas = mutableListOf<NoticeData>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
-        val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        arguments?.let {
+        }
+    }
 
-        _binding = ActivityNoticeBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        //알림 리사이클러뷰 어댑터
-        noticeAdapter = NoticeAdapter(this)
-        recyclerview = binding.root.findViewById<RecyclerView>(R.id.rc_alarm_lists)
-        recyclerview.adapter = noticeAdapter
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        rootView = inflater.inflate(R.layout.fragment_notice, container, false)
+        setUpAdapter()
         initRecycler()
-
+        configureBoardNavigation()
         //알림 사이클러뷰 어댑터 클릭 이벤트(헌혈 기록카드로 이동, 아이템 삭제)
         noticeAdapter.setOnItemClickListener(object: NoticeAdapter.OnItemClickListener{
             override fun onItemClick(v: View, data: NoticeData, pos: Int) {
@@ -50,9 +53,24 @@ class NoticeActivity : AppCompatActivity() {
                 //알림 삭제
             }
         })
-
+        return rootView
     }
+
+    private fun configureBoardNavigation() {
+        requireActivity().onBackPressedDispatcher.addCallback {
+            (activity as NavigationActivity).showFinishToast()
+        }
+    }
+    private fun setUpAdapter(){
+        //알림 리사이클러뷰 어댑터
+        noticeAdapter = NoticeAdapter(requireContext())
+        recyclerview = rootView.findViewById<RecyclerView>(R.id.rc_alarm_lists)
+        recyclerview.adapter = noticeAdapter
+        initRecycler()
+    }
+
     private fun initRecycler() {
+        // DB에서 전체 후기 가져와서 보여주기
         datas.apply {
             Log.d("SHOW","Alerts")
             add(NoticeData(userId= 1,alert_date = "2021/12/20",alert_time = "16:22:26"))
