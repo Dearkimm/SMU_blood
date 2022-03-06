@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/black_50">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:background="@drawable/bg_dialog"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="요청을 그만하시겠습니까?\n요청글이 삭제됩니다."
+            android:textAlignment="center"
+            android:fontFamily="@font/notosans_light"
+            android:includeFontPadding="false"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/card_notdelete"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="27dp"
+            android:layout_marginTop="21dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="31dp"
+            android:background="@drawable/bg_btn_black"
+            android:text="취소"
+            android:fontFamily="@font/notosans_regular"
+            android:includeFontPadding="false"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/card_delete"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+        <Button
+            android:id="@+id/card_delete"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="21dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="27dp"
+            android:background="@drawable/bg_btn_black"
+            android:text="확인"
+            android:fontFamily="@font/notosans_regular"
+            android:includeFontPadding="false"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/card_notdelete"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
