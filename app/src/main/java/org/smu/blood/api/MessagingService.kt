@@ -15,9 +15,11 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import org.smu.blood.R
+import org.smu.blood.api.database.Request
 import org.smu.blood.ui.my.Card.CardRequestActivity
+import org.smu.blood.ui.my.MyRequestFragment
 
-class MessagingService() : FirebaseMessagingService() {
+class MessagingService : FirebaseMessagingService() {
 
     private var TAG = "[NOTIFICATION]"
 
@@ -62,10 +64,12 @@ class MessagingService() : FirebaseMessagingService() {
     }
 
     fun sendNotification(title: String, text: String){
+
         // 알림 탭하면 보여줄 내용 - 요청 정보
         val intent = Intent(this, CardRequestActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP and Intent.FLAG_ACTIVITY_NEW_TASK
         }
+
         val pendingIntent = PendingIntent.getActivity(this, 0, intent, FLAG_MUTABLE)
 
         val channelId = getString(R.string.notification_channel_id)

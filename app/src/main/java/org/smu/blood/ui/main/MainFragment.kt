@@ -12,12 +12,9 @@ import org.smu.blood.databinding.FragmentMainBinding
 import org.smu.blood.ui.base.BaseFragment
 import org.smu.blood.ui.main.adapter.MainRequestAdapter
 import androidx.activity.addCallback
-import androidx.annotation.VisibleForTesting
 import org.smu.blood.R
 import org.smu.blood.api.MainService
 import org.smu.blood.api.MyPageService
-import org.smu.blood.ui.my.MyRequestFragment
-
 
 
 class MainFragment : BaseFragment<FragmentMainBinding>() {
@@ -56,16 +53,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
 
 
     private fun initMain() {
-        // 알림 받은 상태 체크
-        MainService(requireContext()).checkNotState{ request ->
-            if(request != null){
-                Log.d("[CHECK NOTIFICATION STATE]", request.toString())
-                binding.notiAlert.visibility = VISIBLE
-                MyRequestFragment.myRequest = request
-            }else{
-                Log.d("[CHECK NOTIFICATION STATE]", "no noti info")
-            }
-        }
 
         // DB에서 로그인한 사용자 bloodType 가져오기
         MyPageService(requireContext()).myInfo { user ->
@@ -96,6 +83,14 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
             }
             else{
                 Log.d("[BLOOD REQUEST LIST]","GET LIST FAILURE OR NO LIST")
+            }
+        }
+
+        // 사용자 notice 상태 확인
+        MainService(requireContext()).checkNotState{ notState ->
+            Log.d("[CHECK NOTIFICATION STATE]", "$notState")
+            if(notState != false){
+                binding.notiAlert.visibility = VISIBLE
             }
         }
     }
@@ -140,7 +135,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
     private fun configureClickEvent() {
         mainRequestAdapter.setItemClickListener(object : MainRequestAdapter.ItemClickListener {
             override fun onClick(requestInfo: MainRequest) {
-                //unFilteredList = requestInfo
                 request = requestInfo
 
                 Log.d("[SHOW REQUEST INFO]",request.toString())
@@ -153,7 +147,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
         binding.mainSwitch.setOnCheckedChangeListener{buttonView, isChecked ->
             if (isChecked){
                 //필터사용
-                //mainRequestAdapter.filter.filter(unFilteredList.bloodType.toString())
                 mainRequestAdapter.filter.filter(bloodType.toString())
                 Log.d("내혈액형만보기", "체크선택")
             }
@@ -166,7 +159,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
 
         // sorting option click
         binding.mainSort.setOnClickListener{
-            var popupMenu = PopupMenu(context,it)
+            val popupMenu = PopupMenu(context,it)
             popupMenu.menuInflater.inflate(R.menu.main_sort_option,popupMenu.menu)
             popupMenu.show()
             popupMenu.setOnMenuItemClickListener {

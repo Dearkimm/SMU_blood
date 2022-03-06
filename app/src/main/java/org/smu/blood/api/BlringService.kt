@@ -7,7 +7,7 @@ import retrofit2.http.*
 interface BlringService {
     // create User API
     @POST("signUp")
-    fun createUser(@Header("token") fcmToken: String, @Body user: User): Call<HashMap<String, Int>>
+    fun createUser(@Body user: User): Call<HashMap<String, Int>>
 
     // Login API
     @POST("signIn/general")
@@ -20,6 +20,10 @@ interface BlringService {
     // login (google) API
     @POST("signIn/google")
     fun gloginUser(@Body info: HashMap<String,String>): Call<User>
+
+    // save FCM token
+    @POST("signIn/saveFCMToken")
+    fun saveFCMToken(@Header("token") token: String, @Body fcmToken: String): Call<Int>
 
     // get user id API
     @GET("myPage/myId")
@@ -128,6 +132,19 @@ interface BlringService {
     @GET("main/list/applicantNum")
     fun sortByApplicantNum(): Call<List<Request>>
 
+    // check if user has notice
     @GET("main/checkNotification")
-    fun checkNotification(@Header("token") token: String, @Header("fcmToken") fcmToken: String): Call<Request>
+    fun checkNotification(@Header("token") token: String): Call<Boolean>
+
+    // get all notice history
+    @GET("notice/list")
+    fun noticeList(@Header("token") token: String): Call<List<Notification>>
+
+    // get request list of notice
+    @GET("notice/requestlist")
+    fun requestlistOfNotice(@Header("token") token: String): Call<List<Request>>
+
+    // update notice state of notification
+    @POST("notice/updateState")
+    fun updateNotState(@Header("token") token: String, noticeId: Int): Call<Boolean>
 }

@@ -114,24 +114,41 @@ class MainService(context: Context) {
             })
     }
 
-    fun checkNotState(onResult: (Request?) -> Unit){
-        ServiceCreator.bumService.checkNotification("${sessionManager.fetchToken()}", MessagingService().getToken()!!)
-            .enqueue(object : Callback<Request>{
-                override fun onResponse(
-                    call: Call<Request>,
-                    response: Response<Request>
-                ) {
+    fun checkNotState(onResult: (Boolean?) -> Unit){
+        ServiceCreator.bumService.checkNotification("${sessionManager.fetchToken()}")
+            .enqueue(object : Callback<Boolean>{
+                override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
                     if(response.isSuccessful){
                         Log.d("[CHECK NOTIFICATION STATE]", "${response.body()}")
                         onResult(response.body())
                     }else{
                         Log.d("[CHECK NOTIFICATION STATE]", "${response.errorBody()}")
-                        onResult(null)
+                        onResult(false)
                     }
                 }
 
-                override fun onFailure(call: Call<Request>, t: Throwable) {
+                override fun onFailure(call: Call<Boolean>, t: Throwable) {
                     Log.d("[CHECK NOTIFICATION STATE]", "$t.localizedMessage")
+                    onResult(false)
+                }
+            })
+    }
+
+    fun getNoticeList(onResult: (List<Notification>?)->Unit){
+        ServiceCreator.bumService.noticeList("${sessionManager.fetchToken()}")
+            .enqueue(object : Callback<List<Notification>>{
+                override fun onResponse(call: Call<List<Notification>>, response: Response<List<Notification>>) {
+                    if(response.isSuccessful){
+                        Log.d("[NOTICE LIST]", "${response.body()}")
+                        onResult(response.body())
+                    }else{
+                        Log.d("[NOTICE LIST]", "${response.errorBody()}")
+                        onResult(null)
+                    }
+                }
+                override fun onFailure(call: Call<List<Notification>>, t: Throwable) {
+                    Log.d("[NOTICE LIST]", t.localizedMessage)
+                    onResult(null)
                 }
             })
     }

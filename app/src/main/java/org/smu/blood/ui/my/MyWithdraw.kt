@@ -1,15 +1,10 @@
 package org.smu.blood.ui.my
 
 import android.app.Dialog
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.util.Log
 import android.view.WindowManager
 import android.widget.Button
-import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 import org.smu.blood.R
 import org.smu.blood.api.MyPageService
@@ -57,17 +52,6 @@ class MyWithdraw(context: Context) :
                 } else Log.d("[WITHDRAW]", "FAILURE")
             }
             returnState()
-            /*
-            val user = Firebase.auth.currentUser!!
-
-            user.delete()
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        Log.d(TAG, "User account deleted.")
-                    }
-                }
-
-             */
             dismiss()
         }
     }

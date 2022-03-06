@@ -18,7 +18,6 @@ import com.google.firebase.auth.FirebaseAuth
 import org.smu.blood.R
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.messaging.FirebaseMessaging
 import org.smu.blood.api.MessagingService
 import org.smu.blood.api.ServiceCreator
 import retrofit2.Call
@@ -44,48 +43,37 @@ class SignUpActivity : AppCompatActivity() {
     @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_sign_up)
-        /*
-        auth = FirebaseAuth.getInstance()
-        mDatabase = FirebaseDatabase.getInstance()
-
-
-        auth.addAuthStateListener {
-            val user = auth.currentUser
-            user?.let {
-                suid = user.uid
-            }
-        }
-         */
 
         //체크박스
-        var checkbox = findViewById<CheckBox>(R.id.checkbox)
+        val checkbox = findViewById<CheckBox>(R.id.checkbox)
         //체크박스 옆 텍스트뷰
-        var text = findViewById<TextView>(R.id.signup_tv)
-        var pwdtext = findViewById<TextView>(R.id.pwd_type)
+        val text = findViewById<TextView>(R.id.signup_tv)
+        val pwdtext = findViewById<TextView>(R.id.pwd_type)
 
         //버튼
-        var joinButton = findViewById<Button>(R.id.btn_join)
+        val joinButton = findViewById<Button>(R.id.btn_join)
 
         //edittext
-        var editName = findViewById<EditText>(R.id.set_name)
-        var editId = findViewById<EditText>(R.id.set_id)
-        var editPassword = findViewById<EditText>(R.id.set_pwd)
-        var editPassword2 = findViewById<EditText>(R.id.set_pwd2)
+        val editName = findViewById<EditText>(R.id.set_name)
+        val editId = findViewById<EditText>(R.id.set_id)
+        val editPassword = findViewById<EditText>(R.id.set_pwd)
+        val editPassword2 = findViewById<EditText>(R.id.set_pwd2)
 
 
         //혈액형 버튼
-        var typeA = findViewById<Button>(R.id.type_a)
-        var typeB = findViewById<Button>(R.id.type_b)
-        var typeO = findViewById<Button>(R.id.type_o)
-        var typeAB = findViewById<Button>(R.id.type_ab)
+        val typeA = findViewById<Button>(R.id.type_a)
+        val typeB = findViewById<Button>(R.id.type_b)
+        val typeO = findViewById<Button>(R.id.type_o)
+        val typeAB = findViewById<Button>(R.id.type_ab)
 
         //textView
-        var checkpwd= findViewById<TextView>(R.id.stv_npwd)
+        val checkpwd= findViewById<TextView>(R.id.stv_npwd)
         cid = findViewById<TextView>(R.id.stv_cid)
         dname = findViewById<TextView>(R.id.stv_dname)
 
+        // fill in userid edittext when google login
         val email = intent.getStringExtra("email")
         if(email != null){
             Log.d("[GOOGLE LOGIN]", email)
@@ -197,10 +185,7 @@ class SignUpActivity : AppCompatActivity() {
                 Log.d("USERINFO: ", userInfo.toString())
 
                 //입력한 내용을 서버에 넣어주기
-                var fcmToken: String? = null
-                fcmToken = MessagingService().getToken()
-
-                signUp(fcmToken!!, userInfo){
+                signUp(userInfo){
                     if(it == true){
                         // 회원가입 성공한 경우
                         Toast.makeText(applicationContext, "회원가입 완료", Toast.LENGTH_SHORT).show()
@@ -211,40 +196,14 @@ class SignUpActivity : AppCompatActivity() {
                     }
                 }
 
-                //createUser(idText,passwordText)
-                /*
-                //Realtime Database 에 회원정보 추가
-                Log.d("uid 뭐임", suid)
-                userInfo.id = idText
-                userInfo.password = passwordText
-                userInfo.nickname = nicknameText
-                userInfo.bloodType = bloodType
-                userInfo.rhType = rhType
-
-                suid = auth.currentUser?.uid.toString()
-                Log.d("22  id뭐임", suid)
-                myRef = mDatabase.reference.child("Users").child(suid)
-                myRef.setValue(userInfo)
-
-                // 3. intent에 보낼 데이터 담기
-                /* val intent = Intent(this, SignUpActivity::class.java) //행동을 담음
-                intent.putExtra("nickname", editName.text.toString()) //데이터를 담음
-                intent.putExtra("pwd", editPassword.text.toString())
-                intent.putExtra("id", editId.text.toString())
-                // 4. ActivityResultLauncher에 해당 intent 전달
-                // RESULT_OK : resultCode
-                setResult(RESULT_OK, intent)*/
-                finish()
-                 */
-
             }
         }
 
     }
 
     // 회원가입 정보 Spring 서버로 전송
-    private fun signUp(fcmToken: String, user: User, onResult: (Boolean?)->Unit) {
-        val signUpAPIService = ServiceCreator.bumService.createUser(fcmToken, user)
+    private fun signUp(user: User, onResult: (Boolean?)->Unit) {
+        val signUpAPIService = ServiceCreator.bumService.createUser(user)
 
         signUpAPIService.enqueue(object : Callback<HashMap<String, Int>> {
             override fun onResponse(call: Call<HashMap<String, Int>>, response: Response<HashMap<String, Int>>) {

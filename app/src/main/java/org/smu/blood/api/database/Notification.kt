@@ -1,20 +1,22 @@
 package org.smu.blood.api.database
 
 class Notification {
-    var userId: String? = null
+    var noticeId: Int? = null
     var requestId: Int? = null
-    var token: String? = null
+    var userId: String? = null
+    var notTime: String? = null
     var notState: Boolean? = null
 
     constructor()
-    constructor(userId: String?, requestId: Int?, token: String?, notState: Boolean?){
-        this.userId = userId
+    constructor(noticeId: Int?, requestId: Int?, userId: String?, notTime: String?, notState: Boolean?){
+        this.noticeId = noticeId
         this.requestId = requestId
-        this.token = token
+        this.userId = userId
+        this.notTime = notTime
         this.notState = notState
     }
 
     override fun toString(): String {
-        return "Notification(userId: $userId, requestId: $requestId, token: $token, notState: $notState)"
+        return "Notification(noticeId:$noticeId, requestId: $requestId, userId: $userId, notTime:$notTime, notState: $notState)"
     }
 }

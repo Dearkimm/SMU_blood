@@ -5,25 +5,19 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import org.smu.blood.R
 import org.smu.blood.databinding.ActivityLoginBinding
 import org.smu.blood.util.shortToast
 import android.view.View.OnFocusChangeListener
 import android.view.WindowManager
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
+import com.google.firebase.messaging.FirebaseMessaging
 import org.smu.blood.api.ServiceCreator
 import org.smu.blood.api.SessionManager
-import org.smu.blood.api.database.MainRequest
 import org.smu.blood.api.database.User
 import retrofit2.Call
 import retrofit2.Callback
@@ -31,15 +25,9 @@ import retrofit2.Response
 
 
 class LoginActivity : AppCompatActivity() {
-    private var auth : FirebaseAuth? = null
     var backKeyPressedTime : Long = 0
     private lateinit var binding: ActivityLoginBinding
-    private lateinit var myRef: DatabaseReference //데이터베이스 리퍼런스
-    lateinit var mDatabase: FirebaseDatabase //데이터베이스
-    private lateinit var tempuid :String
-    var idText: String = ""
     lateinit var token : String
-    //var mGoogleSignInClient: GoogleSignInClient? = null
 
     override fun onBackPressed(){
         if (System.currentTimeMillis()> backKeyPressedTime + 2500){
@@ -52,26 +40,17 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        auth = FirebaseAuth.getInstance()
-        tempuid = auth!!.currentUser?.uid.toString()
-        /*auth!!.addAuthStateListener {
-            val user = auth!!.currentUser
-            user?.let {
-                tempuid = user.uid
-            }
-        }*/
 
-        var editId = findViewById<EditText>(R.id.let_id)
-        var exId = findViewById<TextView>(R.id.id_type)
+        val editId = binding.letId
+        val exId = binding.idType
 
-        editId.setOnFocusChangeListener(OnFocusChangeListener { v, hasFocus ->
-            if(hasFocus){exId.visibility = View.VISIBLE}
-            else{exId.visibility = View.INVISIBLE}
-        })
+        editId.onFocusChangeListener = OnFocusChangeListener { v, hasFocus ->
+            if(hasFocus){exId.visibility = View.VISIBLE} else{exId.visibility = View.INVISIBLE}
+        }
         configureNavigation()
     }
 
@@ -94,31 +73,15 @@ class LoginActivity : AppCompatActivity() {
 
                         Log.d("LOGIN USER", "user: $it, token: $token")
                         Toast.makeText(baseContext, "로그인 성공", Toast.LENGTH_SHORT).show()
+
                         // 사용자 토큰 저장
-                        var sessionManager = SessionManager(this)
-                        sessionManager.saveToken(token)
+                        SessionManager(this).saveToken(token)
+
                         navigateHome(it)
                     }else{
                         Toast.makeText(baseContext, "로그인 실패", Toast.LENGTH_SHORT).show()
                     }
                 }
-                /*
-                login(binding.letId.getText().toString(), binding.letPwd.getText().toString())
-                //파이어베이스데이터읽어오기
-                Log.d("로그인 uid: ",tempuid)
-                mDatabase = FirebaseDatabase.getInstance()
-                myRef = mDatabase.reference.child("Users").child(tempuid)
-                myRef.addValueEventListener(object : ValueEventListener {
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        val userInfo = snapshot.getValue<User>()
-                        if (userInfo != null) {
-                            Log.d("로그인후읽어오기 ",userInfo.id.toString())
-                        }
-                    } //onDataChange
-                    override fun onCancelled(error: DatabaseError) {
-                    } //onCancelled
-                }) //addValueEventListener
-                */
             } else {
                 shortToast("빈 칸이 있습니다")
             }
@@ -164,6 +127,12 @@ class LoginActivity : AppCompatActivity() {
 
     private fun navigateHome(user: User?) {
         if( user!= null){
+            // FCM token 저장
+            saveFCMToken{ result ->
+                if(result == 200) Log.d("[SAVE FCM TOKEN]", "success")
+                else Log.d("[SAVE FCM TOKEN]", "failed")
+            }
+
             val intent = Intent(this, NavigationActivity::class.java)
             startActivity(intent)
             this.finish()
@@ -177,7 +146,6 @@ class LoginActivity : AppCompatActivity() {
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
 
         // 구글 통해 앱 로그인 여부 확인
-
         val account = GoogleSignIn.getLastSignedInAccount(this)
         if(account !=null){ // 로그인 했으면 토큰 저장
             val loginInfo = HashMap<String,String>()
@@ -188,8 +156,8 @@ class LoginActivity : AppCompatActivity() {
                     Log.d("[GOOGLE LOGIN]", "user: $it, token: $token")
                     Toast.makeText(baseContext, "로그인 성공", Toast.LENGTH_SHORT).show()
                     // 사용자 토큰 저장
-                    var sessionManager = SessionManager(this)
-                    sessionManager.saveToken(token)
+                    SessionManager(this).saveToken(token)
+
                     navigateHome(it)
                 }else{
                     Log.d("[GOOGLE LOGIN]", "after login google email: ${account.email}")
@@ -236,29 +204,34 @@ class LoginActivity : AppCompatActivity() {
             }
         })
     }
-    /*
-    private fun login(email: String, password: String) {
-        auth?.signInWithEmailAndPassword(binding.letId.text.toString(), binding.letPwd.text.toString())
-            ?.addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    Toast.makeText(baseContext, "로그인에 성공하였습니다", Toast.LENGTH_SHORT).show()
-                    navigateHome(auth?.currentUser)
-                } else {
-                    Toast.makeText(baseContext, "로그인에 실패하였습니다", Toast.LENGTH_SHORT).show()
-                }
+
+    fun saveFCMToken(onResult: (Int?) -> Unit){
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+            if(!task.isSuccessful){
+                Log.e("[SAVE FCM TOKEN]", task.exception.toString())
+                return@addOnCompleteListener
             }
-    }
+            val token = task.result
+            Log.d("[SAVE FCM TOKEN]", "token: $token")
+            ServiceCreator.bumService.saveFCMToken("${SessionManager(this).fetchToken()}", token)
+                .enqueue(object : Callback<Int>{
+                    override fun onResponse(call: Call<Int>, response: Response<Int>) {
+                        if(response.isSuccessful){
+                            Log.d("[SAVE FCM TOKEN]", "${response.body()}")
+                            onResult(response.body())
+                        }else{
+                            Log.d("[SAVE FCM TOKEN]", "${response.errorBody()}")
+                            onResult(401)
+                        }
+                    }
 
-
-    private fun navigateHome(user: FirebaseUser?) {
-        if( user!= null){
-            val intent = Intent(this, NavigationActivity::class.java)
-            startActivity(intent)
-            this.finish()
+                    override fun onFailure(call: Call<Int>, t: Throwable) {
+                        Log.e("[SAVE FCM TOKEN]", t.localizedMessage)
+                        onResult(401)
+                    }
+                })
         }
     }
-
-     */
 
     companion object {
         var mGoogleSignInClient: GoogleSignInClient? = null

@@ -1,6 +1,8 @@
 package org.smu.blood.ui.Notice
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +11,7 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import org.smu.blood.R
+import org.smu.blood.api.database.MainRequest
 
 
 class NoticeAdapter (private val context: Context) :
@@ -36,14 +39,17 @@ class NoticeAdapter (private val context: Context) :
     }
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val rctv: TextView = itemView.findViewById(R.id.alarm_textview)
-        private val txtDate: TextView = itemView.findViewById(R.id.alarm_date)
         private val txtTime: TextView = itemView.findViewById(R.id.alarm_time)
         private val alarmDelete: ImageButton = itemView.findViewById(R.id.alarm_delete)
 
+        @SuppressLint("ResourceAsColor")
         fun bind(item: NoticeData) {
             rctv.text = "나의 헌혈 요청글에 헌혈이 신청되었습니다."
-            txtDate.text = item.alert_date
             txtTime.text = item.alert_time
+
+            // 아직 안 읽은 알림이면
+            if(item.noticeState == true)
+                itemView.setBackgroundColor(Color.parseColor("#f2f2f2"))
 
             val position = adapterPosition
             if(position!= RecyclerView.NO_POSITION) {
@@ -54,4 +60,14 @@ class NoticeAdapter (private val context: Context) :
         }
 
     }
+
+    fun removeItem(position: Int){
+        if(position>=0) {
+            datas.removeAt(position)
+            notifyItemRemoved(position)
+            notifyDataSetChanged()
+        }
+    }
+
+
 }

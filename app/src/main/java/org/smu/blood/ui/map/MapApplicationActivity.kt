@@ -105,7 +105,6 @@ class MapApplicationActivity : AppCompatActivity() {
                             // 요청자에게 알림 보내기
 
 
-
                             //헌혈신청완료 다이얼로그
                             val dlg = MapApplicationCompleteAlert(this)
                             dlg.callFunction()
