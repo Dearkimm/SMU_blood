@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@id/alarm_ic"
-        tools:text="헌혈 요청글에 헌혈이 신청되었습니다."
+        tools:text="나의 헌혈 요청글에 헌혈이 신청되었습니다."
         android:fontFamily="@font/notosans_light"
         android:includeFontPadding="false"
         android:textColor="@color/black"
