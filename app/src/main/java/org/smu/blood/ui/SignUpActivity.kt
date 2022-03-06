@@ -2,7 +2,6 @@ package org.smu.blood.ui
 
 import org.smu.blood.api.database.User
 import android.annotation.SuppressLint
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -15,19 +14,12 @@ import android.view.View.VISIBLE
 import android.view.WindowManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.gms.tasks.OnFailureListener
-import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import org.smu.blood.R
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-
-import com.google.firebase.auth.GetTokenResult
-
-import androidx.annotation.NonNull
-
-import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
+import org.smu.blood.api.MessagingService
 import org.smu.blood.api.ServiceCreator
 import retrofit2.Call
 import retrofit2.Callback
@@ -205,7 +197,10 @@ class SignUpActivity : AppCompatActivity() {
                 Log.d("USERINFO: ", userInfo.toString())
 
                 //입력한 내용을 서버에 넣어주기
-                signUp(userInfo){
+                var fcmToken: String? = null
+                fcmToken = MessagingService().getToken()
+
+                signUp(fcmToken!!, userInfo){
                     if(it == true){
                         // 회원가입 성공한 경우
                         Toast.makeText(applicationContext, "회원가입 완료", Toast.LENGTH_SHORT).show()
@@ -248,8 +243,8 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     // 회원가입 정보 Spring 서버로 전송
-    private fun signUp(user: User, onResult: (Boolean?)->Unit) {
-        val signUpAPIService = ServiceCreator.bumService.createUser(user)
+    private fun signUp(fcmToken: String, user: User, onResult: (Boolean?)->Unit) {
+        val signUpAPIService = ServiceCreator.bumService.createUser(fcmToken, user)
 
         signUpAPIService.enqueue(object : Callback<HashMap<String, Int>> {
             override fun onResponse(call: Call<HashMap<String, Int>>, response: Response<HashMap<String, Int>>) {

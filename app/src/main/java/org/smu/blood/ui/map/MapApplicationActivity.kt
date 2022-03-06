@@ -10,10 +10,16 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.TextView
 import android.widget.Toast
+import com.google.firebase.iid.FirebaseInstanceIdReceiver
+import com.google.firebase.messaging.FirebaseMessaging
 import org.smu.blood.R
 import org.smu.blood.api.MainService
+import org.smu.blood.api.MessagingService
+import org.smu.blood.api.MyPageService
+import org.smu.blood.api.database.Request
 import org.smu.blood.ui.NavigationActivity
 import org.smu.blood.ui.main.MainFragment
+import org.smu.blood.ui.my.MyRequestFragment
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
@@ -87,7 +93,21 @@ class MapApplicationActivity : AppCompatActivity() {
                         }
                         200 -> { // 헌혈 신청 성공
                             Log.d("[REGISTER BLOOD APPLY]", "SUCCESS")
-                            val dlg = MapApplicationCompleteAlert(this) //헌혈신청완료 다이얼로그
+
+                            // 알림 처리 시 요청 정보 필요
+                            MyPageService(this).requestOfApply(MainFragment.request.requestId){
+                                if(it!= null){
+                                    MyRequestFragment.myRequest = it
+                                    Log.d("[MY REQUEST]", MyRequestFragment.myRequest.toString())
+                                }
+                            }
+
+                            // 요청자에게 알림 보내기
+
+
+
+                            //헌혈신청완료 다이얼로그
+                            val dlg = MapApplicationCompleteAlert(this)
                             dlg.callFunction()
                             dlg.show()
 

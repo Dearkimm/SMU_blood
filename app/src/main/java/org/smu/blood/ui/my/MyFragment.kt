@@ -16,6 +16,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.messaging.FirebaseMessaging
 import org.smu.blood.api.MyPageService
 import org.smu.blood.api.SessionManager
 import org.smu.blood.databinding.FragmentMyBinding
@@ -128,8 +129,10 @@ class MyFragment : BaseFragment<FragmentMyBinding>() {
                 logoutState = dlg.returnState()
                 if(logoutState){ //로그아웃
                     // token 삭제
-                    var sessionManager = SessionManager(requireContext())
-                    sessionManager.removeToken()
+                    SessionManager(requireContext()).removeToken()
+
+                    // fcm token 삭제
+                    FirebaseMessaging.getInstance().deleteToken()
 
                     // 앱에 연결된 google 계정 삭제
                     if(LoginActivity.mGoogleSignInClient != null){
@@ -153,7 +156,7 @@ class MyFragment : BaseFragment<FragmentMyBinding>() {
             dlg.show()
 
             dlg.setOnDismissListener {
-                var withdrawState = dlg.returnState()
+                val withdrawState = dlg.returnState()
                 if(withdrawState){ //탈퇴하기
 
                     Toast.makeText(context, "탈퇴 완료", Toast.LENGTH_SHORT).show()

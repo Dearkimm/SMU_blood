@@ -23,8 +23,8 @@
 
     <ImageButton
         android:id="@+id/btv_noti"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
         android:layout_marginTop="23dp"
         android:layout_marginEnd="15dp"
         android:layout_marginStart="15dp"
@@ -35,6 +35,20 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tint="@color/warm_grey_2"/>
+    <ImageView
+        android:id="@+id/noti_alert"
+        android:layout_width="8dp"
+        android:layout_height="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="17dp"
+        android:background="@android:color/transparent"
+        android:padding="0dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/dot"
+        android:visibility="invisible"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/red"/>
 
     <ImageButton
         android:id="@+id/btn_my"

@@ -3,6 +3,7 @@ package org.smu.blood.api
 import android.content.Context
 import android.util.Log
 import org.smu.blood.api.database.Apply
+import org.smu.blood.api.database.Notification
 import org.smu.blood.api.database.Request
 import retrofit2.Call
 import retrofit2.Callback
@@ -109,6 +110,28 @@ class MainService(context: Context) {
                 override fun onFailure(call: Call<List<Request>>, t: Throwable) {
                     Log.d("[REUQEST LIST ORDER BY APPLICANTNUM]", t.localizedMessage)
                     onResult(null)
+                }
+            })
+    }
+
+    fun checkNotState(onResult: (Request?) -> Unit){
+        ServiceCreator.bumService.checkNotification("${sessionManager.fetchToken()}", MessagingService().getToken()!!)
+            .enqueue(object : Callback<Request>{
+                override fun onResponse(
+                    call: Call<Request>,
+                    response: Response<Request>
+                ) {
+                    if(response.isSuccessful){
+                        Log.d("[CHECK NOTIFICATION STATE]", "${response.body()}")
+                        onResult(response.body())
+                    }else{
+                        Log.d("[CHECK NOTIFICATION STATE]", "${response.errorBody()}")
+                        onResult(null)
+                    }
+                }
+
+                override fun onFailure(call: Call<Request>, t: Throwable) {
+                    Log.d("[CHECK NOTIFICATION STATE]", "$t.localizedMessage")
                 }
             })
     }

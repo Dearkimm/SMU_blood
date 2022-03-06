@@ -97,7 +97,7 @@ class CardRequestActivity : AppCompatActivity() {
             val builder = AlertDialog.Builder(this)
             builder.setTitle("헌혈을 받으셨나요?")
             builder.setMessage("헌혈 요청 글이 삭제됩니다.")
-            var listener = DialogInterface.OnClickListener { dialog, p1 ->
+            val listener = DialogInterface.OnClickListener { dialog, p1 ->
                 when (p1) {
                     DialogInterface.BUTTON_POSITIVE -> {
 

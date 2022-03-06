@@ -7,7 +7,7 @@ import retrofit2.http.*
 interface BlringService {
     // create User API
     @POST("signUp")
-    fun createUser(@Body user: User): Call<HashMap<String, Int>>
+    fun createUser(@Header("token") fcmToken: String, @Body user: User): Call<HashMap<String, Int>>
 
     // Login API
     @POST("signIn/general")
@@ -127,4 +127,7 @@ interface BlringService {
     // request list order by applicantNum
     @GET("main/list/applicantNum")
     fun sortByApplicantNum(): Call<List<Request>>
+
+    @GET("main/checkNotification")
+    fun checkNotification(@Header("token") token: String, @Header("fcmToken") fcmToken: String): Call<Request>
 }

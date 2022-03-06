@@ -3,6 +3,7 @@ package org.smu.blood.ui.main
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.view.View.VISIBLE
 import android.widget.PopupMenu
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.smu.blood.ui.NavigationActivity
@@ -11,9 +12,11 @@ import org.smu.blood.databinding.FragmentMainBinding
 import org.smu.blood.ui.base.BaseFragment
 import org.smu.blood.ui.main.adapter.MainRequestAdapter
 import androidx.activity.addCallback
+import androidx.annotation.VisibleForTesting
 import org.smu.blood.R
 import org.smu.blood.api.MainService
 import org.smu.blood.api.MyPageService
+import org.smu.blood.ui.my.MyRequestFragment
 
 
 class MainFragment : BaseFragment<FragmentMainBinding>() {
@@ -52,6 +55,17 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
 
 
     private fun initMain() {
+        // 알림 받은 상태 체크
+        MainService(requireContext()).checkNotState{ request ->
+            if(request != null){
+                Log.d("[CHECK NOTIFICATION STATE]", request.toString())
+                binding.notiAlert.visibility = VISIBLE
+                MyRequestFragment.myRequest = request
+            }else{
+                Log.d("[CHECK NOTIFICATION STATE]", "no noti info")
+            }
+        }
+
         // DB에서 로그인한 사용자 bloodType 가져오기
         MyPageService(requireContext()).myInfo { user ->
             if(user != null){

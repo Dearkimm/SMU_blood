@@ -156,4 +156,7 @@
     <string name="card_request_end_btn">요청 그만하기</string>
     <string name="board_register_body_et">본문을 작성해주세요.</string>
     <string name="card_request_end_confirm_tv">요청이 마감되었습니다.</string>
+    <string name="notification_channel_id">fcm_default_channel</string>
+    <string name="default_notification_channel_name">Blood_Donation_Application</string>
+    <string name="notification_content_text">헌혈 요청글에 헌혈이 신청되었습니다.</string>
 </resources>
