@@ -144,6 +144,11 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
                 (activity as NavigationActivity).navigateMainToRead()
             }
         })
+        //알람 버튼 클릭
+        binding.btvNoti.setOnClickListener{
+            val intent = Intent(context, NoticeActivity()::class.java)
+            startActivity(intent)
+        }
 
         //필터링
         binding.mainSwitch.setOnCheckedChangeListener{buttonView, isChecked ->
