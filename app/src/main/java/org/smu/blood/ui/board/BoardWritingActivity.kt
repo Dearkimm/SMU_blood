@@ -134,7 +134,6 @@ class BoardWritingActivity : AppCompatActivity() {
         //댓글 리사이클러뷰 어댑터 클릭 이벤트 (댓글 수정 , 삭제)
         boardreadAdapter.setOnItemClickListener(object: BoardReadAdapter.OnItemClickListener{
             override fun onItemClick(v: View, data: CommentData, pos: Int) {
-
             }
             override fun onEditClick(v: View, data: CommentData, pos: Int) { //댓글 수정
                 binding.commentEt.requestFocus()
