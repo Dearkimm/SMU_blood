@@ -1,6 +1,7 @@
 package org.smu.blood.ui.Notice
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -12,6 +13,8 @@ import org.smu.blood.R
 import org.smu.blood.api.ReviewService
 import org.smu.blood.databinding.ActivityNoticeBinding
 import org.smu.blood.ui.board.BoardReadAdapter
+import org.smu.blood.ui.board.BoardRegisterActivity
+import org.smu.blood.ui.my.Card.CardRequestActivity
 import org.smu.blood.util.shortToast
 
 
@@ -41,7 +44,7 @@ class NoticeActivity : AppCompatActivity() {
         //알림 사이클러뷰 어댑터 클릭 이벤트(헌혈 기록카드로 이동, 아이템 삭제)
         noticeAdapter.setOnItemClickListener(object: NoticeAdapter.OnItemClickListener{
             override fun onItemClick(v: View, data: NoticeData, pos: Int) {
-                //헌혈 기록카드로 이동
+                //해당 헌혈 요청 기록카드로 이동
             }
             override fun onDeleteClick(v: View, data: NoticeData, pos: Int) { //댓글 삭제
                 //알림 삭제

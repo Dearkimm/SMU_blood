@@ -97,10 +97,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
         requireActivity().onBackPressedDispatcher.addCallback {
             (activity as NavigationActivity).showFinishToast()
         }
-        binding.btvNoti.setOnClickListener{
-            val intent = Intent(context, NoticeActivity()::class.java)
-            startActivity(intent)
-        }
     }
 
     // 서버에 requestInfo 보내기
@@ -136,6 +132,11 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
                 (activity as NavigationActivity).navigateMainToRead()
             }
         })
+        //알람 버튼 클릭
+        binding.btvNoti.setOnClickListener{
+            val intent = Intent(context, NoticeActivity()::class.java)
+            startActivity(intent)
+        }
 
         //필터링
         binding.mainSwitch.setOnCheckedChangeListener{buttonView, isChecked ->
