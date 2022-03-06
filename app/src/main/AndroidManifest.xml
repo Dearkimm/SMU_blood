@@ -62,6 +62,9 @@
             android:name=".ui.board.BoardEditActivity"
             android:exported="true" />
         <activity
+            android:name=".ui.Notice.NoticeActivity"
+            android:exported="true" />
+        <activity
             android:name=".ui.my.MyModActivity"
             android:exported="true" />
         <activity
