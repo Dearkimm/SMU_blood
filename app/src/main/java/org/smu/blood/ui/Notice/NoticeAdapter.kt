@@ -61,6 +61,12 @@ class NoticeAdapter (private val context: Context) :
 
     }
 
+    fun setItems(newItems: List<NoticeData>) {
+        datas.clear()
+        datas.addAll(newItems)
+        notifyDataSetChanged()
+    }
+
     fun removeItem(position: Int){
         if(position>=0) {
             datas.removeAt(position)

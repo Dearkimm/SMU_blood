@@ -13,11 +13,9 @@ import org.smu.blood.R
 import org.smu.blood.api.MainService
 import org.smu.blood.api.ServiceCreator
 import org.smu.blood.api.SessionManager
-import org.smu.blood.api.database.Notification
 import org.smu.blood.api.database.Request
 import org.smu.blood.databinding.FragmentNoticeBinding
 import org.smu.blood.ui.NavigationActivity
-import org.smu.blood.ui.main.MainFragment
 import org.smu.blood.ui.my.Card.CardRequestActivity
 import org.smu.blood.ui.my.MyRequestFragment
 import retrofit2.Call
@@ -55,22 +53,25 @@ class NoticeFragment : Fragment() {
         //알림 사이클러뷰 어댑터 클릭 이벤트(헌혈 기록카드로 이동, 아이템 삭제)
         noticeAdapter.setOnItemClickListener(object: NoticeAdapter.OnItemClickListener{
             override fun onItemClick(v: View, data: NoticeData, pos: Int) {
-                // 해당 알림의 notice state = false 로 설정
-                updateState(data.noticeId){ result ->
-                    if(result == true) Log.d("[NOTICE]", "notice state updated to false")
-                    else Log.d("[NOTICE]", "notice state update failed")
-                }
+                Log.d("[NOTICE]", "item clicked")
 
                 //해당 헌혈 요청 기록카드로 이동
                 Log.d("[NOTICE]", "move to request info")
                 MyRequestFragment.myRequest = noticeRequestList.first { it.requestId == data.requestId }
                 Log.d("[NOTICE]", "${MyRequestFragment.myRequest}")
 
+                // 해당 알림의 notice state = false 로 설정
+                updateState(data.noticeId){ result ->
+                    if(result == true) Log.d("[NOTICE]", "notice state updated")
+                    else Log.d("[NOTICE]", "notice state update failed")
+                }
+
                 val intent = Intent(context, CardRequestActivity::class.java)
                 startActivity(intent)
             }
             override fun onDeleteClick(v: View, data: NoticeData, pos: Int) { //댓글 삭제
                 //알림 삭제
+                Log.d("[NOTICE]", "delete notice")
                 noticeAdapter.removeItem(pos)
                 noticeAdapter.notifyDataSetChanged()
             }
@@ -95,35 +96,39 @@ class NoticeFragment : Fragment() {
         // get request list of notice
         getRequestList{ list ->
             if(list != null){
+                Log.d("[NOTICE]", "get request list success")
                 noticeRequestList = list
             }
         }
 
+
         // DB에서 사용자 알림 가져와서 보여주기
-        MainService(requireContext()).getNoticeList{ noticeList ->
+        MainService(requireContext()).getNoticeList { noticeList ->
             if(noticeList != null){
-                datas.apply {
-                    for(notice in noticeList){
-                        Log.d("[SHOW NOTICE]","$notice")
-                        add(NoticeData(noticeId = notice.noticeId!!, requestId = notice.requestId!!, userId= notice.userId!!, alert_time =notice.notTime!!, noticeState = notice.notState!! ))
-                    }
+                val list = mutableListOf<NoticeData>()
+                for(notice in noticeList){
+                    Log.d("[SHOW NOTICE]","$notice")
+                    list.add(NoticeData(noticeId = notice.noticeId!!, requestId = notice.requestId!!, userId= notice.userId!!, alert_time =notice.notTime!!, noticeState = notice.notState!! ))
                 }
-                noticeAdapter.datas = datas
-                noticeAdapter.notifyDataSetChanged()
+                noticeAdapter.setItems(list)
             }
         }
+
+
         /*
         datas.apply {
             Log.d("SHOW","Alerts")
-            add(NoticeData(requestId = 1, userId= "1", alert_time = "2021/12/20 16:22:26"))
-            add(NoticeData(requestId = 2, userId= "2", alert_time = "2021/12/21 08:25:46"))
-            add(NoticeData(requestId = 3, userId= "3" ,alert_time = "2021/12/22 14:13:02"))
-            add(NoticeData(requestId = 4, userId= "4", alert_time = "2021/12/22 14:13:02"))
+            add(NoticeData(noticeId = 1, requestId = 1, userId= "1", alert_time = "2021/12/20 16:22:26", true))
+            add(NoticeData(noticeId = 2, requestId = 2, userId= "2", alert_time = "2021/12/21 08:25:46", false))
+            add(NoticeData(noticeId = 3, requestId = 3, userId= "3" ,alert_time = "2021/12/22 14:13:02", false))
+            add(NoticeData(noticeId = 4, requestId = 4, userId= "4", alert_time = "2021/12/22 14:13:02", true))
             noticeAdapter.datas = datas
             noticeAdapter.notifyDataSetChanged()
         }
 
          */
+
+
     }
 
     private fun getRequestList(onResult: (List<Request>?)->Unit){
@@ -153,13 +158,16 @@ class NoticeFragment : Fragment() {
                 override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
                     if(response.isSuccessful){
                         Log.d("[UPDATE NOTICE STATE]", response.body().toString())
+                        onResult(response.body())
                     }else{
                         Log.d("[UPDATE NOTICE STATE]", response.errorBody().toString())
+                        onResult(false)
                     }
                 }
 
                 override fun onFailure(call: Call<Boolean>, t: Throwable) {
                     Log.d("[UPDATE NOTICE STATE]", t.localizedMessage)
+                    onResult(false)
                 }
             })
     }
