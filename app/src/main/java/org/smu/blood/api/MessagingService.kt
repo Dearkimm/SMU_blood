@@ -37,7 +37,6 @@ class MessagingService : FirebaseMessagingService() {
         Log.d(TAG, "FCM token created: $token")
 
         // save updated fcm token to server
-        // FCM token 저장
         LoginActivity().saveFCMToken{ result ->
             if(result == 200) Log.d("[SAVE FCM TOKEN]", "success")
             else Log.d("[SAVE FCM TOKEN]", "failed")
@@ -77,13 +76,17 @@ class MessagingService : FirebaseMessagingService() {
     private fun sendNotification(title: String, text: String, requestId: Int){
         Log.d(TAG, "show notification")
         // 알림 탭하면 보여줄 내용 - 요청 정보
-        // request 가져오기
+        // 요청 정보에 필요한 정보 서버에서 가져오기
+        NoticeService(this).requestCardContent(this, requestId)
+        /*
         NoticeService(this).getRequest(requestId){ result ->
             if(result != null){
                 Log.d("[NOTICE]", "get request success: $result")
                 MyRequestFragment.myRequest = result
             }
         }
+
+         */
 
         val intent = Intent(this, CardRequestActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_CLEAR_TOP and Intent.FLAG_ACTIVITY_NEW_TASK

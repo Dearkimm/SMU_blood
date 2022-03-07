@@ -4,6 +4,8 @@ import android.content.Context
 import android.util.Log
 import org.smu.blood.api.database.Notification
 import org.smu.blood.api.database.Request
+import org.smu.blood.ui.main.MainFragment.Companion.request
+import org.smu.blood.ui.my.MyRequestFragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -131,5 +133,25 @@ class NoticeService(context: Context) {
                     onResult(null)
                 }
             })
+    }
+
+    fun requestCardContent(context: Context, requestId: Int){
+        // request 가져오기
+        getRequest(requestId){ result ->
+            if(result != null){
+                Log.d("[NOTICE]", "get request success: $result")
+                MyRequestFragment.myRequest = result
+            }
+        }
+        // get apply list of my request
+        MyPageService(context).applylistOfRequest(requestId){
+            if(it != null){
+                Log.d("[NOTICE]", "GET APPLY LIST OF MY REQUEST")
+                // apply 리스트에 넣기
+                MyRequestFragment.applyList = it
+
+                for(apply in MyRequestFragment.applyList) Log.d("[NOTICE]", "$apply")
+            }
+        }
     }
 }

@@ -10,10 +10,7 @@ import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import org.smu.blood.R
-import org.smu.blood.api.MainService
-import org.smu.blood.api.NoticeService
-import org.smu.blood.api.ServiceCreator
-import org.smu.blood.api.SessionManager
+import org.smu.blood.api.*
 import org.smu.blood.api.database.Request
 import org.smu.blood.databinding.FragmentNoticeBinding
 import org.smu.blood.ui.NavigationActivity
@@ -61,6 +58,17 @@ class NoticeFragment : Fragment() {
                 Log.d("[NOTICE]", "move to request info")
                 MyRequestFragment.myRequest = noticeRequestList.first { it.requestId == data.requestId }
                 Log.d("[NOTICE]", "${MyRequestFragment.myRequest}")
+
+                // get apply list of my request
+                MyPageService(requireContext()).applylistOfRequest(MyRequestFragment.myRequest.requestId!!){
+                    if(it != null){
+                        Log.d("[NOTICE]", "GET APPLY LIST OF MY REQUEST")
+                        // apply 리스트에 넣기
+                        MyRequestFragment.applyList = it
+
+                        for(apply in MyRequestFragment.applyList) Log.d("[NOTICE]", "$apply")
+                    }
+                }
 
                 // 해당 알림의 notice state = false 로 설정
                 NoticeService(requireContext()).updateState(data.noticeId){ result ->
