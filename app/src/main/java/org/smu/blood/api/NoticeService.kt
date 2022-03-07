@@ -96,10 +96,10 @@ class NoticeService(context: Context) {
             .enqueue(object : Callback<String>{
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     if(response.isSuccessful){
-                        Log.d("[SEND PUSH FROM SERVER]", "response success")
+                        Log.d("[SEND PUSH FROM SERVER]", response.body().toString())
                         onResult(response.body())
                     }else{
-                        Log.d("[SEND PUSH FROM SERVER]", "response error")
+                        Log.d("[SEND PUSH FROM SERVER]", response.errorBody().toString())
                         onResult(null)
                     }
                 }
@@ -112,4 +112,24 @@ class NoticeService(context: Context) {
 
     }
 
+    // get request (for notice tab event)
+    fun getRequest(requestId: Int, onResult: (Request?)->Unit){
+        ServiceCreator.bumService.getRequest(requestId = requestId)
+            .enqueue(object : Callback<Request>{
+                override fun onResponse(call: Call<Request>, response: Response<Request>) {
+                    if(response.isSuccessful){
+                        Log.d("[NOTICE]", "response success: ${response.body()}")
+                        onResult(response.body())
+                    }else{
+                        Log.d("[NOTICE]", "response failed: ${response.errorBody()}")
+                        onResult(null)
+                    }
+                }
+
+                override fun onFailure(call: Call<Request>, t: Throwable) {
+                    Log.d("[NOTICE]", "get request failed: ${t.localizedMessage}")
+                    onResult(null)
+                }
+            })
+    }
 }

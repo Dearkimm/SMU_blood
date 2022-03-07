@@ -100,6 +100,11 @@ class SplashActivity : AppCompatActivity() {
 
     private fun goMain(){
 
+        // update fcm token
+        LoginActivity().saveFCMToken { result ->
+            if(result == 200) Log.d("[SAVE FCM TOKEN]", "success")
+            else Log.d("[SAVE FCM TOKEN]", "failed")
+        }
         finish()
         val intent = Intent(this, NavigationActivity::class.java)
         startActivity(intent)

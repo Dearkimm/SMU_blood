@@ -21,10 +21,6 @@ interface BlringService {
     @POST("signIn/google")
     fun gloginUser(@Body info: HashMap<String,String>): Call<User>
 
-    // save FCM token
-    @POST("signIn/saveFCMToken")
-    fun saveFCMToken(@Header("token") token: String, @Body fcmToken: String): Call<Int>
-
     // get user id API
     @GET("myPage/myId")
     fun getMyId(@Header("token") token: String): Call<String>
@@ -153,6 +149,14 @@ interface BlringService {
     fun setDeleteState(@Header("token") token: String, @Body noticeId: Int): Call<Boolean>
 
     // fetch fcm token
-    @GET("notice/sendPush")
+    @POST("notice/sendPush")
     fun sendPush(@Body requestId: Int): Call<String>
+
+    // save FCM token
+    @POST("fcm/saveToken")
+    fun saveFCMToken(@Header("token") token: String, @Body fcmToken: String): Call<Int>
+
+    // get request (for notification tab event)
+    @POST("notice/getRequest")
+    fun getRequest(@Body requestId: Int): Call<Request>
 }

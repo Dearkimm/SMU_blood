@@ -3,6 +3,7 @@ package org.smu.blood.ui
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.se.omapi.Session
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -16,6 +17,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.messaging.FirebaseMessaging
+import org.smu.blood.api.MessagingService
 import org.smu.blood.api.ServiceCreator
 import org.smu.blood.api.SessionManager
 import org.smu.blood.api.database.User
@@ -127,8 +129,9 @@ class LoginActivity : AppCompatActivity() {
 
     private fun navigateHome(user: User?) {
         if( user!= null){
+
             // FCM token 저장
-            saveFCMToken{ result ->
+           saveFCMToken{ result ->
                 if(result == 200) Log.d("[SAVE FCM TOKEN]", "success")
                 else Log.d("[SAVE FCM TOKEN]", "failed")
             }
@@ -205,6 +208,7 @@ class LoginActivity : AppCompatActivity() {
         })
     }
 
+    // send fcm token in server
     fun saveFCMToken(onResult: (Int?) -> Unit){
         FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
             if(!task.isSuccessful){
@@ -214,7 +218,7 @@ class LoginActivity : AppCompatActivity() {
             val token = task.result
             Log.d("[SAVE FCM TOKEN]", "token: $token")
             ServiceCreator.bumService.saveFCMToken("${SessionManager(this).fetchToken()}", token)
-                .enqueue(object : Callback<Int>{
+                .enqueue(object : Callback<Int> {
                     override fun onResponse(call: Call<Int>, response: Response<Int>) {
                         if(response.isSuccessful){
                             Log.d("[SAVE FCM TOKEN]", "${response.body()}")
