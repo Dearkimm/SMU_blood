@@ -133,23 +133,4 @@ class MainService(context: Context) {
                 }
             })
     }
-
-    fun getNoticeList(onResult: (List<Notification>?)->Unit){
-        ServiceCreator.bumService.noticeList("${sessionManager.fetchToken()}")
-            .enqueue(object : Callback<List<Notification>>{
-                override fun onResponse(call: Call<List<Notification>>, response: Response<List<Notification>>) {
-                    if(response.isSuccessful){
-                        Log.d("[NOTICE LIST]", "${response.body()}")
-                        onResult(response.body())
-                    }else{
-                        Log.d("[NOTICE LIST]", "${response.errorBody()}")
-                        onResult(null)
-                    }
-                }
-                override fun onFailure(call: Call<List<Notification>>, t: Throwable) {
-                    Log.d("[NOTICE LIST]", t.localizedMessage)
-                    onResult(null)
-                }
-            })
-    }
 }

@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import org.smu.blood.R
 import org.smu.blood.api.MainService
+import org.smu.blood.api.NoticeService
 import org.smu.blood.api.ServiceCreator
 import org.smu.blood.api.SessionManager
 import org.smu.blood.api.database.Request
@@ -51,8 +52,9 @@ class NoticeFragment : Fragment() {
         configureBoardNavigation()
 
         //알림 사이클러뷰 어댑터 클릭 이벤트(헌혈 기록카드로 이동, 아이템 삭제)
-        noticeAdapter.setOnItemClickListener(object: NoticeAdapter.OnItemClickListener{
-            override fun onItemClick(v: View, data: NoticeData, pos: Int) {
+        noticeAdapter.setItemClickListener(object: NoticeAdapter.ItemClickListener{
+            // 헌혈 기록카드로 이동
+            override fun onItemClick(v: View, data: NoticeData) {
                 Log.d("[NOTICE]", "item clicked")
 
                 //해당 헌혈 요청 기록카드로 이동
@@ -61,7 +63,7 @@ class NoticeFragment : Fragment() {
                 Log.d("[NOTICE]", "${MyRequestFragment.myRequest}")
 
                 // 해당 알림의 notice state = false 로 설정
-                updateState(data.noticeId){ result ->
+                NoticeService(requireContext()).updateState(data.noticeId){ result ->
                     if(result == true) Log.d("[NOTICE]", "notice state updated")
                     else Log.d("[NOTICE]", "notice state update failed")
                 }
@@ -69,11 +71,19 @@ class NoticeFragment : Fragment() {
                 val intent = Intent(context, CardRequestActivity::class.java)
                 startActivity(intent)
             }
-            override fun onDeleteClick(v: View, data: NoticeData, pos: Int) { //댓글 삭제
+            // 알림 삭제
+            override fun onDeleteClick(v: View, data: NoticeData, pos: Int) {
                 //알림 삭제
                 Log.d("[NOTICE]", "delete notice")
                 noticeAdapter.removeItem(pos)
                 noticeAdapter.notifyDataSetChanged()
+
+                // update delete state to true
+                NoticeService(requireContext()).setDeleteState(data.noticeId){ result->
+                    if(result == true){
+                        Log.d("[NOTICE]", "delete notice success")
+                    }
+                }
             }
         })
         return rootView
@@ -94,16 +104,15 @@ class NoticeFragment : Fragment() {
 
     private fun initRecycler() {
         // get request list of notice
-        getRequestList{ list ->
+        NoticeService(requireContext()).getRequestList{ list ->
             if(list != null){
                 Log.d("[NOTICE]", "get request list success")
                 noticeRequestList = list
             }
         }
 
-
         // DB에서 사용자 알림 가져와서 보여주기
-        MainService(requireContext()).getNoticeList { noticeList ->
+        NoticeService(requireContext()).getNoticeList { noticeList ->
             if(noticeList != null){
                 val list = mutableListOf<NoticeData>()
                 for(notice in noticeList){
@@ -111,6 +120,8 @@ class NoticeFragment : Fragment() {
                     list.add(NoticeData(noticeId = notice.noticeId!!, requestId = notice.requestId!!, userId= notice.userId!!, alert_time =notice.notTime!!, noticeState = notice.notState!! ))
                 }
                 noticeAdapter.setItems(list)
+            }else{
+                Log.d("[SHOW NOTICE]","failed")
             }
         }
 
@@ -131,44 +142,5 @@ class NoticeFragment : Fragment() {
 
     }
 
-    private fun getRequestList(onResult: (List<Request>?)->Unit){
-        ServiceCreator.bumService.requestlistOfNotice("${SessionManager(requireContext()).fetchToken()}")
-            .enqueue(object : Callback<List<Request>> {
-                override fun onResponse(call: Call<List<Request>>, response: Response<List<Request>>) {
-                    if(response.isSuccessful){
-                        Log.d("[REQUEST LIST OF NOTICE]", "${response.body()}")
-                        onResult(response.body())
-                    }
-                    else{ // response error
-                        Log.d("[REQUEST LIST OF NOTICE]", "${response.errorBody()}")
-                        onResult(null)
-                    }
-                }
 
-                override fun onFailure(call: Call<List<Request>>, t: Throwable) {
-                    Log.d("[REQUEST LIST OF NOTICE]", t.localizedMessage)
-                    onResult(null)
-                }
-            })
-    }
-
-    private fun updateState(noticeId: Int, onResult: (Boolean?)->Unit){
-        ServiceCreator.bumService.updateNotState("${SessionManager(requireContext()).fetchToken()}", noticeId)
-            .enqueue(object : Callback<Boolean>{
-                override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
-                    if(response.isSuccessful){
-                        Log.d("[UPDATE NOTICE STATE]", response.body().toString())
-                        onResult(response.body())
-                    }else{
-                        Log.d("[UPDATE NOTICE STATE]", response.errorBody().toString())
-                        onResult(false)
-                    }
-                }
-
-                override fun onFailure(call: Call<Boolean>, t: Throwable) {
-                    Log.d("[UPDATE NOTICE STATE]", t.localizedMessage)
-                    onResult(false)
-                }
-            })
-    }
 }

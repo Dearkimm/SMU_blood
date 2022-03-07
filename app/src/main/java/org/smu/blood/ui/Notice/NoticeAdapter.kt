@@ -17,6 +17,7 @@ import org.smu.blood.api.database.MainRequest
 class NoticeAdapter (private val context: Context) :
     RecyclerView.Adapter<NoticeAdapter.ViewHolder>(){
     var datas = mutableListOf<NoticeData>()
+    private lateinit var listener : ItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_alarm,parent,false)
@@ -25,12 +26,11 @@ class NoticeAdapter (private val context: Context) :
     override fun getItemCount(): Int = datas.size
 
     // 리사이클러뷰 클릭 이벤트
-    interface OnItemClickListener{
-        fun onItemClick(v: View, data: NoticeData, pos : Int)
+    interface ItemClickListener{
+        fun onItemClick(v: View, data: NoticeData)
         fun onDeleteClick(v:View, data: NoticeData, pos : Int)
     }
-    private var listener : OnItemClickListener? = null
-    fun setOnItemClickListener(listener : OnItemClickListener) {
+    fun setItemClickListener(listener : ItemClickListener) {
         this.listener = listener
     }
 
@@ -48,7 +48,7 @@ class NoticeAdapter (private val context: Context) :
             txtTime.text = item.alert_time
 
             // 아직 안 읽은 알림이면
-            if(item.noticeState == true)
+            if(item.noticeState)
                 itemView.setBackgroundColor(Color.parseColor("#f2f2f2"))
 
             val position = adapterPosition

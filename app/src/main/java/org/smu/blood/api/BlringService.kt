@@ -146,5 +146,13 @@ interface BlringService {
 
     // update notice state of notification
     @POST("notice/updateState")
-    fun updateNotState(@Header("token") token: String, noticeId: Int): Call<Boolean>
+    fun updateNotState(@Header("token") token: String, @Body noticeId: Int): Call<Boolean>
+
+    // update delete state of notification
+    @POST("notice/deleteState")
+    fun setDeleteState(@Header("token") token: String, @Body noticeId: Int): Call<Boolean>
+
+    // fetch fcm token
+    @GET("notice/sendPush")
+    fun sendPush(@Body requestId: Int): Call<String>
 }

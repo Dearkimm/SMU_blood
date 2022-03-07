@@ -25,12 +25,13 @@
                 android:fontFamily="@font/notosans_regular"
                 android:gravity="center"
                 android:includeFontPadding="false"
-                android:text="내소식"
-                android:textSize="19sp"
+                android:text="알림"
+                android:textSize="20sp"
                 android:textColor="@color/black"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 />
+            <!--
             <TextView
                 android:id="@+id/notice_tv2"
                 android:layout_width="wrap_content"
@@ -44,12 +45,13 @@
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="11dp" />
+                -->
             <View
                 android:id="@+id/view_3"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/light_grey"
-                app:layout_constraintTop_toBottomOf="@id/notice_tv2"
+                app:layout_constraintTop_toBottomOf="@id/notice_tv"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="11dp"
                 />

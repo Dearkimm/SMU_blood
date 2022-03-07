@@ -16,6 +16,7 @@ import org.smu.blood.R
 import org.smu.blood.api.MainService
 import org.smu.blood.api.MessagingService
 import org.smu.blood.api.MyPageService
+import org.smu.blood.api.NoticeService
 import org.smu.blood.api.database.Request
 import org.smu.blood.ui.NavigationActivity
 import org.smu.blood.ui.main.MainFragment
@@ -102,8 +103,14 @@ class MapApplicationActivity : AppCompatActivity() {
                                 }
                             }
 
-                            // 요청자에게 알림 보내기
-
+                            // 서버에서 요청자에게 알림 보내기
+                            NoticeService(this).sendPushFromServer(MainFragment.request.requestId){ result ->
+                                if(result != null){
+                                    Log.d("[SEND PUSH FROM SERVER]", result)
+                                }else{
+                                    Log.d("[SEND PUSH FROM SERVER]", "failed")
+                                }
+                            }
 
                             //헌혈신청완료 다이얼로그
                             val dlg = MapApplicationCompleteAlert(this)

@@ -6,17 +6,19 @@ class Notification {
     var userId: String? = null
     var notTime: String? = null
     var notState: Boolean? = null
+    var deleteState: Boolean? = null
 
     constructor()
-    constructor(noticeId: Int?, requestId: Int?, userId: String?, notTime: String?, notState: Boolean?){
+    constructor(noticeId: Int?, requestId: Int?, userId: String?, notTime: String?, notState: Boolean?, deleteState: Boolean?){
         this.noticeId = noticeId
         this.requestId = requestId
         this.userId = userId
         this.notTime = notTime
         this.notState = notState
+        this.deleteState = deleteState
     }
 
     override fun toString(): String {
-        return "Notification(noticeId:$noticeId, requestId: $requestId, userId: $userId, notTime:$notTime, notState: $notState)"
+        return "Notification(noticeId:$noticeId, requestId: $requestId, userId: $userId, notTime:$notTime, notState: $notState, deleteState: $deleteState)"
     }
 }
