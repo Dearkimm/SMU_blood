@@ -54,7 +54,7 @@ class NoticeAdapter (private val context: Context) :
             val position = adapterPosition
             if(position!= RecyclerView.NO_POSITION) {
                 alarmDelete.setOnClickListener {
-                    listener?.onDeleteClick(itemView,item,position) //수정버튼클릭
+                    listener?.onDeleteClick(itemView,item,position)
                 }
                 itemView.setOnClickListener{
                     listener?.onItemClick(itemView,item,position)
