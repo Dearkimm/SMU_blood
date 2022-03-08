@@ -25,40 +25,21 @@ class SplashActivity : AppCompatActivity() {
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_splash)
 
-        var sessionManager = SessionManager(this)
+        val sessionManager = SessionManager(this)
+
+        MessagingService().getToken()
 
         Handler(Looper.getMainLooper()).postDelayed({
-            var token = sessionManager.fetchToken()
+            val token = sessionManager.fetchToken()
 
             if(token!=null){
                 // 토큰 유효성 검증
                 checkTokenValid("$token"){
                     if(it==true) { // 토큰 유효한 경우
-                        // 구글 연동하여 로그인한 경우
-                        /*
-                        val account = GoogleSignIn.getLastSignedInAccount(this)
 
-                        if(account != null) {
-                            Log.d("[GOOGLE LOGIN]", account.toString())
-                            when(account?.isExpired){
-                                true -> {
-                                    Log.d("[GOOGLE LOGIN]", "GOOGLE ID TOKEN EXPIRED")
-                                    goLogin()
-                                }
-                                false -> {
-                                    Log.d("[GOOGLE LOGIN]", "id: ${account.id}, displayname: ${account.displayName}, givenname: ${account.givenName}, familyname: ${account.familyName}, email: ${account.email}")
-                                    goMain()
-                                }
-                            }
-                        }else{
-                            Log.d("[CHECK TOKEN VALID]", it.toString())
-                            goMain()
-                        }
-
-                         */
-                        var task = mGoogleSignInClient?.silentSignIn()
+                        val task = mGoogleSignInClient?.silentSignIn()
                         if(task != null){
-                            if(task!!.isSuccessful){
+                            if(task.isSuccessful){
                                 val account = task.result
                                 Log.d("[GOOGLE LOGIN]", account.toString())
                                 if(account.isExpired){
@@ -118,6 +99,12 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun goMain(){
+
+        // update fcm token
+        LoginActivity().saveFCMToken { result ->
+            if(result == 200) Log.d("[SAVE FCM TOKEN]", "success")
+            else Log.d("[SAVE FCM TOKEN]", "failed")
+        }
         finish()
         val intent = Intent(this, NavigationActivity::class.java)
         startActivity(intent)

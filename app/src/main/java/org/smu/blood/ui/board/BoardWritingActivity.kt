@@ -43,7 +43,7 @@ class BoardWritingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
         _binding = ActivityBoardReadBinding.inflate(layoutInflater)
@@ -134,7 +134,6 @@ class BoardWritingActivity : AppCompatActivity() {
         //댓글 리사이클러뷰 어댑터 클릭 이벤트 (댓글 수정 , 삭제)
         boardreadAdapter.setOnItemClickListener(object: BoardReadAdapter.OnItemClickListener{
             override fun onItemClick(v: View, data: CommentData, pos: Int) {
-
             }
             override fun onEditClick(v: View, data: CommentData, pos: Int) { //댓글 수정
                 binding.commentEt.requestFocus()

@@ -10,15 +10,16 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
+import com.google.firebase.iid.FirebaseInstanceIdReceiver
+import com.google.firebase.messaging.FirebaseMessaging
 import org.smu.blood.R
 import org.smu.blood.api.MainService
-import org.smu.blood.api.database.Apply
-import org.smu.blood.databinding.FragmentMainReadBinding
+import org.smu.blood.api.MessagingService
+import org.smu.blood.api.MyPageService
+import org.smu.blood.api.NoticeService
+import org.smu.blood.api.database.Request
 import org.smu.blood.ui.NavigationActivity
 import org.smu.blood.ui.main.MainFragment
-import org.smu.blood.ui.main.MainReadFragment
-import org.smu.blood.ui.my.MyCardActivity
 import org.smu.blood.ui.my.MyRequestFragment
 import java.time.LocalDate
 import java.time.LocalTime
@@ -31,21 +32,21 @@ class MapApplicationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_blood_notice)
 
 
         //확인 버튼
-        var okay = findViewById<Button>(R.id.notice_okay)
+        val okay = findViewById<Button>(R.id.notice_okay)
 
         //체크박스
-        var check = findViewById<CheckBox>(R.id.n_checkbox)
-        var check2 = findViewById<CheckBox>(R.id.n_checkbox2)
+        val check = findViewById<CheckBox>(R.id.n_checkbox)
+        val check2 = findViewById<CheckBox>(R.id.n_checkbox2)
 
         //체크박스 옆 텍스트뷰
-        var text = findViewById<TextView>(R.id.notice_tv)
-        var text2 = findViewById<TextView>(R.id.notice_tv2)
+        val text = findViewById<TextView>(R.id.notice_tv)
+        val text2 = findViewById<TextView>(R.id.notice_tv2)
 
         //체크박스 누르면 텍스트뷰 컬러
         check.setOnCheckedChangeListener { compoundButton, isChecked ->
@@ -93,7 +94,26 @@ class MapApplicationActivity : AppCompatActivity() {
                         }
                         200 -> { // 헌혈 신청 성공
                             Log.d("[REGISTER BLOOD APPLY]", "SUCCESS")
-                            val dlg = MapApplicationCompleteAlert(this) //헌혈신청완료 다이얼로그
+
+                            // 알림 처리 시 요청 정보 필요
+                            MyPageService(this).requestOfApply(MainFragment.request.requestId){
+                                if(it!= null){
+                                    MyRequestFragment.myRequest = it
+                                    Log.d("[MY REQUEST]", MyRequestFragment.myRequest.toString())
+                                }
+                            }
+
+                            // 서버에서 요청자에게 알림 보내기
+                            NoticeService(this).sendPushFromServer(MainFragment.request.requestId){ result ->
+                                if(result != null){
+                                    Log.d("[SEND PUSH FROM SERVER]", result)
+                                }else{
+                                    Log.d("[SEND PUSH FROM SERVER]", "failed")
+                                }
+                            }
+
+                            //헌혈신청완료 다이얼로그
+                            val dlg = MapApplicationCompleteAlert(this)
                             dlg.callFunction()
                             dlg.show()
 
