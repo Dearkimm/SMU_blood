@@ -27,7 +27,7 @@ class NoticeAdapter (private val context: Context) :
 
     // 리사이클러뷰 클릭 이벤트
     interface ItemClickListener{
-        fun onItemClick(v: View, data: NoticeData)
+        fun onItemClick(v: View, data: NoticeData, pos : Int)
         fun onDeleteClick(v:View, data: NoticeData, pos : Int)
     }
     fun setItemClickListener(listener : ItemClickListener) {
@@ -55,6 +55,9 @@ class NoticeAdapter (private val context: Context) :
             if(position!= RecyclerView.NO_POSITION) {
                 alarmDelete.setOnClickListener {
                     listener?.onDeleteClick(itemView,item,position) //수정버튼클릭
+                }
+                itemView.setOnClickListener{
+                    listener?.onItemClick(itemView,item,position)
                 }
             }
         }

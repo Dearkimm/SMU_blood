@@ -51,7 +51,7 @@ class NoticeFragment : Fragment() {
         //알림 사이클러뷰 어댑터 클릭 이벤트(헌혈 기록카드로 이동, 아이템 삭제)
         noticeAdapter.setItemClickListener(object: NoticeAdapter.ItemClickListener{
             // 헌혈 기록카드로 이동
-            override fun onItemClick(v: View, data: NoticeData) {
+            override fun onItemClick(v: View, data: NoticeData, pos : Int) {
                 Log.d("[NOTICE]", "item clicked")
 
                 //해당 헌혈 요청 기록카드로 이동
