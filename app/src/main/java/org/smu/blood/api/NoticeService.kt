@@ -5,6 +5,7 @@ import android.util.Log
 import org.smu.blood.api.database.Notification
 import org.smu.blood.api.database.Request
 import org.smu.blood.ui.main.MainFragment.Companion.request
+import org.smu.blood.ui.my.Card.CardRequestActivity
 import org.smu.blood.ui.my.MyRequestFragment
 import retrofit2.Call
 import retrofit2.Callback
@@ -148,9 +149,9 @@ class NoticeService(context: Context) {
             if(it != null){
                 Log.d("[NOTICE]", "GET APPLY LIST OF MY REQUEST")
                 // apply 리스트에 넣기
-                MyRequestFragment.applyList = it
+                CardRequestActivity.applylist = it
 
-                for(apply in MyRequestFragment.applyList) Log.d("[NOTICE]", "$apply")
+                for(apply in CardRequestActivity.applylist!!) Log.d("[NOTICE]", "$apply")
             }
         }
     }

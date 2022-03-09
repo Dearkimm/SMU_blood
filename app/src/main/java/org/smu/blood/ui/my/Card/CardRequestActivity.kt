@@ -14,10 +14,12 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import org.smu.blood.R
 import org.smu.blood.api.MyPageService
+import org.smu.blood.api.database.Apply
 import org.smu.blood.databinding.ActivityCardRequestBinding
 import org.smu.blood.model.BloodType
 import org.smu.blood.model.Hospital
 import org.smu.blood.ui.NavigationActivity
+import org.smu.blood.ui.Notice.NoticeFragment
 import org.smu.blood.ui.my.MyRequestFragment
 import org.smu.blood.ui.my.MyRequestFragment.Companion.myRequest
 import org.smu.blood.util.shortToast
@@ -39,29 +41,28 @@ class CardRequestActivity : AppCompatActivity() {
 
         // 신청자 정보
         binding.tvTotal.text = myRequest.applicantNum.toString()
-        // 신청자 수에 따라 TextView 늘어나도록 하기 (신청일시 TextView를 3개로 제한하지 않고)
+        // 신청자 수에 따라 TextView 늘어나도록 하기
         val timeList = findViewById<LinearLayout>(R.id.card_request_list)
-        Log.d("List_size: ", MyRequestFragment.applyList.size.toString())
-        for (apply in MyRequestFragment.applyList) {
-            val time = TextView(this)
-            val layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-            )
-            layoutParams.setMargins(0, 0, 0, 5)
-            time.layoutParams = layoutParams
-            time.text = apply.applyDate//신청일시
-            time.setTextSize(Dimension.SP, 13.0f)
-            time.typeface = resources.getFont(R.font.notosans_light)
-            time.includeFontPadding = false
-            time.setTextColor(Color.BLACK)
-            timeList.addView(time)
-            Log.d("check ", time.toString())
+        Log.d("[NOTICE]", "apply list of request: ${applylist}")
+        if(applylist != null){
+            Log.d("List_size: ", applylist!!.size.toString())
+            for (apply in applylist!!) {
+                val time = TextView(this)
+                val layoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                )
+                layoutParams.setMargins(0, 0, 0, 5)
+                time.layoutParams = layoutParams
+                time.text = apply.applyDate//신청일시
+                time.setTextSize(Dimension.SP, 13.0f)
+                time.typeface = resources.getFont(R.font.notosans_light)
+                time.includeFontPadding = false
+                time.setTextColor(Color.BLACK)
+                timeList.addView(time)
+                Log.d("check ", time.toString())
+            }
         }
-        /*for(apply in MyRequestFragment.applyList){
-            time.text = apply.applyDate //신청일시
-        }*/
-
 
         // 나의 요청 정보
         val rh = if (myRequest.rhType!!) "-" else "+"
@@ -125,5 +126,9 @@ class CardRequestActivity : AppCompatActivity() {
             builder.setNegativeButton("취소",listener)
             builder.show()
         }
+    }
+
+    companion object{
+        var applylist: List<Apply>?=null
     }
 }

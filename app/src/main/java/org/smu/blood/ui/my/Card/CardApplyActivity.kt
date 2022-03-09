@@ -34,7 +34,7 @@ class CardApplyActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.tv_up_enddate).text = MyRequestFragment.myRequest.endDate
 
         // 나의 신청 정보
-        val myApply = MyRequestFragment.applyList.first{ it.requestId == MyRequestFragment.myRequest.requestId  }
-        findViewById<TextView>(R.id.tv_total).text = myApply.applyDate
+        val myApply = MyRequestFragment.applyList?.first{ it.requestId == MyRequestFragment.myRequest.requestId  }
+        findViewById<TextView>(R.id.tv_total).text = myApply!!.applyDate
     }
 }

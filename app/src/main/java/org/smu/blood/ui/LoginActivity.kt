@@ -24,12 +24,14 @@ import org.smu.blood.api.database.User
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.security.AccessController.getContext
 
 
 class LoginActivity : AppCompatActivity() {
     var backKeyPressedTime : Long = 0
     private lateinit var binding: ActivityLoginBinding
     lateinit var token : String
+
 
     override fun onBackPressed(){
         if (System.currentTimeMillis()> backKeyPressedTime + 2500){
@@ -131,7 +133,7 @@ class LoginActivity : AppCompatActivity() {
         if( user!= null){
 
             // FCM token 저장
-           saveFCMToken{ result ->
+            saveFCMToken{ result ->
                 if(result == 200) Log.d("[SAVE FCM TOKEN]", "success")
                 else Log.d("[SAVE FCM TOKEN]", "failed")
             }

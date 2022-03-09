@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import org.smu.blood.R
 import org.smu.blood.api.*
+import org.smu.blood.api.database.Apply
 import org.smu.blood.api.database.Request
 import org.smu.blood.databinding.FragmentNoticeBinding
 import org.smu.blood.ui.NavigationActivity
@@ -54,21 +55,12 @@ class NoticeFragment : Fragment() {
             override fun onItemClick(v: View, data: NoticeData, pos : Int) {
                 Log.d("[NOTICE]", "item clicked")
 
-                //해당 헌혈 요청 기록카드로 이동
-                Log.d("[NOTICE]", "move to request info")
+                // 요청 카드에 필요한 정보 요청 후 해당 헌혈 요청 기록카드로 이동
+                // get apply list of my request
+                NoticeService(requireContext()).requestCardContent(requireContext(), data.requestId)
+
                 MyRequestFragment.myRequest = noticeRequestList.first { it.requestId == data.requestId }
                 Log.d("[NOTICE]", "${MyRequestFragment.myRequest}")
-
-                // get apply list of my request
-                MyPageService(requireContext()).applylistOfRequest(data.requestId){
-                    if(it != null){
-                        Log.d("[NOTICE]", "GET APPLY LIST OF MY REQUEST")
-                        // apply 리스트에 넣기
-                        MyRequestFragment.applyList = it
-
-                        for(apply in MyRequestFragment.applyList) Log.d("[NOTICE]", "$apply")
-                    }
-                }
 
                 // 해당 알림의 notice state = false 로 설정
                 NoticeService(requireContext()).updateState(data.noticeId){ result ->
@@ -155,6 +147,5 @@ class NoticeFragment : Fragment() {
 
 
     }
-
 
 }

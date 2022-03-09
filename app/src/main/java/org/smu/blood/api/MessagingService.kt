@@ -37,7 +37,7 @@ class MessagingService : FirebaseMessagingService() {
         Log.d(TAG, "FCM token created: $token")
 
         // save updated fcm token to server
-        LoginActivity().saveFCMToken{ result ->
+        saveFCMToken{ result ->
             if(result == 200) Log.d("[SAVE FCM TOKEN]", "success")
             else Log.d("[SAVE FCM TOKEN]", "failed")
         }
@@ -73,21 +73,43 @@ class MessagingService : FirebaseMessagingService() {
         return token
     }
 
+
+    // send fcm token in server
+    fun saveFCMToken(onResult: (Int?) -> Unit){
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+            if(!task.isSuccessful){
+                Log.e("[SAVE FCM TOKEN]", task.exception.toString())
+                return@addOnCompleteListener
+            }
+            val token = task.result
+            Log.d("[SAVE FCM TOKEN]", "token: $token")
+            ServiceCreator.bumService.saveFCMToken("${SessionManager(this).fetchToken()}", token)
+                .enqueue(object : Callback<Int> {
+                    override fun onResponse(call: Call<Int>, response: Response<Int>) {
+                        if(response.isSuccessful){
+                            Log.d("[SAVE FCM TOKEN]", "${response.body()}")
+                            onResult(response.body())
+                        }else{
+                            Log.d("[SAVE FCM TOKEN]", "${response.errorBody()}")
+                            onResult(401)
+                        }
+                    }
+
+                    override fun onFailure(call: Call<Int>, t: Throwable) {
+                        Log.e("[SAVE FCM TOKEN]", t.localizedMessage)
+                        onResult(401)
+                    }
+                })
+        }
+    }
+
     private fun sendNotification(title: String, text: String, requestId: Int){
         Log.d(TAG, "show notification")
-        // 알림 탭하면 보여줄 내용 - 요청 정보
+
         // 요청 정보에 필요한 정보 서버에서 가져오기
         NoticeService(this).requestCardContent(this, requestId)
-        /*
-        NoticeService(this).getRequest(requestId){ result ->
-            if(result != null){
-                Log.d("[NOTICE]", "get request success: $result")
-                MyRequestFragment.myRequest = result
-            }
-        }
 
-         */
-
+        // 알림 탭하면 보여줄 내용 - 요청 정보
         val intent = Intent(this, CardRequestActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_CLEAR_TOP and Intent.FLAG_ACTIVITY_NEW_TASK
         }

@@ -178,9 +178,9 @@ class MyRequestFragment : BaseFragment<FragmentMyRequestBinding>() {
                         if(it != null){
                             Log.d("[APPLY LIST OF MY REQUEST]", "GET APPLY LIST")
                             // apply 리스트에 넣기
-                            applyList = it
+                            CardRequestActivity.applylist = it
 
-                            for(apply in applyList) Log.d("[APPLY LIST OF MY REQUEST]", "$apply")
+                            for(apply in CardRequestActivity.applylist!!) Log.d("[APPLY LIST OF MY REQUEST]", "$apply")
                         }
                     }
                 }
@@ -193,7 +193,7 @@ class MyRequestFragment : BaseFragment<FragmentMyRequestBinding>() {
 
 
     companion object {
-        lateinit var applyList: List<Apply> // 신청 정보 리스트
+        var applyList: List<Apply>? = null // 신청 정보 리스트
         var requestList = mutableListOf<Request>() // 요청 기록 카드에 필요
         lateinit var myRequest: Request // 요청 기록 카드, 신청 기록 카드에 필요
     }
