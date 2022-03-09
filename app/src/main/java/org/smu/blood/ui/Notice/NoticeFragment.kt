@@ -51,7 +51,7 @@ class NoticeFragment : Fragment() {
         //알림 사이클러뷰 어댑터 클릭 이벤트(헌혈 기록카드로 이동, 아이템 삭제)
         noticeAdapter.setItemClickListener(object: NoticeAdapter.ItemClickListener{
             // 헌혈 기록카드로 이동
-            override fun onItemClick(v: View, data: NoticeData) {
+            override fun onItemClick(v: View, data: NoticeData, pos : Int) {
                 Log.d("[NOTICE]", "item clicked")
 
                 //해당 헌혈 요청 기록카드로 이동
@@ -60,7 +60,7 @@ class NoticeFragment : Fragment() {
                 Log.d("[NOTICE]", "${MyRequestFragment.myRequest}")
 
                 // get apply list of my request
-                MyPageService(requireContext()).applylistOfRequest(MyRequestFragment.myRequest.requestId!!){
+                MyPageService(requireContext()).applylistOfRequest(data.requestId){
                     if(it != null){
                         Log.d("[NOTICE]", "GET APPLY LIST OF MY REQUEST")
                         // apply 리스트에 넣기
@@ -85,6 +85,12 @@ class NoticeFragment : Fragment() {
                 Log.d("[NOTICE]", "delete notice")
                 noticeAdapter.removeItem(pos)
                 noticeAdapter.notifyDataSetChanged()
+
+                // 해당 알림의 notice state = false 로 설정
+                NoticeService(requireContext()).updateState(data.noticeId){ result ->
+                    if(result == true) Log.d("[NOTICE]", "notice state updated")
+                    else Log.d("[NOTICE]", "notice state update failed")
+                }
 
                 // update delete state to true
                 NoticeService(requireContext()).setDeleteState(data.noticeId){ result->
