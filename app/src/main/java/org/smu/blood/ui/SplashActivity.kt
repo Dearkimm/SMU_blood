@@ -68,6 +68,7 @@ class SplashActivity : AppCompatActivity() {
             //startActivity(intent)
         }, 1000)
     }
+
     private fun checkTokenValid(token: String, onResult: (Boolean?) -> Unit){
         Log.d("[CHECK TOKEN VALID]", "CHECK TOKEN VALIDATION")
         val tokenAPI = ServiceCreator.bumService.tokenValid(token = token)

@@ -74,6 +74,7 @@ class MessagingService : FirebaseMessagingService() {
     }
 
 
+
     // send fcm token in server
     fun saveFCMToken(onResult: (Int?) -> Unit){
         FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
@@ -82,8 +83,9 @@ class MessagingService : FirebaseMessagingService() {
                 return@addOnCompleteListener
             }
             val token = task.result
+            val sessionManager = SessionManager(this)
             Log.d("[SAVE FCM TOKEN]", "token: $token")
-            ServiceCreator.bumService.saveFCMToken("${SessionManager(this).fetchToken()}", token)
+            ServiceCreator.bumService.saveFCMToken("${sessionManager.fetchToken()}", token)
                 .enqueue(object : Callback<Int> {
                     override fun onResponse(call: Call<Int>, response: Response<Int>) {
                         if(response.isSuccessful){

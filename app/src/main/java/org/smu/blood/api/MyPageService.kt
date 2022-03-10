@@ -12,7 +12,7 @@ import retrofit2.Response
 class MyPageService(context: Context) {
     private var sessionManager= SessionManager(context)
     // 내 아이디 가져오기
-    public fun myId(onResult: (String?) -> Unit){
+    fun myId(onResult: (String?) -> Unit){
         val myIdAPI = ServiceCreator.bumService.getMyId(token = "${sessionManager.fetchToken()}")
         myIdAPI.enqueue(object: Callback<String>{
             override fun onResponse(call: Call<String>, response: Response<String>) {
@@ -38,7 +38,7 @@ class MyPageService(context: Context) {
         })
     }
     // 내 정보 가져오기
-    public fun myInfo(onResult: (User?)->Unit){
+    fun myInfo(onResult: (User?)->Unit){
 
         val mydataAPI = ServiceCreator.bumService.getMyData(token = "${sessionManager.fetchToken()}")
         mydataAPI.enqueue(object : Callback<User>{
@@ -65,7 +65,7 @@ class MyPageService(context: Context) {
         })
     }
     // 내 정보 수정
-    public fun editData(map: HashMap<String,String>, onResult: (HashMap<String,Int>?) -> Unit){
+    fun editData(map: HashMap<String,String>, onResult: (HashMap<String,Int>?) -> Unit){
 
         val myeditAPI = ServiceCreator.bumService.editMyData(token = "${sessionManager.fetchToken()}", map)
         Log.d("get token", sessionManager.fetchToken().toString())
@@ -95,7 +95,7 @@ class MyPageService(context: Context) {
         })
     }
     // 회원 정보 삭제 (탈퇴)
-    public fun withDraw(onResult: (Boolean?) -> Unit){
+    fun withDraw(onResult: (Boolean?) -> Unit){
         val withdrawAPI = ServiceCreator.bumService.withdrawUser(token = "${sessionManager.fetchToken()}")
         withdrawAPI.enqueue(object : Callback<Boolean>{
             override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {

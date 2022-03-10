@@ -60,7 +60,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun configureNavigation() {
         var autoLogin=false
-        lateinit var context: Context
+
         // 로그인 유지 체크
         binding.ltvCb.setOnCheckedChangeListener { _, isChecked ->
             autoLogin = isChecked
@@ -218,8 +218,9 @@ class LoginActivity : AppCompatActivity() {
                 return@addOnCompleteListener
             }
             val token = task.result
+            val sessionManager = SessionManager(this)
             Log.d("[SAVE FCM TOKEN]", "token: $token")
-            ServiceCreator.bumService.saveFCMToken("${SessionManager(this).fetchToken()}", token)
+            ServiceCreator.bumService.saveFCMToken("${sessionManager.fetchToken()}", token)
                 .enqueue(object : Callback<Int> {
                     override fun onResponse(call: Call<Int>, response: Response<Int>) {
                         if(response.isSuccessful){
