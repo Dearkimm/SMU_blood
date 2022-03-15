@@ -96,7 +96,8 @@ class NavigationActivity : AppCompatActivity() {
     }
 
     fun navigateMainToMy(){
-        replaceFragment(binding.fragmentContainer, MyFragment::class.java, true)
+        changeFragment(MyFragment())
+        //replaceFragment(binding.fragmentContainer, MyFragment::class.java, true)
     }
 
     fun navigateMyToRequest(){
