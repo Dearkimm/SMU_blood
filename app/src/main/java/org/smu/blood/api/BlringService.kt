@@ -45,6 +45,10 @@ interface BlringService {
     @POST("myPage/myRequest/applyList")
     fun applyListOfRequest(@Header("token") token: String, @Body requestId: Int): Call<List<Apply>>
 
+    // handling request end
+    @POST("myPage/myRequest/end")
+    fun requestEnd(@Header("token") token: String, @Body requestId: Int): Call<Int>
+
     // get my apply info list
     @GET("myPage/myApply/myApplyList")
     fun getMyApplyList(@Header("token") token: String): Call<List<Apply>>
@@ -53,13 +57,9 @@ interface BlringService {
     @POST("myPage/myApply/request")
     fun requestOfApply(@Header("token") token: String, @Body requestId: Int): Call<Request>
 
-    // handling request end
-    @POST("myPage/request/end")
-    fun requestEnd(@Header("token") token: String, @Body requestId: Int): Call<Int>
-
     // get user nickname API
-    @GET("review/myNickname")
-    fun getMyNickname(@Header("token") token: String): Call<String>
+    @GET("review/user")
+    fun getUser(@Header("token") token: String): Call<User>
 
     // save user writing API
     @POST("review/write")
@@ -68,10 +68,6 @@ interface BlringService {
     // get list of reviews API
     @GET("review/list")
     fun getReviewList(): Call<List<Review>>
-
-    // check if this review == my review
-    @POST("review/checkReviewNickname")
-    fun checkNickname(@Header("token") token: String, @Body nickname: String): Call<Boolean>
 
     // edit review API
     @POST("review/edit")
@@ -91,7 +87,7 @@ interface BlringService {
 
     // get all comments of review
     @POST("review/commentList")
-    fun getCommentList(@Body reviewInfo: HashMap<String,String>): Call<List<Comment>>
+    fun getCommentList(@Body reviewId: Int): Call<List<Comment>>
 
     // edit comment
     @POST("review/editComment")
@@ -99,7 +95,7 @@ interface BlringService {
 
     // delete comment
     @POST("review/deleteComment")
-    fun deleteComment(@Header("token") token: String, @Body deleteInfo: HashMap<String, String>): Call<Boolean>
+    fun deleteComment(@Header("token") token: String, @Body commentId: Int): Call<Boolean>
 
     // heart check event
     @POST("review/heart")

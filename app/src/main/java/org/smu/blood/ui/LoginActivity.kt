@@ -218,9 +218,9 @@ class LoginActivity : AppCompatActivity() {
                 return@addOnCompleteListener
             }
             val token = task.result
-            val sessionManager = SessionManager(this)
+            //val sessionManager = SessionManager(this)
             Log.d("[SAVE FCM TOKEN]", "token: $token")
-            ServiceCreator.bumService.saveFCMToken("${sessionManager.fetchToken()}", token)
+            ServiceCreator.bumService.saveFCMToken("${SessionManager(this).fetchToken()}", token)
                 .enqueue(object : Callback<Int> {
                     override fun onResponse(call: Call<Int>, response: Response<Int>) {
                         if(response.isSuccessful){

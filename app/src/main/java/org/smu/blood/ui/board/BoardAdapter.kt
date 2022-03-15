@@ -1,7 +1,6 @@
 package org.smu.blood.ui.board
 
 import android.content.Context
-import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import org.smu.blood.R
-import org.smu.blood.api.SessionManager
 
 class BoardAdapter(private val context:Context) :
     RecyclerView.Adapter<BoardAdapter.ViewHolder>(),Filterable {
@@ -35,9 +33,9 @@ class BoardAdapter(private val context:Context) :
                 filteredList = if (charString.isEmpty()) {
                     unFilteredList
                 } else {
-                    var filteringList = mutableListOf<BoardData>()
+                    val filteringList = mutableListOf<BoardData>()
                     for (item in unFilteredList) {
-                        if (item.nickname == charString) filteringList.add(item) //내 id = 글 id
+                        if (item.userId == charString) filteringList.add(item) //내 id = 글 id
                     }
                     filteringList
                 }

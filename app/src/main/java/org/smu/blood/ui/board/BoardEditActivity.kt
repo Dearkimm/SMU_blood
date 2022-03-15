@@ -1,6 +1,5 @@
 package org.smu.blood.ui.board
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.WindowManager
@@ -8,20 +7,11 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import org.smu.blood.R
 import android.widget.EditText
-import androidx.activity.addCallback
 import org.smu.blood.util.shortToast
-import java.time.LocalDateTime
-import androidx.recyclerview.widget.RecyclerView
 import org.smu.blood.api.ReviewService
-import org.smu.blood.api.database.Review
 import org.smu.blood.databinding.ActivityBoardEditBinding
 import org.smu.blood.databinding.ActivityNavigationBinding
-import org.smu.blood.ui.NavigationActivity
-import org.smu.blood.ui.board.BoardAdapter
-import org.smu.blood.ui.my.MyFragment
 import org.smu.blood.util.replaceFragment
-import java.nio.BufferUnderflowException
-import java.nio.ByteOrder
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
@@ -53,8 +43,6 @@ class BoardEditActivity : AppCompatActivity() {
         //원래 내용 게시글에서 가져오기
         val originTitle = intent.getStringExtra("originTitle")
         val originBody = intent.getStringExtra("originContent")
-        val originTime = intent.getStringExtra("originTime")
-        val nickname = intent.getStringExtra("nickname")
         val reviewId = intent.getStringExtra("reviewId")
 
         // 원래 내용 EditText에 보여주기
@@ -92,15 +80,9 @@ class BoardEditActivity : AppCompatActivity() {
                         reviewService.reviewEdit(editInfo){
                             if(it==true){
                                 // 수정 후 정보가 업데이트된 게시글 가져오기
-                                var binding2: ActivityNavigationBinding = ActivityNavigationBinding.inflate(layoutInflater)
+                                val binding2: ActivityNavigationBinding = ActivityNavigationBinding.inflate(layoutInflater)
                                 setContentView(binding2.root)
                                 replaceFragment(binding2.fragmentContainer, BoardFragment::class.java, true)
-                                /*
-                                finish()
-                                val intent = Intent(this,BoardWritingActivity::class.java)
-                                startActivity(intent)
-
-                                 */
                             }
                             else Log.d("[EDIT REVIEW]", "FAILED")
                         }

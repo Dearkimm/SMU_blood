@@ -1,23 +1,18 @@
 package org.smu.blood.ui.board
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.CheckBox
 import android.widget.TextView
-import androidx.annotation.VisibleForTesting
 import androidx.recyclerview.widget.RecyclerView
 import org.smu.blood.R
-import org.smu.blood.api.SessionManager
-import org.w3c.dom.Comment
 
 class BoardReadAdapter (private val context: Context) : //댓글 리사이클러뷰 어댑터
 RecyclerView.Adapter<BoardReadAdapter.ViewHolder>(){
-    lateinit var currentNickname : String
+    lateinit var currentId : String
     var datas = mutableListOf<CommentData>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BoardReadAdapter.ViewHolder {
@@ -61,8 +56,8 @@ RecyclerView.Adapter<BoardReadAdapter.ViewHolder>(){
             txtTime.text = item.time
             txtComment.text = item.comment
 
-            // 현재 사용자 닉네임 == 댓글 닉네임이면 수정/삭제 visible
-            if(currentNickname == item.nickname){
+            // 현재 사용자 아이디 == 댓글 아이디이면 수정/삭제 visible
+            if(currentId == item.userId){
                 commentEdit.visibility = VISIBLE
                 commentDelete.visibility = VISIBLE
             }

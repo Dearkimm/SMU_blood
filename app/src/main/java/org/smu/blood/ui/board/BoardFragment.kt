@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import org.smu.blood.ui.NavigationActivity
 import org.smu.blood.R
 import org.smu.blood.api.ReviewService
+import org.smu.blood.api.database.User
 import org.smu.blood.databinding.FragmentBoardBinding
 
 class BoardFragment : Fragment() {
@@ -45,24 +46,23 @@ class BoardFragment : Fragment() {
         initRecycler()
         configureBoardNavigation()
 
-        var currentNickname = rootView.findViewById<TextView>(R.id.btv_nickname)
-        var reviewService = ReviewService(requireContext())
-        lateinit var nickname: String // 로그인 한 사용자 닉네임
+        val currentNickname = rootView.findViewById<TextView>(R.id.btv_nickname)
+        val reviewService = ReviewService(requireContext())
 
-        // 사용자 닉네임 가져오기
-        reviewService.myNickname{
+        // 사용자 닉네임 세팅, 사용자 정보 가져오기
+        reviewService.getMyUser{
             if(it!=null){
-                nickname = it.toString()
-                Log.d("[MY NICKNAME]",nickname)
-                currentNickname.text = nickname
+                Log.d("[MY NICKNAME]","user: $it")
+                userInfo = it
+                currentNickname.text = userInfo.nickname!!
             }else Log.d("[MY NICKNAME]","GET FAILURE")
         }
 
         //리사이클러뷰 어댑터 클릭 이벤트
         boardAdapter.setOnItemClickListener(object: BoardAdapter.OnItemClickListener{
             override fun onItemClick(v: View, data: BoardData, position: Int) {
+                Log.d("[SHOW REVIEW]", data.toString())
                 val intent = Intent(context, BoardWritingActivity::class.java)
-                intent.putExtra("position", position)
                 intent.putExtra("title", data.title)
                 intent.putExtra("nickname", data.nickname)
                 intent.putExtra("time", data.time)
@@ -70,7 +70,9 @@ class BoardFragment : Fragment() {
                 intent.putExtra("commentcount",data.commentcount)
                 intent.putExtra("boardtext",data.boardtext)
                 intent.putExtra("boardId", data.boardId)
-                intent.putExtra("userNickname", nickname)
+                intent.putExtra("userNickname", userInfo.nickname)
+                intent.putExtra("currentId", userInfo.id)
+                intent.putExtra("id", data.userId)
                 startActivity(intent)
             }
         })
@@ -121,7 +123,7 @@ class BoardFragment : Fragment() {
         //내가 쓴 글 누르기 이벤트
         myboardread.setOnCheckedChangeListener{ buttonview, isChecked ->
             if(isChecked) {//내가 쓴 글 필터링
-                boardAdapter.filter.filter(nickname) //필터링 내 닉네임
+                boardAdapter.filter.filter(userInfo.id) //필터링 기준: 내 아이디
                 Log.d("내가쓴글", "체크선택")
             }
             else {
@@ -156,15 +158,6 @@ class BoardFragment : Fragment() {
         return rootView
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            BoardFragment().apply {
-                arguments = Bundle().apply {
-                }
-            }
-    }
-
     private fun configureBoardNavigation() {
         requireActivity().onBackPressedDispatcher.addCallback {
             (activity as NavigationActivity).showFinishToast()
@@ -187,7 +180,7 @@ class BoardFragment : Fragment() {
                 datas.apply{
                     for(review in reviewList){
                         Log.d("[REVIEW LIST2]","ADD ALL REVIEWS")
-                        var boardData = BoardData(boardId=review.reviewId!!, title="${review.title}", nickname="${review.nickname}", time="${review.writeTime}",
+                        val boardData = BoardData(boardId=review.reviewId!!, userId=review.userId!!, title="${review.title}", nickname="${review.nickname}", time="${review.writeTime}",
                             heartcount=review.likeNum!!, boardtext="${review.contents}", commentcount=review.commentCount!!)
                         add(boardData)
                         Log.d("[REVIEW LIST2]", boardData.toString())
@@ -198,5 +191,9 @@ class BoardFragment : Fragment() {
                 boardAdapter.filter.filter("")
             }else Log.d("[REVIEW LIST2]", "FAILURE")
         }
+    }
+
+    companion object {
+        lateinit var userInfo: User
     }
 }

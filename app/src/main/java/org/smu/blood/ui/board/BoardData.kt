@@ -2,6 +2,7 @@ package org.smu.blood.ui.board
 
 data class BoardData (
     var boardId : Int,   //게시글 id (댓글과 공동 키)
+    var userId: String,
     var title : String,
     var nickname : String,
     var time : String,      //게시글 작성 시간

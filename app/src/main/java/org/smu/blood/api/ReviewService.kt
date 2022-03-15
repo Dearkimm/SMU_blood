@@ -5,6 +5,7 @@ import android.util.Log
 import org.smu.blood.api.database.Comment
 import org.smu.blood.api.database.Review
 import org.smu.blood.api.database.ReviewLike
+import org.smu.blood.api.database.User
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -12,11 +13,11 @@ import retrofit2.Response
 class ReviewService(context: Context) {
     private var sessionManager= SessionManager(context)
 
-    // 닉네임 가져오기
-    fun myNickname(onResult: (String?)->Unit){
-        val myNicknameAPI = ServiceCreator.bumService.getMyNickname(token = "${sessionManager.fetchToken()}")
-        myNicknameAPI.enqueue(object : Callback<String> {
-            override fun onResponse(call: Call<String>, response: Response<String>) {
+    // 로그인한 사용자 가져오기
+    fun getMyUser(onResult: (User?)->Unit){
+        val myNicknameAPI = ServiceCreator.bumService.getUser(token = "${sessionManager.fetchToken()}")
+        myNicknameAPI.enqueue(object : Callback<User> {
+            override fun onResponse(call: Call<User>, response: Response<User>) {
                 // 서버 응답 성공
                 if(response.isSuccessful){
                     // 토큰 유효하지 않은 경우
@@ -33,7 +34,7 @@ class ReviewService(context: Context) {
                 }
             }
 
-            override fun onFailure(call: Call<String>, t: Throwable) {
+            override fun onFailure(call: Call<User>, t: Throwable) {
                 Log.d("[MY NICKNAME] CONNECTION TO SERVER", t.localizedMessage)
             }
         })
@@ -179,21 +180,21 @@ class ReviewService(context: Context) {
     }
 
     // get comment list of review
-    fun commentList(reviewInfo: HashMap<String,String>, onResult: (List<Comment>?) -> Unit){
-        val commentListAPI = ServiceCreator.bumService.getCommentList(reviewInfo)
+    fun commentList(reviewId: Int, onResult: (List<Comment>?) -> Unit){
+        val commentListAPI = ServiceCreator.bumService.getCommentList(reviewId)
         commentListAPI.enqueue(object : Callback<List<Comment>> {
             override fun onResponse(call: Call<List<Comment>>, response: Response<List<Comment>>) {
                 if(response.isSuccessful){
-                    Log.d("[COMMENT LIST]", response.body().toString())
+                    Log.d("[COMMENT LIST1]", response.body().toString())
                     onResult(response.body())
                 }else{
-                    Log.d("[COMMENT LIST]", "RESPONSE FAILURE")
+                    Log.d("[COMMENT LIST1]", "RESPONSE FAILURE")
                     onResult(null)
                 }
             }
 
             override fun onFailure(call: Call<List<Comment>>, t: Throwable) {
-                Log.d("[COMMENT LIST] CONNECTION TO SERVER", t.localizedMessage)
+                Log.d("[COMMENT LIST1] CONNECTION TO SERVER", t.localizedMessage)
                 onResult(null)
             }
         })
@@ -221,8 +222,8 @@ class ReviewService(context: Context) {
     }
 
     // delete comment
-    fun commentDelete(deleteInfo: HashMap<String, String>, onResult: (Boolean?) -> Unit){
-        val deleteCommentAPI = ServiceCreator.bumService.deleteComment("${sessionManager.fetchToken()}", deleteInfo)
+    fun commentDelete(commentId: Int, onResult: (Boolean?) -> Unit){
+        val deleteCommentAPI = ServiceCreator.bumService.deleteComment("${sessionManager.fetchToken()}", commentId)
         deleteCommentAPI.enqueue(object : Callback<Boolean>{
             override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
                 if(response.isSuccessful){

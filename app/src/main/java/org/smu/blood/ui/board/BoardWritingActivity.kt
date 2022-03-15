@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import org.smu.blood.R
 import org.smu.blood.api.ReviewService
-import org.smu.blood.api.SessionManager
 import org.smu.blood.databinding.ActivityBoardReadBinding
 import org.smu.blood.databinding.ActivityNavigationBinding
 import org.smu.blood.util.replaceFragment
@@ -30,6 +29,7 @@ class BoardWritingActivity : AppCompatActivity() {
     private val binding get() = _binding!!
     var commentState = false
     lateinit var currentNickname: String // 현재 사용자 닉네임
+    lateinit var currentId: String // 현재 사용자 아이디
     var boardId: Int = 0
 
     //댓글 리사이클러뷰 어댑터추가
@@ -64,8 +64,6 @@ class BoardWritingActivity : AppCompatActivity() {
                         val intent = Intent(this,BoardEditActivity::class.java)
                         intent.putExtra("originTitle", _binding!!.writingTitle.text)
                         intent.putExtra("originContent",_binding!!.writingBody.text)
-                        intent.putExtra("originTime", _binding!!.writingTime.text)
-                        intent.putExtra("nickname", _binding!!.writingNickname.text)
                         intent.putExtra("reviewId", boardId.toString())
                         startActivity(intent)
                         return@setOnMenuItemClickListener true
@@ -107,6 +105,7 @@ class BoardWritingActivity : AppCompatActivity() {
 
                 requestInfo["comment"] = binding.commentEt.text.toString()
                 requestInfo["commentNickname"] = currentNickname
+                requestInfo["userId"] = currentId
                 requestInfo["commentTime"] = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd")) + " " +
                         LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm"))
                 requestInfo["reviewId"] = boardId.toString()
@@ -142,8 +141,6 @@ class BoardWritingActivity : AppCompatActivity() {
 
                 //기존 댓글 띄우기
                 binding.commentEt.setText(data.comment)
-                val commentNickname = currentNickname
-                val writeTime = data.time
 
                 // 댓글 수정 후 등록 버튼 누르면 (댓글 수정 버튼 listener 처리 부분) ---------------
                 binding.commentBt.setOnClickListener {
@@ -186,7 +183,6 @@ class BoardWritingActivity : AppCompatActivity() {
         // 좋아요 이벤트
         binding.heartCheckbox.setOnCheckedChangeListener { buttonview, isChecked ->
             val reviewInfo = HashMap<String,String>()
-            val reviewHeart: Int
             val heartState: Boolean = isChecked
 
             // 게시글에 대한 사용자의 좋아요 체크 여부 저장
@@ -212,11 +208,7 @@ class BoardWritingActivity : AppCompatActivity() {
             commentState = dlg.returnState()
             if (commentState) {
                 //DB에서 댓글 삭제
-                val deleteInfo = HashMap<String,String>()
-                deleteInfo["commentId"] = data.commentId.toString()
-                deleteInfo["commentNickname"] = data.nickname
-                deleteInfo["commentTime"] = data.time
-                ReviewService(this).commentDelete(deleteInfo){
+                ReviewService(this).commentDelete(data.commentId){
                     if(it == true){
                         Log.d("[DELETE COMMENT]", "success")
                         shortToast("삭제되었습니다")
@@ -240,11 +232,10 @@ class BoardWritingActivity : AppCompatActivity() {
         val heartcount = intent.getIntExtra("heartcount", 0)
         val commentcount = intent.getIntExtra("commentcount",0)
         val boardtext = intent.getStringExtra("boardtext")
-        val userNickname = intent.getStringExtra("userNickname")
-        boardId = intent.getIntExtra("boardId", 0)
-
-        currentNickname = userNickname.toString()
-        Log.d("[CURRENT USERNICKNAME", currentNickname)
+        currentNickname = intent.getStringExtra("userNickname")!!
+        currentId = intent.getStringExtra("currentId")!! // 현재 로그인한 사용자 아이디
+        val id = intent.getStringExtra("id") // 게시물 작성자 아이디
+        boardId = intent.getIntExtra("boardId", 0) // 게시물 번호
 
         val reviewService = ReviewService(this)
         binding.apply {
@@ -256,16 +247,16 @@ class BoardWritingActivity : AppCompatActivity() {
             commentsCounts.text = commentcount.toString()
             writingBody.text = boardtext
 
-            // 게시글 수정/삭제 visibility 설정
-            Log.d("[CHECK REVIEW NICKNAME]","currentNickname: $userNickname, reviewNickname: $reviewNickname")
-            if(userNickname == reviewNickname) binding.boardChange.visibility = VISIBLE
-            else Log.d("[CHECK REVIEW NICKNAME]", "NOT MY REVIEW OR INVALID")
+            // 게시글 수정/삭제 visibility 설정 (아이디 기준)
+            Log.d("[SET EDIT VISIBILITY]","board user id: $id, my id: $currentId")
+            if(currentId == id) binding.boardChange.visibility = VISIBLE
+            else Log.d("[SET EDIT VISIBILITY]", "NOT MY REVIEW OR INVALID")
 
             // 현재 사용자가 해당 게시물에 좋아요 눌렀으면 set Checked
             reviewService.getMyHeartState(boardId) { reviewLike ->
                 if(reviewLike != null){
                     Log.d("[GET HEART STATE OF REVIEW]", reviewLike.toString())
-                    Log.d("[HEART EVENT3] nickname $userNickname check state of reviewId $boardId", reviewLike.heartState.toString())
+                    Log.d("[HEART EVENT3] nickname $currentNickname check state of reviewId $boardId", reviewLike.heartState.toString())
 
                     // heartState == true이면 체크 표시
                     heartCheckbox.isChecked = reviewLike.heartState!!
@@ -276,36 +267,22 @@ class BoardWritingActivity : AppCompatActivity() {
 
     private fun initRecycler() {
         // DB에서 특정 후기글의 댓글 리스트 가져오기
-        val reviewInfo = HashMap<String,String>()
-        reviewInfo["reviewNickname"] = binding.writingNickname.text.toString()
-        reviewInfo["reviewTime"] = binding.writingTime.text.toString()
-
-        ReviewService(this).commentList(reviewInfo){
+         ReviewService(this).commentList(boardId){
             if(it!=null){
-                for(comment in it) Log.d("[COMMENT LIST]", "$comment")
-                Log.d("[COMMENT LIST]", "get all comments of review")
+                for(comment in it) Log.d("[COMMENT LIST2]", "$comment")
+                Log.d("[COMMENT LIST2]", "get all comments of review")
                 datas.apply{
                     for(comment in it){
-                        Log.d("[COMMENT LIST]","ADD ALL REVIEWS")
-                        val commentData = CommentData(commentId= comment.commentId!!, reviewId=comment.reviewId!!, nickname=comment.nickname!!, time=comment.time!!, comment=comment.comment!!)
+                        Log.d("[COMMENT LIST2]","ADD ALL REVIEWS")
+                        var commentData = CommentData(commentId= comment.commentId!!, reviewId=comment.reviewId!!, userId = comment.userId!!, nickname=comment.nickname!!, time=comment.time!!, comment=comment.comment!!)
                         add(commentData)
-                        Log.d("[COMMENT LIST]", commentData.toString())
+                        Log.d("[COMMENT LIST2]", commentData.toString())
                     }
                     boardreadAdapter.datas = datas
-                    boardreadAdapter.currentNickname = currentNickname
+                    boardreadAdapter.currentId = currentId
                     boardreadAdapter.notifyDataSetChanged()
                 }
             }
         }
-        /*
-        datas.apply {
-            Log.d("SHOW","COMMENTS")
-            add(CommentData(reviewId = 1 ,nickname = "장구벌레",time = "2021/12/20", comment = "좋은 일 하셨어요!!"))
-            add(CommentData(reviewId = 2 ,nickname = "짬뽕",time = "2022/01/03", comment = "대단해요"))
-            add(CommentData(reviewId = 3 ,nickname = "가나다라",time = "2022/01/05", comment = "멋져요"))
-            boardreadAdapter.datas = datas
-            boardreadAdapter.notifyDataSetChanged()
-        }
-         */
     }
 }
