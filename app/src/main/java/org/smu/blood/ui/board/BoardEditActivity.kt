@@ -33,7 +33,7 @@ class BoardEditActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_board_edit)
         binding = ActivityBoardEditBinding.inflate(layoutInflater)
@@ -51,14 +51,15 @@ class BoardEditActivity : AppCompatActivity() {
         editTime = "$date $time"
 
         //원래 내용 게시글에서 가져오기
-        var originTitle = intent.getStringExtra("originTitle")
-        var originBody = intent.getStringExtra("originContent")
-        var originTime = intent.getStringExtra("originTime")
-        var nickname = intent.getStringExtra("nickname")
+        val originTitle = intent.getStringExtra("originTitle")
+        val originBody = intent.getStringExtra("originContent")
+        val originTime = intent.getStringExtra("originTime")
+        val nickname = intent.getStringExtra("nickname")
+        val reviewId = intent.getStringExtra("reviewId")
 
         // 원래 내용 EditText에 보여주기
-        var edittitle = findViewById<EditText>(R.id.writing_edit_title)
-        var editbody = findViewById<EditText>(R.id.writing_edit_body)
+        val edittitle = findViewById<EditText>(R.id.writing_edit_title)
+        val editbody = findViewById<EditText>(R.id.writing_edit_body)
 
         //원래 내용 받아오기
         edittitle.setText(originTitle)
@@ -81,15 +82,12 @@ class BoardEditActivity : AppCompatActivity() {
                     if (writingState) {
                         //DB 게시글 내용 수정
                         Log.d("[EDIT REVIEW]", "$writingState, title: $editTitle, content: $editContents")
-                        Log.d("[EDIT REVIEW] edit time", "$writingState, $editTime")
-                        var editInfo = HashMap<String,String>()
+                        Log.d("[EDIT REVIEW]", "edit state: $writingState, editTime: $editTime")
+                        val editInfo = HashMap<String,String>()
                         editInfo["editTitle"] = editTitle
                         editInfo["editContent"] = editContents
                         editInfo["editTime"] = editTime
-                        //editInfo["originTitle"] = originTitle.toString()
-                        //editInfo["originBody"] = originBody.toString()
-                        editInfo["originTime"] = originTime.toString()
-                        editInfo["nickname"] = nickname.toString()
+                        editInfo["reviewId"] = reviewId!!
 
                         reviewService.reviewEdit(editInfo){
                             if(it==true){

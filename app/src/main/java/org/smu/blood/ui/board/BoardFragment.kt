@@ -114,9 +114,9 @@ class BoardFragment : Fragment() {
             }
         })
         //버튼
-        var writeButton = rootView.findViewById<ImageButton>(R.id.btv_write)
-        var myButton = rootView.findViewById<ImageButton>(R.id.btv_mypage)
-        var myboardread = rootView.findViewById<CheckBox>(R.id.btv_cb)
+        val writeButton = rootView.findViewById<ImageButton>(R.id.btv_write)
+        val myButton = rootView.findViewById<ImageButton>(R.id.btv_mypage)
+        val myboardread = rootView.findViewById<CheckBox>(R.id.btv_cb)
 
         //내가 쓴 글 누르기 이벤트
         myboardread.setOnCheckedChangeListener{ buttonview, isChecked ->

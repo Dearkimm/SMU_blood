@@ -66,6 +66,7 @@ class BoardWritingActivity : AppCompatActivity() {
                         intent.putExtra("originContent",_binding!!.writingBody.text)
                         intent.putExtra("originTime", _binding!!.writingTime.text)
                         intent.putExtra("nickname", _binding!!.writingNickname.text)
+                        intent.putExtra("reviewId", boardId.toString())
                         startActivity(intent)
                         return@setOnMenuItemClickListener true
                     }
@@ -189,8 +190,6 @@ class BoardWritingActivity : AppCompatActivity() {
             val heartState: Boolean = isChecked
 
             // 게시글에 대한 사용자의 좋아요 체크 여부 저장
-            //SessionManager(this).saveHeart(currentNickname, boardId, isChecked)
-
             reviewInfo["boardId"] = boardId.toString()
             reviewInfo["heartState"] = heartState.toString()
 
@@ -262,14 +261,6 @@ class BoardWritingActivity : AppCompatActivity() {
             if(userNickname == reviewNickname) binding.boardChange.visibility = VISIBLE
             else Log.d("[CHECK REVIEW NICKNAME]", "NOT MY REVIEW OR INVALID")
 
-            /*
-            val heartState = sessionManager.fetchHeart(userNickname!!, boardId)
-            if(heartState){
-                Log.d("[HEART EVENT3] nickname $userNickname check state of reviewId $boardId", heartState.toString())
-                heartCheckbox.isChecked = true
-            } else heartCheckbox.isChecked = false
-
-             */
             // 현재 사용자가 해당 게시물에 좋아요 눌렀으면 set Checked
             reviewService.getMyHeartState(boardId) { reviewLike ->
                 if(reviewLike != null){

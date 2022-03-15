@@ -103,7 +103,7 @@ class ReviewService(context: Context) {
                     Log.d("[REVIEW EDIT]", response.body().toString())
                     onResult(response.body())
                 }else{
-                    Log.d("[REVIEW EDIT]", "RESPONSE FAILURE")
+                    Log.d("[REVIEW EDIT]", "RESPONSE FAILURE: ${response.errorBody()}")
                     onResult(false)
                 }
             }
