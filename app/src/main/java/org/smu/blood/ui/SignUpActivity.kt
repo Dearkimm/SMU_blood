@@ -14,11 +14,7 @@ import android.view.View.VISIBLE
 import android.view.WindowManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.auth.FirebaseAuth
 import org.smu.blood.R
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import org.smu.blood.api.MessagingService
 import org.smu.blood.api.ServiceCreator
 import retrofit2.Call
 import retrofit2.Callback
@@ -26,17 +22,12 @@ import retrofit2.Response
 
 
 class SignUpActivity : AppCompatActivity() {
-    lateinit var mDatabase: FirebaseDatabase //데이터베이스
     lateinit var idText: String
     lateinit var nicknameText: String
     lateinit var passwordText: String
-    lateinit var password2Text: String
     var bloodType: Int = 0
     var rhType: Boolean = false
-    private lateinit var auth: FirebaseAuth //파이어베이스 계정
-    private lateinit var myRef: DatabaseReference //데이터베이스 리퍼런스
     var userInfo = User()
-    lateinit var suid: String
     lateinit var cid: TextView
     lateinit var dname: TextView
 

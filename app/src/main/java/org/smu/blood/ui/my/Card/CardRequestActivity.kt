@@ -39,6 +39,7 @@ class CardRequestActivity : AppCompatActivity() {
         setContentView(binding.root)
         //setContentView(R.layout.activity_card_request)
 
+        Log.d("[REQUEST CARD", myRequest.toString())
         // 신청자 정보
         binding.tvTotal.text = myRequest.applicantNum.toString()
         // 신청자 수에 따라 TextView 늘어나도록 하기
@@ -81,16 +82,13 @@ class CardRequestActivity : AppCompatActivity() {
         binding.tvUpEnddate.text = myRequest.endDate
 
         // 요청 마감 상태인(state=false) 경우 요청 마감 btn invisible, 요청 완료 tv visible
-        Log.d("my request state", myRequest.state.toString())
-        when (myRequest.state) {
-            false -> {
-                binding.requestDelete.visibility = INVISIBLE
-                binding.requestEnd.visibility = VISIBLE
-            }
-            true -> {
-                binding.requestDelete.visibility = VISIBLE
-                binding.requestEnd.visibility = INVISIBLE
-            }
+        Log.d("[REQUEST CARD]", "my request state: " + myRequest.state.toString())
+        if(myRequest.state == true){
+            binding.requestDelete.visibility = VISIBLE
+            binding.requestEnd.visibility = INVISIBLE
+        }else{
+            binding.requestDelete.visibility = INVISIBLE
+            binding.requestEnd.visibility = VISIBLE
         }
 
         // 요청 마감
@@ -112,7 +110,8 @@ class CardRequestActivity : AppCompatActivity() {
                                     dialog.show()
                                     dialog.setOnDismissListener {
                                         this.finish()
-                                        NavigationActivity().popMyRequest()
+                                        startActivity(this.intent)
+                                        //NavigationActivity().popMyRequest()
                                     }
                                 }
                                 400 -> Log.d("[REQUEST END]", "invalid token or no request info")

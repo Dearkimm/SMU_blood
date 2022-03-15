@@ -1,30 +1,26 @@
 package org.smu.blood.ui
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.se.omapi.Session
 import android.util.Log
 import android.view.View
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import org.smu.blood.databinding.ActivityLoginBinding
-import org.smu.blood.util.shortToast
 import android.view.View.OnFocusChangeListener
 import android.view.WindowManager
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.messaging.FirebaseMessaging
-import org.smu.blood.api.MessagingService
 import org.smu.blood.api.ServiceCreator
 import org.smu.blood.api.SessionManager
 import org.smu.blood.api.database.User
+import org.smu.blood.databinding.ActivityLoginBinding
+import org.smu.blood.util.shortToast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.security.AccessController.getContext
 
 
 class LoginActivity : AppCompatActivity() {
@@ -145,48 +141,21 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun googleLogin(){
+        // configure google sign in
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN) // request user id, profile info
             .requestEmail() // request user mail
             .build()
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
 
         // 구글 통해 앱 로그인 여부 확인
-        val account = GoogleSignIn.getLastSignedInAccount(this)
-        if(account !=null){ // 로그인 했으면 토큰 저장
-            val loginInfo = HashMap<String,String>()
-            loginInfo["id"] = account.email!!
-            loginInfo["AutoLogin"] = true.toString()
-            gCreateToken(loginInfo){
-                if(it != null){
-                    Log.d("[GOOGLE LOGIN]", "user: $it, token: $token")
-                    Toast.makeText(baseContext, "로그인 성공", Toast.LENGTH_SHORT).show()
-                    // 사용자 토큰 저장
-                    SessionManager(this).saveToken(token)
-
-                    navigateHome(it)
-                }else{
-                    Log.d("[GOOGLE LOGIN]", "after login google email: ${account.email}")
-                    finish()
-                    val gIntent = Intent(this, SignUpActivity::class.java)
-                    gIntent.putExtra("email", account.email)
-                    startActivity(gIntent)
-                }
-            }
-
-        }else{ // 구글 로그인 연동 진행
-            Log.d("[GOOGLE LOGIN]", "login google")
-            val signInIntent = mGoogleSignInClient!!.signInIntent
-            startActivity(signInIntent)
-
-            val account = GoogleSignIn.getLastSignedInAccount(this)
-            if(account != null){ // 회원가입 페이지로 이동
-                Log.d("[GOOGLE LOGIN]", "after login google email: ${account.email}")
-                finish()
-                val gIntent = Intent(this, SignUpActivity::class.java)
-                gIntent.putExtra("email", account.email)
-                startActivity(gIntent)
+        mGoogleSignInClient!!.silentSignIn().addOnCompleteListener { task->
+            if(task.isSuccessful){
+                val account = task.result
+                afterGoogleLogin(account)
             }else{
-                Log.d("[GOOGLE LOGIN]", "no login info")
+                Log.d("[GOOGLE LOGIN2]", "login google")
+                val signInIntent = mGoogleSignInClient!!.signInIntent
+                startActivityForResult(signInIntent, 9001)
             }
         }
     }
@@ -210,6 +179,49 @@ class LoginActivity : AppCompatActivity() {
         })
     }
 
+    // 구글 로그인 처리 후
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        // result returned from launching signInIntent
+        if(requestCode == 9001){
+
+            GoogleSignIn.getSignedInAccountFromIntent(data).addOnCompleteListener { task->
+                Log.d("[GOOGLE LOGIN3]", "task: $task")
+                if(task.isSuccessful){
+                    val account = task.result
+                    // 로그인 후 처이 (계정 존재 여부 확인 후 로그인 진행)
+                    afterGoogleLogin(account)
+                }else{
+                    Log.d("[GOOGLE LOGIN3]", "no login info")
+                }
+            }
+        }
+    }
+
+    private fun afterGoogleLogin(account: GoogleSignInAccount) {
+        Log.d("[GOOGLE LOGIN2]", account.toString())
+
+        val loginInfo = HashMap<String,String>()
+        loginInfo["id"] = account.email!!
+        loginInfo["AutoLogin"] = true.toString()
+        gCreateToken(loginInfo){
+            if(it != null){ // 회원 정보 있는 경우
+                Log.d("[GOOGLE LOGIN2]", "user: $it, token: $token")
+                Toast.makeText(baseContext, "로그인 성공", Toast.LENGTH_SHORT).show()
+                // 사용자 토큰 저장
+                SessionManager(this).saveToken(token)
+
+                navigateHome(it)
+            }else{ // 회원 정보 없으면 회원가입
+                Log.d("[GOOGLE LOGIN2]", "after login google email: ${account.email}")
+                finish()
+                val gIntent = Intent(this, SignUpActivity::class.java)
+                gIntent.putExtra("email", account.email)
+                startActivity(gIntent)
+            }
+        }
+    }
+
     // send fcm token in server
     fun saveFCMToken(onResult: (Int?) -> Unit){
         FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
@@ -218,9 +230,9 @@ class LoginActivity : AppCompatActivity() {
                 return@addOnCompleteListener
             }
             val token = task.result
-            //val sessionManager = SessionManager(this)
+            val sessionManager = SessionManager(this)
             Log.d("[SAVE FCM TOKEN]", "token: $token")
-            ServiceCreator.bumService.saveFCMToken("${SessionManager(this).fetchToken()}", token)
+            ServiceCreator.bumService.saveFCMToken("${sessionManager.fetchToken()}", token)
                 .enqueue(object : Callback<Int> {
                     override fun onResponse(call: Call<Int>, response: Response<Int>) {
                         if(response.isSuccessful){

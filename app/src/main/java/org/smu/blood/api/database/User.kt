@@ -1,9 +1,5 @@
 package org.smu.blood.api.database
 
-import com.google.firebase.database.IgnoreExtraProperties
-
-
-@IgnoreExtraProperties
 class User {
     var id: String? = null
     var password: String? = null

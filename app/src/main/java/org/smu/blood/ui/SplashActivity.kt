@@ -38,15 +38,16 @@ class SplashActivity : AppCompatActivity() {
                     if(it==true) { // 토큰 유효한 경우
 
                         val task = mGoogleSignInClient?.silentSignIn()
+
                         if(task != null){
                             if(task.isSuccessful){
                                 val account = task.result
-                                Log.d("[GOOGLE LOGIN]", account.toString())
+                                Log.d("[GOOGLE LOGIN1]", account.toString())
                                 if(account.isExpired){
-                                    Log.d("[GOOGLE LOGIN]", "GOOGLE ID TOKEN EXPIRED")
+                                    Log.d("[GOOGLE LOGIN1]", "GOOGLE ID TOKEN EXPIRED")
                                     goLogin()
                                 }else{
-                                    Log.d("[GOOGLE LOGIN]", "id: ${account.id}, displayname: ${account.displayName}, givenname: ${account.givenName}, familyname: ${account.familyName}, email: ${account.email}")
+                                    Log.d("[GOOGLE LOGIN1]", "id: ${account.id}, displayname: ${account.displayName}, givenname: ${account.givenName}, familyname: ${account.familyName}, email: ${account.email}")
                                     goMain()
                                 }
                             }
@@ -61,7 +62,7 @@ class SplashActivity : AppCompatActivity() {
                     }
                 }
             } else {
-                Log.d("[GOOGLE LOGIN]", "NO JWT TOKEN")
+                Log.d("[SPLASH]", "NO JWT TOKEN")
                 goLogin()
             }
             //네비게이션 액티비티

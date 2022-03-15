@@ -9,13 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.addCallback
-import com.google.android.gms.auth.api.Auth
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.messaging.FirebaseMessaging
 import org.smu.blood.api.MyPageService
 import org.smu.blood.api.SessionManager
@@ -27,10 +20,6 @@ import org.smu.blood.ui.base.BaseFragment
 
 class MyFragment : BaseFragment<FragmentMyBinding>() {
     var logoutState = false
-    lateinit var mDatabase: FirebaseDatabase //데이터베이스
-    private lateinit var myRef: DatabaseReference //데이터베이스 리퍼런스
-    private lateinit var auth: FirebaseAuth //파이어베이스 계정
-    private lateinit var tempuid :String
     lateinit var bloodTypetext: String
     lateinit var rhTypetext: String
 
@@ -40,43 +29,8 @@ class MyFragment : BaseFragment<FragmentMyBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         arguments?.let {
         }
-        var myPageService = MyPageService(requireContext())
+        val myPageService = MyPageService(requireContext())
 
-        /*
-        auth = FirebaseAuth.getInstance()
-        tempuid = auth.currentUser?.uid.toString()
-        Log.d("온크리에이트 마이페이지 uid: ", auth.currentUser?.uid.toString())
-        //binding = FragmentMyBinding.inflate(layoutInflater)
-
-        //파이어베이스데이터읽어오기
-        Log.d("마이페이지 uid: ",tempuid)
-        mDatabase = FirebaseDatabase.getInstance()
-        myRef = mDatabase.reference.child("Users").child(tempuid)
-        myRef.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val userInfo = snapshot.getValue<User>()
-
-                if (userInfo != null) {
-                    Log.d("마이페이지 아이디 읽어오기 ",userInfo.id.toString())
-                    Log.d("비번 읽어오기 ",userInfo.password.toString())
-                    Log.d("닉넴 읽어오기 ",userInfo.nickname.toString())
-                    if(userInfo.bloodType.toString()=="1") bloodTypetext = "A"
-                    if(userInfo.bloodType.toString()=="2") bloodTypetext = "B"
-                    if(userInfo.bloodType.toString()=="3") bloodTypetext = "O"
-                    if(userInfo.bloodType.toString()=="4") bloodTypetext = "AB"
-                    if(userInfo.rhType.toString()=="true") rhTypetext = "Rh- "
-                    if(userInfo.rhType.toString()=="false") rhTypetext = "Rh+ "
-                    binding.userId.text = userInfo.id
-                    binding.userName.text =userInfo.nickname.toString()
-                    binding.userType.text = rhTypetext + bloodTypetext
-                }
-            } //onDataChange
-            override fun onCancelled(error: DatabaseError) {
-            } //onCancelled
-        }) //addValueEventListener
-
-
-         */
         // 사용자 정보 가져오기
         myPageService.myInfo(){
             if(it!=null){
