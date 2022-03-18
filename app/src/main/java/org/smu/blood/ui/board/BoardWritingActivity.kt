@@ -44,13 +44,23 @@ class BoardWritingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
-        val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
         _binding = ActivityBoardReadBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //댓글 리사이클러뷰 어댑터
+        boardreadAdapter = BoardReadAdapter(this)
+        recyclerview = binding.root.findViewById<RecyclerView>(R.id.rc_comments_list)
+        recyclerview.adapter = boardreadAdapter
+
         // 게시글 내용 세팅
         initBoardRead()
+        initRecycler()
+        configureClickEvent()
+    }
+
+    private fun configureClickEvent(){
+        val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
         //게시글 수정/삭제 클릭 시
         binding.boardChange.setOnClickListener{
@@ -124,11 +134,6 @@ class BoardWritingActivity : AppCompatActivity() {
                 shortToast("빈 칸이 있습니다")
             }
         }
-        //댓글 리사이클러뷰 어댑터
-        boardreadAdapter = BoardReadAdapter(this)
-        recyclerview = binding.root.findViewById<RecyclerView>(R.id.rc_comments_list)
-        recyclerview.adapter = boardreadAdapter
-        initRecycler()
 
         val reviewService = ReviewService(this)
         //댓글 리사이클러뷰 어댑터 클릭 이벤트 (댓글 수정 , 삭제)
@@ -185,11 +190,16 @@ class BoardWritingActivity : AppCompatActivity() {
             val reviewInfo = HashMap<String,String>()
             val heartState: Boolean = isChecked
 
+            when(heartState){
+                true -> binding.heartCounts.text = (binding.heartCounts.text.toString().toInt()+1).toString()
+                false -> binding.heartCounts.text = (binding.heartCounts.text.toString().toInt()-1).toString()
+            }
+
             // 게시글에 대한 사용자의 좋아요 체크 여부 저장
             reviewInfo["boardId"] = boardId.toString()
             reviewInfo["heartState"] = heartState.toString()
 
-            // DB에 업데이트된 글 정보, reviewLike 정보 보내기
+            // DB에 업데이트된 reviewLike 정보 보내기
             ReviewService(this).heartCheck(reviewInfo){
                 if(it==true) {
                     // save heart checked state of review of log in user
@@ -259,8 +269,12 @@ class BoardWritingActivity : AppCompatActivity() {
                     Log.d("[HEART EVENT3] nickname $currentNickname check state of reviewId $boardId", reviewLike.heartState.toString())
 
                     // heartState == true이면 체크 표시
+                    if(reviewLike.heartState!!){
+                        heartCounts.text = (heartcount-1).toString() // checkbox check event로 +1 되므로 -1 해줌
+                    }
                     heartCheckbox.isChecked = reviewLike.heartState!!
                 } else heartCheckbox.isChecked = false
+
             }
         }
     }
