@@ -88,8 +88,7 @@
                     android:textColor="@color/black"
                     android:textSize="13sp"
                     app:layout_constraintLeft_toRightOf="@id/tv_totaltxt"
-                    app:layout_constraintTop_toBottomOf="@id/view_2"
-                    android:text="2" />
+                    app:layout_constraintTop_toBottomOf="@id/view_2" />
                 <TextView
                     android:id="@+id/tv_totaltxt2"
                     android:layout_width="wrap_content"
@@ -130,36 +129,6 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginBottom="20dp"
                     >
-                    <!--<TextView
-                        android:id="@+id/tv_date1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/notosans_light"
-                        android:includeFontPadding="false"
-                        android:paddingBottom="5dp"
-                        android:textColor="@color/black"
-                        android:textSize="13sp"
-                        android:text="2021.12.11 14:55" />
-                    <TextView
-                        android:id="@+id/tv_date2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/notosans_light"
-                        android:includeFontPadding="false"
-                        android:paddingBottom="5dp"
-                        android:textColor="@color/black"
-                        android:textSize="13sp"
-                        android:text="2021.12.13 13:01" />
-                    <TextView
-                        android:id="@+id/tv_date3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/notosans_light"
-                        android:includeFontPadding="false"
-                        android:paddingBottom="5dp"
-                        android:textColor="@color/black"
-                        android:textSize="13sp"
-                        android:text="ddddddd" />-->
                 </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -223,8 +192,7 @@
                     android:textColor="@color/black"
                     android:textSize="13sp"
                     app:layout_constraintLeft_toRightOf="@+id/tv_up_datetxt"
-                    app:layout_constraintTop_toBottomOf="@id/view_3"
-                    android:text="2021.12.11 10:31" />
+                    app:layout_constraintTop_toBottomOf="@id/view_3" />
 
                 <TextView
                     android:id="@+id/tv_up_type1"
@@ -237,8 +205,7 @@
                     android:textColor="@color/black"
                     android:textSize="13sp"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_up_date"
-                    android:text="Rh+" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_up_date" />
                 <TextView
                     android:id="@+id/tv_up_type2"
                     android:layout_width="wrap_content"
@@ -250,8 +217,7 @@
                     android:textColor="@color/black"
                     android:textSize="13sp"
                     app:layout_constraintLeft_toRightOf="@+id/tv_up_type1"
-                    app:layout_constraintTop_toBottomOf="@id/tv_up_date"
-                    android:text="B" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_up_date" />
                 <TextView
                     android:id="@+id/tv_up_type3"
                     android:layout_width="wrap_content"
@@ -263,8 +229,7 @@
                     android:textColor="@color/black"
                     android:textSize="13sp"
                     app:layout_constraintLeft_toRightOf="@+id/tv_up_type2"
-                    app:layout_constraintTop_toBottomOf="@id/tv_up_date"
-                    android:text="전혈" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_up_date" />
 
                 <TextView
                     android:id="@+id/tv_up_hos"
@@ -277,8 +242,7 @@
                     android:textColor="@color/black"
                     android:textSize="13sp"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_up_type1"
-                    android:text="강동성심병원" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_up_type1" />
                 <TextView
                     android:id="@+id/tv_up_hosroom"
                     android:layout_width="wrap_content"
@@ -290,8 +254,7 @@
                     android:textColor="@color/black"
                     android:textSize="13sp"
                     app:layout_constraintLeft_toRightOf="@id/tv_up_hos"
-                    app:layout_constraintTop_toBottomOf="@id/tv_up_type1"
-                    android:text="517" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_up_type1" />
                 <TextView
                     android:id="@+id/tv_up_hosroomtxt"
                     android:layout_width="wrap_content"
@@ -316,8 +279,7 @@
                     android:textColor="@color/black"
                     android:textSize="13sp"
                     app:layout_constraintLeft_toRightOf="@id/tv_up_hosroomtxt"
-                    app:layout_constraintTop_toBottomOf="@id/tv_up_type1"
-                    android:text="김숙명" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_up_type1" />
                 <TextView
                     android:id="@+id/tv_up_patientnumber"
                     android:layout_width="wrap_content"
@@ -329,8 +291,7 @@
                     android:textColor="@color/black"
                     android:textSize="13sp"
                     app:layout_constraintLeft_toRightOf="@id/tv_up_patient"
-                    app:layout_constraintTop_toBottomOf="@id/tv_up_type1"
-                    android:text="12345678" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_up_type1" />
 
                 <TextView
                     android:id="@+id/tv_up_pnumtxt"
@@ -356,8 +317,7 @@
                     android:textColor="@color/black"
                     android:textSize="13sp"
                     app:layout_constraintLeft_toRightOf="@id/tv_up_pnumtxt"
-                    app:layout_constraintTop_toBottomOf="@id/tv_up_hos"
-                    android:text="010 1234 5678" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_up_hos" />
 
                 <TextView
                     android:id="@+id/tv_up_starttxt"
@@ -383,8 +343,7 @@
                     android:textColor="@color/black"
                     android:textSize="13sp"
                     app:layout_constraintLeft_toRightOf="@id/tv_up_starttxt"
-                    app:layout_constraintTop_toBottomOf="@id/tv_up_pnum"
-                    android:text="2021.12.11" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_up_pnum" />
                 <TextView
                     android:id="@+id/tv_up_endtxt"
                     android:layout_width="wrap_content"
@@ -409,8 +368,7 @@
                     android:textColor="@color/black"
                     android:textSize="13sp"
                     app:layout_constraintLeft_toRightOf="@id/tv_up_endtxt"
-                    app:layout_constraintTop_toBottomOf="@id/tv_up_pnum"
-                    android:text="2021.12.17" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_up_pnum" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
             <androidx.constraintlayout.widget.ConstraintLayout

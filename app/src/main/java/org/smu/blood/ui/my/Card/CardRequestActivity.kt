@@ -109,9 +109,9 @@ class CardRequestActivity : AppCompatActivity() {
                                     dialog.callFunction()
                                     dialog.show()
                                     dialog.setOnDismissListener {
-                                        this.finish()
-                                        startActivity(this.intent)
-                                        //NavigationActivity().popMyRequest()
+                                        myRequest.state = false
+                                        finish()
+                                        startActivity(intent)
                                     }
                                 }
                                 400 -> Log.d("[REQUEST END]", "invalid token or no request info")

@@ -34,49 +34,6 @@ class MyRequestFragment : BaseFragment<FragmentMyRequestBinding>() {
         binding.myCardList.layoutManager = LinearLayoutManager(activity)
         binding.myCardList.adapter = myCardAdapter
 
-
-
-        /* 서버 없이 테스트 시 사용
-        //요청자 시점
-        binding.recRequest.setOnClickListener {
-            binding.recRequest.setTextColor(Color.RED)
-            binding.recApply.setTextColor(Color.BLACK)
-            cardState = 0
-
-            myCardAdapter.setItems(
-                listOf(
-                    MainRequest(2, true, 2,"전혈",
-                        "21.12.15", "21.12.20", 0,
-                        "가족 중에 한 분이 혈액암으로 많이 안 좋아요.. B형이신 분 지정헌혈 부탁드려요. 코로나로 헌혈하시는 분들이 많이 줄어서 B형 혈소판이 부족합니다.", "2021.12.15(화) 오후 14:40"),
-
-                    MainRequest(5, true, 4,"혈소판",
-                        "21.12.13", "21.12.21", 2,
-                        "친한 언니가 급성 심근염으로 중환자실에서 힘든 시간을 보내고 있습니다. Rh+ A형 혈소판을 구하고 있으니 가능하시다면 헌혈을 간곡하게 부탁드립니다.", "2021.12.11(토) 오전 10:31"),
-                )
-            )
-
-        }
-        //신청자 시점
-        binding.recApply.setOnClickListener {
-            binding.recApply.setTextColor(Color.RED)
-            binding.recRequest.setTextColor(Color.BLACK)
-            cardState = 1
-
-            myCardAdapter.setItems(
-                listOf(
-                    //최근꺼에 신청 눌렀을 때,
-                    MainRequest(29, true, 2,"혈소판",
-                        "21.12.11", "21.12.23", 1,
-                        "가족 중에 한 분이 혈액암으로 많이 안 좋아요.. B형이신 분 지정헌혈 부탁드려요. 코로나로 헌혈하시는 분들이 많이 줄어서 B형 혈소판이 부족합니다.", "2021.12.11(토) 오후 20:42"),
-                    //오래된 신청
-                    MainRequest(54, true, 2,"전혈",
-                        "21.10.01", "21.10.15", 2,
-                        "어쩌구저쩌구..ㅠ", "2021.10.01(금) 오전 09:20"),
-                )
-            )
-        }
-         */
-
         getMyRequest() // 헌혈 기록 카드 진입 시 요청 리스트 보여주기
         addMyCardInfo()
         configureMyRequestNavigation()
