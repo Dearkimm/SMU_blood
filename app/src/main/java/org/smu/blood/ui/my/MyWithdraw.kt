@@ -5,6 +5,7 @@ import android.content.Context
 import android.util.Log
 import android.view.WindowManager
 import android.widget.Button
+import android.widget.Toast
 import com.google.firebase.messaging.FirebaseMessaging
 import org.smu.blood.R
 import org.smu.blood.api.MyPageService
@@ -32,8 +33,8 @@ class MyWithdraw(context: Context) :
             dismiss()
         }
         withdraw.setOnClickListener { //탈퇴하기
-
             // 회원 정보 DB에서 삭제
+            withdrawState = true
             MyPageService(context).withDraw{
                 if(it==true) {
                     // token 삭제
@@ -48,9 +49,12 @@ class MyWithdraw(context: Context) :
                         LoginActivity.mGoogleSignInClient?.revokeAccess()
                     }
                     Log.d("[WITHDRAW]", "SUCCESS")
-                    withdrawState = true
-                } else Log.d("[WITHDRAW]", "FAILURE")
+                } else {
+                    Log.d("[WITHDRAW]", "FAILURE")
+                    withdrawState = false
+                }
             }
+            Toast.makeText(context,"탈퇴되었습니다", Toast.LENGTH_SHORT).show()
             returnState()
             dismiss()
         }

@@ -20,6 +20,7 @@ import org.smu.blood.ui.base.BaseFragment
 
 class MyFragment : BaseFragment<FragmentMyBinding>() {
     var logoutState = false
+    var withdrawState = false
     lateinit var bloodTypetext: String
     lateinit var rhTypetext: String
 
@@ -110,15 +111,13 @@ class MyFragment : BaseFragment<FragmentMyBinding>() {
             dlg.show()
 
             dlg.setOnDismissListener {
-                val withdrawState = dlg.returnState()
+                withdrawState = dlg.returnState()
                 if(withdrawState){ //탈퇴하기
-
-                    Toast.makeText(context, "탈퇴 완료", Toast.LENGTH_SHORT).show()
-                    (activity as NavigationActivity).logoutAndfinish()
                     //로그인화면으로 이동
-                    val intent3 = Intent(context, LoginActivity()::class.java)
+                    val intent2 = Intent(context, LoginActivity()::class.java)
                     //네비게이션 액티비티
-                    startActivity(intent3)
+                    startActivity(intent2)
+                    (activity as NavigationActivity).logoutAndfinish()
                 }
             }
         }
