@@ -1,6 +1,5 @@
 package org.smu.blood.ui.board
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.WindowManager
@@ -10,7 +9,6 @@ import org.smu.blood.R
 import android.widget.EditText
 import org.smu.blood.databinding.ActivityBoardRegisterBinding
 import org.smu.blood.util.shortToast
-import java.time.LocalDateTime
 import org.smu.blood.api.ReviewService
 import org.smu.blood.api.database.Review
 import org.smu.blood.databinding.ActivityNavigationBinding

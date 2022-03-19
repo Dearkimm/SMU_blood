@@ -10,14 +10,10 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.TextView
 import android.widget.Toast
-import com.google.firebase.iid.FirebaseInstanceIdReceiver
-import com.google.firebase.messaging.FirebaseMessaging
 import org.smu.blood.R
 import org.smu.blood.api.MainService
-import org.smu.blood.api.MessagingService
 import org.smu.blood.api.MyPageService
 import org.smu.blood.api.NoticeService
-import org.smu.blood.api.database.Request
 import org.smu.blood.ui.NavigationActivity
 import org.smu.blood.ui.main.MainFragment
 import org.smu.blood.ui.my.MyRequestFragment

@@ -18,9 +18,6 @@ import org.smu.blood.api.database.Apply
 import org.smu.blood.databinding.ActivityCardRequestBinding
 import org.smu.blood.model.BloodType
 import org.smu.blood.model.Hospital
-import org.smu.blood.ui.NavigationActivity
-import org.smu.blood.ui.Notice.NoticeFragment
-import org.smu.blood.ui.my.MyRequestFragment
 import org.smu.blood.ui.my.MyRequestFragment.Companion.myRequest
 import org.smu.blood.util.shortToast
 

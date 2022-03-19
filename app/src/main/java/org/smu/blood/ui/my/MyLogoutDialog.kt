@@ -2,15 +2,11 @@ package org.smu.blood.ui.my
 
 import android.app.Dialog
 import android.content.Context
-import android.content.Intent
 import android.view.WindowManager
 import android.widget.*
-import androidx.core.content.ContextCompat.startActivity
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import org.smu.blood.R
-import org.smu.blood.ui.LoginActivity
-import org.smu.blood.ui.map.MapApplicationActivity
 
 class MyLogoutDialog(context: Context) :
 Dialog(context, android.R.style.Theme_Translucent_NoTitleBar){

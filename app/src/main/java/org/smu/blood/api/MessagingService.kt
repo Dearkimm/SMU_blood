@@ -3,7 +3,6 @@ package org.smu.blood.api
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
-import android.app.PendingIntent.FLAG_IMMUTABLE
 import android.app.PendingIntent.FLAG_MUTABLE
 import android.content.Context
 import android.content.Intent
@@ -15,10 +14,7 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import org.smu.blood.R
-import org.smu.blood.api.database.Request
-import org.smu.blood.ui.LoginActivity
 import org.smu.blood.ui.my.Card.CardRequestActivity
-import org.smu.blood.ui.my.MyRequestFragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

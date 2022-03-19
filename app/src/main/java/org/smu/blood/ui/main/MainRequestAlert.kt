@@ -5,7 +5,6 @@ import android.app.Dialog
 import android.view.WindowManager
 import android.widget.*
 import org.smu.blood.R
-import org.smu.blood.ui.board.BoardDeleteAlert
 
 class MainRequestAlert (context: Context):
     Dialog(context, android.R.style.Theme_Translucent_NoTitleBar){

@@ -6,7 +6,7 @@ import android.util.Log
 import org.smu.blood.R
 
 class SessionManager(context: Context) {
-    private var pref: SharedPreferences = context.getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE)
+    var pref: SharedPreferences = context.getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE)
 
     // save token
     fun saveToken(token: String){
@@ -24,6 +24,6 @@ class SessionManager(context: Context) {
 
     // remove token
     fun removeToken(){
-        pref.edit().remove("token").commit()
+        pref.edit().remove("token").apply()
     }
 }

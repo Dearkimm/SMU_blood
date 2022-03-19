@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import org.smu.blood.R
 import org.smu.blood.ui.main.adapter.MainRequestAdapter
 

@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.Log
 import org.smu.blood.api.database.Notification
 import org.smu.blood.api.database.Request
-import org.smu.blood.ui.main.MainFragment.Companion.request
 import org.smu.blood.ui.my.Card.CardRequestActivity
 import org.smu.blood.ui.my.MyRequestFragment
 import retrofit2.Call
