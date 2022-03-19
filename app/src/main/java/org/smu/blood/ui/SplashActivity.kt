@@ -7,10 +7,6 @@ import android.os.Looper
 import android.util.Log
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.tasks.Task
 import org.smu.blood.R
 import org.smu.blood.api.*
 import org.smu.blood.ui.LoginActivity.Companion.mGoogleSignInClient
@@ -65,8 +61,6 @@ class SplashActivity : AppCompatActivity() {
                 Log.d("[SPLASH]", "NO JWT TOKEN")
                 goLogin()
             }
-            //네비게이션 액티비티
-            //startActivity(intent)
         }, 1000)
     }
 

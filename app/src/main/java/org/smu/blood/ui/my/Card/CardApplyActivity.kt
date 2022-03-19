@@ -1,7 +1,6 @@
 package org.smu.blood.ui.my.Card
 
 import android.os.Bundle
-import android.os.TestLooperManager
 import android.view.WindowManager
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity

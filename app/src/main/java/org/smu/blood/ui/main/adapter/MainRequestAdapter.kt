@@ -10,9 +10,6 @@ import org.smu.blood.api.database.MainRequest
 import org.smu.blood.databinding.ItemCardRequestBinding
 import org.smu.blood.model.BloodType
 import org.smu.blood.model.Hospital
-import org.smu.blood.ui.board.BoardData
-import org.smu.blood.ui.main.MainFragment
-//import org.smu.blood.ui.main.MainFragment.Companion.donationType
 
 class MainRequestAdapter: RecyclerView.Adapter<MainRequestAdapter.MainRequestViewHolder>(),
     Filterable {

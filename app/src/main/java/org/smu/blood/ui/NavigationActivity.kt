@@ -6,10 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.WindowManager
 import androidx.fragment.app.Fragment
-import com.google.android.gms.common.util.CollectionUtils
 import org.smu.blood.R
-import org.smu.blood.api.MainService
-import org.smu.blood.api.database.MainRequest
 import org.smu.blood.databinding.ActivityNavigationBinding
 import org.smu.blood.ui.Notice.NoticeFragment
 import org.smu.blood.ui.board.BoardFragment

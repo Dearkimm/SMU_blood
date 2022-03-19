@@ -2,8 +2,6 @@ package org.smu.blood.api
 
 import android.content.Context
 import android.util.Log
-import org.smu.blood.api.database.Apply
-import org.smu.blood.api.database.Notification
 import org.smu.blood.api.database.Request
 import retrofit2.Call
 import retrofit2.Callback

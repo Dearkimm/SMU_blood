@@ -1,8 +1,5 @@
 package org.smu.blood.ui.my
 
-import android.app.PendingIntent.getActivity
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -12,17 +9,10 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import org.smu.blood.R
 import org.smu.blood.api.MyPageService
-import org.smu.blood.api.database.User
 import org.smu.blood.databinding.ActivityNavigationBinding
-import org.smu.blood.ui.NavigationActivity
-import org.smu.blood.ui.main.MainReadFragment
-import org.smu.blood.util.popFragment
 import org.smu.blood.util.replaceFragment
 
 class MyModActivity : AppCompatActivity() {
