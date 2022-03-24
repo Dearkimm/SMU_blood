@@ -113,10 +113,11 @@ class MyFragment : BaseFragment<FragmentMyBinding>() {
             dlg.setOnDismissListener {
                 withdrawState = dlg.returnState()
                 if(withdrawState){ //탈퇴하기
+
                     //로그인화면으로 이동
-                    val intent2 = Intent(context, LoginActivity()::class.java)
+                    val intent3 = Intent(context, LoginActivity()::class.java)
                     //네비게이션 액티비티
-                    startActivity(intent2)
+                    startActivity(intent3)
                     (activity as NavigationActivity).logoutAndfinish()
                 }
             }

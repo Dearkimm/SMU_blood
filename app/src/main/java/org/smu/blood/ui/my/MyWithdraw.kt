@@ -34,7 +34,6 @@ class MyWithdraw(context: Context) :
         }
         withdraw.setOnClickListener { //탈퇴하기
             // 회원 정보 DB에서 삭제
-            withdrawState = true
             MyPageService(context).withDraw{
                 if(it==true) {
                     // token 삭제
@@ -49,6 +48,7 @@ class MyWithdraw(context: Context) :
                         LoginActivity.mGoogleSignInClient?.revokeAccess()
                     }
                     Log.d("[WITHDRAW]", "SUCCESS")
+                    withdrawState = true
                 } else {
                     Log.d("[WITHDRAW]", "FAILURE")
                     withdrawState = false
